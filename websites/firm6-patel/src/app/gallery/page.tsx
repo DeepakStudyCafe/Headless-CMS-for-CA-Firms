@@ -1,0 +1,22 @@
+import { getPageData } from '@/lib/api'
+import { PageContent } from '@/components/PageContent'
+import { Metadata } from 'next'
+
+export const revalidate = 60
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPageData('gallery')
+  return {
+    title: page?.title || 'Gallery - Patel Consulting',
+  }
+}
+
+export default async function GalleryPage() {
+  const page = await getPageData('gallery')
+
+  if (!page) {
+    return <div>Page not found</div>
+  }
+
+  return <PageContent page={page} />
+}

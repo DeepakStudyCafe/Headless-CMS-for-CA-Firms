@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 222 47% 11%;
+    --secondary: 210 40% 96%;
+    --accent: 217 91% 60%;
+    --muted: 210 40% 96%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

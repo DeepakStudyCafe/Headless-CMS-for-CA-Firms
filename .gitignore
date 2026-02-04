@@ -1,0 +1,103 @@
+
+# Backend ignore rules
+backend/node_modules/
+backend/dist/
+backend/.env*
+backend/uploads/
+backend/*.log
+backend/.DS_Store
+
+# Admin-dashboard ignore rules
+admin-dashboard/node_modules/
+admin-dashboard/.next/
+admin-dashboard/out/
+admin-dashboard/dist/
+admin-dashboard/.env*
+admin-dashboard/*.log
+admin-dashboard/.DS_Store
+
+# Websites ignore rules (all firms)
+websites/*/node_modules/
+websites/*/.next/
+websites/*/out/
+websites/*/dist/
+websites/*/.env*
+websites/*/*.log
+websites/*/.DS_Store
+# Global .gitignore for monorepo
+
+# Node modules
+node_modules/
+
+# Build output
+/dist/
+/.next/
+out/
+
+# Environment variables
+.env*
+.env.local
+.env.example
+.env.production
+.env.development
+.env.production.example
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+.idea/
+
+# Coverage
+coverage/
+
+# Misc
+*.swp
+*.swo
+
+# Prisma generated files
+backend/prisma/generated/
+
+# Uploads
+backend/uploads/
+
+# Ignore test output
+/test-output/
+
+
+# Ignore all websites folders and their build artifacts
+websites/*/.next/
+websites/*/out/
+websites/*/node_modules/
+websites/*/.env*
+websites/*/*.log
+websites/*/coverage/
+websites/*/.DS_Store
+websites/*/Thumbs.db
+
+# Ignore admin-dashboard build artifacts
+admin-dashboard/.next/
+admin-dashboard/out/
+admin-dashboard/node_modules/
+
+# Ignore backend build artifacts
+backend/dist/
+backend/node_modules/
+
+# Ignore docker files
+*.dockerignore
+
+# Ignore SSL and Nginx temp files
+nginx/ssl/
+nginx/conf.d/*.temp

@@ -1,0 +1,139 @@
+// Prisma Schema for Headless CMS
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication
+model User {
+  id           String     @id @default(uuid())
+  name         String
+  email        String     @unique
+  passwordHash String     @map("password_hash")
+  role         UserRole   @default(EDITOR)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  
+  revisions    Revision[]
+  auditLogs    AuditLog[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+}
+
+// Website model
+model Website {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  domain      String?
+  logo        String?
+  themeConfig Json?    @map("theme_config")
+  phone       String?
+  email       String?
+  address     String?
+  workingHours String? @map("working_hours") @default("Mon - Sat: 9:30 AM - 7:00 PM")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  pages       Page[]
+  auditLogs   AuditLog[]
+  analytics   Analytics[]
+
+  @@map("websites")
+}
+
+// Page model
+model Page {
+  id          String      @id @default(uuid())
+  websiteId   String      @map("website_id")
+  slug        String
+  title       String
+  status      PageStatus  @default(DRAFT)
+  publishedAt DateTime?   @map("published_at")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  
+  website     Website     @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  sections    Section[]
+  revisions   Revision[]
+
+  @@unique([websiteId, slug])
+  @@map("pages")
+}
+
+enum PageStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+}
+
+// Section model
+model Section {
+  id          String   @id @default(uuid())
+  pageId      String   @map("page_id")
+  type        String   // "hero", "text-image", "gallery", "team", etc.
+  imageUrl    String?  @map("image_url")
+  textContent Json?    @map("text_content")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  page        Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@map("sections")
+}
+
+// Revision model for version control
+model Revision {
+  id        String   @id @default(uuid())
+  pageId    String   @map("page_id")
+  userId    String   @map("user_id")
+  data      Json
+  action    String   // "created", "updated", "published"
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  page      Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("revisions")
+}
+
+// Audit log for tracking all changes
+model AuditLog {
+  id        String   @id @default(uuid())
+  websiteId String?  @map("website_id")
+  userId    String   @map("user_id")
+  action    String
+  details   Json?
+  timestamp DateTime @default(now())
+  
+  website   Website? @relation(fields: [websiteId], references: [id], onDelete: SetNull)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+// Analytics model
+model Analytics {
+  id        String   @id @default(uuid())
+  websiteId String   @map("website_id")
+  pageSlug  String   @map("page_slug")
+  visits    Int      @default(0)
+  date      DateTime @default(now())
+  
+  website   Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@unique([websiteId, pageSlug, date])
+  @@map("analytics")
+}
