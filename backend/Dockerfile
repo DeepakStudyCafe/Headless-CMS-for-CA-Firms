@@ -38,6 +38,7 @@ COPY --from=builder --chown=backend:nodejs /app/dist ./dist
 COPY --from=builder --chown=backend:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=backend:nodejs /app/package.json ./package.json
 COPY --from=builder --chown=backend:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=backend:nodejs /app/src ./src
 
 # Create uploads directory with proper permissions
 RUN mkdir -p /app/uploads && chown -R backend:nodejs /app/uploads
