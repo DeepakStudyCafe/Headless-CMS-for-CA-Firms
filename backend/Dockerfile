@@ -1,5 +1,5 @@
-# Use Node.js LTS version for stability and security
-FROM node:18-alpine AS base
+# Use Node.js 18.16.0 with Alpine 3.17 for OpenSSL 1.1 compatibility
+FROM node:18.16.0-alpine3.17 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
