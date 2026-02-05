@@ -109,7 +109,7 @@ services:
       NODE_ENV: production
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5000/api}
     ports:
-      - "3000:3000"
+      - "3007:3000"
     networks:
       - frontend-network
     depends_on:
