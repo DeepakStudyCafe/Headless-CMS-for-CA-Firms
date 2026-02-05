@@ -94,7 +94,7 @@ services:
         condition: service_healthy
     security_opt:
       - no-new-privileges:true
-    read_only: true
+    # read_only: true
     tmpfs:
       - /tmp:exec,nosuid,nodev,size=100m
 
