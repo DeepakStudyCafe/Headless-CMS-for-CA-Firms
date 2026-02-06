@@ -57,7 +57,7 @@ export function Header() {
           <Link href="/" className="flex items-center space-x-3">
             {websiteData?.logo ? (
                <Image
-              src={'http://localhost:5000/uploads/logo.png'}
+              src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/uploads/logo.png`}
               alt={websiteData?.name || 'Logo'}
               width={60}
               height={60}
