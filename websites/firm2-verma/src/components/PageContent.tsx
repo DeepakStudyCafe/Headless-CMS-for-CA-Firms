@@ -190,7 +190,7 @@ export function PageContent({ page }: { page: any }) {
         // CTA Section
         if (section.type === 'cta') {
           return (
-            <section key={section.id} className="py-16 md:py-24 bg-black text-white">
+            <section key={section.id} className="py-16 md:py-24 bg-gray-900 text-white">
               <div className="container mx-auto px-4 text-center">
                 <motion.div
                   initial={{ opacity: 0 }}
