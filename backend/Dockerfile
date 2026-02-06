@@ -40,7 +40,9 @@ COPY --from=builder --chown=backend:nodejs /app/package.json ./package.json
 COPY --from=builder --chown=backend:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=backend:nodejs /app/src ./src
 
-# Create uploads directory with proper permissions
+
+# Copy uploads directory (with logo.png) if it exists, then set permissions
+COPY --from=builder --chown=backend:nodejs /app/uploads /app/uploads
 RUN mkdir -p /app/uploads && chown -R backend:nodejs /app/uploads
 
 # Switch to non-root user
