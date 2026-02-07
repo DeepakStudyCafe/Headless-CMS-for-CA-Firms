@@ -101,6 +101,7 @@ services:
       - "3007:3000"
     networks:
       - frontend-network
+    tmpfs:
       - /tmp:exec,nosuid,nodev,size=100m
 
   # Firm Websites
