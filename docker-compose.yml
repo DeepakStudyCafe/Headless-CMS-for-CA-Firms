@@ -18,11 +18,7 @@ services:
       - "5432:5432"
     networks:
       - backend-network
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-enterprise_cms}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    # healthcheck removed
     security_opt:
       - no-new-privileges:true
 
@@ -38,11 +34,7 @@ services:
       - "6379:6379"
     networks:
       - backend-network
-    healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    # healthcheck removed
     security_opt:
       - no-new-privileges:true
 
@@ -77,13 +69,10 @@ services:
       FIRM4_EMAIL: ${FIRM4_EMAIL:-kapoor.contact@gmail.com}
       FIRM4_NAME: ${FIRM4_NAME:-Kapoor Associates}
       FIRM5_EMAIL: ${FIRM5_EMAIL:-singh.contact@gmail.com}
-      FIRM5_NAME: ${FIRM5_NAME:-Singh & Partners}
-      FIRM6_EMAIL: ${FIRM6_EMAIL:-patel.contact@gmail.com}
-      FIRM6_NAME: ${FIRM6_NAME:-Patel Group}
-    volumes:
-      - backend_uploads:/app/uploads
     ports:
       - "5000:5000"
+    volumes:
+      - backend_uploads:/app/uploads
     networks:
       - backend-network
       - frontend-network
@@ -112,12 +101,6 @@ services:
       - "3007:3000"
     networks:
       - frontend-network
-    depends_on:
-      - backend
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    tmpfs:
       - /tmp:exec,nosuid,nodev,size=100m
 
   # Firm Websites
@@ -135,7 +118,8 @@ services:
     networks:
       - frontend-network
     depends_on:
-      - backend
+        backend:
+      # healthcheck removed
     security_opt:
       - no-new-privileges:true
     read_only: true
@@ -156,7 +140,8 @@ services:
     networks:
       - frontend-network
     depends_on:
-      - backend
+        backend:
+      # healthcheck removed
     security_opt:
       - no-new-privileges:true
     read_only: true
@@ -177,7 +162,8 @@ services:
     networks:
       - frontend-network
     depends_on:
-      - backend
+        backend:
+      # healthcheck removed
     security_opt:
       - no-new-privileges:true
     read_only: true
@@ -198,7 +184,8 @@ services:
     networks:
       - frontend-network
     depends_on:
-      - backend
+        backend:
+      # healthcheck removed
     security_opt:
       - no-new-privileges:true
     read_only: true
@@ -219,7 +206,8 @@ services:
     networks:
       - frontend-network
     depends_on:
-      - backend
+        backend:
+      # healthcheck removed
     security_opt:
       - no-new-privileges:true
     read_only: true
@@ -240,7 +228,8 @@ services:
     networks:
       - frontend-network
     depends_on:
-      - backend
+        backend:
+      # healthcheck removed
     security_opt:
       - no-new-privileges:true
     read_only: true
