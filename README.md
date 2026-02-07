@@ -1,6 +1,8 @@
 # 🚀 Headless CMS for CA Firms - Complete System
 
-A production-ready, full-stack Headless CMS system for managing 3 CA firm websites with real-time content updates.
+A production-ready, full-stack Headless CMS system for managing 6 CA firm websites with real-time content updates.
+
+> **✅ VPS Ready**: All Docker files removed. Optimized for direct VPS deployment with PM2 and Nginx.
 
 ## 📦 Project Structure
 
@@ -183,30 +185,142 @@ Runs on: **http://localhost:3006**
 - **audit_logs**: Complete audit trail
 - **analytics**: Visit tracking per page
 
-## 🚀 Deployment
+## 🚀 VPS Deployment
 
-### Backend (Hostinger VPS / Railway / Render)
+This project is configured for VPS deployment without Docker. All Docker files have been removed.
+
+### Prerequisites for VPS
+- Ubuntu 20.04+ or Windows Server
+- Node.js 18+
+- PostgreSQL 14+
+- Redis
+- PM2 (Process Manager)
+- Nginx (for reverse proxy)
+
+### Quick Deploy Script
+
+**For Linux VPS:**
 ```bash
+# Make script executable
+chmod +x deploy-vps.sh
+
+# Run deployment
+./deploy-vps.sh
+```
+
+**For Windows VPS:**
+```powershell
+# Run PowerShell as Administrator
+.\deploy-vps.ps1
+```
+
+### Manual VPS Setup
+
+1. **Clone Repository**
+```bash
+git clone https://github.com/DeepakStudyCafe/Headless-CMS-for-CA-Firms.git
+cd Headless-CMS-for-CA-Firms
+```
+
+2. **Setup Environment**
+```bash
+cp .env.production.example .env.production
+nano .env.production  # Update with your configuration
+```
+
+3. **Install Dependencies & Build**
+```bash
+npm run install:all
+npm run build:all
+```
+
+4. **Setup Database**
+```bash
+# PostgreSQL setup
+sudo -u postgres psql
+CREATE DATABASE enterprise_cms;
+CREATE USER your_user WITH PASSWORD 'your_password';
+GRANT ALL ON DATABASE enterprise_cms TO your_user;
+\q
+
+# Run migrations
 cd backend
-npm run build
-npm start
+npx prisma migrate deploy
+cd ..
 ```
 
-### Admin Dashboard (Vercel)
+5. **Start with PM2**
 ```bash
-cd admin-dashboard
-npm run build
-vercel deploy
+# Install PM2
+npm install -g pm2
+
+# Start all services
+pm2 start backend/src/server.js --name cms-backend
+pm2 start --cwd admin-dashboard npm -- start --name cms-admin
+pm2 start --cwd websites/firm1-sharma npm -- start --name cms-firm1
+pm2 start --cwd websites/firm2-verma npm -- start --name cms-firm2
+pm2 start --cwd websites/firm3-gupta npm -- start --name cms-firm3
+pm2 start --cwd websites/firm4-kapoor npm -- start --name cms-firm4
+pm2 start --cwd websites/firm5-singh npm -- start --name cms-firm5
+pm2 start --cwd websites/firm6-patel npm -- start --name cms-firm6
+
+# Save PM2 configuration
+pm2 save
+pm2 startup
 ```
 
-### Websites (Vercel)
+6. **Configure Nginx (Linux)**
 ```bash
-cd websites/firm1-sharma
-npm run build
-vercel deploy
+sudo nano /etc/nginx/sites-available/cms
+# Add reverse proxy configuration for all domains
+sudo ln -s /etc/nginx/sites-available/cms /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
 ```
 
-Set environment variables on each platform.
+7. **Setup SSL with Let's Encrypt**
+```bash
+sudo snap install --classic certbot
+sudo certbot --nginx
+```
+
+### Service Ports
+
+- Admin Dashboard: `http://localhost:3000`
+- API Backend: `http://localhost:5000`
+- Firm 1 (Sharma): `http://localhost:3001`
+- Firm 2 (Verma): `http://localhost:3002`
+- Firm 3 (Gupta): `http://localhost:3003`
+- Firm 4 (Kapoor): `http://localhost:3004`
+- Firm 5 (Singh): `http://localhost:3005`
+- Firm 6 (Patel): `http://localhost:3006`
+
+### PM2 Management
+
+```bash
+pm2 status              # Check all processes
+pm2 logs                # View all logs
+pm2 logs cms-backend    # View specific service logs
+pm2 restart all         # Restart all services
+pm2 stop all            # Stop all services
+pm2 monit               # Monitor resources
+```
+
+### Domain Configuration
+
+Update your DNS records to point to your VPS IP:
+
+| Domain | Type | Value |
+|--------|------|-------|
+| admin.yourdomain.com | A | YOUR_VPS_IP |
+| sadgurushakti.org | A | YOUR_VPS_IP |
+| automatepractice.com | A | YOUR_VPS_IP |
+| capracticeautomation.com | A | YOUR_VPS_IP |
+| growthcafe.in | A | YOUR_VPS_IP |
+| digitechai.in | A | YOUR_VPS_IP |
+| cadeepakgupta.com | A | YOUR_VPS_IP |
+
+📖 **Detailed Guide**: See [VPS_DEPLOYMENT_GUIDE.md](./VPS_DEPLOYMENT_GUIDE.md) for complete step-by-step instructions.
 
 ## 📚 API Endpoints
 
