@@ -23,8 +23,8 @@ export const getAnalytics = async (req: Request, res: Response) => {
     });
 
     // Aggregate data
-    const totalVisits = analytics.reduce((sum, a) => sum + a.visits, 0);
-    const pageVisits = analytics.reduce((acc, a) => {
+    const totalVisits = analytics.reduce((sum: number, a: any) => sum + a.visits, 0);
+    const pageVisits = analytics.reduce((acc: Record<string, number>, a: any) => {
       acc[a.pageSlug] = (acc[a.pageSlug] || 0) + a.visits;
       return acc;
     }, {} as Record<string, number>);
