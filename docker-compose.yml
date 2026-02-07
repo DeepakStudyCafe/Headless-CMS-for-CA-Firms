@@ -118,7 +118,7 @@ services:
     networks:
       - frontend-network
     depends_on:
-        backend:
+      - backend
       # healthcheck removed
     security_opt:
       - no-new-privileges:true
@@ -140,7 +140,7 @@ services:
     networks:
       - frontend-network
     depends_on:
-        backend:
+      - backend
       # healthcheck removed
     security_opt:
       - no-new-privileges:true
@@ -162,7 +162,7 @@ services:
     networks:
       - frontend-network
     depends_on:
-        backend:
+      - backend
       # healthcheck removed
     security_opt:
       - no-new-privileges:true
@@ -184,7 +184,7 @@ services:
     networks:
       - frontend-network
     depends_on:
-        backend:
+      - backend
       # healthcheck removed
     security_opt:
       - no-new-privileges:true
@@ -206,7 +206,7 @@ services:
     networks:
       - frontend-network
     depends_on:
-        backend:
+      - backend
       # healthcheck removed
     security_opt:
       - no-new-privileges:true
@@ -228,7 +228,7 @@ services:
     networks:
       - frontend-network
     depends_on:
-        backend:
+      - backend
       # healthcheck removed
     security_opt:
       - no-new-privileges:true
