@@ -77,10 +77,8 @@ services:
       - backend-network
       - frontend-network
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
+      - postgres
+      - redis
     security_opt:
       - no-new-privileges:true
     # read_only: true
