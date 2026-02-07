@@ -94,7 +94,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5000/api}
+      NEXT_PUBLIC_API_URL: http://backend:5000/api
     ports:
       - "3007:3000"
     networks:
@@ -111,7 +111,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5000/api}
+      NEXT_PUBLIC_API_URL: http://backend:5000/api
     ports:
       - "3001:3000"
     networks:
@@ -133,7 +133,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5000/api}
+      NEXT_PUBLIC_API_URL: http://backend:5000/api
     ports:
       - "3002:3000"
     networks:
@@ -155,7 +155,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5000/api}
+      NEXT_PUBLIC_API_URL: http://backend:5000/api
     ports:
       - "3003:3000"
     networks:
@@ -177,7 +177,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5000/api}
+      NEXT_PUBLIC_API_URL: http://backend:5000/api
     ports:
       - "3004:3000"
     networks:
@@ -199,7 +199,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5000/api}
+      NEXT_PUBLIC_API_URL: http://backend:5000/api
     ports:
       - "3005:3000"
     networks:
@@ -221,7 +221,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:5000/api}
+      NEXT_PUBLIC_API_URL: http://backend:5000/api
     ports:
       - "3006:3000"
     networks:
