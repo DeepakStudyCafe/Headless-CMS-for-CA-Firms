@@ -97,7 +97,9 @@ backend/node_modules/
 
 # Ignore docker files
 *.dockerignore
+VPS_MAINTENANCE_NOTES.txt
 
 # Ignore SSL and Nginx temp files
 nginx/ssl/
 nginx/conf.d/*.temp
+nginx-vps.conf
