@@ -40,10 +40,11 @@ export const authenticate = async (
 
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
-      console.error('JWT_SECRET not configured');
+      console.error('❌ CRITICAL: JWT_SECRET not configured in .env file!');
+      console.error('Please set JWT_SECRET environment variable and restart the server.');
       return res.status(500).json({
         success: false,
-        error: 'Server configuration error'
+        error: 'Server configuration error - JWT_SECRET missing'
       });
     }
 

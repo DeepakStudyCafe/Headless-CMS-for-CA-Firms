@@ -69,22 +69,12 @@ export const useAuthStore = create<AuthState>()(
         } catch (error: any) {
           console.error('❌ Token verification failed:', error.message)
           
-          // Check if it's a network error vs authentication error
-          if (error.response?.status === 500) {
-            console.error('🔥 Server error - keeping user logged in for now')
-            // Don't logout on server errors, just return false
-            return false
-          } else if (error.response?.status === 401) {
-            console.log('🔓 Invalid token - logging out')
-            // Clear invalid auth only on authentication errors
-            localStorage.removeItem('token')
-            localStorage.removeItem('auth-storage')
-            set({ user: null, token: null, isAuthenticated: false })
-            return false
-          } else {
-            console.error('🌐 Network or other error - maintaining current state')
-            return state.isAuthenticated
-          }
+          // On ANY error (500 or 401), logout the user to prevent stuck state
+          console.log('🔓 Clearing auth state due to verification failure')
+          localStorage.removeItem('token')
+          localStorage.removeItem('auth-storage')
+          set({ user: null, token: null, isAuthenticated: false })
+          return false
         }
       },
       initialize: async () => {

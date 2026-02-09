@@ -42,7 +42,14 @@ export const login = async (req: Request, res: Response) => {
       });
     }
 
-    const jwtSecret = process.env.JWT_SECRET || 'default-secret';
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      console.error('❌ CRITICAL: JWT_SECRET not configured in .env file!');
+      return res.status(500).json({
+        success: false,
+        error: 'Server configuration error - JWT_SECRET missing'
+      });
+    }
     const jwtExpiry = String(process.env.JWT_EXPIRES_IN || '7d');
     // TypeScript workaround for jsonwebtoken v9 overload issue
     const token = jwt.sign(
