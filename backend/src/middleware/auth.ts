@@ -18,16 +18,33 @@ export const authenticate = async (
   next: NextFunction
 ) => {
   try {
-    const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
+    // Try to get token from cookie first, then from Authorization header
+    let token = req.cookies.token;
+    
+    if (!token && req.headers.authorization) {
+      const authHeader = req.headers.authorization;
+      if (authHeader.startsWith('Bearer ')) {
+        token = authHeader.split(' ')[1];
+      }
+    }
 
     if (!token) {
       return res.status(401).json({
         success: false,
-        error: 'Authentication required'
+        error: 'Authentication required - no token provided'
       });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      console.error('JWT_SECRET not configured');
+      return res.status(500).json({
+        success: false,
+        error: 'Server configuration error'
+      });
+    }
+
+    const decoded = jwt.verify(token, jwtSecret) as any;
     
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
@@ -37,16 +54,31 @@ export const authenticate = async (
     if (!user) {
       return res.status(401).json({
         success: false,
-        error: 'User not found'
+        error: 'User not found - token may be invalid'
       });
     }
 
     req.user = user;
     next();
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Authentication error:', error.message);
+    
+    // Handle specific JWT errors
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({
+        success: false,
+        error: 'Token has expired'
+      });
+    } else if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({
+        success: false,
+        error: 'Invalid token format'
+      });
+    }
+    
     return res.status(401).json({
       success: false,
-      error: 'Invalid or expired token'
+      error: 'Authentication failed'
     });
   }
 };

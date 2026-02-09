@@ -12,16 +12,43 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
-  const { isAuthenticated } = useAuthStore()
+  const { isAuthenticated, isInitialized, initialize } = useAuthStore()
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    // Initialize auth store on component mount
+    initialize()
+  }, [initialize])
+
+  useEffect(() => {
+    // Redirect to login if not authenticated and initialization is complete
+    if (isInitialized && !isAuthenticated) {
+      console.log('Not authenticated, redirecting to login')
       router.push('/login')
     }
-  }, [isAuthenticated, router])
+  }, [isAuthenticated, isInitialized, router])
 
+  // Show loading while initialization is in progress
+  if (!isInitialized) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-2 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Show loading if not authenticated (during redirect)
   if (!isAuthenticated) {
-    return null
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-2 text-gray-600">Redirecting to login...</p>
+        </div>
+      </div>
+    )
   }
 
   return (

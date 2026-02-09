@@ -44,15 +44,24 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3005',
   'http://localhost:3006'
 ];
+
+console.log('🔗 Allowed Origins:', allowedOrigins);
+
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Check if the origin is allowed
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.warn('❌ Blocked CORS request from origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true, // Very important for cookies
+  optionsSuccessStatus: 200 // For legacy browser support
 }));
 
 // Rate limiting

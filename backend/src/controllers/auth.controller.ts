@@ -48,12 +48,22 @@ export const login = async (req: Request, res: Response) => {
       { expiresIn: jwtExpiry } as any
     );
 
-    res.cookie('token', token, {
+    // Cookie configuration for production
+    const isProduction = process.env.NODE_ENV === 'production';
+    const cookieOptions: any = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    });
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax', // 'none' for cross-origin requests in production
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: '/'
+    };
+
+    // Set domain for production
+    if (isProduction && process.env.COOKIE_DOMAIN) {
+      cookieOptions.domain = process.env.COOKIE_DOMAIN;
+    }
+
+    res.cookie('token', token, cookieOptions);
 
     res.json({
       success: true,
@@ -143,6 +153,13 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
       }
     });
 
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
     res.json({
       success: true,
       data: { user }
@@ -155,9 +172,41 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
   }
 };
 
+// Verify token endpoint - useful for auth checks
+export const verifyToken = async (req: AuthRequest, res: Response) => {
+  try {
+    // If we reach here, the auth middleware has already validated the token
+    res.json({
+      success: true,
+      data: {
+        user: req.user,
+        valid: true
+      }
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+};
+
 // Logout
 export const logout = (req: Request, res: Response) => {
-  res.clearCookie('token');
+  // Clear cookie with same options as when it was set
+  const isProduction = process.env.NODE_ENV === 'production';
+  const cookieOptions: any = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
+    path: '/'
+  };
+
+  if (isProduction && process.env.COOKIE_DOMAIN) {
+    cookieOptions.domain = process.env.COOKIE_DOMAIN;
+  }
+
+  res.clearCookie('token', cookieOptions);
   res.json({
     success: true,
     message: 'Logged out successfully'

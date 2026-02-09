@@ -27,15 +27,23 @@ export default function LoginPage() {
       const response = await authAPI.login(email, password)
       const { user, token } = response.data.data
 
+      // Set auth in store and localStorage
       setAuth(user, token)
       localStorage.setItem('token', token)
+
+      // Verify auth was set properly
+      setTimeout(() => {
+        const authData = localStorage.getItem('auth-storage')
+        console.log('Auth data after login:', authData)
+      }, 100)
 
       toast({
         title: 'Login successful!',
         description: `Welcome back, ${user.name}`,
       })
 
-      router.push('/dashboard')
+      // Use replace instead of push to prevent back navigation issues
+      router.replace('/dashboard')
     } catch (error: any) {
       toast({
         variant: 'destructive',

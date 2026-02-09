@@ -10,9 +10,11 @@ const apiClient = axios.create({
   },
 })
 
-// Request interceptor to add token
+// Request interceptor to add token (prioritize cookie, fallback to localStorage)
 apiClient.interceptors.request.use(
   (config) => {
+    // In browser environment, cookies will be sent automatically
+    // But we still add Authorization header as fallback
     const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
@@ -29,7 +31,10 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
+      // Clear both localStorage and zustand store
       localStorage.removeItem('token')
+      localStorage.removeItem('auth-storage')
+      // Force page reload to ensure clean state
       window.location.href = '/login'
     }
     return Promise.reject(error)
@@ -43,6 +48,7 @@ export const authAPI = {
   register: (name: string, email: string, password: string, role?: string) =>
     apiClient.post('/auth/register', { name, email, password, role }),
   getProfile: () => apiClient.get('/auth/profile'),
+  verifyToken: () => apiClient.get('/auth/verify'),
   logout: () => apiClient.post('/auth/logout'),
 }
 
