@@ -48,29 +48,29 @@ export const useAuthStore = create<AuthState>()(
       verifyToken: async () => {
         const state = get()
         if (!state.token) {
-          console.log('🔍 No token found for verification')
+          
           return false
         }
         
         try {
-          console.log('🔍 Verifying token with server...')
+         
           // Import authAPI dynamically to avoid circular dependency
           const { authAPI } = await import('../lib/api')
           const response = await authAPI.verifyToken()
           
           if (response.data.success && response.data.data.valid) {
             const user = response.data.data.user
-            console.log('✅ Token verification successful for:', user.email)
+      
             set({ user, isAuthenticated: true })
             return true
           } else {
             throw new Error('Token invalid')
           }
         } catch (error: any) {
-          console.error('❌ Token verification failed:', error.message)
+         
           
           // On ANY error (500 or 401), logout the user to prevent stuck state
-          console.log('🔓 Clearing auth state due to verification failure')
+          
           localStorage.removeItem('token')
           localStorage.removeItem('auth-storage')
           set({ user: null, token: null, isAuthenticated: false })

@@ -40,8 +40,7 @@ export const authenticate = async (
 
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
-      console.error('❌ CRITICAL: JWT_SECRET not configured in .env file!');
-      console.error('Please set JWT_SECRET environment variable and restart the server.');
+
       return res.status(500).json({
         success: false,
         error: 'Server configuration error - JWT_SECRET missing'
@@ -65,7 +64,7 @@ export const authenticate = async (
     req.user = user;
     next();
   } catch (error: any) {
-    console.error('Authentication error:', error.message);
+   
     
     // Handle specific JWT errors
     if (error.name === 'TokenExpiredError') {

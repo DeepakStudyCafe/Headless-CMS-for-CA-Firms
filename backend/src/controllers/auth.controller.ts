@@ -44,7 +44,7 @@ export const login = async (req: Request, res: Response) => {
 
     const jwtSecret = process.env.JWT_SECRET;
     if (!jwtSecret) {
-      console.error('❌ CRITICAL: JWT_SECRET not configured in .env file!');
+      
       return res.status(500).json({
         success: false,
         error: 'Server configuration error - JWT_SECRET missing'
@@ -185,7 +185,7 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
 // Verify token endpoint - useful for auth checks
 export const verifyToken = async (req: AuthRequest, res: Response) => {
   try {
-    console.log('🔍 Verifying token for user:', req.user?.email);
+    
     
     // Test database connection
     await prisma.$connect();
@@ -199,7 +199,7 @@ export const verifyToken = async (req: AuthRequest, res: Response) => {
       }
     });
   } catch (error: any) {
-    console.error('❌ Token verification error:', error);
+   
     
     res.status(500).json({
       success: false,
