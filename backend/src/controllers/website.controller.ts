@@ -2,11 +2,19 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { AuthRequest } from '../middleware/auth';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+  errorFormat: 'pretty',
+});
 
 // Get all websites
 export const getAllWebsites = async (req: Request, res: Response) => {
   try {
+    console.log('🔍 Fetching all websites...');
+    
+    // Test database connection first
+    await prisma.$connect();
+    
     const websites = await prisma.website.findMany({
       include: {
         _count: {
@@ -16,14 +24,19 @@ export const getAllWebsites = async (req: Request, res: Response) => {
       orderBy: { createdAt: 'asc' }
     });
 
+    console.log(`✅ Found ${websites.length} websites`);
+    
     res.json({
       success: true,
       data: { websites }
     });
   } catch (error: any) {
+    console.error('❌ Error fetching websites:', error);
+    
     res.status(500).json({
       success: false,
-      error: error.message
+      error: error.message || 'Failed to fetch websites',
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 };

@@ -2,7 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ['warn', 'error'],
+  errorFormat: 'pretty',
+});
 
 export interface AuthRequest extends Request {
   user?: {

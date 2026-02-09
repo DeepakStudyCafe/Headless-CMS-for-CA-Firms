@@ -92,6 +92,33 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Database health check
+app.get('/health/db', async (req, res) => {
+  try {
+    const { PrismaClient } = require('@prisma/client');
+    const prisma = new PrismaClient();
+    
+    // Test database connection
+    await prisma.$connect();
+    await prisma.user.count(); // Simple query to test
+    await prisma.$disconnect();
+    
+    res.json({ 
+      status: 'ok', 
+      database: 'connected',
+      timestamp: new Date().toISOString() 
+    });
+  } catch (error: any) {
+    console.error('❌ Database health check failed:', error);
+    res.status(500).json({ 
+      status: 'error', 
+      database: 'disconnected',
+      error: error.message,
+      timestamp: new Date().toISOString() 
+    });
+  }
+});
+
 // API Routes
 app.use('/api/public', publicRoutes);
 app.use('/api/auth', authRoutes);
@@ -108,10 +135,47 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Start server
-app.listen(PORT, '0.0.0.0', () => {
+const initializeDatabase = async () => {
+  try {
+    const { PrismaClient } = require('@prisma/client');
+    const prisma = new PrismaClient();
+    
+    console.log('🔗 Connecting to database...');
+    await prisma.$connect();
+    console.log('✅ Database connected successfully');
+    
+    // Test basic operations
+    const userCount = await prisma.user.count();
+    const websiteCount = await prisma.website.count();
+    
+    console.log(`📊 Database stats: ${userCount} users, ${websiteCount} websites`);
+    
+    await prisma.$disconnect();
+    return true;
+  } catch (error: any) {
+    console.error('❌ Database initialization failed:', error.message);
+    console.error('💡 Please ensure:');
+    console.error('   1. PostgreSQL is running');
+    console.error('   2. Database exists');
+    console.error('   3. Migrations are applied: npx prisma migrate deploy');
+    console.error('   4. DATABASE_URL is correct');
+    return false;
+  }
+};
+
+app.listen(PORT, '0.0.0.0', async () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📊 Environment: ${process.env.NODE_ENV}`);
   console.log(`🔗 Health check: http://localhost:${PORT}/health`);
+  
+  // Initialize database connection
+  const dbInitialized = await initializeDatabase();
+  if (!dbInitialized) {
+    console.error('⚠️  Server started but database connection failed');
+    console.error('🔧 API endpoints may not work properly until database is fixed');
+  } else {
+    console.log('🎉 Server and database are ready!');
+  }
 });
 
 export default app;

@@ -47,27 +47,44 @@ export const useAuthStore = create<AuthState>()(
       },
       verifyToken: async () => {
         const state = get()
-        if (!state.token) return false
+        if (!state.token) {
+          console.log('🔍 No token found for verification')
+          return false
+        }
         
         try {
+          console.log('🔍 Verifying token with server...')
           // Import authAPI dynamically to avoid circular dependency
           const { authAPI } = await import('../lib/api')
           const response = await authAPI.verifyToken()
           
           if (response.data.success && response.data.data.valid) {
             const user = response.data.data.user
+            console.log('✅ Token verification successful for:', user.email)
             set({ user, isAuthenticated: true })
             return true
           } else {
             throw new Error('Token invalid')
           }
-        } catch (error) {
-          console.log('Token verification failed:', error)
-          // Clear invalid auth
-          localStorage.removeItem('token')
-          localStorage.removeItem('auth-storage')
-          set({ user: null, token: null, isAuthenticated: false })
-          return false
+        } catch (error: any) {
+          console.error('❌ Token verification failed:', error.message)
+          
+          // Check if it's a network error vs authentication error
+          if (error.response?.status === 500) {
+            console.error('🔥 Server error - keeping user logged in for now')
+            // Don't logout on server errors, just return false
+            return false
+          } else if (error.response?.status === 401) {
+            console.log('🔓 Invalid token - logging out')
+            // Clear invalid auth only on authentication errors
+            localStorage.removeItem('token')
+            localStorage.removeItem('auth-storage')
+            set({ user: null, token: null, isAuthenticated: false })
+            return false
+          } else {
+            console.error('🌐 Network or other error - maintaining current state')
+            return state.isAuthenticated
+          }
         }
       },
       initialize: async () => {

@@ -5,7 +5,10 @@ import type { Secret } from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import { AuthRequest } from '../middleware/auth';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+  errorFormat: 'pretty',
+});
 
 // Login
 export const login = async (req: Request, res: Response) => {
@@ -175,6 +178,11 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
 // Verify token endpoint - useful for auth checks
 export const verifyToken = async (req: AuthRequest, res: Response) => {
   try {
+    console.log('🔍 Verifying token for user:', req.user?.email);
+    
+    // Test database connection
+    await prisma.$connect();
+    
     // If we reach here, the auth middleware has already validated the token
     res.json({
       success: true,
@@ -184,9 +192,12 @@ export const verifyToken = async (req: AuthRequest, res: Response) => {
       }
     });
   } catch (error: any) {
+    console.error('❌ Token verification error:', error);
+    
     res.status(500).json({
       success: false,
-      error: error.message
+      error: error.message || 'Token verification failed',
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 };
