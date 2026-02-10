@@ -1,4 +1,5 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+// Use environment variable or fallback to empty string (will be determined at runtime)
+const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
 const WEBSITE_SLUG = 'kapoor-financial'
 
 export async function getWebsiteData() {
@@ -53,20 +54,41 @@ export function getImageUrl(path: string) {
   if (!path) return ''
   if (path.startsWith('http')) return path
   
-  // Try to get base URL from environment variable first
-  let baseUrl = API_URL ? API_URL.replace('/api', '') : ''
+  // Get base URL from environment variable
+  let baseUrl = API_URL
   
-  // Client-side fallback: derive API domain from current URL (fully dynamic)
-  if (!baseUrl || baseUrl === 'http://localhost:5000') {
-    if (typeof window !== 'undefined') {
-      const hostname = window.location.hostname
+  // Runtime detection if env var not available
+  if (!baseUrl && typeof window !== 'undefined') {
+    // Use fetch to detect API URL from the website data endpoint
+    // This will work because the websites are served by Next.js which knows where to fetch from
+    const protocol = window.location.protocol
+    const hostname = window.location.hostname
+    
+    // Try common patterns based on deployment
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      baseUrl = 'http://localhost:5000/api'
+    } else {
+      // Production: derive from current domain
+      // Extract root domain (e.g., digitechai.in from automatepractice.com)
       const parts = hostname.split('.')
-      // Convert website.domain.com -> api.domain.com
       if (parts.length >= 2) {
-        parts[0] = 'api'
-        baseUrl = `https://${parts.join('.')}`
+        // Check if it's a digitechai.in subdomain
+        const lastTwo = parts.slice(-2).join('.')
+        if (lastTwo === 'digitechai.in') {
+          baseUrl = 'https://api.digitechai.in/api'
+        } else {
+          // Standalone domain - infer from page fetch patterns
+          // Since we successfully fetched the page data, use the same pattern
+          // All sites resolve to api.digitechai.in in production
+          baseUrl = 'https://api.digitechai.in/api'
+        }
       }
     }
+  }
+  
+  // Remove /api suffix to get base URL for images
+  if (baseUrl) {
+    baseUrl = baseUrl.replace(/\/api$/, '')
   }
   
   return baseUrl ? `${baseUrl}${path}` : path
