@@ -31,7 +31,7 @@ export function Footer() {
             <div className="flex items-center justify-center md:justify-start space-x-3 mb-4">
               {websiteData?.logo ? (
                  <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/uploads/logo.png`}
+              src="https://api.digitechai.in/uploads/logo.png"
               alt={websiteData?.name || 'Logo'}
               width={90}
               height={90}
