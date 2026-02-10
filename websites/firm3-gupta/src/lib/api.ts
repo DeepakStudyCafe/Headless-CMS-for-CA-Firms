@@ -52,8 +52,26 @@ export async function getPageData(slug: string) {
 }
 
 export function getImageUrl(path: string) {
-  if (path?.startsWith('http')) return path
-  return `${API_URL.replace('/api', '')}${path}`
+  if (!path) return ''
+  if (path.startsWith('http')) return path
+  
+  // Try to get base URL from environment variable first
+  let baseUrl = API_URL ? API_URL.replace('/api', '') : ''
+  
+  // Client-side fallback: derive API domain from current URL (fully dynamic)
+  if (!baseUrl || baseUrl === 'http://localhost:5000') {
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname
+      const parts = hostname.split('.')
+      // Convert website.domain.com -> api.domain.com
+      if (parts.length >= 2) {
+        parts[0] = 'api'
+        baseUrl = `https://${parts.join('.')}`
+      }
+    }
+  }
+  
+  return baseUrl ? `${baseUrl}${path}` : path
 }
 
 // Form submission functions
