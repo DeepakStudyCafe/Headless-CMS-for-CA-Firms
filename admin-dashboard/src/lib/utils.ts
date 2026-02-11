@@ -24,19 +24,44 @@ export function formatDateTime(date: string | Date) {
 }
 
 export function getImageUrl(path: string) {
+  console.log('🖼️ getImageUrl called with path:', path)
+  
   if (!path) return ''
-  if (path.startsWith('http')) return path
   
-  // Avoid double processing - if it already looks like a processed URL, return as-is
-  if (path.includes('digitechai.in')) return path
+  // If already a complete valid URL, return as-is
+  if (path.startsWith('https://') && !path.includes('/.')) return path
   
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL
-  if (!apiUrl) {
-    console.warn('NEXT_PUBLIC_API_URL is not defined. Using fallback.')
-    return `https://api.digitechai.in${path}`
+  let imagePath = path
+  
+  // Fix all types of malformed URLs
+  if (imagePath.includes('/.digitechai.in')) {
+    // Extract just the filename from malformed URLs like "/.digitechai.in/api/uploads/filename.jpg"
+    const match = imagePath.match(/([^\/]+\.(jpg|jpeg|png|gif|webp|svg))$/i)
+    if (match) {
+      imagePath = `/uploads/${match[1]}`
+    } else {
+      imagePath = '/uploads/' + imagePath.split('/').pop()
+    }
   }
   
-  // Remove /api from the end to get the base URL
-  const baseUrl = apiUrl.replace('/api', '')
-  return `${baseUrl}${path}`
+  // Clean up URL that starts with domain
+  if (imagePath.includes('digitechai.in')) {
+    const match = imagePath.match(/uploads\/([^\/]+\.(jpg|jpeg|png|gif|webp|svg))$/i)
+    if (match) {
+      imagePath = `/uploads/${match[1]}`
+    }
+  }
+  
+  // Ensure path starts with /uploads/ for relative paths
+  if (!imagePath.startsWith('http') && !imagePath.startsWith('/uploads/')) {
+    // Remove any leading slashes and "uploads" duplicates
+    imagePath = imagePath.replace(/^\/+/, '').replace(/^uploads\//, '')
+    imagePath = `/uploads/${imagePath}`
+  }
+  
+  const baseUrl = 'https://api.digitechai.in'
+  const finalUrl = `${baseUrl}${imagePath}`
+  
+  console.log('✅ Final URL:', finalUrl)  
+  return finalUrl
 }
