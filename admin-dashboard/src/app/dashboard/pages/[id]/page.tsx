@@ -663,7 +663,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                   {item.image ? (
                                     <>
                                       <Image
-                                        src={item.image}
+                                        src={getImageUrl(item.image)}
                                         alt={item.title || item.name || "Item image"}
                                         fill
                                         className="object-cover"
@@ -684,7 +684,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                                   const response = await mediaAPI.upload(file)
                                                   const imageUrl = response.data.data.imageUrl
                                                   const updatedItems = [...section.textContent.items]
-                                                  updatedItems[itemIndex] = { ...item, image: getImageUrl(imageUrl) }
+                                                  updatedItems[itemIndex] = { ...item, image: imageUrl }
                                                   handleSectionUpdate(section.id, 'textContent', {
                                                     ...section.textContent,
                                                     items: updatedItems,
@@ -719,7 +719,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                                 const response = await mediaAPI.upload(file)
                                                 const imageUrl = response.data.data.imageUrl
                                                 const updatedItems = [...section.textContent.items]
-                                                updatedItems[itemIndex] = { ...item, image: getImageUrl(imageUrl) }
+                                                updatedItems[itemIndex] = { ...item, image: imageUrl }
                                                 handleSectionUpdate(section.id, 'textContent', {
                                                   ...section.textContent,
                                                   items: updatedItems,
