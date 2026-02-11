@@ -14,10 +14,11 @@ interface Website {
   id: string
   name: string
   slug: string
-  domain: string
+  domain?: string
   logo: string
   themeConfig: any
   _count: { pages: number }
+  bannerImage?: string
 }
 
 export default function DashboardPage() {
@@ -86,14 +87,32 @@ export default function DashboardPage() {
             <Card className="hover:shadow-xl transition-shadow duration-300 cursor-pointer group">
               <CardHeader>
                 <div
-                  className={`h-32 -mx-6 -mt-6 mb-4 rounded-t-lg bg-gradient-to-r ${getThemeGradient(
-                    website.themeConfig?.theme
-                  )} flex items-center justify-center`}
+                  className="h-32 -mx-6 -mt-6 mb-4 rounded-t-lg overflow-hidden flex items-center justify-center bg-gray-100"
                 >
-                  <Globe className="w-16 h-16 text-white" />
+                  {/* Show home page banner image if available, else fallback icon */}
+                  {website.bannerImage ? (
+                    <img
+                      src={getImageUrl(website.bannerImage)}
+                      alt={website.name + ' Banner'}
+                      className="object-cover w-full h-full"
+                    />
+                  ) : (
+                    <Globe className="w-16 h-16 text-gray-400" />
+                  )}
                 </div>
                 <CardTitle className="text-xl">{website.name}</CardTitle>
-                <CardDescription>{website.domain || 'No domain set'}</CardDescription>
+                <CardDescription>
+                  {website.domain ? (
+                    <a
+                      href={website.domain.startsWith('http') ? website.domain : `https://${website.domain}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      {website.domain}
+                    </a>
+                  ) : 'No domain set'}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-between mb-4">

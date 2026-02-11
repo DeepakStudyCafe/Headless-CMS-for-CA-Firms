@@ -25,6 +25,7 @@ interface Website {
   id: string
   name: string
   slug: string
+  domain?: string
   themeConfig: any
   phone?: string
   email?: string
@@ -242,7 +243,22 @@ export default function WebsiteDetailPage({ params }: { params: { id: string } }
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => window.open(`http://localhost:300${website.themeConfig?.theme === 'professional' ? '1' : website.themeConfig?.theme === 'modern' ? '2' : '3'}/${page.slug}`, '_blank')}
+                      onClick={() => {
+                        if (website.domain) {
+                          // Home page slug is usually empty or 'home', adjust as needed
+                          const isHome = page.slug === '' || page.slug === 'home';
+                          const url = isHome
+                            ? `${website.domain}/`
+                            : `${website.domain}/services/${page.slug}`;
+                          window.open(url, '_blank');
+                        } else {
+                          toast({
+                            variant: 'destructive',
+                            title: 'Error',
+                            description: 'Website URL not configured',
+                          });
+                        }
+                      }}
                     >
                       <Eye className="w-4 h-4 mr-2" />
                       Preview

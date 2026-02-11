@@ -45,7 +45,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3006'
 ];
 
-console.log('🔗 Allowed Origins:', allowedOrigins);
+
 
 app.use(cors({
   origin: (origin, callback) => {

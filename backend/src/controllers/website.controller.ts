@@ -7,6 +7,12 @@ const prisma = new PrismaClient({
   errorFormat: 'pretty',
 });
 
+// Helper function to get website URL from environment variables
+const getWebsiteUrl = (slug: string): string => {
+  const envKey = `WEBSITE_URL_${slug}`;
+  return process.env[envKey] || '';
+};
+
 // Get all websites
 export const getAllWebsites = async (req: Request, res: Response) => {
   try {
@@ -24,11 +30,39 @@ export const getAllWebsites = async (req: Request, res: Response) => {
       orderBy: { createdAt: 'asc' }
     });
 
+    // Fetch home page hero image for each website
+    const enrichedWebsites = await Promise.all(websites.map(async website => {
+      let bannerImage = null;
+      const homePage = await prisma.page.findFirst({
+        where: {
+          websiteId: website.id,
+          slug: 'home',
+          status: 'PUBLISHED'
+        },
+        include: {
+          sections: {
+            orderBy: { order: 'asc' }
+          }
+        }
+      });
+      if (homePage && homePage.sections && homePage.sections.length > 0) {
+        const heroSection = homePage.sections.find(
+          section => section.type === 'hero' && section.imageUrl
+        );
+        if (heroSection) bannerImage = heroSection.imageUrl;
+      }
+      return {
+        ...website,
+        domain: getWebsiteUrl(website.slug) || website.domain,
+        bannerImage,
+      };
+    }));
+
     console.log(`✅ Found ${websites.length} websites`);
-    
+
     res.json({
       success: true,
-      data: { websites }
+      data: { websites: enrichedWebsites }
     });
   } catch (error: any) {
     console.error('❌ Error fetching websites:', error);
@@ -66,9 +100,15 @@ export const getWebsiteById = async (req: Request, res: Response) => {
       });
     }
 
+    // Enrich website with actual URL from environment variables
+    const enrichedWebsite = {
+      ...website,
+      domain: getWebsiteUrl(website.slug) || website.domain
+    };
+
     res.json({
       success: true,
-      data: { website }
+      data: { website: enrichedWebsite }
     });
   } catch (error: any) {
     res.status(500).json({
