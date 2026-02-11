@@ -9,8 +9,23 @@ const prisma = new PrismaClient({
 
 // Helper function to get website URL from environment variables
 const getWebsiteUrl = (slug: string): string => {
-  const envKey = `WEBSITE_URL_${slug}`;
-  return process.env[envKey] || '';
+  const envKey = `WEBSITE_URL_${slug}`;  // Use slug as-is, not uppercase
+  const envUrl = process.env[envKey];
+  console.log(`🔗 Looking for env var ${envKey}:`, envUrl);
+  return envUrl || '';
+};
+
+// Helper function to get all domain mappings for search
+const getAllDomainMappings = (): { [slug: string]: string } => {
+  const mappings: { [slug: string]: string } = {};
+  // Get all environment variables that start with WEBSITE_URL_
+  Object.keys(process.env).forEach(key => {
+    if (key.startsWith('WEBSITE_URL_')) {
+      const slug = key.replace('WEBSITE_URL_', '');
+      mappings[slug] = process.env[key] || '';
+    }
+  });
+  return mappings;
 };
 
 // Get all websites
@@ -18,17 +33,103 @@ export const getAllWebsites = async (req: Request, res: Response) => {
   try {
     console.log('🔍 Fetching all websites...');
     
+    // Extract query parameters
+    const { search, page = 1, limit = 50 } = req.query;
+    const searchTerm = search as string;
+    const pageNumber = parseInt(page as string);
+    const limitNumber = parseInt(limit as string);
+    
     // Test database connection first
     await prisma.$connect();
     
+    // Build where clause for search
+    const whereClause: any = {};
+    if (searchTerm) {
+      // Clean the search term - remove protocols and www
+      const cleanSearchTerm = searchTerm
+        .replace(/^https?:\/\//, '') // Remove http:// or https://
+        .replace(/^www\./, '') // Remove www.
+        .replace(/\/$/, '') // Remove trailing slash
+        .trim();
+      
+      // Get all domain mappings from environment variables
+      const domainMappings = getAllDomainMappings();
+      console.log('🌍 Domain mappings:', domainMappings);
+      
+      // Find slugs that match the search term in their mapped domains
+      const matchingSlugs: string[] = [];
+      Object.entries(domainMappings).forEach(([slug, domain]) => {
+        const cleanDomain = domain
+          .replace(/^https?:\/\//, '')
+          .replace(/^www\./, '')
+          .replace(/\/$/, '')
+          .toLowerCase();
+        
+        if (cleanDomain.includes(searchTerm.toLowerCase()) || 
+            cleanDomain.includes(cleanSearchTerm.toLowerCase()) ||
+            searchTerm.toLowerCase().includes(cleanDomain) ||
+            cleanSearchTerm.toLowerCase().includes(cleanDomain)) {
+          matchingSlugs.push(slug);
+          console.log(`✅ Found matching slug '${slug}' for domain '${domain}'`);
+        }
+      });
+      
+      const searchConditions: any[] = [
+        { name: { contains: searchTerm, mode: 'insensitive' } },
+        { name: { contains: cleanSearchTerm, mode: 'insensitive' } },
+        { slug: { contains: searchTerm, mode: 'insensitive' } },
+        { slug: { contains: cleanSearchTerm, mode: 'insensitive' } },
+        { domain: { contains: searchTerm, mode: 'insensitive' } },
+        { domain: { contains: cleanSearchTerm, mode: 'insensitive' } },
+        // Also search for partial matches
+        { domain: { contains: searchTerm.split('.')[0], mode: 'insensitive' } }
+      ];
+      
+      // Add slug-based search for websites with matching domain mappings
+      if (matchingSlugs.length > 0) {
+        searchConditions.push({ slug: { in: matchingSlugs } });
+      }
+      
+      whereClause.OR = searchConditions;
+      
+      console.log('🔍 Raw search term:', searchTerm);
+      console.log('🧹 Clean search term:', cleanSearchTerm);
+      console.log('🏅 Matching slugs:', matchingSlugs);
+      console.log('📋 Where clause:', JSON.stringify(whereClause, null, 2));
+    }
+
+    // First, let's see what data we have in the database
+    const allWebsites = await prisma.website.findMany({
+      select: { id: true, name: true, slug: true, domain: true }
+    });
+    console.log('📊 Total websites in DB:', allWebsites.length);
+    console.log('🗂️ All website data:', JSON.stringify(allWebsites, null, 2));
+
+    // Get total count for pagination
+    const totalCount = await prisma.website.count({ where: whereClause });
+
+    // Calculate pagination
+    const totalPages = Math.ceil(totalCount / limitNumber);
+    const skip = (pageNumber - 1) * limitNumber;
+    
+    console.log('🔢 Total count found:', totalCount);
+    
     const websites = await prisma.website.findMany({
+      where: whereClause,
       include: {
         _count: {
           select: { pages: true }
         }
       },
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: 'asc' },
+      skip,
+      take: limitNumber
     });
+    
+    console.log('📝 Websites found after query:', websites.length);
+    if (websites.length > 0) {
+      console.log('📄 First result:', JSON.stringify(websites[0], null, 2));
+    }
 
     // Fetch home page hero image for each website
     const enrichedWebsites = await Promise.all(websites.map(async website => {
@@ -53,16 +154,26 @@ export const getAllWebsites = async (req: Request, res: Response) => {
       }
       return {
         ...website,
-        domain: getWebsiteUrl(website.slug) || website.domain,
+        domain: getWebsiteUrl(website.slug) || website.domain || `${website.slug}.digitechai.in`,
         bannerImage,
       };
     }));
 
-    console.log(`✅ Found ${websites.length} websites`);
+    console.log(`✅ Found ${websites.length} websites (${totalCount} total, page ${pageNumber}/${totalPages})`);
 
     res.json({
       success: true,
-      data: { websites: enrichedWebsites }
+      data: { 
+        websites: enrichedWebsites,
+        pagination: {
+          currentPage: pageNumber,
+          totalPages,
+          totalCount,
+          limit: limitNumber,
+          hasNextPage: pageNumber < totalPages,
+          hasPrevPage: pageNumber > 1
+        }
+      }
     });
   } catch (error: any) {
     console.error('❌ Error fetching websites:', error);
