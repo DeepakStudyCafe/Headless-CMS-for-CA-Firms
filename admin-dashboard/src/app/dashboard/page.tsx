@@ -175,16 +175,16 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen p-8 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 animate-fadeIn">
+    <div className="min-h-screen p-6 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 animate-fadeIn">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent drop-shadow-sm">
+          {/* <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent drop-shadow-sm">
             Website Management
           </h1>
           <p className="text-lg text-gray-600 mb-8">
             Manage your websites, pages, and content in one place
-          </p>
+          </p> */}
           
           {/* Enhanced Search Section */}
           <div className="relative max-w-2xl ml-0 mr-auto">

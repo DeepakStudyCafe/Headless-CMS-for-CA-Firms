@@ -155,12 +155,12 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" onClick={() => router.back()}>
+          <Button className='bg-white border border-gray-200' variant="ghost" onClick={() => router.back()}>
             <ArrowLeft className="mr-2 w-4 h-4" />
             Back
           </Button>
           <div>
-            <h1 className="text-3xl font-bold">{page.title}</h1>
+            <h1 className="text-2xl font-bold">{page.title}</h1>
             <p className="text-sm text-muted-foreground">
               {page.website.name} • /{page.slug}
             </p>

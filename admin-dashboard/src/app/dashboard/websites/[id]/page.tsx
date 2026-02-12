@@ -121,17 +121,18 @@ export default function WebsiteDetailPage({ params }: { params: { id: string } }
   }
 
   return (
-    <div className="p-8">
-      <Button variant="ghost" onClick={() => router.back()} className="mb-6">
-        <ArrowLeft className="mr-2 w-4 h-4" />
-        Back to Websites
-      </Button>
-
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">{website.name}</h1>
-            <p className="text-muted-foreground">Manage pages and content for this website</p>
+    <div className="p-6">
+      <div className="mb-4">
+        <div className="flex justify-between items-center mb-4 gap-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={() => router.back()} className="mb-0 bg-white border border-gray-200">
+              <ArrowLeft className="mr-2 w-4 h-4" />
+              Back
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold mb-0">{website.name}</h1>
+              <p className="text-muted-foreground text-sm mb-0">Manage pages and content for this website</p>
+            </div>
           </div>
           <Button 
             onClick={() => setShowContactEdit(!showContactEdit)}
