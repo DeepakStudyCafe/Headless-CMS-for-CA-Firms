@@ -273,14 +273,14 @@ export function PageContent({ page }: { page: any }) {
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="py-20 bg-gradient-to-r from-primary-600 to-accent-500 text-white"
+                className="py-20 bg-gray-50 text-primary-600"
               >
                 <div className="container mx-auto px-4 text-center">
                   <h2 className="text-5xl font-bold mb-6">
                     {section.textContent?.heading}
                   </h2>
                   {section.textContent?.description && (
-                    <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-200">
+                    <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-700">
                       {section.textContent.description}
                     </p>
                   )}

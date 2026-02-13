@@ -67,7 +67,7 @@ export function PageContent({ page }: { page: Page }) {
                     className="object-cover"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/80 to-emerald-700/60" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-700/40 to-emerald-500/20" />
                 </div>
               )}
               <div className="relative z-10 text-center max-w-4xl px-4">
@@ -221,7 +221,7 @@ export function PageContent({ page }: { page: Page }) {
 
         if (section.type === 'cta') {
           return (
-            <section key={section.id} className="py-16 md:py-20 bg-gradient-to-r from-emerald-700 to-emerald-600 text-white">
+            <section key={section.id} className="py-16 md:py-20 bg-gray-50 text-emerald-900">
               <div className="container mx-auto px-4 text-center">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -232,7 +232,7 @@ export function PageContent({ page }: { page: Page }) {
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">
                     {section.textContent?.heading}
                   </h2>
-                  <p className="text-lg md:text-xl mb-8 text-emerald-100">
+                  <p className="text-lg md:text-xl mb-8 text-gray-800">
                     {section.textContent?.description}
                   </p>
                   {section.textContent?.cta && (

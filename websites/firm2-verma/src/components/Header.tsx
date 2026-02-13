@@ -56,37 +56,36 @@ export function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3">
             {websiteData?.logo ? (
-               <Image
-              src="https://api.digitechai.in/uploads/logo.png"
-              alt={websiteData?.name || 'Logo'}
-              width={60}
-              height={60}
-              className="object-contain"
-              unoptimized
-            />
+              <Image
+                src="https://api.digitechai.in/uploads/logo.png"
+                alt={websiteData?.name || 'Logo'}
+                width={60}
+                height={60}
+                className="object-contain"
+                unoptimized
+              />
             ) : null}
             <span className="text-2xl font-light">
               {websiteData?.name || 'Verma Accounting Services'}
             </span>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => {
               const isActive = pathname === item.href || (item.hasDropdown && pathname.startsWith('/services'))
-              
+
               if (item.hasDropdown) {
                 return (
-                  <div 
-                    key={item.name} 
+                  <div
+                    key={item.name}
                     className="relative"
                     onMouseEnter={() => setServicesOpen(true)}
                     onMouseLeave={() => setServicesOpen(false)}
                   >
                     <button
-                      className={`text-sm font-light transition-colors flex items-center gap-1 ${
-                        isActive ? 'text-black' : 'text-gray-500 hover:text-black'
-                      }`}
+                      className={`text-sm font-light transition-colors flex items-center gap-1 ${isActive ? 'text-black' : 'text-gray-500 hover:text-black'
+                        }`}
                     >
                       {item.name}
                       <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
@@ -115,14 +114,13 @@ export function Header() {
                   </div>
                 )
               }
-              
+
               return (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-light transition-colors ${
-                    isActive ? 'text-black' : 'text-gray-500 hover:text-black'
-                  }`}
+                  className={`text-sm font-light transition-colors ${isActive ? 'text-black' : 'text-gray-500 hover:text-black'
+                    }`}
                 >
                   {item.name}
                 </Link>

@@ -191,7 +191,7 @@ export function PageContent({ page }: { page: any }) {
           // CTA Section
           if (section.type === 'cta') {
             return (
-              <section key={section.id} className="py-16 md:py-24 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+              <section key={section.id} className="py-16 md:py-24 bg-gray-50  text-pink-800">
                 <div className="container mx-auto px-4 text-center">
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -202,14 +202,14 @@ export function PageContent({ page }: { page: any }) {
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">
                       {section.textContent?.heading}
                     </h2>
-                    <p className="text-lg md:text-xl mb-8 opacity-90">
+                    <p className="text-lg md:text-xl mb-8 opacity-90 text-gray-800">
                       {section.textContent?.description}
                     </p>
                     {section.textContent?.cta && (
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         onClick={() => setIsContactModalOpen(true)}
-                        className="bg-white text-purple-600 px-8 py-3 rounded-lg text-lg font-bold hover:bg-gray-100 transition-all shadow-lg"
+                        className="bg-white text-pink-600 px-8 py-3 rounded-lg text-lg font-bold hover:bg-gray-100 transition-all shadow-lg"
                       >
                         {section.textContent.cta}
                       </motion.button>
@@ -278,7 +278,7 @@ export function PageContent({ page }: { page: any }) {
           if (section.type === 'stats') {
             const stats = section.textContent?.stats || []
             return (
-              <section key={section.id} className="py-16 md:py-24 bg-gradient-to-r from-purple-900 to-pink-900 text-white">
+              <section key={section.id} className="py-8 md:py-24 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
                 <div className="container mx-auto px-4">
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -305,7 +305,7 @@ export function PageContent({ page }: { page: any }) {
                         viewport={{ once: true }}
                         className="text-center"
                       >
-                        <div className="text-4xl md:text-5xl font-bold mb-2">{stat.value}</div>
+                        <div className="text-4xl md:text-4xl font-semibold mb-2">{stat.value}</div>
                         <div className="text-lg opacity-90">{stat.label}</div>
                       </motion.div>
                     ))}

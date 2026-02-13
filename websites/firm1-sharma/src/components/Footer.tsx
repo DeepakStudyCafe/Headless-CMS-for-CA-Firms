@@ -28,8 +28,8 @@ export function Footer() {
     <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:justify-between gap-8">
-          <div className="mb-8 md:mb-0 md:w-1/3">
-            <div className="flex items-center space-x-3 mb-4">
+          <div className="mb-8 md:mb-0 md:w-1/3 shrink-0">
+            <div className="flex items-center space-x-3 mb-4 shrink-0 overflow-hidden">
               <Image
                 src="https://api.digitechai.in/uploads/footerlogo.png"
                 alt={websiteData?.name || 'Logo'}
@@ -38,7 +38,7 @@ export function Footer() {
                 className="object-contain"
                 unoptimized
               />
-              <h3 className="text-xl font-bold">{websiteData?.name || 'Sharma & Associates'}</h3>
+              <h3 className="text-xl font-bold p-0">{websiteData?.name || 'Sharma & Associates'}</h3>
             </div>
             <p className="text-gray-400">
               Professional Chartered Accountants providing expert financial, taxation, audit, compliance, advisory, and strategic business consulting services with integrity and excellence.

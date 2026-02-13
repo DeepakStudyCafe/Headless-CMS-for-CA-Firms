@@ -190,7 +190,7 @@ export function PageContent({ page }: { page: any }) {
         // CTA Section
         if (section.type === 'cta') {
           return (
-            <section key={section.id} className="py-16 md:py-24 bg-gray-900 text-white">
+            <section key={section.id} className="py-16 md:py-24 bg-white text-black">
               <div className="container mx-auto px-4 text-center">
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -208,7 +208,7 @@ export function PageContent({ page }: { page: any }) {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       onClick={() => setIsContactModalOpen(true)}
-                      className="bg-white text-black px-8 py-3 font-light hover:bg-gray-100 transition-all"
+                      className="bg-black text-white px-8 py-3 font-light hover:bg-gray-500 transition-all"
                     >
                       {section.textContent.cta}
                     </motion.button>
