@@ -225,39 +225,68 @@ export function PageContent({ page }: { page: any }) {
             )
 
           case 'team':
+          case 'gallery':
+            const teamItems = section.textContent?.members || section.textContent?.items || []
             return (
               <motion.section
                 key={idx}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
-                className="py-20 bg-white"
+                className="py-16 md:py-20 bg-gradient-to-br from-primary-50 to-accent-100"
               >
                 <div className="container mx-auto px-4">
-                  <div className="text-center mb-16">
-                    <h2 className="text-5xl font-bold text-primary-900 mb-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-center mb-12"
+                  >
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary-900">
                       {section.textContent?.heading}
                     </h2>
-                  </div>
-                  <div className="grid md:grid-cols-3 gap-8">
-                    {section.textContent?.members?.map((member: any, i: number) => (
+                    {section.textContent?.description && (
+                      <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+                        {section.textContent.description}
+                      </p>
+                    )}
+                  </motion.div>
+
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {teamItems.map((item: any, i: number) => (
                       <motion.div
                         key={i}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.1, duration: 0.6 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.05, duration: 0.5 }}
                         viewport={{ once: true }}
-                        className="text-center bg-gradient-to-br from-primary-50 to-accent-100 rounded-2xl p-8 shadow-lg"
+                        whileHover={{ scale: 1.03 }}
+                        className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all"
                       >
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-primary-500"
-                        />
-                        <h3 className="text-2xl font-bold text-primary-900 mb-2">{member.name}</h3>
-                        <p className="text-accent-600 font-semibold mb-4">{member.role}</p>
-                        <p className="text-gray-600">{member.bio}</p>
+                        <div className="relative h-48">
+                          {item.image ? (
+                            // use plain img to keep API-agnostic
+                            <img
+                              src={item.image}
+                              alt={item.name || item.title}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-primary-100 to-accent-100 flex items-center justify-center">
+                              <Users className="w-16 h-16 text-primary-600 opacity-50" />
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-4">
+                          <h3 className="text-lg font-semibold text-primary-900 mb-1">{item.name || item.title}</h3>
+                          {item.role && (
+                            <p className="text-sm text-accent-600 mb-2">{item.role}</p>
+                          )}
+                          {item.description && (
+                            <p className="text-sm text-gray-600">{item.description}</p>
+                          )}
+                        </div>
                       </motion.div>
                     ))}
                   </div>
