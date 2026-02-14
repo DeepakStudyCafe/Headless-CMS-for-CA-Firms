@@ -23,7 +23,7 @@ export function TopHeader() {
 
   if (!websiteData) {
     return (
-      <div className="bg-gradient-to-r from-orange-600 to-amber-500 text-white py-2">
+      <div className="bg-gradient-to-r from-gray-600 to-amber-900 text-white py-2">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-6">
@@ -47,7 +47,7 @@ export function TopHeader() {
   }
 
   return (
-    <div className="bg-gradient-to-r from-orange-600 to-amber-500 text-white py-2">
+    <div className="bg-gradient-to-r from-gray-600 to-amber-900 text-white py-2">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center text-sm">
           <div className="flex items-center space-x-6">

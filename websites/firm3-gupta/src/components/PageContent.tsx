@@ -44,7 +44,7 @@ export function PageContent({ page }: { page: any }) {
                   <motion.h1 
                     initial={{ opacity: 0, y: 20 }} 
                     animate={{ opacity: 1, y: 0 }} 
-                    className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+                    className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-blue-400 bg-clip-text text-transparent"
                   >
                     {section.textContent?.heading}
                   </motion.h1>
@@ -63,7 +63,7 @@ export function PageContent({ page }: { page: any }) {
                       transition={{ delay: 0.4 }}
                       whileHover={{ scale: 1.05 }}
                       onClick={() => setIsContactModalOpen(true)}
-                      className="mt-8 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all"
+                      className="mt-8 bg-gradient-to-r from-blue-600 to-blue-600 text-white px-8 py-3 rounded-lg hover:from-blue-700 hover:to-blue-700 transition-all"
                     >
                       {section.textContent.cta}
                     </motion.button>
@@ -76,7 +76,7 @@ export function PageContent({ page }: { page: any }) {
           // Text + Image Section
           if (section.type === 'text-image') {
             return (
-              <section key={section.id} className="py-16 md:py-24 bg-gradient-to-br from-purple-50 to-pink-50">
+              <section key={section.id} className="py-16 md:py-24 bg-gradient-to-br from-blue-50 to-blue-50">
                 <div className="container mx-auto px-4">
                   <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                     <motion.div 
@@ -85,11 +85,11 @@ export function PageContent({ page }: { page: any }) {
                       viewport={{ once: true }}
                       transition={{ duration: 0.5 }}
                     >
-                      <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                      <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
                         {section.textContent?.heading}
                       </h2>
                       {section.textContent?.subheading && (
-                        <h3 className="text-xl text-gray-700 mb-4">
+                        <h3 className="text-xl text-blue-700 mb-4">
                           {section.textContent.subheading}
                         </h3>
                       )}
@@ -105,9 +105,9 @@ export function PageContent({ page }: { page: any }) {
                               whileInView={{ opacity: 1, x: 0 }}
                               transition={{ delay: i * 0.1 }}
                               viewport={{ once: true }}
-                              className="flex items-center text-gray-700"
+                              className="flex items-center text-black-700"
                             >
-                              <CheckCircle className="w-5 h-5 text-purple-600 mr-3 flex-shrink-0" />
+                              <CheckCircle className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" />
                               <span>{feature}</span>
                             </motion.li>
                           ))}
@@ -129,8 +129,8 @@ export function PageContent({ page }: { page: any }) {
                           className="object-cover rounded-xl shadow-2xl" 
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center">
-                          <Calculator className="w-20 h-20 text-purple-400" />
+                        <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-100 rounded-xl flex items-center justify-center">
+                          <Calculator className="w-20 h-20 text-blue-400" />
                         </div>
                       )}
                     </motion.div>
@@ -152,11 +152,11 @@ export function PageContent({ page }: { page: any }) {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                   >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
                       {section.textContent?.heading}
                     </h2>
                     {section.textContent?.subheading && (
-                      <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                      <p className="text-lg text-blue-600 max-w-2xl mx-auto">
                         {section.textContent.subheading}
                       </p>
                     )}
@@ -172,12 +172,12 @@ export function PageContent({ page }: { page: any }) {
                           transition={{ delay: i * 0.1 }}
                           viewport={{ once: true }}
                           whileHover={{ y: -5, scale: 1.02 }}
-                          className="bg-gradient-to-br from-white to-purple-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all border border-purple-100"
+                          className="bg-gradient-to-br from-white to-blue-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all border border-blue-100"
                         >
-                          <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center mb-4">
+                          <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-600 rounded-lg flex items-center justify-center mb-4">
                             <Icon className="w-6 h-6 text-white" />
                           </div>
-                          <h3 className="text-xl font-bold mb-2 text-gray-800">{item.title}</h3>
+                          <h3 className="text-xl font-bold mb-2 text-black-800">{item.title}</h3>
                           <p className="text-gray-600">{item.description}</p>
                         </motion.div>
                       )
@@ -191,7 +191,7 @@ export function PageContent({ page }: { page: any }) {
           // CTA Section
           if (section.type === 'cta') {
             return (
-              <section key={section.id} className="py-16 md:py-24 bg-gray-50  text-pink-800">
+              <section key={section.id} className="py-16 md:py-24 bg-blue-50  text-blue-800">
                 <div className="container mx-auto px-4 text-center">
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -209,7 +209,7 @@ export function PageContent({ page }: { page: any }) {
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         onClick={() => setIsContactModalOpen(true)}
-                        className="bg-white text-pink-600 px-8 py-3 rounded-lg text-lg font-bold hover:bg-gray-100 transition-all shadow-lg"
+                        className="bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-bold hover:bg-blue-100 transition-all shadow-lg"
                       >
                         {section.textContent.cta}
                       </motion.button>
@@ -224,7 +224,7 @@ export function PageContent({ page }: { page: any }) {
           if (section.type === 'team' || section.type === 'gallery') {
             const items = section.textContent?.items || []
             return (
-              <section key={section.id} className="py-16 md:py-24 bg-gradient-to-br from-purple-50 to-pink-50">
+              <section key={section.id} className="py-16 md:py-24 bg-gradient-to-br from-blue-50 to-blue-50">
                 <div className="container mx-auto px-4">
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -232,11 +232,11 @@ export function PageContent({ page }: { page: any }) {
                     viewport={{ once: true }}
                     className="text-center mb-12"
                   >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
                       {section.textContent?.heading}
                     </h2>
                     {section.textContent?.subheading && (
-                      <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                      <p className="text-lg text-blue-600 max-w-2xl mx-auto">
                         {section.textContent.subheading}
                       </p>
                     )}
@@ -263,8 +263,8 @@ export function PageContent({ page }: { page: any }) {
                           </div>
                         )}
                         <div className="p-6">
-                          <h3 className="text-xl font-bold mb-2 text-gray-800">{item.name}</h3>
-                          {item.role && <p className="text-purple-600 font-medium">{item.role}</p>}
+                          <h3 className="text-xl font-bold mb-2 text-blue-800">{item.name}</h3>
+                          {item.role && <p className="text-black-600 font-medium">{item.role}</p>}
                         </div>
                       </motion.div>
                     ))}
@@ -278,7 +278,7 @@ export function PageContent({ page }: { page: any }) {
           if (section.type === 'stats') {
             const stats = section.textContent?.stats || []
             return (
-              <section key={section.id} className="py-8 md:py-24 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+              <section key={section.id} className="py-8 md:py-24 bg-gradient-to-r from-blue-600 to-blue-600 text-white">
                 <div className="container mx-auto px-4">
                   <motion.div
                     initial={{ opacity: 0 }}

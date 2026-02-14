@@ -59,7 +59,7 @@ export function PageContent({ page }: { page: Page }) {
               className="relative h-[500px] md:h-[600px] flex items-center justify-center text-white"
             >
               {section.imageUrl && (
-                <div className="absolute inset-0 z-0">
+                <div className="absolute inset-0 z-0 ">
                   <Image
                     src={getImageUrl(section.imageUrl)}
                     alt="Hero"
@@ -67,23 +67,23 @@ export function PageContent({ page }: { page: Page }) {
                     className="object-cover"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-700/40 to-emerald-500/20" />
+                  <div className="absolute inset-0 " />
                 </div>
               )}
               <div className="relative z-10 text-center max-w-4xl px-4">
-                <motion.h1
+                <motion.h2
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+                  className="text-2xl md:text-2xl lg:text-4xl font-bold mb-6 text-green-800"
                 >
                   {section.textContent?.heading}
-                </motion.h1>
+                </motion.h2>
                 <motion.p
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="text-lg md:text-xl mb-8 leading-relaxed text-emerald-100"
+                  className="text-lg md:text-xl mb-8 leading-relaxed text-white"
                 >
                   {section.textContent?.subheading}
                 </motion.p>

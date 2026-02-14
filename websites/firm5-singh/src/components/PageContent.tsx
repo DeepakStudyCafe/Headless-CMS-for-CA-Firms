@@ -83,7 +83,7 @@ export function PageContent({ page }: { page: Page }) {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="text-lg md:text-xl mb-8 leading-relaxed text-orange-100"
+                  className="text-lg md:text-xl mb-8 leading-relaxed text-gray-100"
                 >
                   {section.textContent?.subheading}
                 </motion.p>
@@ -95,7 +95,7 @@ export function PageContent({ page }: { page: Page }) {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsContactModalOpen(true)}
-                    className="bg-amber-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-amber-400 transition-all shadow-lg hover:shadow-xl"
+                    className="bg-amber-900 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-amber-400 transition-all shadow-lg hover:shadow-xl"
                   >
                     {section.textContent.cta}
                   </motion.button>
@@ -107,7 +107,7 @@ export function PageContent({ page }: { page: Page }) {
 
         if (section.type === 'text-image') {
           return (
-            <section key={section.id} className={`py-16 md:py-20 ${isEven ? 'bg-white' : 'bg-orange-50'}`}>
+            <section key={section.id} className={`py-16 md:py-20 ${isEven ? 'bg-white' : 'bg-gray-50'}`}>
               <div className="container mx-auto px-4">
                 <div className={`grid md:grid-cols-2 gap-8 md:gap-12 items-center ${!isEven ? 'md:flex-row-reverse' : ''}`}>
                   <motion.div
@@ -117,11 +117,11 @@ export function PageContent({ page }: { page: Page }) {
                     viewport={{ once: true }}
                     className={!isEven ? 'md:order-2' : ''}
                   >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6 text-orange-900">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
                       {section.textContent?.heading}
                     </h2>
                     {section.textContent?.subheading && (
-                      <h3 className="text-xl text-orange-700 mb-4 font-semibold">
+                      <h3 className="text-xl text-gray-700 mb-4 font-semibold">
                         {section.textContent.subheading}
                       </h3>
                     )}
@@ -139,7 +139,7 @@ export function PageContent({ page }: { page: Page }) {
                             viewport={{ once: true }}
                             className="flex items-center text-gray-700"
                           >
-                            <CheckCircle className="w-5 h-5 text-orange-600 mr-3 flex-shrink-0" />
+                            <CheckCircle className="w-5 h-5 text-gray-600 mr-3 flex-shrink-0" />
                             <span>{feature}</span>
                           </motion.li>
                         ))}
@@ -161,8 +161,8 @@ export function PageContent({ page }: { page: Page }) {
                         className="object-cover hover:scale-105 transition-transform duration-300"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-orange-100 to-amber-200 flex items-center justify-center">
-                        <Building2 className="w-24 h-24 text-orange-600 opacity-50" />
+                      <div className="w-full h-full bg-gradient-to-br from-gray-100 to-amber-200 flex items-center justify-center">
+                        <Building2 className="w-24 h-24 text-gray-600 opacity-50" />
                       </div>
                     )}
                   </motion.div>
@@ -175,7 +175,7 @@ export function PageContent({ page }: { page: Page }) {
         if (section.type === 'features' || section.type === 'services') {
           const items = section.textContent?.items || []
           return (
-            <section key={section.id} className="py-16 md:py-20 bg-gradient-to-b from-orange-50 to-white">
+            <section key={section.id} className="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
               <div className="container mx-auto px-4">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -183,7 +183,7 @@ export function PageContent({ page }: { page: Page }) {
                   viewport={{ once: true }}
                   className="text-center mb-12"
                 >
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4 text-orange-900">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
                     {section.textContent?.heading}
                   </h2>
                   {section.textContent?.subheading && (
@@ -203,9 +203,9 @@ export function PageContent({ page }: { page: Page }) {
                         transition={{ delay: i * 0.1 }}
                         viewport={{ once: true }}
                         whileHover={{ y: -5 }}
-                        className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all border border-orange-100"
+                        className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all border border-gray-100"
                       >
-                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-500 rounded-lg flex items-center justify-center mb-4">
+                        <div className="w-12 h-12 bg-gradient-to-br from-gray-500 to-amber-900 rounded-lg flex items-center justify-center mb-4">
                           <Icon className="w-6 h-6 text-white" />
                         </div>
                         <h3 className="text-xl font-semibold mb-2 text-gray-800">{item.title}</h3>
@@ -221,7 +221,7 @@ export function PageContent({ page }: { page: Page }) {
 
         if (section.type === 'cta') {
           return (
-            <section key={section.id} className="py-16 md:py-20 bg-white text-orange-900">
+            <section key={section.id} className="py-16 md:py-20 bg-white text-gray-900">
               <div className="container mx-auto px-4 text-center">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -240,7 +240,7 @@ export function PageContent({ page }: { page: Page }) {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setIsContactModalOpen(true)}
-                      className="bg-white text-orange-700 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-orange-50 transition-all shadow-lg"
+                      className="bg-white text-gray-700 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-50 transition-all shadow-lg"
                     >
                       {section.textContent.cta}
                     </motion.button>
@@ -254,7 +254,7 @@ export function PageContent({ page }: { page: Page }) {
         if (section.type === 'team' || section.type === 'gallery') {
           const items = section.textContent?.items || []
           return (
-            <section key={section.id} className="py-16 md:py-20 bg-orange-50">
+            <section key={section.id} className="py-16 md:py-20 bg-gray-50">
               <div className="container mx-auto px-4">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -262,7 +262,7 @@ export function PageContent({ page }: { page: Page }) {
                   viewport={{ once: true }}
                   className="text-center mb-12"
                 >
-                  <h2 className="text-3xl md:text-4xl font-bold mb-4 text-orange-900">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
                     {section.textContent?.heading}
                   </h2>
                   {section.textContent?.description && (
@@ -291,8 +291,8 @@ export function PageContent({ page }: { page: Page }) {
                             className="object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-orange-100 to-amber-200 flex items-center justify-center">
-                            <Users className="w-16 h-16 text-orange-600 opacity-50" />
+                          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-amber-200 flex items-center justify-center">
+                            <Users className="w-16 h-16 text-gray-600 opacity-50" />
                           </div>
                         )}
                       </div>
@@ -301,7 +301,7 @@ export function PageContent({ page }: { page: Page }) {
                           {item.name || item.title}
                         </h3>
                         {item.role && (
-                          <p className="text-sm text-orange-600 mb-2">{item.role}</p>
+                          <p className="text-sm text-gray-600 mb-2">{item.role}</p>
                         )}
                         {item.description && (
                           <p className="text-sm text-gray-600">{item.description}</p>
@@ -318,7 +318,7 @@ export function PageContent({ page }: { page: Page }) {
         if (section.type === 'stats') {
           const stats = section.textContent?.stats || []
           return (
-            <section key={section.id} className="py-16 md:py-20 bg-gradient-to-r from-orange-800 to-amber-700 text-white">
+            <section key={section.id} className="py-16 md:py-20 bg-gradient-to-r from-gray-800 to-amber-700 text-white">
               <div className="container mx-auto px-4">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -341,7 +341,7 @@ export function PageContent({ page }: { page: Page }) {
                       className="text-center"
                     >
                       <div className="text-4xl md:text-5xl font-bold mb-2 text-amber-300">{stat.value}</div>
-                      <div className="text-lg text-orange-100">{stat.label}</div>
+                      <div className="text-lg text-gray-100">{stat.label}</div>
                     </motion.div>
                   ))}
                 </div>

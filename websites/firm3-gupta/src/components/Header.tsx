@@ -54,7 +54,7 @@ export function Header() {
     <motion.header 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className="bg-white/80 backdrop-blur-lg border-b border-purple-100 sticky top-0 z-50"
+      className="bg-white/80 backdrop-blur-lg border-b border-blue-100 sticky top-0 z-50"
     >
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
@@ -69,7 +69,7 @@ export function Header() {
               unoptimized
             />
             ) : null}
-            <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
               {websiteData?.name || 'Gupta Tax Advisors'}
             </span>
           </Link>
@@ -90,7 +90,7 @@ export function Header() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       className={`text-sm font-medium transition-colors flex items-center gap-1 ${
-                        isActive ? 'text-purple-600' : 'text-gray-700 hover:text-purple-600'
+                        isActive ? 'text-blue-600' : 'text-blue-700 hover:text-blue-600'
                       }`}
                     >
                       {item.name}
@@ -103,13 +103,13 @@ export function Header() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-lg rounded-xl shadow-xl border border-purple-100 py-2 z-50"
+                          className="absolute top-full left-0 mt-2 w-56 bg-white/95 backdrop-blur-lg rounded-xl shadow-xl border border-blue-100 py-2 z-50"
                         >
                           {serviceDropdown.map((service) => (
                             <Link
                               key={service.name}
                               href={service.href}
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 hover:text-purple-600 transition-colors"
+                              className="block px-4 py-2 text-sm text-blue-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-50 hover:text-blue-600 transition-colors"
                             >
                               {service.name}
                             </Link>
@@ -127,8 +127,8 @@ export function Header() {
                     href={item.href}
                     className={`text-sm font-medium transition-colors ${
                       isActive 
-                        ? 'text-purple-600' 
-                        : 'text-gray-700 hover:text-purple-600'
+                        ? 'text-blue-600' 
+                        : 'text-blue-700 hover:text-blue-600'
                     }`}
                   >
                     {item.name}
@@ -140,7 +140,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-purple-600"
+            className="md:hidden text-blue-600"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X /> : <Menu />}
@@ -160,7 +160,7 @@ export function Header() {
                   <div key={item.name}>
                     <button
                       onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                      className="flex items-center justify-between w-full py-2 text-gray-700 hover:text-purple-600"
+                      className="flex items-center justify-between w-full py-2 text-blue-700 hover:text-blue-600"
                     >
                       {item.name}
                       <ChevronDown className={`w-4 h-4 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
@@ -177,7 +177,7 @@ export function Header() {
                             <Link
                               key={service.name}
                               href={service.href}
-                              className="block py-2 text-sm text-gray-600 hover:text-purple-600"
+                              className="block py-2 text-sm text-blue-600 hover:text-blue-600"
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               {service.name}
@@ -193,7 +193,7 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block py-2 text-gray-700 hover:text-purple-600"
+                  className="block py-2 text-blue-700 hover:text-blue-600"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}

@@ -6,7 +6,6 @@ const prisma = new PrismaClient()
 async function main() {
   console.log('🌱 Starting comprehensive database seed...')
   
-  // First, clean up existing pages and sections to avoid duplicates
   console.log('🧹 Cleaning up existing pages and sections...')
   await prisma.section.deleteMany({})
   await prisma.page.deleteMany({})

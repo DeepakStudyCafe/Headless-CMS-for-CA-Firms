@@ -63,7 +63,7 @@ export function Header() {
               className="object-contain"
               unoptimized
             />
-            <span className="text-2xl font-bold text-orange-700">
+            <span className="text-2xl font-bold text-gray-700">
               {websiteData?.name || 'Singh & Co. Advisors'}
             </span>
           </Link>
@@ -81,8 +81,8 @@ export function Header() {
                     onMouseLeave={() => setServicesOpen(false)}
                   >
                     <button
-                      className={`text-sm font-medium transition-colors hover:text-orange-600 flex items-center gap-1 ${
-                        isActive ? 'text-orange-600' : 'text-gray-700'
+                      className={`text-sm font-medium transition-colors hover:text-gray-600 flex items-center gap-1 ${
+                        isActive ? 'text-gray-600' : 'text-gray-700'
                       }`}
                     >
                       {item.name}
@@ -101,7 +101,7 @@ export function Header() {
                             <Link
                               key={service.name}
                               href={service.href}
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-600 transition-colors"
                             >
                               {service.name}
                             </Link>
@@ -117,15 +117,15 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-orange-600 ${
-                    isActive ? 'text-orange-600' : 'text-gray-700'
+                  className={`text-sm font-medium transition-colors hover:text-gray-600 ${
+                    isActive ? 'text-gray-600' : 'text-gray-700'
                   }`}
                 >
                   {item.name}
                   {isActive && (
                     <motion.div
                       layoutId="underline"
-                      className="h-0.5 bg-orange-600 mt-1"
+                      className="h-0.5 bg-gray-600 mt-1"
                     />
                   )}
                 </Link>
@@ -153,7 +153,7 @@ export function Header() {
                   <div key={item.name}>
                     <button
                       onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                      className="flex items-center justify-between w-full py-2 text-gray-700 hover:text-orange-600"
+                      className="flex items-center justify-between w-full py-2 text-gray-700 hover:text-gray-600"
                     >
                       {item.name}
                       <ChevronDown className={`w-4 h-4 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
@@ -170,7 +170,7 @@ export function Header() {
                             <Link
                               key={service.name}
                               href={service.href}
-                              className="block py-2 text-sm text-gray-600 hover:text-orange-600"
+                              className="block py-2 text-sm text-gray-600 hover:text-gray-600"
                               onClick={() => setMobileMenuOpen(false)}
                             >
                               {service.name}
@@ -186,7 +186,7 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block py-2 text-gray-700 hover:text-orange-600"
+                  className="block py-2 text-gray-700 hover:text-gray-600"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
