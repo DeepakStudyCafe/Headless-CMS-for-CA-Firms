@@ -59,7 +59,11 @@ export default function WebsiteDetailPage({ params }: { params: { id: string } }
       ])
       const websiteData = websiteRes.data.data.website
       setWebsite(websiteData)
-      setPages(pagesRes.data.data.pages)
+      // Filter out 'career' and 'query' pages from admin
+      const filteredPages = Array.isArray(pagesRes.data.data.pages)
+        ? pagesRes.data.data.pages.filter((p: Page) => p.slug !== 'career' && p.slug !== 'query')
+        : []
+      setPages(filteredPages)
       
       // Initialize contact form with current data
       setContactForm({

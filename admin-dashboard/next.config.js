@@ -6,7 +6,7 @@ const nextConfig = {
     outputFileTracingRoot: undefined,
   },
   images: {
-    domains: ['localhost', 'images.unsplash.com', '72.62.243.99', 'digitechai.in', 'api.digitechai.in', 'backend.digitechai.in'],
+    domains: ['localhost', 'images.unsplash.com', '72.62.243.99', 'digitechai.in', 'api.digitechai.in', 'backend .digitechai.in'],
     remotePatterns: [
       {
         protocol: 'http',

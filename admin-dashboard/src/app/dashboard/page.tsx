@@ -293,7 +293,7 @@ export default function DashboardPage() {
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-100 flex items-center justify-center">
-                        <Globe className="w-20 h-20 text-blue-400 group-hover:text-blue-600 transition-colors duration-500 group-hover:scale-110 transition-transform" />
+                        <Globe className="w-20 h-20 text-blue-400 group-hover:text-blue-600 duration-500 group-hover:scale-110 transition-transform" />
                       </div>
                     )}
                     

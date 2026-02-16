@@ -25,7 +25,7 @@
     "start:backend": "cd backend && npm run start",
     "start:admin": "cd admin-dashboard && npm run start",
     "start:firm1": "cd websites/firm1-sharma && npm run start",
-    "start:firm2": "cd websites/firm2-verma && npm run start", 
+    "start:firm2": "cd websites/firm2-verma && npm run start",
     "start:firm3": "cd websites/firm3-gupta && npm run start",
     "start:firm4": "cd websites/firm4-kapoor && npm run start",
     "start:firm5": "cd websites/firm5-singh && npm run start",
@@ -50,5 +50,8 @@
   "devDependencies": {
     "@types/node": "^25.2.0",
     "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "next": "^16.1.6"
   }
 }

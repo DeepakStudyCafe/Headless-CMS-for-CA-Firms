@@ -56,7 +56,7 @@ export function PageContent({ page }: { page: Page }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="relative h-[500px] md:h-[600px] flex items-center justify-center text-white"
+              className="relative h-[500px] md:h-[600px] flex items-center justify-center text-white "
             >
               {section.imageUrl && (
                 <div className="absolute inset-0 z-0 ">
@@ -64,10 +64,10 @@ export function PageContent({ page }: { page: Page }) {
                     src={getImageUrl(section.imageUrl)}
                     alt="Hero"
                     fill
-                    className="object-cover"
+                    className="object-cover "
                     priority
                   />
-                  <div className="absolute inset-0 " />
+                  <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" />
                 </div>
               )}
               <div className="relative z-10 text-center max-w-4xl px-4">
@@ -75,7 +75,7 @@ export function PageContent({ page }: { page: Page }) {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="text-2xl md:text-2xl lg:text-4xl font-bold mb-6 text-green-800"
+                  className="text-2xl md:text-2xl lg:text-4xl font-bold mb-6 "
                 >
                   {section.textContent?.heading}
                 </motion.h2>

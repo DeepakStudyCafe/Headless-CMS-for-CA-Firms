@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const sitemapDomain = 'https://cadeepakgupta.com';
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
@@ -28,9 +29,17 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
-      },
-    ],
+      }
+    ]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap.xml',
+        destination: `${sitemapDomain}/sitemap.xml`,
+      },
+    ];
+  }
 }
 
 module.exports = nextConfig
