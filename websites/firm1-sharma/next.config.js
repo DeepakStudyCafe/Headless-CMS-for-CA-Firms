@@ -37,14 +37,7 @@ const nextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/sitemap.xml",
-        destination: `${sitemapDomain}/sitemap.xml`,
-      },
-    ];
-  },
+  // rewrites removed for sitemap.xml, static file will be served from public/
 };
 
 module.exports = nextConfig;
