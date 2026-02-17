@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import { getBackendImageUrl } from '../utils/imageUrl'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ContactFormModal } from './ContactFormModal'
@@ -33,7 +34,7 @@ export function PageContent({ page }: { page: any }) {
                 transition={{ duration: 0.8 }}
                 className="relative h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-accent-100"
                 style={{
-                  backgroundImage: section.imageUrl ? `url(${section.imageUrl})` : 'none',
+                  backgroundImage: section.imageUrl ? `url(${getBackendImageUrl(section.imageUrl)})` : 'none',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                 }}
@@ -118,7 +119,7 @@ export function PageContent({ page }: { page: any }) {
                     </div>
                     <div className={idx % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}>
                       <motion.img
-                        src={section.imageUrl || 'https://images.unsplash.com/photo-1553484771-371a605b060b?w=800'}
+                        src={getBackendImageUrl(section.imageUrl) || 'https://images.unsplash.com/photo-1553484771-371a605b060b?w=800'}
                         alt={section.textContent?.heading || 'Section image'}
                         className="w-full h-96 object-cover rounded-2xl shadow-xl"
                         whileHover={{ scale: 1.05 }}
@@ -268,7 +269,7 @@ export function PageContent({ page }: { page: any }) {
                           {item.image ? (
                             // use plain img to keep API-agnostic
                             <img
-                              src={item.image}
+                              src={getBackendImageUrl(item.image)}
                               alt={item.name || item.title}
                               className="w-full h-full object-cover"
                             />

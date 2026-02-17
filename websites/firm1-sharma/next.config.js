@@ -1,45 +1,50 @@
 /** @type {import('next').NextConfig} */
-const sitemapDomain = 'https://sadgurushakti.org';
+const sitemapDomain = "https://sadgurushakti.org";
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
+  output: "standalone",
   experimental: {
     outputFileTracingRoot: undefined,
   },
   images: {
-    domains: ['localhost', 'images.unsplash.com', '72.62.243.99', 'api.digitechai.in'],
+    domains: [
+      "localhost",
+      "images.unsplash.com",
+      "72.62.243.99",
+      "api.digitechai.in",
+    ],
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '5000',
-        pathname: '/uploads/**',
+        protocol: "http",
+        hostname: "localhost",
+        port: "5000",
+        pathname: "/uploads/**",
       },
       {
-        protocol: 'http',
-        hostname: '72.62.243.99',
-        port: '5000',
-        pathname: '/uploads/**',
+        protocol: "http",
+        hostname: "72.62.243.99",
+        port: "5000",
+        pathname: "/uploads/**",
       },
       {
-        protocol: 'https',
-        hostname: 'api.digitechai.in',
-        pathname: '/uploads/**',
+        protocol: "https",
+        hostname: "api.digitechai.in",
+        pathname: "/uploads/**",
       },
       {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      }
-    ]
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
   },
   async rewrites() {
     return [
       {
-        source: '/sitemap.xml',
+        source: "/sitemap.xml",
         destination: `${sitemapDomain}/sitemap.xml`,
       },
     ];
-  }
-}
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
