@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const sitemapDomain = 'https://capracticeautomation.com';
+const sitemapDomain = 'https://capracticeautomation.com/';
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
@@ -32,14 +32,7 @@ const nextConfig = {
       }
     ]
   },
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: `${sitemapDomain}/sitemap.xml`,
-      },
-    ];
-  }
+  // rewrites removed for sitemap.xml, static file will be served from public/
 }
 
 module.exports = nextConfig
