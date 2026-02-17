@@ -1321,6 +1321,54 @@ async function main() {
       features: ['Income tax planning', 'Capital gains optimization', 'Investment advisory', 'Tax-efficient structuring', 'Return filing & compliance'],
       contentImage: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800',
     },
+    // Payroll Service
+    {
+      slug: 'payroll',
+      title: 'Payroll Management - Gupta Tax Advisors',
+      heroHeading: 'Payroll Management',
+      heroSubheading: 'Efficient payroll processing for startups',
+      heroImage: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1600',
+      contentHeading: 'Seamless Payroll Solutions',
+      contentDescription: 'Automated payroll management including salary calculation, compliance, and payslip generation for your growing team.',
+      features: ['Salary calculation & disbursement', 'PF & ESI compliance', 'TDS on salary', 'Leave & attendance management', 'Payslip generation'],
+      contentImage: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800',
+    },
+    // Company Formation Service
+    {
+      slug: 'company-formation',
+      title: 'Company Formation - Gupta Tax Advisors',
+      heroHeading: 'Company Formation',
+      heroSubheading: 'Start your business with confidence',
+      heroImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600',
+      contentHeading: 'Business Incorporation Services',
+      contentDescription: 'End-to-end company registration and formation services. From choosing the right business structure to getting your company registered.',
+      features: ['Private Limited Company registration', 'LLP formation', 'Partnership deed drafting', 'MSME registration', 'Startup India registration'],
+      contentImage: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800',
+    },
+    // Audit Services
+    {
+      slug: 'audit-services',
+      title: 'Audit Services - Gupta Tax Advisors',
+      heroHeading: 'Professional Audit Services',
+      heroSubheading: 'Ensuring accuracy, compliance, and transparency',
+      heroImage: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600',
+      contentHeading: 'Comprehensive Audit Solutions',
+      contentDescription: 'We conduct thorough statutory audits as per Companies Act and other regulatory requirements. Our comprehensive approach ensures complete compliance.',
+      features: ['Financial statement audits', 'Internal control assessment', 'Compliance verification', 'Detailed audit reports'],
+      contentImage: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800',
+    },
+    // Financial Advisory
+    {
+      slug: 'financial-advisory',
+      title: 'Financial Advisory - Gupta Tax Advisors',
+      heroHeading: 'Financial Advisory',
+      heroSubheading: 'Expert financial advisory services',
+      heroImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600',
+      contentHeading: 'Business & Investment Advisory',
+      contentDescription: 'Expert financial advisory services to help you make informed business decisions and achieve your financial goals.',
+      features: ['Business valuation', 'Financial planning', 'Investment advisory', 'Merger & acquisition support', 'Funding assistance'],
+      contentImage: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800',
+    },
   ]
 
   for (const service of guptaServices) {
