@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const sitemapDomain = 'https://digitechai.in';
+const sitemapDomain = 'https://cadeepakgupta.com';
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
