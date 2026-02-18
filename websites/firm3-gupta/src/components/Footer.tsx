@@ -37,8 +37,8 @@ export function Footer() {
               <Image
                 src="https://api.digitechai.in/uploads/footerlogo.png"
                 alt={websiteData?.name || 'Logo'}
-                width={90}
-                height={90}
+                width={50}
+                height={50}
                 className="object-contain"
                 unoptimized
               />

@@ -58,8 +58,8 @@ export function Header() {
             <Image
               src="https://api.digitechai.in/uploads/logo.png"
               alt={websiteData?.name || 'Logo'}
-              width={90}
-              height={90}
+              width={40}
+              height={40}
               className="object-contain"
               unoptimized
             />
