@@ -25,8 +25,8 @@ export function TopHeader() {
     return (
       <div className="bg-blue-900 text-white py-2">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center space-x-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between items-center text-sm">
+            <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />
                 <span>+91 11 4567 8901</span>
@@ -36,7 +36,7 @@ export function TopHeader() {
                 <span>info@sharma-associates.com</span>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 mt-2 sm:mt-0">
               <Clock className="w-4 h-4" />
               <span>Mon - Sat: 9:30 AM - 7:00 PM</span>
             </div>
@@ -47,10 +47,10 @@ export function TopHeader() {
   }
 
   return (
-    <div className="bg-blue-900 text-white py-2">
+      <div className="bg-blue-900 text-white py-2">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center text-sm">
-          <div className="flex items-center space-x-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between items-center text-sm">
+          <div className="flex flex-wrap items-center gap-4">
             {websiteData.phone && (
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />
@@ -64,7 +64,7 @@ export function TopHeader() {
               </div>
             )}
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 mt-2 sm:mt-0">
             <Clock className="w-4 h-4" />
             <span>{websiteData.workingHours || 'Mon - Sat: 9:30 AM - 7:00 PM'}</span>
           </div>
