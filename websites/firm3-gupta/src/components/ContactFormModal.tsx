@@ -63,7 +63,7 @@ export function ContactFormModal({ isOpen, onClose, title = "Get in Touch" }: Co
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-gradient-to-br from-purple-900/80 to-pink-900/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-gradient-to-br from-indigo-900/80 to-blue-900/80 backdrop-blur-xs"
             onClick={onClose}
           />
           
@@ -72,14 +72,14 @@ export function ContactFormModal({ isOpen, onClose, title = "Get in Touch" }: Co
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative bg-white/95 backdrop-blur-lg rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-purple-100 px-4"
+            className="relative bg-white/95 backdrop-blur-lg rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-indigo-100 px-4"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-2 border-b border-purple-100">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{title}</h2>
+            <div className="flex items-center justify-between p-2 border-b border-indigo-100">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">{title}</h2>
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-purple-600 transition-colors"
+                className="text-gray-400 hover:text-indigo-600 transition-colors"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -98,7 +98,7 @@ export function ContactFormModal({ isOpen, onClose, title = "Get in Touch" }: Co
                   required
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -114,7 +114,7 @@ export function ContactFormModal({ isOpen, onClose, title = "Get in Touch" }: Co
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   placeholder="Enter your email address"
                 />
               </div>
@@ -130,7 +130,7 @@ export function ContactFormModal({ isOpen, onClose, title = "Get in Touch" }: Co
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                  className="w-full px-4 py-2 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   placeholder="Enter your phone number"
                 />
               </div>
@@ -146,7 +146,7 @@ export function ContactFormModal({ isOpen, onClose, title = "Get in Touch" }: Co
                   rows={4}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
+                  className="w-full px-4 py-2 border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
                   placeholder="Tell us about your requirements..."
                 />
               </div>
@@ -154,7 +154,7 @@ export function ContactFormModal({ isOpen, onClose, title = "Get in Touch" }: Co
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-lg font-medium hover:from-purple-700 hover:to-pink-700 disabled:from-purple-300 disabled:to-pink-300 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:from-indigo-700 hover:to-blue-700 disabled:from-indigo-300 disabled:to-blue-300 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>

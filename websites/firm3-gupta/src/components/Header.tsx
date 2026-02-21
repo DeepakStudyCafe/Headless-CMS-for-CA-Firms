@@ -69,7 +69,7 @@ export function Header() {
               unoptimized
             />
             ) : null}
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
               {websiteData?.name || 'Gupta Tax Advisors'}
             </span>
           </Link>

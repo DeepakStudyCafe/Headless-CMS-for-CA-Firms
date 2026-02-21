@@ -26,7 +26,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-cyan-900 text-white py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:justify-between gap-8">
           <div className="mb-8 md:mb-0 md:w-1/3 shrink-0">

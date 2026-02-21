@@ -29,7 +29,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="bg-gray-900 text-white pt-12 pb-4">
+    <footer className="bg-blue-900 text-white mt-1 pt-12 pb-4">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:justify-between gap-8">
           <div className="mb-8 md:mb-0 md:w-1/3 shrink-0">
@@ -44,7 +44,7 @@ export function Footer() {
               />
               <h3 className="text-xl font-bold p-0">{websiteData?.name || 'Sharma & Associates'}</h3>
             </div>
-            <p className="text-gray-400">
+            <p className="text-gray-300">
               Professional Chartered Accountants providing expert financial, taxation, audit, compliance, advisory, and strategic business consulting services with integrity and excellence.
             </p>
           </div>
@@ -52,19 +52,19 @@ export function Footer() {
             <div>
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2">
-                <Link href="/about" className="block text-gray-400 hover:text-white">
+                <Link href="/about" className="block text-gray-300 hover:text-white">
                   About Us
                 </Link>
-                <Link href="/about" className="block text-gray-400 hover:text-white">
+                <Link href="/about" className="block text-gray-300 hover:text-white">
                   Our Gallery
                 </Link>
-                <Link href="/about" className="block text-gray-400 hover:text-white">
+                <Link href="/about" className="block text-gray-300 hover:text-white">
                   Contact
                 </Link>
-                <Link href="/service" className="block text-gray-400 hover:text-white">
+                <Link href="/service" className="block text-gray-300 hover:text-white">
                   Services
                 </Link>
-                <Link href="/team" className="block text-gray-400 hover:text-white">
+                <Link href="/team" className="block text-gray-300 hover:text-white">
                   Our Team
                 </Link>
               </div>
@@ -72,22 +72,22 @@ export function Footer() {
             <div>
               <h4 className="font-semibold mb-4">Services</h4>
               <div className="space-y-2">
-                <Link href="/service/bookkeeping" className="block text-gray-400 hover:text-white">Bookkeeping</Link>
-                <Link href="/service/gst-filing" className="block text-gray-400 hover:text-white">GST Filing</Link>
-                <Link href="/service/payroll" className="block text-gray-400 hover:text-white">Payroll</Link>
-                <Link href="/service/tax-planning" className="block text-gray-400 hover:text-white">Tax Planning</Link>
-                <Link href="/service/company-formation" className="block text-gray-400 hover:text-white">Company Formation</Link>
-                {/* <Link href="/service/compliance" className="block text-gray-400 hover:text-white">Compliance</Link>
-                <Link href="/service/audit-services" className="block text-gray-400 hover:text-white">Audit Services</Link>
-                <Link href="/service/financial-advisory" className="block text-gray-400 hover:text-white">Financial Advisory</Link> */}
+                <Link href="/service/bookkeeping" className="block text-gray-300 hover:text-white">Bookkeeping</Link>
+                <Link href="/service/gst-filing" className="block text-gray-300 hover:text-white">GST Filing</Link>
+                <Link href="/service/payroll" className="block text-gray-300 hover:text-white">Payroll</Link>
+                <Link href="/service/tax-planning" className="block text-gray-300 hover:text-white">Tax Planning</Link>
+                <Link href="/service/company-formation" className="block text-gray-300 hover:text-white">Company Formation</Link>
+                {/* <Link href="/service/compliance" className="block text-gray-300 hover:text-white">Compliance</Link>
+                <Link href="/service/audit-services" className="block text-gray-300 hover:text-white">Audit Services</Link>
+                <Link href="/service/financial-advisory" className="block text-gray-300 hover:text-white">Financial Advisory</Link> */}
               </div>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
-              <p className="text-gray-400 mb-2">Email: info@sharma-associates.com</p>
-              <p className="text-gray-400 mb-2">Phone: +91 11 4567 8901</p>
-              <p className="text-gray-400 mb-2">1201, Business Tower, Connaught Place, New Delhi - 110001</p>
-              <p className="text-gray-400">Phone: +91 123 456 7890</p>
+              <p className="text-gray-300 mb-2">Email: info@sharma-associates.com</p>
+              <p className="text-gray-300 mb-2">Phone: +91 11 4567 8901</p>
+              <p className="text-gray-300 mb-2">1201, Business Tower, Connaught Place, New Delhi - 110001</p>
+              <p className="text-gray-300">Phone: +91 123 456 7890</p>
 
               {/* Social Media Icons under Contact */}
               <div className="flex gap-4 mt-4">
@@ -111,7 +111,7 @@ export function Footer() {
           </div>
         </div>
         <div className="flex flex-col items-center gap-6 mt-8">
-          <div className="border-t border-gray-800 pt-6 w-full text-center text-gray-400">
+          <div className="border-t border-gray-800 pt-6 w-full text-center text-gray-300">
             <p>&copy; 2026 Gupta & Associates. All rights reserved.</p>
           </div>
         </div>
