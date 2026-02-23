@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /admin/
+Allow: /
+
+Sitemap: https://practovia.com/sitemap.xml
