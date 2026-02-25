@@ -7,7 +7,7 @@ import { websiteAPI } from '@/lib/api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Globe, ArrowRight, BarChart3, Search, ChevronLeft, ChevronRight, X, Filter } from 'lucide-react'
+import { Globe, ArrowRight, BarChart3, Search, ChevronLeft, ChevronRight, X, Filter, LayoutGrid, List } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { getImageUrl } from '@/lib/utils'
 
@@ -48,6 +48,7 @@ export default function DashboardPage() {
   const [isSearching, setIsSearching] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
 
   // Debounced search value to reduce API calls
   const debouncedSearchQuery = useDebounce(searchQuery, 500)
@@ -178,169 +179,211 @@ export default function DashboardPage() {
     <div className="min-h-screen p-6 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 animate-fadeIn">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="mb-8 text-center">
-          {/* <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent drop-shadow-sm">
-            Website Management
-          </h1>
-          <p className="text-lg text-gray-600 mb-8">
-            Manage your websites, pages, and content in one place
-          </p> */}
-          
-          {/* Enhanced Search Section */}
-          <div className="relative max-w-2xl ml-0 mr-auto">
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000"></div>
-              <div className="relative bg-white rounded-xl p-1 shadow">
-                <div className="flex items-center">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <Input
-                      placeholder="Search by website name, URL, or domain..."
-                      value={searchQuery}
-                      onChange={(e) => handleSearchChange(e.target.value)}
-                      onFocus={() => setShowSuggestions(true)}
-                      onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                      className="pl-12 pr-12 py-4 text-base border-0 rounded-xl bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                    {searchQuery && (
-                      <button
-                        onClick={handleClearSearch}
-                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                      >
-                        <X className="w-5 h-5" />
-                      </button>
+        <div className="mb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Search (left) */}
+            <div className="relative max-w-2xl w-full md:w-2/3">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-purple-200 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000"></div>
+                <div className="relative bg-white rounded-xl p-1 shadow">
+                  <div className="flex items-center">
+                    <div className="relative flex-1">
+                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <Input
+                        placeholder="Search by website name, URL, or domain..."
+                        value={searchQuery}
+                        onChange={(e) => handleSearchChange(e.target.value)}
+                        onFocus={() => setShowSuggestions(true)}
+                        onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                        className="pl-12 pr-12 py-4 text-base border-0 rounded-xl bg-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+
+                      {searchQuery && (
+                        <button
+                          onClick={handleClearSearch}
+                          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                      )}
+                    </div>
+                    {isSearching && (
+                      <div className="ml-3 mr-2">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+                      </div>
                     )}
                   </div>
-                  {isSearching && (
-                    <div className="ml-3 mr-2">
-                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
-                    </div>
-                  )}
                 </div>
               </div>
+
+              {/* Enhanced Search Suggestions */}
+              <AnimatePresence>
+                {showSuggestions && searchSuggestions.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    className="absolute z-50 w-full mt-3 bg-white/95 backdrop-blur-lg border border-gray-200/50 rounded-2xl shadow-2xl max-h-96 overflow-y-auto"
+                  >
+                    <div className="p-2">
+                      {searchSuggestions.map((website, index) => (
+                        <motion.div
+                          key={website.id}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                          onClick={() => handleSuggestionClick(website)}
+                          className="flex items-center gap-4 p-4 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer rounded-xl transition-all duration-200 border border-transparent hover:border-blue-200 group"
+                        >
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                            {website.bannerImage ? (
+                              <img 
+                                src={getImageUrl(website.bannerImage)} 
+                                alt={website.name}
+                                className="w-full h-full object-cover rounded-xl"
+                              />
+                            ) : (
+                              <Globe className="w-6 h-6 text-blue-500" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-semibold text-gray-900 truncate text-left">{website.name}</p>
+                            <p className="text-sm text-blue-600 truncate text-left">
+                              {website.domain || `/${website.slug}`}
+                            </p>
+                            <p className="text-xs text-gray-500 text-left">{website._count.pages} pages</p>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-all duration-200" />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            
-            {/* Enhanced Search Suggestions */}
-            <AnimatePresence>
-              {showSuggestions && searchSuggestions.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                  className="absolute z-50 w-full mt-3 bg-white/95 backdrop-blur-lg border border-gray-200/50 rounded-2xl shadow-2xl max-h-96 overflow-y-auto"
+
+            {/* View mode toggle (right) */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 bg-white backdrop-blur-sm rounded-full px-2 py-1.5">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  aria-label="Grid view"
+                  aria-pressed={viewMode === 'grid'}
+                  className={`p-2 rounded-full transition-all transform flex items-center justify-center ${viewMode === 'grid' ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105' : 'text-gray-400 hover:bg-white/10'}`}
                 >
-                  <div className="p-2">
-                    {searchSuggestions.map((website, index) => (
-                      <motion.div
-                        key={website.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                        onClick={() => handleSuggestionClick(website)}
-                        className="flex items-center gap-4 p-4 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 cursor-pointer rounded-xl transition-all duration-200 border border-transparent hover:border-blue-200 group"
-                      >
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                          {website.bannerImage ? (
-                            <img 
-                              src={getImageUrl(website.bannerImage)} 
-                              alt={website.name}
-                              className="w-full h-full object-cover rounded-xl"
-                            />
-                          ) : (
-                            <Globe className="w-6 h-6 text-blue-500" />
-                          )}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-gray-900 truncate text-left">{website.name}</p>
-                          <p className="text-sm text-blue-600 truncate text-left">
-                            {website.domain || `/${website.slug}`}
-                          </p>
-                          <p className="text-xs text-gray-500 text-left">{website._count.pages} pages</p>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-all duration-200" />
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <LayoutGrid className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  aria-label="List view"
+                  aria-pressed={viewMode === 'list'}
+                  className={`p-2 rounded-full transition-all transform flex items-center justify-center ${viewMode === 'list' ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105' : 'text-gray-400 hover:bg-white/10'}`}
+                >
+                  <List className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+          </div>
 
         {/* Results Info */}
         {/* Results Info removed as requested */}
 
-        {/* Websites Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {currentWebsites.map((website, index) => (
-            <motion.div
-              key={website.id}
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              transition={{ duration: 0.4, delay: index * 0.1, type: 'spring', stiffness: 120 }}
-            >
-              <Card className="relative overflow-hidden shadow-lg border-0 rounded-3xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 cursor-pointer group">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-indigo-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <CardHeader className="relative z-10 p-0">
-                  <div className="relative h-52 w-full overflow-hidden rounded-t-3xl">
-                    {/* Website Banner/Image */}
-                    {website.bannerImage ? (
-                      <img
-                        src={getImageUrl(website.bannerImage)}
-                        alt={website.name + ' Banner'}
-                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-100 flex items-center justify-center">
-                        <Globe className="w-20 h-20 text-blue-400 group-hover:text-blue-600 duration-500 group-hover:scale-110 transition-transform" />
+        {/* Websites Grid / List based on viewMode */}
+        {viewMode === 'grid' ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {currentWebsites.map((website, index) => (
+              <motion.div
+                key={website.id}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                transition={{ duration: 0.4, delay: index * 0.1, type: 'spring', stiffness: 120 }}
+              >
+                <Card className="relative overflow-hidden shadow-lg border-0 rounded-3xl bg-white/90 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 cursor-pointer group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-indigo-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <CardHeader className="relative z-10 p-0">
+                    <div className="relative h-52 w-full overflow-hidden rounded-t-3xl">
+                      {website.bannerImage ? (
+                        <img
+                          src={getImageUrl(website.bannerImage)}
+                          alt={website.name + ' Banner'}
+                          className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-100 flex items-center justify-center">
+                          <Globe className="w-20 h-20 text-blue-400 group-hover:text-blue-600 duration-500 group-hover:scale-110 transition-transform" />
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                        <h3 className="text-xl font-bold truncate mb-1 drop-shadow-lg" title={website.name}>
+                          {website.name}
+                        </h3>
+                        <p className="text-sm text-blue-100 truncate">
+                          {website.domain ? (
+                            <a
+                              href={website.domain.startsWith('http') ? website.domain : `https://${website.domain}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              {website.domain}
+                            </a>
+                          ) : (
+                            <span className="text-blue-200/70">/{website.slug}</span>
+                          )}
+                        </p>
                       </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="relative z-10 p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-gray-600 group-hover:text-blue-600 transition-colors duration-300">
+                        <BarChart3 className="w-5 h-5" />
+                        <span className="font-medium">{website._count.pages} pages</span>
+                      </div>
+                      <Button
+                        className="font-semibold py-3 px-6 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-indigo-600 transform hover:scale-105 transition-all duration-300 group-hover:animate-pulse"
+                        onClick={() => router.push(`/dashboard/websites/${website.id}`)}
+                      >
+                        <span>Manage</span>
+                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {currentWebsites.map((website) => (
+              <motion.div key={website.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white border border-gray-200 rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition-shadow">
+                <div className="flex items-center gap-4">
+                  <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
+                    {website.bannerImage ? (
+                      <img src={getImageUrl(website.bannerImage)} alt={website.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <Globe className="w-8 h-8 text-blue-400" />
                     )}
-                    
-                    {/* Overlay with website info */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-xl font-bold truncate mb-1 drop-shadow-lg" title={website.name}>
-                        {website.name}
-                      </h3>
-                      <p className="text-sm text-blue-100 truncate">
-                        {website.domain ? (
-                          <a
-                            href={website.domain.startsWith('http') ? website.domain : `https://${website.domain}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {website.domain}
-                          </a>
-                        ) : (
-                          <span className="text-blue-200/70">/{website.slug}</span>
-                        )}
-                      </p>
-                    </div>
                   </div>
-                </CardHeader>
-                
-                <CardContent className="relative z-10 p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-gray-600 group-hover:text-blue-600 transition-colors duration-300">
-                      <BarChart3 className="w-5 h-5" />
-                      <span className="font-medium">{website._count.pages} pages</span>
-                    </div>
-                    <Button
-                      className="font-semibold py-3 px-6 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-indigo-600 transform hover:scale-105 transition-all duration-300 group-hover:animate-pulse"
-                      onClick={() => router.push(`/dashboard/websites/${website.id}`)}
-                    >
-                      <span>Manage</span>
-                      <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                    </Button>
+                  <div className="min-w-0">
+                    <p className="font-semibold text-gray-900 truncate">{website.name}</p>
+                    <p className="text-sm text-blue-600 truncate">{website.domain || `/${website.slug}`}</p>
+                    <p className="text-xs text-gray-500">{website._count.pages} pages</p>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+                </div>
+                <div>
+                  <Button onClick={() => router.push(`/dashboard/websites/${website.id}`)} variant="outline" className="py-2 px-4 rounded-md">
+                    Manage
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         {/* No Results Message */}
         {displayWebsites.length === 0 && !loading && (
