@@ -9,7 +9,7 @@ const prisma = new PrismaClient({
 
 // Helper function to get website URL from environment variables
 const getWebsiteUrl = (slug: string): string => {
-  const envKey = `WEBSITE_URL_${slug}`;  // Use slug as-is, not uppercase
+  const envKey = `WEBSITE_URL_${slug}`;  
   const envUrl = process.env[envKey];
   console.log(`🔗 Looking for env var ${envKey}:`, envUrl);
   return envUrl || '';
@@ -92,20 +92,16 @@ export const getAllWebsites = async (req: Request, res: Response) => {
       
       whereClause.OR = searchConditions;
       
-      console.log('🔍 Raw search term:', searchTerm);
-      console.log('🧹 Clean search term:', cleanSearchTerm);
-      console.log('🏅 Matching slugs:', matchingSlugs);
-      console.log('📋 Where clause:', JSON.stringify(whereClause, null, 2));
+      
     }
 
     // First, let's see what data we have in the database
     const allWebsites = await prisma.website.findMany({
       select: { id: true, name: true, slug: true, domain: true }
     });
-    console.log('📊 Total websites in DB:', allWebsites.length);
-    console.log('🗂️ All website data:', JSON.stringify(allWebsites, null, 2));
+    
 
-    // Get total count for pagination
+    
     const totalCount = await prisma.website.count({ where: whereClause });
 
     // Calculate pagination
@@ -126,7 +122,7 @@ export const getAllWebsites = async (req: Request, res: Response) => {
       take: limitNumber
     });
     
-    console.log('📝 Websites found after query:', websites.length);
+    
     if (websites.length > 0) {
       console.log('📄 First result:', JSON.stringify(websites[0], null, 2));
     }
@@ -277,7 +273,7 @@ export const createWebsite = async (req: AuthRequest, res: Response) => {
 export const updateWebsite = async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, slug, domain, logo, themeConfig, phone, email, address, workingHours } = req.body;
+    const { name, slug, domain, logo, themeConfig, phone, email, address, workingHours, isActive, isAdminEnabled } = req.body;
 
     const website = await prisma.website.update({
       where: { id },
@@ -290,7 +286,9 @@ export const updateWebsite = async (req: AuthRequest, res: Response) => {
         ...(phone !== undefined && { phone }),
         ...(email !== undefined && { email }),
         ...(address !== undefined && { address }),
-        ...(workingHours !== undefined && { workingHours })
+        ...(workingHours !== undefined && { workingHours }),
+        ...(isActive !== undefined && { isActive }),
+        ...(isAdminEnabled !== undefined && { isAdminEnabled }),
       }
     });
 

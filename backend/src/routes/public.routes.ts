@@ -43,7 +43,23 @@ router.get('/websites/:slug', async (req, res) => {
   }
 });
 
-// Get all websites (public - limited data)
+// Lightweight status check — used by firm website middleware (no auth required)
+router.get('/website-status/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params
+    const website = await prisma.website.findUnique({
+      where: { slug },
+      select: { isActive: true, isAdminEnabled: true }
+    })
+    if (!website) {
+      return res.status(404).json({ success: false, error: 'Website not found' })
+    }
+    res.json({ success: true, data: { isActive: website.isActive, isAdminEnabled: website.isAdminEnabled } })
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message })
+  }
+});
+
 router.get('/websites', async (req, res) => {
   try {
     const websites = await prisma.website.findMany({

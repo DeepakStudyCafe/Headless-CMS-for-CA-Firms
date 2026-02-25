@@ -38,7 +38,7 @@ export function PageContent({ page }: { page: any }) {
                 {section.imageUrl && (
                   <div className="absolute inset-0">
                     <Image src={getImageUrl(section.imageUrl)} alt="Hero" fill className="object-cover opacity-40" priority />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+                    <div className="absolute inset-0" />
                   </div>
                 )}
 

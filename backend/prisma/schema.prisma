@@ -43,12 +43,15 @@ model Website {
   email       String?
   address     String?
   workingHours String? @map("working_hours") @default("Mon - Sat: 9:30 AM - 7:00 PM")
+  isActive       Boolean  @default(true) @map("is_active")
+  isAdminEnabled Boolean  @default(true) @map("is_admin_enabled")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   
   pages       Page[]
   auditLogs   AuditLog[]
   analytics   Analytics[]
+  siteAdmin   SiteAdmin?
 
   @@map("websites")
 }
@@ -136,4 +139,20 @@ model Analytics {
 
   @@unique([websiteId, pageSlug, date])
   @@map("analytics")
+}
+
+// Site-admin credential per website (one per website, managed from central admin-dashboard)
+model SiteAdmin {
+  id             String    @id @default(uuid())
+  websiteId      String    @unique @map("website_id")
+  email          String
+  passwordHash   String    @map("password_hash")
+  failedAttempts Int       @default(0) @map("failed_attempts")
+  lockedUntil    DateTime? @map("locked_until")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  website        Website   @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@map("site_admins")
 }

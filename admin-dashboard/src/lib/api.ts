@@ -108,4 +108,13 @@ export const analyticsAPI = {
     apiClient.post('/analytics/track', { websiteId, pageSlug }),
 }
 
+// Site-Admin Credential Management API (central admin sets credentials for each website's built-in panel)
+export const siteAdminAPI = {
+  /** Get credential info (no password) for a website's site admin */
+  getInfo: (websiteId: string) => apiClient.get(`/site-admin/credentials/${websiteId}`),
+  /** Create or update the site admin credentials for a website */
+  upsert: (websiteId: string, email: string, password: string) =>
+    apiClient.put(`/site-admin/credentials/${websiteId}`, { email, password }),
+}
+
 export default apiClient

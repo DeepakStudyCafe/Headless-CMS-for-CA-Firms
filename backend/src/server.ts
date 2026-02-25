@@ -16,6 +16,7 @@ import revalidateRoutes from './routes/revalidate.routes';
 import analyticsRoutes from './routes/analytics.routes';
 import publicRoutes from './routes/public.routes';
 import formRoutes from './routes/form.routes';
+import siteAdminRoutes from './routes/siteAdmin.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -56,7 +57,7 @@ app.use(cors({
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.warn('❌ Blocked CORS request from origin:', origin);
+      
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -109,7 +110,7 @@ app.get('/health/db', async (req, res) => {
       timestamp: new Date().toISOString() 
     });
   } catch (error: any) {
-    console.error('❌ Database health check failed:', error);
+    
     res.status(500).json({ 
       status: 'error', 
       database: 'disconnected',
@@ -129,6 +130,7 @@ app.use('/api/media', mediaRoutes);
 app.use('/api/revalidate', revalidateRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/forms', formRoutes);
+app.use('/api/site-admin', siteAdminRoutes);
 
 // Error handling
 app.use(notFound);
@@ -140,7 +142,6 @@ const initializeDatabase = async () => {
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
     
-    console.log('🔗 Connecting to database...');
     await prisma.$connect();
     console.log('✅ Database connected successfully');
     

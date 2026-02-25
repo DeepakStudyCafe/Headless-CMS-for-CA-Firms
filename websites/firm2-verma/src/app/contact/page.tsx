@@ -1,8 +1,24 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, MessageSquare } from 'lucide-react'
-import { submitContactForm } from '@/lib/api'
+import { submitContactForm, getWebsiteData } from '@/lib/api'
+
+interface ContactContent {
+  heroTitle?: string
+  heroSubtitle?: string
+  phone2?: string
+  email2?: string
+  mapUrl?: string
+}
+interface WebsiteData {
+  name?: string
+  phone?: string
+  email?: string
+  address?: string
+  workingHours?: string
+  themeConfig?: { contactContent?: ContactContent }
+}
 
 interface FormData {
   firstName: string
@@ -21,6 +37,13 @@ export default function ContactPage() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [websiteData, setWebsiteData] = useState<WebsiteData | null>(null)
+
+  useEffect(() => {
+    getWebsiteData().then(setWebsiteData).catch(() => {})
+  }, [])
+
+  const cc: ContactContent = (websiteData?.themeConfig?.contactContent) || {}
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -67,11 +90,11 @@ export default function ContactPage() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl md:text-6xl font-extralight text-gray-900 mb-8">
-              Contact Verma & Co.
+              {cc.heroTitle || websiteData?.name || 'Contact Us'}
             </h1>
             <div className="w-24 h-[1px] bg-black mx-auto mb-8"></div>
             <p className="text-xl font-light text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Reach out to our team of financial experts for personalized consultation and professional services.
+              {cc.heroSubtitle || 'Reach out to our team of financial experts for personalized consultation and professional services.'}
             </p>
           </motion.div>
         </div>
@@ -90,9 +113,7 @@ export default function ContactPage() {
               <MapPin className="h-8 w-8 text-gray-900 mb-6" />
               <h3 className="text-xl font-light text-gray-900 mb-4">Address</h3>
               <p className="text-gray-600 font-light leading-relaxed">
-                456 Corporate Avenue,<br />
-                Gurugram - 122001,<br />
-                Haryana, India
+                {websiteData?.address}
               </p>
             </motion.div>
 
@@ -105,8 +126,8 @@ export default function ContactPage() {
               <Phone className="h-8 w-8 text-gray-900 mb-6" />
               <h3 className="text-xl font-light text-gray-900 mb-4">Phone</h3>
               <p className="text-gray-600 font-light leading-relaxed">
-                +91 99876 54321<br />
-                +91 124 456 7890
+                {websiteData?.phone}
+                {cc.phone2 && <><br />{cc.phone2}</>}
               </p>
             </motion.div>
 
@@ -119,8 +140,8 @@ export default function ContactPage() {
               <Mail className="h-8 w-8 text-gray-900 mb-6" />
               <h3 className="text-xl font-light text-gray-900 mb-4">Email</h3>
               <p className="text-gray-600 font-light leading-relaxed">
-                contact@vermaandco.com<br />
-                services@vermaandco.com
+                {websiteData?.email}
+                {cc.email2 && <><br />{cc.email2}</>}
               </p>
             </motion.div>
 
@@ -133,8 +154,7 @@ export default function ContactPage() {
               <Clock className="h-8 w-8 text-gray-900 mb-6" />
               <h3 className="text-xl font-light text-gray-900 mb-4">Hours</h3>
               <p className="text-gray-600 font-light leading-relaxed">
-                Monday - Friday: 9:00 - 18:00<br />
-                Saturday: 10:00 - 16:00
+                {websiteData?.workingHours}
               </p>
             </motion.div>
           </div>
@@ -163,7 +183,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.7 }}
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.4157719392995!2d77.06192631507845!3d28.459496082475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19d582e38859%3A0x2dcf9c8a54de8af6!2sGurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1642678912345!5m2!1sen!2sin"
+                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.4157719392995!2d77.06192631507845!3d28.459496082475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19d582e38859%3A0x2dcf9c8a54de8af6!2sGurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1642678912345!5m2!1sen!2sin'}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

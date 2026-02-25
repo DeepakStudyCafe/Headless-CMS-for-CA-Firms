@@ -94,15 +94,15 @@ export default function DashboardPage() {
     
     try {
       setIsSearching(true)
-      console.log('🔍 Performing search for:', searchTerm)
+      
       
       // Don't show loading for search, just update results
       const response = await websiteAPI.getAll({ search: searchTerm })
-      console.log('✅ Search results:', response.data.data.websites)
+      
       
       setAllWebsites(response.data.data.websites)
     } catch (error: any) {
-      console.error('❌ Search error:', error)
+      
       toast({
         variant: 'destructive',
         title: 'Search Failed',

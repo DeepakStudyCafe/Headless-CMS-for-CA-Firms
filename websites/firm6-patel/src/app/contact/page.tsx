@@ -1,8 +1,24 @@
 'use client'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
-import { useState } from 'react'
-import { submitContactForm } from '@/lib/api'
+import { useState, useEffect } from 'react'
+import { submitContactForm, getWebsiteData } from '@/lib/api'
+
+interface ContactContent {
+  heroTitle?: string
+  heroSubtitle?: string
+  phone2?: string
+  email2?: string
+  mapUrl?: string
+}
+interface WebsiteData {
+  name?: string
+  phone?: string
+  email?: string
+  address?: string
+  workingHours?: string
+  themeConfig?: { contactContent?: ContactContent }
+}
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -13,6 +29,13 @@ export default function ContactPage() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [websiteData, setWebsiteData] = useState<WebsiteData | null>(null)
+
+  useEffect(() => {
+    getWebsiteData().then(setWebsiteData).catch(() => {})
+  }, [])
+
+  const cc: ContactContent = (websiteData?.themeConfig?.contactContent) || {}
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -56,9 +79,9 @@ export default function ContactPage() {
       {/* Header Section */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
+          <h1 className="text-4xl font-bold mb-4">{cc.heroTitle || websiteData?.name || 'Contact Us'}</h1>
           <p className="text-xl opacity-90">
-            Get in touch with us. We'd love to hear from you and answer any questions you may have.
+            {cc.heroSubtitle || "Get in touch with us. We'd love to hear from you and answer any questions you may have."}
           </p>
         </div>
       </div>
@@ -81,7 +104,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">Address</h3>
-                    <p className="text-gray-600">456 Corporate Plaza<br />Mumbai, India 400001</p>
+                    <p className="text-gray-600">{websiteData?.address}</p>
                   </div>
                 </div>
 
@@ -93,7 +116,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                    <p className="text-gray-600">+91 98765 43211</p>
+                    <p className="text-gray-600">{websiteData?.phone}{cc.phone2 && <><br />{cc.phone2}</>}</p>
                   </div>
                 </div>
 
@@ -105,7 +128,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600">contact@patelconsulting.com</p>
+                    <p className="text-gray-600">{websiteData?.email}{cc.email2 && <><br />{cc.email2}</>}</p>
                   </div>
                 </div>
 
@@ -117,7 +140,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">Business Hours</h3>
-                    <p className="text-gray-600">Mon - Fri: 9:00 AM - 6:00 PM<br />Sat: 9:00 AM - 2:00 PM</p>
+                    <p className="text-gray-600">{websiteData?.workingHours}</p>
                   </div>
                 </div>
               </div>

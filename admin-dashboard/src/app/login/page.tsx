@@ -31,10 +31,10 @@ export default function LoginPage() {
       setAuth(user, token)
       localStorage.setItem('token', token)
 
-      // Verify auth was set properly
+      
       setTimeout(() => {
         const authData = localStorage.getItem('auth-storage')
-        console.log('Auth data after login:', authData)
+        
       }, 100)
 
       toast({

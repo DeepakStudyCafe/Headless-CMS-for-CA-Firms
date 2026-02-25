@@ -1,9 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
-import { TopHeader } from '@/components/TopHeader'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
+import { ConditionalLayout } from '@/components/ConditionalLayout'
 
 const poppins = Poppins({ weight: ['300', '400', '600', '700'], subsets: ['latin'] })
 
@@ -16,10 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <TopHeader />
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
   )

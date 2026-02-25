@@ -22,7 +22,7 @@ export default function DashboardLayout({
   useEffect(() => {
     // Redirect to login if not authenticated and initialization is complete
     if (isInitialized && !isAuthenticated) {
-      console.log('Not authenticated, redirecting to login')
+      
       router.push('/login')
     }
   }, [isAuthenticated, isInitialized, router])

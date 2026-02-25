@@ -1,8 +1,24 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, Star, Users, Award } from 'lucide-react'
-import { submitContactForm } from '@/lib/api'
+import { submitContactForm, getWebsiteData } from '@/lib/api'
+
+interface ContactContent {
+  heroTitle?: string
+  heroSubtitle?: string
+  phone2?: string
+  email2?: string
+  mapUrl?: string
+}
+interface WebsiteData {
+  name?: string
+  phone?: string
+  email?: string
+  address?: string
+  workingHours?: string
+  themeConfig?: { contactContent?: ContactContent }
+}
 
 interface FormData {
   firstName: string
@@ -21,6 +37,13 @@ export default function ContactPage() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [websiteData, setWebsiteData] = useState<WebsiteData | null>(null)
+
+  useEffect(() => {
+    getWebsiteData().then(setWebsiteData).catch(() => {})
+  }, [])
+
+  const cc: ContactContent = (websiteData?.themeConfig?.contactContent) || {}
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -66,10 +89,10 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6">
-              Connect with Gupta Financial
+              {cc.heroTitle || websiteData?.name || 'Contact Us'}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Your trusted partner for comprehensive financial solutions and business growth strategies.
+              {cc.heroSubtitle || 'Your trusted partner for comprehensive financial solutions and business growth strategies.'}
             </p>
           </motion.div>
         </div>
@@ -145,9 +168,7 @@ export default function ContactPage() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-3">Our Location</h3>
               <p className="text-gray-600">
-                789 Finance Tower,<br />
-                Sector 18, Noida,<br />
-                UP - 201301, India
+                {websiteData?.address}
               </p>
             </motion.div>
 
@@ -162,8 +183,8 @@ export default function ContactPage() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-3">Call Us</h3>
               <p className="text-gray-600">
-                +91 95678 12345<br />
-                +91 120 987 6543
+                {websiteData?.phone}
+                {cc.phone2 && <><br />{cc.phone2}</>}
               </p>
             </motion.div>
 
@@ -178,8 +199,8 @@ export default function ContactPage() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-3">Email Us</h3>
               <p className="text-gray-600">
-                hello@guptafinancial.com<br />
-                support@guptafinancial.com
+                {websiteData?.email}
+                {cc.email2 && <><br />{cc.email2}</>}
               </p>
             </motion.div>
 
@@ -194,8 +215,7 @@ export default function ContactPage() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-3">Working Hours</h3>
               <p className="text-gray-600">
-                Mon - Fri: 9:00 - 18:00<br />
-                Sat: 10:00 - 16:00
+                {websiteData?.workingHours}
               </p>
             </motion.div>
           </div>
@@ -315,7 +335,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 1.1 }}
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.6037829725!2d77.32072531507997!3d28.584362582413824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sSector%2018%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1642678912345!5m2!1sen!2sin"
+                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.6037829725!2d77.32072531507997!3d28.584362582413824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce626851f7009%3A0x621185133cfd1ad1!2sSector%2018%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1642678912345!5m2!1sen!2sin'}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

@@ -1,8 +1,24 @@
 'use client'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
-import { useState } from 'react'
-import { submitContactForm } from '@/lib/api'
+import { useState, useEffect } from 'react'
+import { submitContactForm, getWebsiteData } from '@/lib/api'
+
+interface ContactContent {
+  heroTitle?: string
+  heroSubtitle?: string
+  phone2?: string
+  email2?: string
+  mapUrl?: string
+}
+interface WebsiteData {
+  name?: string
+  phone?: string
+  email?: string
+  address?: string
+  workingHours?: string
+  themeConfig?: { contactContent?: ContactContent }
+}
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -13,6 +29,13 @@ export default function ContactPage() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [websiteData, setWebsiteData] = useState<WebsiteData | null>(null)
+
+  useEffect(() => {
+    getWebsiteData().then(setWebsiteData).catch(() => {})
+  }, [])
+
+  const cc: ContactContent = (websiteData?.themeConfig?.contactContent) || {}
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -60,7 +83,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Get In Touch
+            {cc.heroTitle || websiteData?.name || 'Contact Us'}
           </motion.h1>
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
@@ -68,7 +91,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            We'd love to hear from you. Reach out to us for any inquiries or consultations.
+            {cc.heroSubtitle || "We'd love to hear from you. Reach out to us for any inquiries or consultations."}
           </motion.p>
         </div>
       </section>
@@ -89,7 +112,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800">Address</h3>
-                    <p className="text-gray-600">801, Financial Tower, BKC, Mumbai - 400051</p>
+                    <p className="text-gray-600">{websiteData?.address}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -98,7 +121,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800">Phone</h3>
-                    <p className="text-gray-600">+91 22 6789 1234</p>
+                    <p className="text-gray-600">{websiteData?.phone}{cc.phone2 && <><br />{cc.phone2}</>}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -107,7 +130,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800">Email</h3>
-                    <p className="text-gray-600">info@kapoorfinancial.com</p>
+                    <p className="text-gray-600">{websiteData?.email}{cc.email2 && <><br />{cc.email2}</>}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -116,7 +139,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-800">Working Hours</h3>
-                    <p className="text-gray-600">Mon - Sat: 9:00 AM - 6:30 PM</p>
+                    <p className="text-gray-600">{websiteData?.workingHours}</p>
                   </div>
                 </div>
               </div>

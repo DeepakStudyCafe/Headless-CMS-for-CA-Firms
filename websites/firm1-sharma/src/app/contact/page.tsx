@@ -1,8 +1,24 @@
 'use client'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
-import { useState } from 'react'
-import { submitContactForm } from '@/lib/api'
+import { useState, useEffect } from 'react'
+import { submitContactForm, getWebsiteData } from '@/lib/api'
+
+interface ContactContent {
+  heroTitle?: string
+  heroSubtitle?: string
+  phone2?: string
+  email2?: string
+  mapUrl?: string
+}
+interface WebsiteData {
+  name?: string
+  phone?: string
+  email?: string
+  address?: string
+  workingHours?: string
+  themeConfig?: { contactContent?: ContactContent }
+}
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -13,6 +29,13 @@ export default function ContactPage() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [websiteData, setWebsiteData] = useState<WebsiteData | null>(null)
+
+  useEffect(() => {
+    getWebsiteData().then(setWebsiteData).catch(() => {})
+  }, [])
+
+  const cc: ContactContent = (websiteData?.themeConfig?.contactContent) || {}
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -61,7 +84,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Get in Touch with Sharma & Associates
+            {cc.heroTitle || websiteData?.name || 'Contact Us'}
           </motion.h1>
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
@@ -69,7 +92,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            We're here to help with all your financial and business needs. Connect with our expert team today.
+            {cc.heroSubtitle || "We're here to help with all your financial and business needs. Connect with our expert team today."}
           </motion.p>
         </div>
       </section>
@@ -89,9 +112,7 @@ export default function ContactPage() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Our Office</h3>
               <p className="text-gray-600">
-                123 Business District,<br />
-                New Delhi - 110001,<br />
-                India
+                {websiteData?.address}
               </p>
             </motion.div>
 
@@ -106,8 +127,8 @@ export default function ContactPage() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Call Us</h3>
               <p className="text-gray-600">
-                +91 98765 43210<br />
-                +91 11 2345 6789
+                {websiteData?.phone}
+                {cc.phone2 && <><br />{cc.phone2}</>}
               </p>
             </motion.div>
 
@@ -122,8 +143,8 @@ export default function ContactPage() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Email Us</h3>
               <p className="text-gray-600">
-                info@sharmaassociates.com<br />
-                support@sharmaassociates.com
+                {websiteData?.email}
+                {cc.email2 && <><br />{cc.email2}</>}
               </p>
             </motion.div>
 
@@ -138,8 +159,7 @@ export default function ContactPage() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Office Hours</h3>
               <p className="text-gray-600">
-                Mon - Fri: 9:00 AM - 6:00 PM<br />
-                Sat: 10:00 AM - 4:00 PM
+                {websiteData?.workingHours}
               </p>
             </motion.div>
           </div>
@@ -158,7 +178,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.7 }}
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.7094479677764!2d77.21619331508165!3d28.613939982420993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2daa9eb4d0b%3A0x717971125923e5d!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1642678912345!5m2!1sen!2sin"
+                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.7094479677764!2d77.21619331508165!3d28.613939982420993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2daa9eb4d0b%3A0x717971125923e5d!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1642678912345!5m2!1sen!2sin'}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

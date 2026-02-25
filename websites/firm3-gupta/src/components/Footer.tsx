@@ -9,12 +9,25 @@ import { useState, useEffect } from 'react'
 import { getWebsiteData } from '@/lib/api'
 import { Facebook, X, Linkedin, Instagram, Youtube } from 'lucide-react'
 
+interface FooterContent {
+  description?: string
+  facebook?: string
+  twitter?: string
+  linkedin?: string
+  instagram?: string
+  youtube?: string
+  copyright?: string
+}
+
 interface WebsiteData {
   name: string
   logo?: string
   phone?: string
   email?: string
   address?: string
+  themeConfig?: {
+    footerContent?: FooterContent
+  }
 }
 
 export function Footer() {
@@ -28,6 +41,8 @@ export function Footer() {
     fetchWebsiteData()
   }, [])
 
+  const fc: FooterContent = websiteData?.themeConfig?.footerContent || {}
+
   return (
     <footer className="bg-blue-900 text-white mt-1 pt-12 pb-4">
       <div className="container mx-auto px-4">
@@ -35,17 +50,17 @@ export function Footer() {
           <div className="mb-8 md:mb-0 md:w-1/3 shrink-0">
             <div className="flex items-center space-x-3 mb-4 shrink-0 overflow-hidden">
               <Image
-                src="https://api.digitechai.in/uploads/footerlogo.png"
+                src={websiteData?.logo || 'https://api.digitechai.in/uploads/footerlogo.png'}
                 alt={websiteData?.name || 'Logo'}
                 width={50}
                 height={50}
                 className="object-contain"
                 unoptimized
               />
-              <h3 className="text-xl font-bold p-0">{websiteData?.name || 'Sharma & Associates'}</h3>
+              <h3 className="text-xl font-bold p-0">{websiteData?.name || 'Gupta & Associates'}</h3>
             </div>
             <p className="text-gray-300">
-              Professional Chartered Accountants providing expert financial, taxation, audit, compliance, advisory, and strategic business consulting services with integrity and excellence.
+              {fc.description || 'Professional Chartered Accountants providing expert financial, taxation, audit, compliance, advisory, and strategic business consulting services with integrity and excellence.'}
             </p>
           </div>
           <div className="flex flex-1 flex-col md:flex-row md:justify-between gap-8">
@@ -84,26 +99,25 @@ export function Footer() {
             </div>
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
-              <p className="text-gray-300 mb-2">Email: info@sharma-associates.com</p>
-              <p className="text-gray-300 mb-2">Phone: +91 11 4567 8901</p>
-              <p className="text-gray-300 mb-2">1201, Business Tower, Connaught Place, New Delhi - 110001</p>
-              <p className="text-gray-300">Phone: +91 123 456 7890</p>
+              {websiteData?.email && <p className="text-gray-300 mb-2">Email: {websiteData.email}</p>}
+              {websiteData?.phone && <p className="text-gray-300 mb-2">Phone: {websiteData.phone}</p>}
+              {websiteData?.address && <p className="text-gray-300 mb-2">{websiteData.address}</p>}
 
               {/* Social Media Icons under Contact */}
               <div className="flex gap-4 mt-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
+                <a href={fc.facebook || 'https://facebook.com'} target="_blank" rel="noopener" aria-label="Facebook" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
                   <Facebook className="text-white w-5 h-5" />
                 </a>
-                <a href="https://x.com" target="_blank" rel="noopener" aria-label="X" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
+                <a href={fc.twitter || 'https://x.com'} target="_blank" rel="noopener" aria-label="X" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
                   <X className="text-white w-5 h-5" />
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
+                <a href={fc.linkedin || 'https://linkedin.com'} target="_blank" rel="noopener" aria-label="LinkedIn" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
                   <Linkedin className="text-white w-5 h-5" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
+                <a href={fc.instagram || 'https://instagram.com'} target="_blank" rel="noopener" aria-label="Instagram" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
                   <Instagram className="text-white w-5 h-5" />
                 </a>
-                <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
+                <a href={fc.youtube || 'https://youtube.com'} target="_blank" rel="noopener" aria-label="YouTube" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
                   <Youtube className="text-white w-5 h-5" />
                 </a>
               </div>
@@ -112,7 +126,7 @@ export function Footer() {
         </div>
         <div className="flex flex-col items-center gap-6 mt-8">
           <div className="border-t border-gray-800 pt-6 w-full text-center text-gray-300">
-            <p>&copy; 2026 Gupta & Associates. All rights reserved.</p>
+            <p>{fc.copyright || '\u00a9 2026 Gupta & Associates. All rights reserved.'}</p>
           </div>
         </div>
       </div>
