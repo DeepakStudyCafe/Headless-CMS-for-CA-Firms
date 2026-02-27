@@ -1,10 +1,10 @@
-import { getPostBySlug } from '@/lib/api'
+﻿import { getPostBySlug } from '@/lib/api'
 import { sanitizeContent } from '@/lib/sanitize'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
-export const revalidate = 60
+export const revalidate = 300
 
 interface Props {
   params: { slug: string }

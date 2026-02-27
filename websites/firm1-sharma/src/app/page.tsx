@@ -1,8 +1,8 @@
-import { getPageData, getPosts } from '@/lib/api'
+﻿import { getPageData, getPosts } from '@/lib/api'
 import { PageContent } from '@/components/PageContent'
 import { Metadata } from 'next'
 
-export const revalidate = 60 // ISR: Revalidate every 60 seconds
+export const revalidate = 300 // ISR: Revalidate every 60 seconds
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageData('home')

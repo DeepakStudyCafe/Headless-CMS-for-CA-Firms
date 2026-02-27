@@ -1,7 +1,7 @@
-import { getPostById } from '@/lib/api'
+﻿import { getPostById } from '@/lib/api'
 import { redirect, notFound } from 'next/navigation'
 
-export const revalidate = 60
+export const revalidate = 300
 
 interface Props {
   params: { id: string }

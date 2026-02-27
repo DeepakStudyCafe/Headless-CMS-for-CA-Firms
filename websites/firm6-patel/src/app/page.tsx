@@ -1,9 +1,9 @@
-import '@/app/globals.css'
+﻿import '@/app/globals.css'
 import { getPageData, getPosts } from '@/lib/api'
 import { PageContent } from '@/components/PageContent'
 import { Metadata } from 'next'
 
-export const revalidate = 60
+export const revalidate = 300
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageData('home')

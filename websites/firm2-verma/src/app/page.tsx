@@ -1,7 +1,7 @@
-import { getPageData, getPosts } from '@/lib/api'
+﻿import { getPageData, getPosts } from '@/lib/api'
 import { PageContent } from '@/components/PageContent'
 
-export const revalidate = 60
+export const revalidate = 300
 
 export default async function HomePage() {
   const page = await getPageData('home')

@@ -44,23 +44,41 @@ export function UpdatesTicker({ posts }: Props) {
     const SPEED = 22
     function tick(ts: number) {
       if (!scrollRef.current) return
-      const dt = lastTs ? Math.min(ts - lastTs, 50) : 0
-      lastTs = ts
-      accumRef.current += SPEED * dt / 1000
-      const whole = Math.floor(accumRef.current)
-      if (whole >= 1) {
-        scrollRef.current.scrollTop += whole
-        accumRef.current -= whole
-        const { scrollTop, scrollHeight, clientHeight } = scrollRef.current
-        if (scrollTop + clientHeight >= scrollHeight - 2) {
-          scrollRef.current.scrollTop = 0
-          accumRef.current = 0
+      // Skip work when tab is hidden — avoids wasted CPU
+      if (!document.hidden) {
+        const dt = lastTs ? Math.min(ts - lastTs, 50) : 0
+        lastTs = ts
+        accumRef.current += SPEED * dt / 1000
+        const whole = Math.floor(accumRef.current)
+        if (whole >= 1) {
+          scrollRef.current.scrollTop += whole
+          accumRef.current -= whole
+          const { scrollTop, scrollHeight, clientHeight } = scrollRef.current
+          if (scrollTop + clientHeight >= scrollHeight - 2) {
+            scrollRef.current.scrollTop = 0
+            accumRef.current = 0
+          }
         }
+      } else {
+        lastTs = 0 // reset so no jump when tab becomes visible again
       }
       rafRef.current = requestAnimationFrame(tick)
     }
+    // Pause RAF entirely when tab hidden, resume when visible
+    function onVisibility() {
+      if (document.hidden) {
+        if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null }
+      } else {
+        lastTs = 0
+        rafRef.current = requestAnimationFrame(tick)
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibility)
     rafRef.current = requestAnimationFrame(tick)
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
   }, [posts.length, paused, searchResults])
 
   const handleSearch = useCallback((val: string) => {
