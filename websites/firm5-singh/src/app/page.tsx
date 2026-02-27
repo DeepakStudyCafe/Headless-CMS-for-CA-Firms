@@ -1,4 +1,4 @@
-import { getPageData } from '@/lib/api'
+import { getPageData, getPosts } from '@/lib/api'
 import { PageContent } from '@/components/PageContent'
 import { Metadata } from 'next'
 
@@ -19,5 +19,6 @@ export default async function HomePage() {
     return <div>Page not found</div>
   }
 
-  return <PageContent page={page} />
+  const tickerPosts = await getPosts(20)
+  return <PageContent page={page} tickerPosts={tickerPosts} />
 }

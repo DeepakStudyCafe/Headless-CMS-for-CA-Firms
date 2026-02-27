@@ -6,6 +6,7 @@ import { getImageUrl } from '@/lib/api'
 import { ContactFormModal } from './ContactFormModal'
 import { Building2, Users, Award, TrendingUp, Shield, FileText, CheckCircle, Briefcase, Calculator, Sparkles } from 'lucide-react'
 import { useState } from 'react'
+import { UpdatesTicker, TickerPost } from './UpdatesTicker'
 
 interface Section {
   id: string
@@ -35,7 +36,7 @@ const iconMap: any = {
   sparkles: Sparkles,
 }
 
-export function PageContent({ page }: { page: Page }) {
+export function PageContent({ page, tickerPosts = [] }: { page: Page; tickerPosts?: TickerPost[] }) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
 
   return (
@@ -46,7 +47,7 @@ export function PageContent({ page }: { page: Page }) {
         title="Contact Us"
       />
       <div className="min-h-screen">
-      {page.sections.map((section, index) => {
+      {[...page.sections.filter((s: any) => s.type === 'hero'), ...page.sections.filter((s: any) => s.type === 'features' || s.type === 'services'), ...page.sections.filter((s: any) => s.type !== 'hero' && s.type !== 'features' && s.type !== 'services')].map((section, index) => {
         const isEven = index % 2 === 0
 
         if (section.type === 'hero') {
@@ -192,7 +193,8 @@ export function PageContent({ page }: { page: Page }) {
                     </p>
                   )}
                 </motion.div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="flex flex-col lg:flex-row gap-6 items-start">
+                  <div className="flex-1 grid sm:grid-cols-2 xl:grid-cols-3 gap-8 min-w-0">
                   {items.map((item: any, i: number) => {
                     const Icon = iconMap[item.icon] || Building2
                     return (
@@ -213,6 +215,12 @@ export function PageContent({ page }: { page: Page }) {
                       </motion.div>
                     )
                   })}
+                  </div>
+                  {tickerPosts.length > 0 && (
+                    <aside className="hidden lg:block w-72 flex-shrink-0 self-stretch" aria-label="Latest updates">
+                      <UpdatesTicker posts={tickerPosts} />
+                    </aside>
+                  )}
                 </div>
               </div>
             </section>

@@ -45,11 +45,11 @@ export const getAllWebsites = async (req: Request, res: Response) => {
     // Build where clause for search
     const whereClause: any = {};
     if (searchTerm) {
-      // Clean the search term - remove protocols and www
+     
       const cleanSearchTerm = searchTerm
-        .replace(/^https?:\/\//, '') // Remove http:// or https://
-        .replace(/^www\./, '') // Remove www.
-        .replace(/\/$/, '') // Remove trailing slash
+        .replace(/^https?:\/\//, '') 
+        .replace(/^www\./, '') 
+        .replace(/\/$/, '') 
         .trim();
       
       // Get all domain mappings from environment variables

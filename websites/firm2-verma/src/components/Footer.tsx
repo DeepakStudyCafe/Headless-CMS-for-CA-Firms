@@ -47,7 +47,7 @@ export function Footer() {
           <div className="mb-8 md:mb-0 md:w-1/3 shrink-0">
             <div className="flex items-center space-x-3 mb-4 shrink-0 overflow-hidden">
               <Image
-                src={websiteData?.logo || 'https://api.digitechai.in/uploads/footerlogo.png'}
+                src="https://api.digitechai.in/uploads/footerlogo.png"
                 alt={websiteData?.name || 'Logo'}
                 width={50}
                 height={50}

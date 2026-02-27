@@ -5,8 +5,9 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ContactFormModal } from './ContactFormModal'
 import { ArrowRight, CheckCircle, Star, Users, Target, TrendingUp, Award, Shield, Globe } from 'lucide-react'
+import { UpdatesTicker, TickerPost } from './UpdatesTicker'
 
-export function PageContent({ page }: { page: any }) {
+export function PageContent({ page, tickerPosts = [] }: { page: any; tickerPosts?: TickerPost[] }) {
   if (!page) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -23,7 +24,7 @@ export function PageContent({ page }: { page: any }) {
 
   return (
     <div className="min-h-screen bg-white">
-      {page.sections?.map((section: any, idx: number) => {
+      {[...( page.sections?.filter((s: any) => s.type === 'hero') ?? []), ...( page.sections?.filter((s: any) => s.type === 'features' || s.type === 'services') ?? []), ...( page.sections?.filter((s: any) => s.type !== 'hero' && s.type !== 'features' && s.type !== 'services') ?? [])].map((section: any, idx: number) => {
         switch (section.type) {
           case 'hero':
             return (
@@ -162,7 +163,8 @@ export function PageContent({ page }: { page: any }) {
                       </p>
                     )}
                   </div>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="flex flex-col lg:flex-row gap-6 items-start">
+                    <div className="flex-1 grid md:grid-cols-2 xl:grid-cols-3 gap-6 min-w-0">
                     {section.textContent?.items?.map((item: any, i: number) => {
                       const Icon = serviceIcons[item.icon as keyof typeof serviceIcons] || Target
                       return (
@@ -183,6 +185,12 @@ export function PageContent({ page }: { page: any }) {
                         </motion.div>
                       )
                     })}
+                    </div>
+                    {tickerPosts.length > 0 && (
+                      <aside className="hidden lg:block w-72 flex-shrink-0 self-stretch" aria-label="Latest updates">
+                        <UpdatesTicker posts={tickerPosts} />
+                      </aside>
+                    )}
                   </div>
                 </div>
               </motion.section>

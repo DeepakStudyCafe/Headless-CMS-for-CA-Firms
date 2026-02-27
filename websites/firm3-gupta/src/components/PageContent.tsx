@@ -6,6 +6,7 @@ import { getImageUrl } from '@/lib/api'
 import { ContactFormModal } from './ContactFormModal'
 import { Briefcase, Users, Award, TrendingUp, Shield, FileText, CheckCircle, Calculator } from 'lucide-react'
 import { useState } from 'react'
+import { UpdatesTicker, TickerPost } from './UpdatesTicker'
 
 const iconMap: any = {
   briefcase: Briefcase,
@@ -18,7 +19,7 @@ const iconMap: any = {
   calculator: Calculator,
 }
 
-export function PageContent({ page }: { page: any }) {
+export function PageContent({ page, tickerPosts = [] }: { page: any; tickerPosts?: TickerPost[] }) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
 
   return (
@@ -29,7 +30,7 @@ export function PageContent({ page }: { page: any }) {
         title="Contact Us"
       />
       <div className="min-h-screen">
-        {page.sections.map((section: any, index: number) => {
+        {[...page.sections.filter((s: any) => s.type === 'hero'), ...page.sections.filter((s: any) => s.type === 'features' || s.type === 'services'), ...page.sections.filter((s: any) => s.type !== 'hero' && s.type !== 'features' && s.type !== 'services')].map((section: any, index: number) => {
           
           // Hero Section
           if (section.type === 'hero') {
@@ -146,7 +147,8 @@ export function PageContent({ page }: { page: any }) {
                     <h2 className="text-2xl md:text-3xl font-extrabold mb-2 text-gray-900">{section.textContent?.heading}</h2>
                     {section.textContent?.subheading && <p className="text-sm text-gray-600 max-w-2xl mx-auto">{section.textContent.subheading}</p>}
                   </motion.div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  <div className="flex flex-col lg:flex-row gap-6 items-start">
+                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-w-0">
                     {items.map((item: any, i: number) => {
                       const Icon = iconMap[item.icon] || Calculator
                       return (
@@ -161,6 +163,12 @@ export function PageContent({ page }: { page: any }) {
                         </motion.div>
                       )
                     })}
+                    </div>
+                    {tickerPosts.length > 0 && (
+                      <aside className="hidden lg:block w-72 flex-shrink-0 self-stretch" aria-label="Latest updates">
+                        <UpdatesTicker posts={tickerPosts} />
+                      </aside>
+                    )}
                   </div>
                 </div>
               </section>

@@ -204,3 +204,73 @@ export async function submitCareerForm(formData: FormData) {
     return { success: false, message: 'An error occurred. Please try again.' }
   }
 }
+
+// ─── StudyCafe "What's New" post helpers ─────────────────────────────────────
+
+export interface WPPost {
+  id: number
+  date: string
+  slug: string
+  title: string
+  excerpt: string
+  content: string
+  link: string
+  authorName: string
+  featuredImage: string
+}
+
+/** Fetch combined latest posts from the StudyCafe proxy (all sites). */
+export async function getPosts(perPage = 20): Promise<WPPost[]> {
+  try {
+    const res = await fetch(`${API_URL}/public/whats-new/posts?per_page=${perPage}`, {
+      next: { revalidate: 60 },
+    })
+    if (!res.ok) return []
+    const json = await res.json()
+    return Array.isArray(json.data?.posts) ? json.data.posts : []
+  } catch {
+    return []
+  }
+}
+
+/** Fetch a single post by slug. */
+export async function getPostBySlug(slug: string): Promise<WPPost | null> {
+  try {
+    const res = await fetch(`${API_URL}/public/whats-new/post/${encodeURIComponent(slug)}`, {
+      next: { revalidate: 60 },
+    })
+    if (!res.ok) return null
+    const json = await res.json()
+    return json?.success && json.data?.post ? json.data.post : null
+  } catch {
+    return null
+  }
+}
+
+/** Search posts by keyword via the StudyCafe proxy. */
+export async function searchPosts(q: string, perPage = 10): Promise<WPPost[]> {
+  try {
+    const res = await fetch(`${API_URL}/public/whats-new/search?q=${encodeURIComponent(q)}&per_page=${perPage}`, {
+      cache: 'no-store',
+    })
+    if (!res.ok) return []
+    const json = await res.json()
+    return Array.isArray(json.data?.posts) ? json.data.posts : []
+  } catch {
+    return []
+  }
+}
+
+/** Fetch a single post by numeric ID (for ?p= style WP links). */
+export async function getPostById(id: number): Promise<WPPost | null> {
+  try {
+    const res = await fetch(`${API_URL}/public/whats-new/post/by-id/${id}`, {
+      next: { revalidate: 60 },
+    })
+    if (!res.ok) return null
+    const json = await res.json()
+    return json?.success && json.data?.post ? json.data.post : null
+  } catch {
+    return null
+  }
+}
