@@ -82,11 +82,11 @@ app.use(cookieParser());
 const rootUploadsPath = path.resolve(__dirname, '../uploads');
 app.use('/uploads', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Cache-Control', 'no-store');
+  res.header('Cache-Control', 'public, max-age=86400, stale-while-revalidate=3600'); // 1 day browser cache
   res.header('Vary', 'Origin');
   next();
 });
-app.use('/uploads', express.static(rootUploadsPath));
+app.use('/uploads', express.static(rootUploadsPath, { maxAge: '1d' }));
 
 // Health check
 app.get('/health', (req, res) => {

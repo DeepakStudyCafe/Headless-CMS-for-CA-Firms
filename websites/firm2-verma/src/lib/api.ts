@@ -5,7 +5,7 @@ const WEBSITE_SLUG = 'verma-accounting'
 export async function getWebsiteData() {
   try {
     const res = await fetch(`${API_URL}/public/website/${WEBSITE_SLUG}`, {
-      cache: 'no-store',
+      next: { revalidate: 3600 },
     })
     
     if (!res.ok) {
@@ -25,7 +25,7 @@ export async function getPageData(slug: string) {
   try {
     // Use public API endpoint directly
     const res = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${slug}`, {
-      cache: 'no-store',
+      next: { revalidate: 3600 },
     })
     
     if (!res.ok) {
@@ -33,7 +33,7 @@ export async function getPageData(slug: string) {
       const altSlug = slug === 'services' ? 'service' : slug === 'service' ? 'services' : null
       if (altSlug) {
         const altRes = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${altSlug}`, {
-          cache: 'no-store',
+          next: { revalidate: 3600 },
         })
         if (altRes.ok) {
           const altData = await altRes.json()
@@ -189,7 +189,7 @@ export interface WPPost {
 export async function getPosts(perPage = 20): Promise<WPPost[]> {
   try {
     const res = await fetch(`${API_URL}/public/whats-new/posts?per_page=${perPage}`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 86400 },
     })
     if (!res.ok) return []
     const json = await res.json()
@@ -203,7 +203,7 @@ export async function getPosts(perPage = 20): Promise<WPPost[]> {
 export async function getPostBySlug(slug: string): Promise<WPPost | null> {
   try {
     const res = await fetch(`${API_URL}/public/whats-new/post/${encodeURIComponent(slug)}`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 86400 },
     })
     if (!res.ok) return null
     const json = await res.json()
@@ -217,7 +217,7 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
 export async function searchPosts(q: string, perPage = 10): Promise<WPPost[]> {
   try {
     const res = await fetch(`${API_URL}/public/whats-new/search?q=${encodeURIComponent(q)}&per_page=${perPage}`, {
-      cache: 'no-store',
+      next: { revalidate: 3600 },
     })
     if (!res.ok) return []
     const json = await res.json()
@@ -226,9 +226,10 @@ export async function searchPosts(q: string, perPage = 10): Promise<WPPost[]> {
     return []
   }
 }
+export async function getPostById(id: number): Promise<WPPost | null> {
   try {
     const res = await fetch(`${API_URL}/public/whats-new/post/by-id/${id}`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 86400 },
     })
     if (!res.ok) return null
     const json = await res.json()

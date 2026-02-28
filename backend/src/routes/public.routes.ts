@@ -240,7 +240,7 @@ router.get('/whats-new/posts', async (req, res) => {
     const posts = (await wpRes.json())
       .map(normalisePost)
       .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    setCache(cacheKey, posts, 5 * 60 * 1000) // cache 5 minutes
+    setCache(cacheKey, posts, 24 * 60 * 60 * 1000) // cache 24 hours
     res.json({ success: true, data: { posts } })
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message })
@@ -258,7 +258,7 @@ router.get('/whats-new/post/by-id/:id', async (req, res) => {
     const wpRes = await fetch(url, { headers: WP_HEADERS })
     if (!wpRes.ok) return res.status(404).json({ success: false, error: 'Post not found' })
     const post = normalisePost(await wpRes.json())
-    setCache(cacheKey, post, 10 * 60 * 1000) // cache 10 minutes
+    setCache(cacheKey, post, 24 * 60 * 60 * 1000) // cache 24 hours
     res.json({ success: true, data: { post } })
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message })
@@ -280,7 +280,7 @@ router.get('/whats-new/post/:slug', async (req, res) => {
       return res.status(404).json({ success: false, error: 'Post not found' })
     }
     const post = normalisePost(arr[0])
-    setCache(cacheKey, post, 10 * 60 * 1000) // cache 10 minutes
+    setCache(cacheKey, post, 24 * 60 * 60 * 1000) // cache 24 hours
     res.json({ success: true, data: { post } })
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message })
@@ -293,12 +293,16 @@ router.get('/whats-new/search', async (req, res) => {
     const q = String(req.query.q || '').trim()
     if (!q) return res.json({ success: true, data: { posts: [] } })
     const perPage = Math.min(Number(req.query.per_page) || 10, 20)
+    const cacheKey = `wp:search:${q.toLowerCase()}:${perPage}`
+    const cached = getCache(cacheKey)
+    if (cached) return res.json({ success: true, data: { posts: cached } })
     const url = `${WP_BASE}/posts?search=${encodeURIComponent(q)}&per_page=${perPage}&orderby=date&order=desc&_embed=1`
     const wpRes = await fetch(url, { headers: WP_HEADERS })
     if (!wpRes.ok) return res.status(wpRes.status).json({ success: false, error: 'WP API error' })
     const posts = (await wpRes.json())
       .map(normalisePost)
       .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    setCache(cacheKey, posts, 60 * 60 * 1000) // cache search results 1 hour
     res.json({ success: true, data: { posts } })
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message })
