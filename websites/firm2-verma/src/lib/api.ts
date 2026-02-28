@@ -194,7 +194,7 @@ export async function getPosts(perPage = 20): Promise<WPPost[]> {
     if (!res.ok) return []
     const json = await res.json()
     return Array.isArray(json.data?.posts) ? json.data.posts : []
-  } catch {
+  } catch (error) {
     return []
   }
 }
@@ -208,7 +208,7 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
     if (!res.ok) return null
     const json = await res.json()
     return json?.success && json.data?.post ? json.data.post : null
-  } catch {
+  } catch (error) {
     return null
   }
 }
@@ -222,7 +222,7 @@ export async function searchPosts(q: string, perPage = 10): Promise<WPPost[]> {
     if (!res.ok) return []
     const json = await res.json()
     return Array.isArray(json.data?.posts) ? json.data.posts : []
-  } catch {
+  } catch (error) {
     return []
   }
 }
@@ -234,7 +234,7 @@ export async function getPostById(id: number): Promise<WPPost | null> {
     if (!res.ok) return null
     const json = await res.json()
     return json?.success && json.data?.post ? json.data.post : null
-  } catch {
+  } catch (error) {
     return null
   }
 }
