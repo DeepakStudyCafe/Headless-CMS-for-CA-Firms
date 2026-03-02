@@ -9,7 +9,7 @@ export default function TemplateFeatures() {
     {
       icon: Monitor,
       title: 'Professional Design',
-      description: '6 beautifully crafted templates with modern layouts and professional aesthetics',
+      description: 'Beautifully crafted templates with modern layouts and professional aesthetics',
     },
     {
       icon: Settings,
@@ -58,7 +58,7 @@ export default function TemplateFeatures() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="section-subheading"
           >
-            All 6 templates come with powerful admin features to manage your website effortlessly
+            All Templates come with powerful admin features to manage your website effortlessly
           </motion.p>
         </div>
 
@@ -172,7 +172,7 @@ export default function TemplateFeatures() {
             href="/templates"
             className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-10 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg group"
           >
-            View All 6 Templates
+            View All Templates
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

@@ -31,7 +31,7 @@ export default function AboutContent() {
   ]
 
   const stats = [
-    { number: '6', label: 'Premium Templates' },
+    { number: '10+', label: 'Premium Templates' },
     { number: '50+', label: 'Happy Clients' },
     { number: '100+', label: 'Websites Launched' },
     { number: 'Admin', label: 'Panel in Every Site' },
@@ -116,7 +116,7 @@ export default function AboutContent() {
                   Having worked closely with numerous CA firms, we understood their unique needs and challenges. We realized that CA professionals needed not just beautiful websites, but also the ability to manage and update content themselves without technical knowledge.
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  This insight led us to create a collection of <span className="font-bold text-gray-900">6 professionally designed templates</span>, each with a built-in admin panel. Site owners can manage pages, services, team members, blog posts, and even submit content change requests - all without touching a single line of code.
+                  This insight led us to create a collection of <span className="font-bold text-gray-900">Professionally designed templates</span>, each with a built-in admin panel. Site owners can manage pages, services, team members, blog posts, and even submit content change requests - all without touching a single line of code.
                 </p>
                 <p className="text-gray-600 leading-relaxed">
                   Today, we're proud to serve over 50 CA firms across India, helping them grow their practice through effective online presence with complete content control. Our commitment to quality, user-friendly admin features, and continuous improvement drives everything we do.

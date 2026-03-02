@@ -6,7 +6,7 @@ import { CheckCircle, Phone } from 'lucide-react'
 
 export default function About() {
   const benefits = [
-    '6 professionally designed templates',
+    'Professionally designed templates',
     'Admin panel for site owners',
     'Content request system',
     'Easy content management',
@@ -27,10 +27,10 @@ export default function About() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              6 Premium Templates with Full Admin Control
+              Premium Templates with Full Admin Control
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Each of our 6 professionally designed templates includes a powerful admin panel that puts you in complete control of your website. As a site owner, you can manage all aspects of your website - from updating services and team information to publishing blog posts and responding to client inquiries.
+              Each of our Professionally designed templates includes a powerful admin panel that puts you in complete control of your website. As a site owner, you can manage all aspects of your website - from updating services and team information to publishing blog posts and responding to client inquiries.
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               What makes our templates special? The built-in content request system. Whenever you need to update your website content, you can submit a request directly through your admin panel. No more emails back and forth - everything is streamlined and tracked in one place.
@@ -79,9 +79,9 @@ export default function About() {
                     </p>
                   </div>
                   <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
-                    <h3 className="text-2xl font-bold mb-2">6 Beautiful Designs</h3>
+                    <h3 className="text-2xl font-bold mb-2">Beautiful Designs</h3>
                     <p className="text-white/90">
-                      Choose from 6 premium templates designed specifically for CA firms and professionals.
+                      Choose from Premium templates designed specifically for CA firms and professionals.
                     </p>
                   </div>
                 </div>

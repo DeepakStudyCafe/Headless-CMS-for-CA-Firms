@@ -122,7 +122,7 @@ showcase-website/
 - 4 statistics showcasing company metrics
 - Feature highlights (6 features)
 - About section with benefits
-- Templates preview with 6 templates
+- Templates preview with Templates
 - Stats counter section
 - Client testimonials (3 testimonials)
 - Call-to-action section

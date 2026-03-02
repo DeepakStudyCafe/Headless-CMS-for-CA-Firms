@@ -21,7 +21,7 @@ export default function Stats() {
     },
     {
       icon: Award,
-      number: '6',
+      number: '10+',
       label: 'Premium Templates',
       color: 'text-purple-600',
       bgColor: 'bg-purple-100',

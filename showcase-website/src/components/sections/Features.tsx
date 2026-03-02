@@ -28,8 +28,8 @@ export default function Features() {
     },
     {
       icon: Code,
-      title: '6 Template Choices',
-      description: 'Choose from 6 professionally designed templates, each with unique style and features.',
+      title: 'Template Choices',
+      description: 'Choose from Professionally designed templates, each with unique style and features.',
       color: 'text-orange-500',
       bgColor: 'bg-orange-100',
     },

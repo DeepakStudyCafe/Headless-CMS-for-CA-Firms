@@ -9,7 +9,7 @@ export default function ServicesContent() {
     {
       icon: Monitor,
       title: 'Website Templates',
-      description: '6 professionally designed templates with admin panels for easy content management and site control.',
+      description: 'Professionally designed templates with admin panels for easy content management and site control.',
       features: [
         'Choice of 6 premium designs',
         'Built-in admin dashboard',
@@ -216,7 +216,7 @@ export default function ServicesContent() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { step: '01', title: 'Choose Template', description: 'Select from 6 professionally designed templates for CA firms.' },
+              { step: '01', title: 'Choose Template', description: 'Select from Professionally designed templates for CA firms.' },
               { step: '02', title: 'Get Admin Access', description: 'Receive your admin dashboard credentials to manage your site.' },
               { step: '03', title: 'Manage Content', description: 'Update content and submit change requests through admin panel.' },
               { step: '04', title: 'Launch & Grow', description: 'Go live and easily maintain your website with admin control.' },
