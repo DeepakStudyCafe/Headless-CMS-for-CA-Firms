@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Webtel - Professional CA Firm Website Templates',
+  title: 'WebNest - Professional CA Firm Website Templates',
   description: 'Premium website templates for Chartered Accountant firms. Modern, responsive, and feature-rich designs to elevate your practice.',
   keywords: 'CA website, chartered accountant, accounting website, tax advisor website, professional website templates',
 }

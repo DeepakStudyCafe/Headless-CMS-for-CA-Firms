@@ -55,7 +55,13 @@ export default function PaymentForm() {
 
   if (isSuccess) {
     return (
-      <div className="pt-24 pb-20 gradient-bg min-h-screen flex items-center justify-center">
+      <div
+        className="pb-20 min-h-screen flex items-center justify-center"
+        style={{
+          ['--hero-image' as any]: "url(/about.jpeg)",
+          backgroundImage: 'url(/about.jpeg)'
+        }}
+      >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -102,20 +108,22 @@ export default function PaymentForm() {
   }
 
   return (
-    <div className="pt-24 pb-20 gradient-bg min-h-screen">
-      <div className="container-custom">
+    <div
+      className="pb-20 hero-bg min-h-screen"
+      style={{
+        ['--hero-image' as any]: "url(/about.jpeg)",
+        backgroundImage: 'url(/about.jpeg)'
+      }}
+    >
+      <div className="container-custom pt-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Complete Your Payment
-          </h1>
-          <p className="text-xl text-gray-600">
-            Choose your plan and get started with your professional website today
-          </p>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Complete Your Payment</h1>
+          <p className="text-xl text-white/80">Choose your plan and get started with your professional website today</p>
         </motion.div>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -211,7 +219,7 @@ export default function PaymentForm() {
                     value={formData.template}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                    className="w-full text-gray-600 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                   >
                     <option value="">Choose a template</option>
                     {templates.map((template) => (
@@ -222,50 +230,7 @@ export default function PaymentForm() {
                   </select>
                 </div>
 
-                {/* Plan Selection */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Select Plan *
-                  </label>
-                  <div className="space-y-3">
-                    {plans.map((plan) => (
-                      <label
-                        key={plan.id}
-                        className={`flex items-start gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all duration-300 ${
-                          formData.plan === plan.id
-                            ? 'border-primary-600 bg-primary-50'
-                            : 'border-gray-200 hover:border-primary-300'
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="plan"
-                          value={plan.id}
-                          checked={formData.plan === plan.id}
-                          onChange={handleChange}
-                          className="mt-1"
-                        />
-                        <div className="flex-1">
-                          <div className="flex justify-between items-start mb-2">
-                            <div className="font-bold text-gray-900">{plan.name}</div>
-                            <div className="flex items-center gap-1 text-primary-600 font-bold text-lg">
-                              <IndianRupee className="w-5 h-5" />
-                              {plan.price}
-                            </div>
-                          </div>
-                          <ul className="space-y-1">
-                            {plan.features.map((feature, idx) => (
-                              <li key={idx} className="text-sm text-gray-600 flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-500" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+               
 
                 <button
                   type="submit"

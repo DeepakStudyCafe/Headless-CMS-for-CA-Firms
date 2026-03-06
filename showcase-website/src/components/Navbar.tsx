@@ -28,10 +28,13 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white shadow-lg py-3'
-          : 'bg-transparent py-5'
+        isScrolled ? 'py-3' : 'py-5'
       }`}
+      style={{
+        backgroundColor: isScrolled ? 'white' : 'transparent',
+        boxShadow: isScrolled ? undefined : 'none',
+        backdropFilter: isScrolled ? undefined : 'none',
+      }}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between">
@@ -40,8 +43,8 @@ export default function Navbar() {
             <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xl">W</span>
             </div>
-            <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-blue-600'}`}>
-              Webtel
+            <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
+              WebNest
             </span>
           </Link>
 
@@ -51,9 +54,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-medium transition-colors duration-300 hover:text-primary-600 ${
-                  isScrolled ? 'text-gray-700' : 'text-white/70'
-                }`}
+                className={`font-medium transition-colors duration-300 hover:text-primary-600 ${isScrolled ? 'text-gray-700' : 'text-white'}`}
               >
                 {link.label}
               </Link>
@@ -75,6 +76,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2"
+            aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
               <X className={`w-6 h-6 ${isScrolled ? 'text-gray-900' : 'text-white'}`} />
@@ -86,13 +88,13 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-3 pt-4">
+          <div className={`lg:hidden mt-4 pb-4 ${isScrolled ? 'border-t border-gray-200 bg-white' : 'border-t-0 bg-transparent'}`}>
+            <div className="flex flex-col space-y-3 pt-4 px-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-700 hover:text-primary-600 font-medium py-2"
+                  className={`${isScrolled ? 'text-gray-700 hover:text-primary-600' : 'text-white hover:text-primary-200'} font-medium py-2`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}

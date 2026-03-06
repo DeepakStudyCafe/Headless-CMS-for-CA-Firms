@@ -14,7 +14,7 @@ export default function Footer() {
               <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">W</span>
               </div>
-              <span className="text-2xl font-bold text-white">Webtel</span>
+              <span className="text-2xl font-bold text-white">WebNest</span>
             </div>
             <p className="text-gray-400 mb-4 leading-relaxed">
               Professional website templates designed specifically for Chartered Accountant firms. Elevate your practice with our modern, responsive designs.
@@ -116,8 +116,8 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <a href="mailto:info@webtel.in" className="hover:text-primary-400 transition-colors duration-300">
-                    info@webtel.in
+                  <a href="mailto:info@WebNest.in" className="hover:text-primary-400 transition-colors duration-300">
+                    info@WebNest.in
                   </a>
                 </div>
               </li>
@@ -144,7 +144,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-400">
-            &copy; {currentYear} Webtel. All rights reserved. | 
+            &copy; {currentYear} WebNest. All rights reserved. | 
             <Link href="/privacy" className="hover:text-primary-400 transition-colors duration-300 ml-2">
               Privacy Policy
             </Link> | 

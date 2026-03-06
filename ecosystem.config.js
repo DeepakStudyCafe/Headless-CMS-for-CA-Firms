@@ -1,4 +1,3 @@
-// PM2 ecosystem configuration for production deployment
 
 module.exports = {
   apps: [

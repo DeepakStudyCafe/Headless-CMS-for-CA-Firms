@@ -84,9 +84,9 @@ export default function PricingContent() {
   ]
 
   return (
-    <div className="pt-24 pb-20">
+    <div className="pt-24 pb-20  min-h-screen" style={{ ['--hero-image' as any]: "url(/about.jpeg)", backgroundImage: 'url(/about.jpeg)'}}>
       {/* Hero Section */}
-      <section className="gradient-bg py-20">
+      <section className="py-20">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -94,12 +94,8 @@ export default function PricingContent() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Simple, Transparent Pricing
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Choose the perfect plan for your CA firm. No hidden fees, no surprises. All prices are one-time payments.
-            </p>
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Simple, Transparent Pricing</h1>
+            <p className="text-xl text-white/80 leading-relaxed">Choose the perfect plan for your CA firm. No hidden fees, no surprises. All prices are one-time payments.</p>
           </motion.div>
         </div>
       </section>

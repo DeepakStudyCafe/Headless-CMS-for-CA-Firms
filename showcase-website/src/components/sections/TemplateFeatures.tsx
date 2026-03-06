@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { CheckCircle, Monitor, Settings, Edit, FileText, Users, Mail, ArrowRight } from 'lucide-react'
+import { CheckCircle, Monitor, Settings, Edit, FileText, Users, Mail, ArrowRight, Zap } from 'lucide-react'
 
 export default function TemplateFeatures() {
   const features = [
@@ -153,7 +153,7 @@ export default function TemplateFeatures() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 text-center">
-                  ✨ No technical knowledge required - Easy to use interface
+                  <Zap className="w-5 h-5 inline-block mr-2 text-primary-600" /> No technical knowledge required - Easy to use interface
                 </p>
               </div>
             </div>

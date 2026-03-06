@@ -44,8 +44,8 @@ export default function ContactContent() {
     {
       icon: Mail,
       title: 'Email',
-      value: 'info@webtel.in',
-      link: 'mailto:info@webtel.in',
+      value: 'info@WebNest.in',
+      link: 'mailto:info@WebNest.in',
       color: 'text-blue-600',
       bgColor: 'bg-blue-100',
     },
@@ -76,22 +76,18 @@ export default function ContactContent() {
   ]
 
   return (
-    <div className="pt-24 pb-20">
+    <div className="pb-20 hero-bg" style={{ ['--hero-image' as any]: "url(/about.jpeg)" }}>
       {/* Hero Section */}
-      <section className="gradient-bg py-20">
+      <section className="py-20">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-4xl mx-auto pt-24"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Get in Touch
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-            </p>
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Get in Touch</h1>
+            <p className="text-xl text-white/80 leading-relaxed">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
           </motion.div>
         </div>
       </section>
@@ -116,10 +112,7 @@ export default function ContactContent() {
                   </div>
                   <h3 className="font-bold text-gray-900 mb-2">{info.title}</h3>
                   {info.link ? (
-                    <a
-                      href={info.link}
-                      className="text-gray-600 hover:text-primary-600 transition-colors duration-300"
-                    >
+                    <a href={info.link} className="text-gray-600 hover:text-primary-600 transition-colors duration-300">
                       {info.value}
                     </a>
                   ) : (
@@ -137,12 +130,7 @@ export default function ContactContent() {
         <div className="container-custom max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
               <div className="bg-white rounded-2xl shadow-xl p-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">Send us a Message</h2>
 
@@ -157,62 +145,25 @@ export default function ContactContent() {
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Your Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                        placeholder="John Doe"
-                      />
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Your Name *</label>
+                      <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300" placeholder="John Doe" />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
-                          Email *
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                          placeholder="john@example.com"
-                        />
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300" placeholder="john@example.com" />
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
-                          Phone
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                          placeholder="+91 98765 43210"
-                        />
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300" placeholder="+91 98765 43210" />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Subject *
-                      </label>
-                      <select
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                      >
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Subject *</label>
+                      <select name="subject" value={formData.subject} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300">
                         <option value="">Select a subject</option>
                         <option value="general">General Inquiry</option>
                         <option value="template">Template Questions</option>
@@ -223,25 +174,11 @@ export default function ContactContent() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Message *
-                      </label>
-                      <textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={5}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none"
-                        placeholder="Tell us more about your requirements..."
-                      ></textarea>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Message *</label>
+                      <textarea name="message" value={formData.message} onChange={handleChange} required rows={5} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none" placeholder="Tell us more about your requirements..."></textarea>
                     </div>
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
-                    >
+                    <button type="submit" disabled={isSubmitting} className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2">
                       {isSubmitting ? (
                         <>
                           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -260,52 +197,26 @@ export default function ContactContent() {
             </motion.div>
 
             {/* Info Side */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="space-y-8"
-            >
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="space-y-8">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Let's Talk</h2>
-                <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                  Whether you have a question about our templates, pricing, or anything else, our team is ready to answer all your questions.
-                </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  We're committed to providing exceptional service and support to help your CA practice succeed online.
-                </p>
+                <p className="text-lg text-gray-600 leading-relaxed mb-6">Whether you have a question about our templates, pricing, or anything else, our team is ready to answer all your questions.</p>
+                <p className="text-lg text-gray-600 leading-relaxed">We're committed to providing exceptional service and support to help your CA practice succeed online.</p>
               </div>
 
               <div className="bg-white rounded-2xl shadow-xl p-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Quick Response Time</h3>
                 <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-gray-700">Email inquiries: Within 2 hours</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-gray-700">Phone calls: Immediate response</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-gray-700">Support tickets: Within 24 hours</span>
-                  </li>
+                  <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" /><span className="text-gray-700">Email inquiries: Within 2 hours</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" /><span className="text-gray-700">Phone calls: Immediate response</span></li>
+                  <li className="flex items-start gap-3"><CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" /><span className="text-gray-700">Support tickets: Within 24 hours</span></li>
                 </ul>
               </div>
 
               <div className="bg-gradient-to-br from-primary-600 to-blue-700 rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Prefer to Schedule a Call?</h3>
-                <p className="mb-6 opacity-90">
-                  Book a free consultation with our team to discuss your needs in detail.
-                </p>
-                <a
-                  href="/schedule-call"
-                  className="inline-block bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  Schedule Now
-                </a>
+                <p className="mb-6 opacity-90">Book a free consultation with our team to discuss your needs in detail.</p>
+                <a href="/schedule-call" className="inline-block bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">Schedule Now</a>
               </div>
             </motion.div>
           </div>

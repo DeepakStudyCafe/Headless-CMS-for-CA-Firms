@@ -6,7 +6,7 @@ import { CheckCircle, Phone } from 'lucide-react'
 
 export default function About() {
   const benefits = [
-    'Professionally designed templates',
+    'Professionally  templates',
     'Admin panel for site owners',
     'Content request system',
     'Easy content management',
@@ -32,9 +32,7 @@ export default function About() {
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
               Each of our Professionally designed templates includes a powerful admin panel that puts you in complete control of your website. As a site owner, you can manage all aspects of your website - from updating services and team information to publishing blog posts and responding to client inquiries.
             </p>
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              What makes our templates special? The built-in content request system. Whenever you need to update your website content, you can submit a request directly through your admin panel. No more emails back and forth - everything is streamlined and tracked in one place.
-            </p>
+            
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               {benefits.map((benefit, index) => (

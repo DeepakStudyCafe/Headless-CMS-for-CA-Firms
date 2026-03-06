@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Target, Eye, Award, Users, Code, TrendingUp } from 'lucide-react'
+import { Target, Eye, Award, Users, Code, TrendingUp, User } from 'lucide-react'
 import Link from 'next/link'
 
 export default function AboutContent() {
@@ -24,10 +24,10 @@ export default function AboutContent() {
   ]
 
   const team = [
-    { name: 'Deepak Gupta', role: 'Founder & CEO', emoji: '👨‍💼' },
-    { name: 'Priya Sharma', role: 'Lead Designer', emoji: '👩‍💻' },
-    { name: 'Rahul Verma', role: 'Tech Lead', emoji: '👨‍💻' },
-    { name: 'Anjali Patel', role: 'Customer Success', emoji: '👩‍💼' },
+    { name: 'Deepak Gupta', role: 'Founder & CEO', icon: User },
+    { name: 'Priya Sharma', role: 'Lead Designer', icon: User },
+    { name: 'Rahul Verma', role: 'Tech Lead', icon: User },
+    { name: 'Anjali Patel', role: 'Customer Success', icon: User },
   ]
 
   const stats = [
@@ -38,20 +38,26 @@ export default function AboutContent() {
   ]
 
   return (
-    <div className="pt-24 pb-20">
+    <div
+      className="pb-20 min-h-screen"
+      style={{
+        ['--hero-image' as any]: "url('/about.jpeg')",
+        backgroundImage: "url('/about.jpeg')"
+      }}
+    >
       {/* Hero Section */}
-      <section className="gradient-bg py-20">
+      <section className="py-20">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-4xl mx-auto pt-24"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              About Webtel
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              About WebNest
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-xl text-white/80 leading-relaxed">
               We're passionate about helping Chartered Accountants establish a strong online presence. Our mission is to provide professional, affordable, and effective website solutions tailored specifically for CA firms.
             </p>
           </motion.div>
@@ -110,7 +116,7 @@ export default function AboutContent() {
             >
               <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  Webtel was founded in 2021 with a simple yet powerful vision: to help Chartered Accountants establish a professional online presence with full control over their website content through integrated admin panels.
+                  WebNest was founded in 2021 with a simple yet powerful vision: to help Chartered Accountants establish a professional online presence with full control over their website content through integrated admin panels.
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-6">
                   Having worked closely with numerous CA firms, we understood their unique needs and challenges. We realized that CA professionals needed not just beautiful websites, but also the ability to manage and update content themselves without technical knowledge.
@@ -176,8 +182,11 @@ export default function AboutContent() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="card p-6 text-center"
               >
-                <div className="w-24 h-24 bg-gradient-to-br from-primary-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 text-5xl">
-                  {member.emoji}
+                <div className="w-24 h-24 bg-gradient-to-br from-primary-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  {(() => {
+                    const Icon = (member as any).icon || Users
+                    return <Icon className="w-12 h-12 text-white" />
+                  })()}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
                 <p className="text-gray-600">{member.role}</p>

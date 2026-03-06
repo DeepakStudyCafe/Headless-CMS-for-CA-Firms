@@ -4,8 +4,8 @@ import Features from '@/components/sections/Features'
 import About from '@/components/sections/About'
 import TemplateFeatures from '@/components/sections/TemplateFeatures'
 import Stats from '@/components/sections/Stats'
-import Testimonials from '@/components/sections/Testimonials'
 import CTA from '@/components/sections/CTA'
+import FAQ from '@/components/sections/FAQ'
 import Footer from '@/components/Footer'
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
       <About />
       <TemplateFeatures />
       <Stats />
-      <Testimonials />
+      <FAQ />
       <CTA />
       <Footer />
     </main>

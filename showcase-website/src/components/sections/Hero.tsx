@@ -84,13 +84,13 @@ export default function Hero() {
             </section>
 
             {/* Stats banner placed below the hero */}
-            <section className="relative py-8 -mt-24 md:-mt-24 lg:-mt-24 ">
+            <section className="relative  py-8 -mt-24 md:-mt-24 lg:-mt-24 ">
                 <div className="container-custom relative z-20 ">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="relative z-30 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto bg-white rounded-xl p-6 shadow-md"
+                        className="relative z-30 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto bg-gray-100 rounded-xl p-4 shadow-md"
                     >
                         {[
                             { number: '10+', label: 'Premium Templates' },

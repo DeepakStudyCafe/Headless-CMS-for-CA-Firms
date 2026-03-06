@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, Check, ChevronLeft, ChevronRight, Settings, Mouse, ChevronDown } from 'lucide-react'
+import { ExternalLink, Check, ChevronLeft, ChevronRight, Settings, Mouse, ChevronDown, Edit, RefreshCw, Zap } from 'lucide-react'
 import Link from 'next/link'
 
 export default function TemplatesPageContent() {
@@ -111,23 +111,23 @@ export default function TemplatesPageContent() {
     }
 
     return (
-        <div className="pt-24 pb-20 gradient-bg min-h-screen">
+        <div className="pb-20">
             {/* Hero Section */}
-            <div className="container-custom py-16">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center max-w-4xl mx-auto mb-12"
-                >
-                    <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-                        Premium Website Templates
-                    </h1>
-                    <p className="text-xl text-gray-600 leading-relaxed">
-                        Each template includes admin panel, content management system, and powerful features for CA firms
-                    </p>
-                </motion.div>
+            <section className="  min-h-[500px]" style={{ ['--hero-image' as any]: "url('/about.jpeg')", backgroundImage: "url('/about.jpeg')" }}>
+                <div className="container-custom py-16">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="text-center max-w-4xl mx-auto mb-12 pt-24"
+                    >
+                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Premium Website Templates</h1>
+                        <p className="text-xl text-white/80 leading-relaxed">Each template includes admin panel, content management system, and powerful features for CA firms</p>
+                    </motion.div>
+                </div>
+            </section>
 
+            <div className="container-custom py-8">
                 {/* Filter Tabs */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -291,21 +291,31 @@ export default function TemplatesPageContent() {
                             {
                                 title: 'Content Management',
                                 description: 'Edit pages, services, team members, and blog posts directly from your dashboard',
-                                icon: '📝',
+                                icon: Edit,
                             },
                             {
                                 title: 'Request Changes',
                                 description: 'Submit content update requests and track their status in real-time',
-                                icon: '🔄',
+                                icon: RefreshCw,
                             },
                             {
                                 title: 'Easy Updates',
                                 description: 'No technical knowledge required - update your website with just a few clicks',
-                                icon: '✨',
+                                icon: Zap,
                             },
                         ].map((feature, idx) => (
                             <div key={idx} className="bg-gray-50 rounded-lg p-6 text-center">
-                                <div className="text-4xl mb-3">{feature.icon}</div>
+                                <div className="mb-3">
+                                    {typeof feature.icon === 'string' ? (
+                                        <div className="text-4xl">{feature.icon}</div>
+                                    ) : (
+                                        // lucide-react icon component
+                                        (() => {
+                                            const Icon = feature.icon as any
+                                            return <Icon className="w-8 h-8 mx-auto text-primary-600" />
+                                        })()
+                                    )}
+                                </div>
                                 <h4 className="font-bold text-gray-900 mb-2">{feature.title}</h4>
                                 <p className="text-sm text-gray-600">{feature.description}</p>
                             </div>

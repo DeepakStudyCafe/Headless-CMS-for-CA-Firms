@@ -44,7 +44,7 @@ export default function ScheduleCallContent() {
 
   if (isSuccess) {
     return (
-      <div className="pt-24 pb-20 gradient-bg min-h-screen flex items-center justify-center">
+      <div className="pb-20  min-h-screen flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -108,20 +108,16 @@ export default function ScheduleCallContent() {
   }
 
   return (
-    <div className="pt-24 pb-20 gradient-bg min-h-screen">
-      <div className="container-custom">
+    <div className="pb-20 hero-bg min-h-screen" style={{ ['--hero-image' as any]: "url(/about.jpeg)" }}>
+      <div className="container-custom pt-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Schedule a Free Consultation
-          </h1>
-          <p className="text-xl text-gray-600">
-            Book a call with our team to discuss your website needs. We're here to help you succeed!
-          </p>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-300 mb-4">Schedule a Free Consultation</h1>
+          <p className="text-xl text-white/80">Book a call with our team to discuss your website needs. We're here to help you succeed!</p>
         </motion.div>
 
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -219,7 +215,7 @@ export default function ScheduleCallContent() {
                       onChange={handleChange}
                       required
                       min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white text-gray-800"
                     />
                   </div>
 
@@ -232,11 +228,11 @@ export default function ScheduleCallContent() {
                       value={formData.time}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                      className="w-full text-gray-800 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white"
                     >
                       <option value="">Select time</option>
                       {timeSlots.map((slot) => (
-                        <option key={slot} value={slot}>
+                        <option key={slot} value={slot} className="text-gray-800">
                           {slot}
                         </option>
                       ))}
@@ -244,49 +240,7 @@ export default function ScheduleCallContent() {
                   </div>
                 </div>
 
-                {/* Call Type */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Call Type *
-                  </label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <label
-                      className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all duration-300 ${
-                        formData.callType === 'phone'
-                          ? 'border-primary-600 bg-primary-50'
-                          : 'border-gray-200 hover:border-primary-300'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="callType"
-                        value="phone"
-                        checked={formData.callType === 'phone'}
-                        onChange={handleChange}
-                      />
-                      <Phone className="w-5 h-5 text-primary-600" />
-                      <span className="font-semibold text-gray-900">Phone Call</span>
-                    </label>
-
-                    <label
-                      className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all duration-300 ${
-                        formData.callType === 'video'
-                          ? 'border-primary-600 bg-primary-50'
-                          : 'border-gray-200 hover:border-primary-300'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="callType"
-                        value="video"
-                        checked={formData.callType === 'video'}
-                        onChange={handleChange}
-                      />
-                      <Video className="w-5 h-5 text-primary-600" />
-                      <span className="font-semibold text-gray-900">Video Call</span>
-                    </label>
-                  </div>
-                </div>
+              
 
                 {/* Additional Message */}
                 <div>
@@ -380,14 +334,14 @@ export default function ScheduleCallContent() {
                   +91 98765 43210
                 </a>
                 <a
-                  href="mailto:info@webtel.in"
+                  href="mailto:info@WebNest.in"
                   className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                   </svg>
-                  info@webtel.in
+                  info@WebNest.in
                 </a>
               </div>
             </div>
