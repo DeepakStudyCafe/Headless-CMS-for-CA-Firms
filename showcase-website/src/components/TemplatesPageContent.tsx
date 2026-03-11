@@ -8,7 +8,7 @@ import Link from 'next/link'
 export default function TemplatesPageContent() {
     const [currentPage, setCurrentPage] = useState(1)
     const [activeFilter, setActiveFilter] = useState('all')
-    const templatesPerPage = 3
+    const templatesPerPage = 6
 
     const templates = [
         {
@@ -21,7 +21,21 @@ export default function TemplatesPageContent() {
             bgGradient: 'from-blue-900 to-blue-700',
             description: 'Classic professional design perfect for established firms',
             url: 'https://sadgurushakti.org',
-            image: '/sagartask-in.png',
+            image: '/sagartask.png',
+            pages: 16,
+        },
+
+         {
+            id: 10,
+            name: 'Template-4',
+            slug: 'Template-4',
+            theme: 'Emerald Green',
+            category: 'Professional',
+            color: '#059669',
+            bgGradient: 'from-emerald-900 to-emerald-700',
+            description: 'Template-4 preview',
+            url: 'http://localhost:8083/',
+            image: '/Template-4.png',
             pages: 16,
         },
         {
@@ -34,7 +48,7 @@ export default function TemplatesPageContent() {
             bgGradient: 'from-gray-900 to-gray-700',
             description: 'Clean, modern layout for contemporary practices',
             url: 'https://automatepractice.com',
-            image: '/sagartask-in.png',
+            image: '/automatepractice.png',
             pages: 14,
         },
         {
@@ -47,8 +61,21 @@ export default function TemplatesPageContent() {
             bgGradient: 'from-purple-900 to-purple-700',
             description: 'Bold and creative design for innovative firms',
             url: 'https://cadeepakgupta.com',
-            image: '/sagartask-in.png',
+            image: '/capracticeautomation.png',
             pages: 11,
+        },
+        {
+            id: 8,
+            name: 'Template-2',
+            slug: 'Template-2',
+            theme: 'Modern Minimal',
+            category: 'Modern',
+            color: '#0f172a',
+            bgGradient: 'from-gray-900 to-gray-700',
+            description: 'Template-2 preview',
+            url: 'http://localhost:8081/',
+            image: '/Template-2.png',
+            pages: 10,
         },
         {
             id: 4,
@@ -60,7 +87,7 @@ export default function TemplatesPageContent() {
             bgGradient: 'from-emerald-900 to-emerald-700',
             description: 'Fresh emerald theme conveying growth and trust',
             url: 'https://capracticeautomation.com',
-            image: '/sagartask-in.png',
+            image: '/practovia.png',
             pages: 16,
         },
         {
@@ -73,7 +100,7 @@ export default function TemplatesPageContent() {
             bgGradient: 'from-orange-900 to-orange-700',
             description: 'Energetic design that stands out from the crowd',
             url: 'https://practovia.com',
-            image: '/sagartask-in.png',
+            image: '/digitechai.png',
             pages: 16,
         },
         {
@@ -86,9 +113,38 @@ export default function TemplatesPageContent() {
             bgGradient: 'from-teal-900 to-teal-700',
             description: 'Sophisticated teal theme for consulting firms',
             url: 'https://digitechai.in',
-            image: '/sagartask-in.png',
+            image: '/cadeepakgupta.png',
             pages: 16,
         },
+        // New templates (added per request) - do not modify the existing entries above
+        {
+            id: 7,
+            name: 'Template-1',
+            slug: 'Template-1',
+            theme: 'Professional Blue',
+            category: 'Professional',
+            color: '#1e40af',
+            bgGradient: 'from-blue-900 to-blue-700',
+            description: 'Template-1 preview',
+            url: 'http://localhost:8080/',
+            image: '/Template-1.png',
+            pages: 12,
+        },
+        
+        {
+            id: 9,
+            name: 'Template-3',
+            slug: 'Template-3',
+            theme: 'Creative Purple',
+            category: 'Creative',
+            color: '#8b5cf6',
+            bgGradient: 'from-purple-900 to-purple-700',
+            description: 'Template-3 preview',
+            url: 'http://localhost:8082/',
+            image: '/Template-3.png',
+            pages: 14,
+        },
+       
     ]
 
     const filteredTemplates = activeFilter === 'all'

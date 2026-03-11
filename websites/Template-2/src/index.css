@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 216 60% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 216 60% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 216 60% 10%;
+
+    --primary: 216 60% 10%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 220 20% 94%;
+    --secondary-foreground: 216 60% 10%;
+
+    --muted: 220 15% 92%;
+    --muted-foreground: 216 15% 46%;
+
+    --accent: 34 45% 56%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 216 60% 10%;
+
+    --radius: 0.5rem;
+
+    --navy: 216 60% 10%;
+    --navy-light: 216 40% 20%;
+    --navy-dark: 216 70% 6%;
+    --gold: 34 45% 56%;
+    --gold-light: 34 50% 70%;
+    --gold-dark: 34 40% 42%;
+    --cream: 40 30% 96%;
+    --slate: 216 15% 46%;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+
+    --gradient-navy: linear-gradient(135deg, hsl(216 60% 10%), hsl(216 40% 20%));
+    --gradient-gold: linear-gradient(135deg, hsl(34 45% 56%), hsl(34 50% 70%));
+    --gradient-hero: linear-gradient(135deg, hsl(216 70% 6% / 0.92), hsl(216 60% 10% / 0.85));
+    --shadow-card: 0 4px 24px -4px hsl(216 60% 10% / 0.08);
+    --shadow-card-hover: 0 12px 40px -8px hsl(216 60% 10% / 0.15);
+    --shadow-nav: 0 2px 20px -2px hsl(216 60% 10% / 0.1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24;
+  }
+
+  .container-narrow {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(34 45% 56%), hsl(34 50% 70%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-navy {
+    background: hsl(var(--navy));
+  }
+
+  .bg-navy-gradient {
+    background: var(--gradient-navy);
+  }
+
+  .bg-cream {
+    background: hsl(var(--cream));
+  }
+
+  .card-premium {
+    @apply bg-card rounded-lg border border-border;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+  }
+
+  .card-premium:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-4px);
+  }
+
+  .gold-accent-line {
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-gold);
+    border-radius: 2px;
+  }
+
+  .btn-primary-premium {
+    @apply inline-flex items-center justify-center px-8 py-3 rounded-md font-medium transition-all duration-300;
+    background: hsl(var(--navy));
+    color: hsl(0 0% 98%);
+    font-family: var(--font-body);
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary-premium:hover {
+    background: hsl(var(--navy-light));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(216 60% 10% / 0.3);
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center px-8 py-3 rounded-md font-medium transition-all duration-300;
+    background: hsl(var(--gold));
+    color: hsl(0 0% 100%);
+    font-family: var(--font-body);
+    letter-spacing: 0.02em;
+  }
+
+  .btn-gold:hover {
+    background: hsl(var(--gold-dark));
+    transform: translateY(-1px);
+  }
+
+  .btn-outline-premium {
+    @apply inline-flex items-center justify-center px-8 py-3 rounded-md font-medium transition-all duration-300;
+    border: 1.5px solid hsl(0 0% 98%);
+    color: hsl(0 0% 98%);
+    font-family: var(--font-body);
+  }
+
+  .btn-outline-premium:hover {
+    background: hsl(0 0% 98%);
+    color: hsl(var(--navy));
+  }
+}
