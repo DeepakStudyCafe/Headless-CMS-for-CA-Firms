@@ -7,69 +7,21 @@ import Link from 'next/link'
 export default function PricingContent() {
   const plans = [
     {
-      name: 'Basic Plan',
+      name: 'Special Offer',
+      originalPrice: '40,000',
       price: '20,000',
-      duration: '/ one-time',
-      description: 'Perfect for solo practitioners and small firms getting started online',
+      duration: '/ one Year',
+      description: 'One simple plan for CA firms — everything you need to go live',
       features: [
-        'Choice of 6 premium templates',
+        'Choice of premium templates',
         'Custom domain setup',
-        '1 year hosting included',
+        'hosting included',
         'SSL certificate',
         'Mobile responsive design',
         'Contact form integration',
-        'Email support',
-        'Basic SEO setup',
-        '5 pages included',
-        'Social media integration',
       ],
       cta: 'Get Started',
-      popular: false,
-      color: 'primary',
-    },
-    {
-      name: 'Standard Plan',
-      price: '35,000',
-      duration: '/ one-time',
-      description: 'Ideal for growing firms looking for more features and support',
-      features: [
-        'Everything in Basic, plus:',
-        '2 years hosting included',
-        'Priority email support',
-        'Advanced SEO optimization',
-        '10 pages included',
-        'Blog setup included',
-        'Google Analytics integration',
-        'Monthly performance reports',
-        'Custom forms (up to 3)',
-        'Live chat integration',
-        '2 rounds of revisions',
-      ],
-      cta: 'Choose Standard',
       popular: true,
-      color: 'primary',
-    },
-    {
-      name: 'Premium Plan',
-      price: '50,000',
-      duration: '/ one-time',
-      description: 'Complete solution for established firms wanting the best',
-      features: [
-        'Everything in Standard, plus:',
-        '3 years hosting included',
-        '24/7 priority support',
-        'Premium SEO package',
-        'Unlimited pages',
-        'Custom features development',
-        'CRM integration',
-        'Appointment booking system',
-        'Client portal',
-        'Advanced analytics',
-        'Unlimited revisions',
-        'Dedicated account manager',
-      ],
-      cta: 'Go Premium',
-      popular: false,
       color: 'primary',
     },
   ]
@@ -126,21 +78,32 @@ export default function PricingContent() {
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
                   <p className="text-gray-600 text-sm mb-4">{plan.description}</p>
-                  <div className="flex items-center justify-center gap-1">
-                    <IndianRupee className="w-8 h-8 text-primary-600" />
-                    <span className="text-5xl font-bold text-gray-900">{plan.price}</span>
+                  <div className="flex items-center justify-center gap-4">
+                    <div className="flex items-center gap-2 text-gray-500">
+                      <IndianRupee className="w-5 h-5" />
+                      <span className="text-lg line-through">{plan.originalPrice}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <IndianRupee className="w-8 h-8 text-primary-600" />
+                      <span className="text-5xl font-bold text-gray-900">{plan.price}</span>
+                    </div>
                   </div>
                   <span className="text-gray-600 text-sm">{plan.duration}</span>
                 </div>
 
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700 text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="mb-8">
+                  <div className="flex flex-wrap justify-center gap-3">
+                    {plan.features.map((feature, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-sm text-gray-700 shadow-sm"
+                      >
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
                 <Link
                   href="/payment"
@@ -158,45 +121,7 @@ export default function PricingContent() {
         </div>
       </section>
 
-      {/* Add-ons Section */}
-      <section className="py-20 gradient-bg">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Optional Add-ons
-            </h2>
-            <p className="text-xl text-gray-600">
-              Enhance your website with these additional services
-            </p>
-          </motion.div>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {addons.map((addon, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.05 }}
-                    className="flex justify-between items-center p-4 bg-gray-50 rounded-lg"
-                  >
-                    <span className="font-semibold text-gray-900">{addon.name}</span>
-                    <span className="text-primary-600 font-bold">{addon.price}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* FAQ Section */}
       <section className="py-20 bg-white">

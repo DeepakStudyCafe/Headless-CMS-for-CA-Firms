@@ -187,6 +187,116 @@ module.exports = {
       max_memory_restart: '512M',
       autorestart: true,
       restart_delay: 5000
+    },
+
+    // Showcase Website - automationcafe.in
+    {
+      name: 'showcase-website',
+      cwd: './showcase-website',
+      script: 'npm',
+      args: 'run start',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 3007
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 3007
+      },
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '512M',
+      autorestart: true,
+      restart_delay: 5000
+    },
+
+    // Template-1 (temp7.automationcafe.in)
+    {
+      name: 'template-1',
+      cwd: './websites/Template-1',
+      script: 'npm',
+      args: 'run preview',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8080
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 8080
+      },
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '512M',
+      autorestart: true,
+      restart_delay: 5000
+    },
+
+    // Template-2 (temp8.automationcafe.in)
+    {
+      name: 'template-2',
+      cwd: './websites/Template-2',
+      script: 'npm',
+      args: 'run preview',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8081
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 8081
+      },
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '512M',
+      autorestart: true,
+      restart_delay: 5000
+    },
+
+    // Template-3 (temp9.automationcafe.in)
+    {
+      name: 'template-3',
+      cwd: './websites/Template-3',
+      script: 'npm',
+      args: 'run preview',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8082
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 8082
+      },
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '512M',
+      autorestart: true,
+      restart_delay: 5000
+    },
+
+    // Template-4 (temp10.automationcafe.in)
+    {
+      name: 'template-4',
+      cwd: './websites/Template-4',
+      script: 'npm',
+      args: 'run preview',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8083
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 8083
+      },
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '512M',
+      autorestart: true,
+      restart_delay: 5000
     }
   ],
 
