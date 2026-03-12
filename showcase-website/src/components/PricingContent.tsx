@@ -36,26 +36,26 @@ export default function PricingContent() {
   ]
 
   return (
-    <div className="pt-24 pb-20  min-h-screen" style={{ ['--hero-image' as any]: "url(/about.jpeg)", backgroundImage: 'url(/about.jpeg)'}}>
+    <div className="pt-16 pb-10 min-h-screen" style={{ ['--hero-image' as any]: "url(/about.jpeg)", backgroundImage: 'url(/about.jpeg)'}}>
       {/* Hero Section */}
-      <section className="py-20">
+      <section className="py-12">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Simple, Transparent Pricing</h1>
-            <p className="text-xl text-white/80 leading-relaxed">Choose the perfect plan for your CA firm. No hidden fees, no surprises. All prices are one-time payments.</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Simple, Transparent Pricing</h1>
+            <p className="text-lg text-white/80 leading-relaxed">Choose the perfect plan for your CA firm. No hidden fees, no surprises. All prices are one-time payments.</p>
           </motion.div>
         </div>
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {plans.map((plan, index) => (
               <motion.div
                 key={index}
@@ -63,42 +63,40 @@ export default function PricingContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`card p-8 relative ${
-                  plan.popular ? 'ring-4 ring-primary-600 shadow-2xl scale-105' : ''
+                className={`card p-6 relative rounded-2xl border border-gray-200 bg-white shadow-md ${
+                  plan.popular ? 'ring-2 ring-primary-500 shadow-xl scale-105 z-10' : ''
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-primary-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      Most Popular
-                    </span>
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-primary-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow">Most Popular</span>
                   </div>
                 )}
 
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{plan.description}</p>
-                  <div className="flex items-center justify-center gap-4">
-                    <div className="flex items-center gap-2 text-gray-500">
-                      <IndianRupee className="w-5 h-5" />
-                      <span className="text-lg line-through">{plan.originalPrice}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <IndianRupee className="w-8 h-8 text-primary-600" />
-                      <span className="text-5xl font-bold text-gray-900">{plan.price}</span>
-                    </div>
+                <div className="text-center mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">{plan.name}</h3>
+                  <p className="text-gray-600 text-xs mb-2">{plan.description}</p>
+                  <div className="flex items-end justify-center gap-2 mb-1">
+                    <span className="flex items-center gap-1 text-gray-400 text-base line-through">
+                      <IndianRupee className="w-4 h-4" />
+                      {plan.originalPrice}
+                    </span>
+                    <span className="flex items-center gap-1 text-primary-600 text-3xl font-bold">
+                      <IndianRupee className="w-6 h-6" />
+                      {plan.price}
+                    </span>
                   </div>
-                  <span className="text-gray-600 text-sm">{plan.duration}</span>
+                  <span className="text-gray-500 text-xs">{plan.duration}</span>
                 </div>
 
-                <div className="mb-8">
-                  <div className="flex flex-wrap justify-center gap-3">
+                <div className="mb-4">
+                  <div className="flex flex-wrap justify-center gap-2">
                     {plan.features.map((feature, idx) => (
                       <div
                         key={idx}
-                        className="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-sm text-gray-700 shadow-sm"
+                        className="flex items-center gap-1 bg-gray-50 border border-gray-100 px-3 py-1 rounded-full text-xs text-gray-700 shadow-sm"
                       >
-                        <Check className="w-4 h-4 text-green-500" />
+                        <Check className="w-3 h-3 text-green-500" />
                         <span>{feature}</span>
                       </div>
                     ))}
@@ -107,7 +105,7 @@ export default function PricingContent() {
 
                 <Link
                   href="/payment"
-                  className={`block w-full text-center py-3 px-6 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
+                  className={`block w-full text-center py-2 px-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
                     plan.popular
                       ? 'bg-primary-600 hover:bg-primary-700 text-white'
                       : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
