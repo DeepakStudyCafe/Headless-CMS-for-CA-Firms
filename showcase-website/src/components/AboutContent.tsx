@@ -24,10 +24,11 @@ export default function AboutContent() {
   ]
 
   const team = [
-    { name: 'Deepak Gupta', role: 'Founder & CEO', icon: User },
-    { name: 'Priya Sharma', role: 'Lead Designer', icon: User },
-    { name: 'Rahul Verma', role: 'Tech Lead', icon: User },
-    { name: 'Anjali Patel', role: 'Customer Success', icon: User },
+    { name: 'Deepak Gupta', role: 'Founder & CEO', image: '/DeepakGupta.webp' },
+    { name: 'Raza Mehta', role: 'Manager', image: '/Raja.jpeg' },
+    { name: 'Deepak Sharma', role: 'Software Developer', image: '/Deepak.webp' },
+    { name: 'Sagar Gupta', role: 'Software Developer', image: '/sagar.jpeg' },
+    // { name: 'Rohit', role: 'Software Developer', image: '/rohit.jpeg' },
   ]
 
   const stats = [
@@ -180,16 +181,20 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card p-6 text-center"
+                className="card relative overflow-hidden h-80 flex flex-col justify-end p-0 group"
               >
-                <div className="w-24 h-24 bg-gradient-to-br from-primary-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  {(() => {
+                {member.image ? (
+                  <img src={member.image} alt={member.name} className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110" draggable="false" />
+                ) : (
+                  (() => {
                     const Icon = (member as any).icon || Users
-                    return <Icon className="w-12 h-12 text-white" />
-                  })()}
+                    return <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-400 to-blue-500"><Icon className="w-12 h-12 text-white" /></div>
+                  })()
+                )}
+                <div className="relative z-10 bg-black/60 w-full p-4 text-center">
+                  <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
+                  <p className="text-gray-200 text-sm">{member.role}</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                <p className="text-gray-600">{member.role}</p>
               </motion.div>
             ))}
           </div>
