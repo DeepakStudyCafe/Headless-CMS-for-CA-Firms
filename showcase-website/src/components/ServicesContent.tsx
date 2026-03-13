@@ -32,19 +32,19 @@ export default function ServicesContent() {
       color: 'text-purple-600',
       bgColor: 'bg-purple-100',
     },
-    {
-      icon: Edit,
-      title: 'Content Request System',
-      description: 'Site owners can submit content update requests directly through the admin panel.',
-      features: [
-        'Request content changes',
-        'Track request status',
-        'Communication portal',
-        'Quick turnaround time',
-      ],
-      color: 'text-green-600',
-      bgColor: 'bg-green-100',
-    },
+    // {
+    //   icon: Edit,
+    //   title: 'Content Request System',
+    //   description: 'Site owners can submit content update requests directly through the admin panel.',
+    //   features: [
+    //     'Request content changes',
+    //     'Track request status',
+    //     'Communication portal',
+    //     'Quick turnaround time',
+    //   ],
+    //   color: 'text-green-600',
+    //   bgColor: 'bg-green-100',
+    // },
     {
       icon: Code,
       title: 'Custom Development',

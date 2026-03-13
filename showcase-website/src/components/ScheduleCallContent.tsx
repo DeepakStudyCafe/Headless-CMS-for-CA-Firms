@@ -151,7 +151,7 @@ export default function ScheduleCallContent() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-gray-700"
                     placeholder="John Doe"
                   />
                 </div>
@@ -167,7 +167,7 @@ export default function ScheduleCallContent() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-gray-700"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -182,7 +182,7 @@ export default function ScheduleCallContent() {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-gray-700"
                       placeholder="+91 98765 43210"
                     />
                   </div>
@@ -197,7 +197,7 @@ export default function ScheduleCallContent() {
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-gray-700"
                     placeholder="Your CA Firm Name"
                   />
                 </div>
@@ -215,7 +215,7 @@ export default function ScheduleCallContent() {
                       onChange={handleChange}
                       required
                       min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white text-gray-800"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white text-gray-700"
                     />
                   </div>
 
@@ -228,7 +228,7 @@ export default function ScheduleCallContent() {
                       value={formData.time}
                       onChange={handleChange}
                       required
-                      className="w-full text-gray-800 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white"
+                      className="w-full text-gray-700 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 bg-white"
                     >
                       <option value="">Select time</option>
                       {timeSlots.map((slot) => (
@@ -252,7 +252,7 @@ export default function ScheduleCallContent() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none text-gray-700"
                     placeholder="Tell us about your requirements, questions, or any specific templates you're interested in..."
                   ></textarea>
                 </div>
@@ -316,7 +316,7 @@ export default function ScheduleCallContent() {
               <h3 className="text-xl font-bold mb-2">Available Hours</h3>
               <p className="text-white/90 mb-4">
                 Monday - Saturday<br />
-                9:00 AM - 7:00 PM IST
+                11:00 AM - 6:00 PM IST
               </p>
               <p className="text-sm text-white/80">
                 We'll confirm your appointment within 2 hours
@@ -331,17 +331,27 @@ export default function ScheduleCallContent() {
                   className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold"
                 >
                   <Phone className="w-4 h-4" />
-                  +91 98765 43210
+                  +91 9625080264
                 </a>
                 <a
-                  href="mailto:info@WebNest.in"
+                  href="mailto:support@studycafe.in"
                   className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                   </svg>
-                  info@WebNest.in
+                  support@studycafe.in
+                </a>
+                <a
+                  href="mailto:marketing@studycafe.in"
+                  className="flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                  marketing@studycafe.in
                 </a>
               </div>
             </div>

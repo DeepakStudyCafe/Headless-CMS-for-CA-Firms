@@ -9,7 +9,7 @@ export default function PricingContent() {
     {
       name: 'Special Offer',
       originalPrice: '40,000',
-      price: '20,000',
+      price: '20,000 + 18%',
       duration: '/ one Year',
       description: 'One simple plan for CA firms — everything you need to go live',
       features: [
@@ -53,9 +53,9 @@ export default function PricingContent() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-10 bg-white">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <section className="py-10 bg-white min-h-[60vh] flex items-center justify-center">
+        <div className="container-custom w-full flex items-center justify-center">
+          <div className="flex justify-center items-center w-full">
             {plans.map((plan, index) => (
               <motion.div
                 key={index}
@@ -63,53 +63,43 @@ export default function PricingContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`card p-6 relative rounded-2xl border border-gray-200 bg-white shadow-md ${
-                  plan.popular ? 'ring-2 ring-primary-500 shadow-xl scale-105 z-10' : ''
-                }`}
+                className={`relative bg-white shadow-lg rounded-2xl border border-gray-200 px-6 py-7 flex flex-col justify-between items-center min-h-[340px] max-w-xs mx-auto ${plan.popular ? 'ring-2 ring-primary-400 scale-105 z-10' : ''}`}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-primary-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow">Most Popular</span>
+                  <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-primary-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow border-2 border-white">Most Popular</span>
                   </div>
                 )}
-
-                <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{plan.name}</h3>
-                  <p className="text-gray-600 text-xs mb-2">{plan.description}</p>
-                  <div className="flex items-end justify-center gap-2 mb-1">
-                    <span className="flex items-center gap-1 text-gray-400 text-base line-through">
+                <div className="w-full flex flex-col items-center mb-4">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1 tracking-wide">{plan.name}</h3>
+                  <p className="text-gray-600 text-xs mb-2 text-center">{plan.description}</p>
+                  <div className="flex flex-col items-center gap-0.5 mb-1">
+                    <span className="flex items-center gap-1 text-gray-400 text-sm line-through">
                       <IndianRupee className="w-4 h-4" />
                       {plan.originalPrice}
                     </span>
-                    <span className="flex items-center gap-1 text-primary-600 text-3xl font-bold">
+                    <span className="flex items-center gap-1 text-primary-700 text-2xl font-extrabold">
                       <IndianRupee className="w-6 h-6" />
-                      {plan.price}
+                      20,000
                     </span>
+                    <span className="text-xs font-semibold text-gray-700">+ 18% GST</span>
                   </div>
                   <span className="text-gray-500 text-xs">{plan.duration}</span>
                 </div>
-
-                <div className="mb-4">
-                  <div className="flex flex-wrap justify-center gap-2">
-                    {plan.features.map((feature, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center gap-1 bg-gray-50 border border-gray-100 px-3 py-1 rounded-full text-xs text-gray-700 shadow-sm"
-                      >
-                        <Check className="w-3 h-3 text-green-500" />
-                        <span>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="mb-3 w-full flex flex-wrap justify-center gap-1">
+                  {plan.features.map((feature, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-1 bg-gray-50 border border-gray-100 px-2 py-1 rounded-full text-xs text-gray-700 shadow-sm mb-1"
+                    >
+                      <Check className="w-3 h-3 text-green-500" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
                 </div>
-
                 <Link
                   href="/payment"
-                  className={`block w-full text-center py-2 px-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
-                    plan.popular
-                      ? 'bg-primary-600 hover:bg-primary-700 text-white'
-                      : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
-                  }`}
+                  className={`block w-full text-center py-2 px-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-sm mt-auto ${plan.popular ? 'bg-primary-600 hover:bg-primary-700 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
                 >
                   {plan.cta}
                 </Link>
@@ -137,7 +127,7 @@ export default function PricingContent() {
           </motion.div>
 
           <div className="space-y-6">
-            {[
+            {([
               {
                 q: 'Are there any monthly fees?',
                 a: 'No! All our plans are one-time payments. Hosting is included for the duration specified in your plan.',
@@ -148,7 +138,7 @@ export default function PricingContent() {
               },
               {
                 q: 'What happens after the hosting period expires?',
-                a: 'You can renew hosting at ₹3,000/year. We\'ll notify you well in advance before expiration.',
+                a: 'You can renew hosting after your period ends. We\'ll notify you well in advance before expiration.',
               },
               {
                 q: 'Do you offer refunds?',
@@ -158,7 +148,7 @@ export default function PricingContent() {
                 q: 'Can I switch templates after purchase?',
                 a: 'Yes, you can switch to a different template within 30 days of purchase at no additional cost.',
               },
-            ].map((faq, index) => (
+            ]).map((faq, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}

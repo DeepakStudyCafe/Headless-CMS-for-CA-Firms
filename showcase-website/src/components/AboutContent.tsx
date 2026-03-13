@@ -32,7 +32,7 @@ export default function AboutContent() {
 
   const stats = [
     { number: '10+', label: 'Premium Templates' },
-    { number: '50+', label: 'Happy Clients' },
+    { number: '500+', label: 'Happy Clients' },
     { number: '100+', label: 'Websites Launched' },
     { number: 'Admin', label: 'Panel in Every Site' },
   ]
@@ -55,7 +55,7 @@ export default function AboutContent() {
             className="text-center max-w-4xl mx-auto pt-24"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              About WebNest
+              About Automationcafe
             </h1>
             <p className="text-xl text-white/80 leading-relaxed">
               We're passionate about helping Chartered Accountants establish a strong online presence. Our mission is to provide professional, affordable, and effective website solutions tailored specifically for CA firms.
@@ -116,7 +116,7 @@ export default function AboutContent() {
             >
               <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
                 <p className="text-gray-600 leading-relaxed mb-6">
-                  WebNest was founded in 2021 with a simple yet powerful vision: to help Chartered Accountants establish a professional online presence with full control over their website content through integrated admin panels.
+                  Automationcafe was founded in 2026 with a simple yet powerful vision: to help Chartered Accountants establish a professional online presence with full control over their website content through integrated admin panels.
                 </p>
                 <p className="text-gray-600 leading-relaxed mb-6">
                   Having worked closely with numerous CA firms, we understood their unique needs and challenges. We realized that CA professionals needed not just beautiful websites, but also the ability to manage and update content themselves without technical knowledge.

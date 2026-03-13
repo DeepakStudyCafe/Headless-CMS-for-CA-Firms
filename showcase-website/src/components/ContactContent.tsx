@@ -44,23 +44,23 @@ export default function ContactContent() {
     {
       icon: Mail,
       title: 'Email',
-      value: 'info@WebNest.in',
-      link: 'mailto:info@WebNest.in',
+      value: 'support@studycafe.in',
+      link: 'mailto:support@studycafe.in',
       color: 'text-blue-600',
       bgColor: 'bg-blue-100',
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+91 98765 43210',
-      link: 'tel:+919876543210',
+      value: '+91 9625080264',
+      link: 'tel:+919625080264',
       color: 'text-green-600',
       bgColor: 'bg-green-100',
     },
     {
       icon: MapPin,
       title: 'Address',
-      value: '123 Business Park, Tech City, Bangalore - 560001',
+      value: '1003, 10th Floor, Modi Tower 98, Nehruplace, Delhi 110019',
       link: null,
       color: 'text-purple-600',
       bgColor: 'bg-purple-100',
@@ -68,7 +68,7 @@ export default function ContactContent() {
     {
       icon: Clock,
       title: 'Working Hours',
-      value: 'Mon - Sat: 9:00 AM - 7:00 PM',
+      value: 'Mon - Sat: 11:00 AM - 6:00 PM',
       link: null,
       color: 'text-orange-600',
       bgColor: 'bg-orange-100',
@@ -146,24 +146,24 @@ export default function ContactContent() {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">Your Name *</label>
-                      <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300" placeholder="John Doe" />
+                      <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-gray-700" placeholder="John Doe" />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300" placeholder="john@example.com" />
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-gray-700" placeholder="john@example.com" />
                       </div>
 
                       <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
-                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300" placeholder="+91 98765 43210" />
+                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-gray-700" placeholder="+91 9625080264" />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">Subject *</label>
-                      <select name="subject" value={formData.subject} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300">
+                      <select name="subject" value={formData.subject} onChange={handleChange} required className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 text-gray-700">
                         <option value="">Select a subject</option>
                         <option value="general">General Inquiry</option>
                         <option value="template">Template Questions</option>
@@ -175,7 +175,7 @@ export default function ContactContent() {
 
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">Message *</label>
-                      <textarea name="message" value={formData.message} onChange={handleChange} required rows={5} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none" placeholder="Tell us more about your requirements..."></textarea>
+                      <textarea name="message" value={formData.message} onChange={handleChange} required rows={5} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none text-gray-700" placeholder="Tell us more about your requirements..."></textarea>
                     </div>
 
                     <button type="submit" disabled={isSubmitting} className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2">

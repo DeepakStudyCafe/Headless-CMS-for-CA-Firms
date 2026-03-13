@@ -1,4 +1,4 @@
-# WebNest Showcase Website
+# Automationcafe Showcase Website
 
 A professional showcase website for CA firm website templates. Built with Next.js 14, TypeScript, and Tailwind CSS.
 
@@ -165,8 +165,8 @@ Template information is stored in the component files and can be updated as need
 
 ## License
 
-This project is part of the WebNest Headless CMS system.
+This project is part of the Automationcafe Headless CMS system.
 
 ## Support
 
-For support, email info@WebNest.in or call +91 98765 43210.
+For support, email info@Automationcafe.in or call +91 98765 43210.

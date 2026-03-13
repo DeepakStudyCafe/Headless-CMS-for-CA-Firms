@@ -14,10 +14,10 @@ export default function Footer() {
               <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">W</span>
               </div>
-              <span className="text-2xl font-bold text-white">WebNest</span>
+              <span className="text-2xl font-bold text-white">Automationcafe</span>
             </div>
             <p className="text-gray-400 mb-4 leading-relaxed">
-              Professional website templates designed specifically for Chartered Accountant firms. Elevate your practice with our modern, responsive designs.
+              Professional website templates specifically designed by the Chartered Accountant for Chartered Accountant firms to help them build credibility, attract clients and grow their practice online.
             </p>
             <div className="flex gap-3">
               <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
@@ -116,8 +116,16 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <a href="mailto:info@WebNest.in" className="hover:text-primary-400 transition-colors duration-300">
-                    info@WebNest.in
+                  <a href="mailto:support@studycafe.in" className="hover:text-primary-400 transition-colors duration-300">
+                    support@studycafe.in
+                  </a>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+                <div>
+                  <a href="mailto:marketing@studycafe.in" className="hover:text-primary-400 transition-colors duration-300">
+                    marketing@studycafe.in
                   </a>
                 </div>
               </li>
@@ -125,7 +133,7 @@ export default function Footer() {
                 <Phone className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
                   <a href="tel:+919876543210" className="hover:text-primary-400 transition-colors duration-300">
-                    +91 98765 43210
+                    +91 9625080264
                   </a>
                 </div>
               </li>
@@ -133,8 +141,8 @@ export default function Footer() {
                 <MapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-gray-400">
-                    123 Business Park, Tech City,<br />
-                    Bangalore - 560001, India
+                    1003, 10th Floor, Modi Tower <br />
+                    98, Nehruplace, Delhi 110019
                   </p>
                 </div>
               </li>
@@ -144,7 +152,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-400">
-            &copy; {currentYear} WebNest. All rights reserved. | 
+            &copy; {currentYear} Automationcafe All Rights Reserved | 
             <Link href="/privacy" className="hover:text-primary-400 transition-colors duration-300 ml-2">
               Privacy Policy
             </Link> | 

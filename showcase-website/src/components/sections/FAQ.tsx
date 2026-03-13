@@ -15,7 +15,7 @@ export default function FAQ() {
     },
     {
       q: 'How long does it take to launch a site?',
-      a: 'Typical turnaround is 3–7 business days depending on content readiness and customization requested. We also offer expedited delivery for urgent projects.',
+      a: 'Typical turnaround is 1–2 business days depending on content readiness and customization requested. We also offer expedited delivery for urgent projects.',
     },
     {
       q: 'Do you provide hosting and maintenance?',

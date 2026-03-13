@@ -96,7 +96,7 @@ export default function Hero() {
                             { number: '10+', label: 'Premium Templates' },
                             { number: 'Admin', label: 'Panel Included' },
                             { number: '24/7', label: 'Support Available' },
-                            { number: '50+', label: 'Happy Clients' },
+                            { number: '500+', label: 'Happy Clients' },
                         ].map((stat, index) => (
                             <div key={index} className="text-center">
                                 <div className="text-3xl md:text-4xl font-bold text-primary-600 mb-2">

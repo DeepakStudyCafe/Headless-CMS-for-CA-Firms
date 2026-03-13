@@ -7,7 +7,7 @@ export default function Stats() {
   const stats = [
     {
       icon: Users,
-      number: '50+',
+      number: '500+',
       label: 'Happy Clients',
       color: 'text-blue-600',
       bgColor: 'bg-blue-100',

@@ -44,7 +44,7 @@ export default function Navbar() {
               <span className="text-white font-bold text-xl">W</span>
             </div>
             <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
-              WebNest
+              Automationcafe
             </span>
           </Link>
 
