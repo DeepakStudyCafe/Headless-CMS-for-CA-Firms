@@ -40,12 +40,12 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">W</span>
-            </div>
-            <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
-              Automationcafe
-            </span>
+            <img
+              src={isScrolled ? '/automationcafe-black.png' : '/automationcafe-white.png'}
+              alt="Automationcafe Logo"
+              className="h-8 w-auto"
+              draggable="false"
+            />
           </Link>
 
           {/* Desktop Navigation */}
