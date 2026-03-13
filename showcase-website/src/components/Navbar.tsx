@@ -43,7 +43,7 @@ export default function Navbar() {
             <img
               src={isScrolled ? '/automationcafe-black.png' : '/automationcafe-white.png'}
               alt="Automationcafe Logo"
-              className="h-8 w-auto"
+              className="h-8 w-auto mb-2"
               draggable="false"
             />
           </Link>
