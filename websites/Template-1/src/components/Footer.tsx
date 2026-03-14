@@ -73,9 +73,9 @@ const Footer = () => {
         </div>
         <div className="border-t border-primary-foreground/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-primary-foreground/40">© 2026 Sterling & Co. Chartered Accountants. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="text-xs text-primary-foreground/40 hover:text-primary-foreground/60 transition-colors">Privacy Policy</a>
-            <a href="#" className="text-xs text-primary-foreground/40 hover:text-primary-foreground/60 transition-colors">Terms of Service</a>
+          <div>
+            Powered By{' '}
+            <a href="https://automationcafe.in/" target="_blank" rel="noopener" className="hover:text-primary-foreground/60 hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
           </div>
         </div>
       </div>

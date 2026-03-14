@@ -10,11 +10,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">W</span>
-              </div>
-              <span className="text-2xl font-bold text-white">Automationcafe</span>
+            <div className="flex items-center space-x-2 mb-4 mr-10">
+              <img src="/automationcafe-white.png" alt="Automationcafe Logo" className="w-50 h-50 object-contain" />
             </div>
             <p className="text-gray-400 mb-4 leading-relaxed">
               Professional website templates specifically designed by the Chartered Accountant for Chartered Accountant firms to help them build credibility, attract clients and grow their practice online.

@@ -87,9 +87,9 @@ const Footer = () => {
 
         <div className="border-t border-primary-foreground/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-primary-foreground/50">© 2025 Apex & Associates. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="text-xs text-primary-foreground/50 hover:text-accent transition-colors">Privacy Policy</a>
-            <a href="#" className="text-xs text-primary-foreground/50 hover:text-accent transition-colors">Terms of Service</a>
+          <div>
+            Powered By{' '}
+            <a href="https://automationcafe.in/" target="_blank" rel="noopener" className="hover:text-accent hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
           </div>
         </div>
       </div>

@@ -65,11 +65,15 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t pt-6" style={{ borderColor: 'hsl(var(--secondary-foreground) / 0.15)' }}>
-          <p className="text-center text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }}>
-            © {new Date().getFullYear()} Apex & Associates. All rights reserved.
-          </p>
-        </div>
+            <div className="border-t pt-6 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderColor: 'hsl(var(--secondary-foreground) / 0.15)' }}>
+              <p className="text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }}>
+                © {new Date().getFullYear()} Apex & Associates. All rights reserved.
+              </p>
+              <div>
+                Powered By{' '}
+                <a href="https://automationcafe.in/" target="_blank" rel="noopener" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }} className="hover:text-accent hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
+              </div>
+            </div>
       </div>
     </footer>
   );

@@ -124,9 +124,13 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center gap-6 mt-8">
-          <div className="border-t border-gray-800 pt-6 w-full text-center text-gray-300">
-            <p>{fc.copyright || '\u00a9 2026 Gupta & Associates. All rights reserved.'}</p>
+        <div className="border-t border-gray-800 mt-8 pt-2 flex flex-row justify-between items-center text-gray-300">
+          <div>
+            {fc.copyright || '\u00a9 2026 Gupta & Associates. All rights reserved.'}
+          </div>
+          <div>
+            Powered By{' '}
+            <a href="https://automationcafe.in/" target="_blank" rel="noopener" className="hover:text-white hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
           </div>
         </div>
       </div>

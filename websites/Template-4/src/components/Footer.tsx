@@ -70,9 +70,9 @@ const Footer = () => (
     <div className="border-t border-secondary-foreground/8">
       <div className="container py-6 flex flex-col sm:flex-row items-center justify-between text-xs text-secondary-foreground/40">
         <span>© 2025 Sharma & Co. Chartered Accountants. All rights reserved.</span>
-        <div className="flex gap-6 mt-2 sm:mt-0">
-          <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-accent transition-colors">Terms of Service</a>
+        <div>
+          Powered By{' '}
+          <a href="https://automationcafe.in/" target="_blank" rel="noopener" className="hover:text-accent hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
         </div>
       </div>
     </div>
