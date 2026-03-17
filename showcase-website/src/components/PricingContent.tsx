@@ -16,9 +16,15 @@ export default function PricingContent() {
         'Choice of premium templates',
         'Custom domain setup',
         'hosting included',
-        'SSL certificate',
+        'Cross-browser compatibility',
         'Mobile responsive design',
         'Contact form integration',
+        'Modern UI/UX design',
+        'SSL certificate',
+        'Basic on-page SEO setup',
+        'Social media integration',
+        'Clean & professional layout',
+
       ],
       cta: 'Get Started',
       popular: true,
@@ -36,7 +42,7 @@ export default function PricingContent() {
   ]
 
   return (
-    <div className="pt-16 pb-10 min-h-screen" style={{ ['--hero-image' as any]: "url(/about.jpeg)", backgroundImage: 'url(/about.jpeg)'}}>
+    <div className="pt-16 pb-10 min-h-screen" style={{ ['--hero-image' as any]: "url(/about.jpeg)", backgroundImage: 'url(/about.jpeg)' }}>
       {/* Hero Section */}
       <section className="py-12">
         <div className="container-custom">
@@ -53,7 +59,7 @@ export default function PricingContent() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-10 bg-white min-h-[60vh] flex items-center justify-center">
+      <section className="py-10 bg-white min-h-[52vh] flex items-center justify-center">
         <div className="container-custom w-full flex items-center justify-center">
           <div className="flex justify-center items-center w-full">
             {plans.map((plan, index) => (
@@ -63,53 +69,64 @@ export default function PricingContent() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative bg-white shadow-lg rounded-2xl border border-gray-200 px-6 py-7 flex flex-col justify-between items-center min-h-[340px] max-w-xs mx-auto ${plan.popular ? 'ring-2 ring-primary-400 scale-105 z-10' : ''}`}
+                className={`relative bg-white shadow-lg rounded-2xl border border-gray-200 px-6 py-4 flex flex-col md:flex-row md:items-stretch md:gap-6 min-h-[240px] max-w-5xl w-full mx-auto ${plan.popular ? 'ring-2 ring-primary-400 scale-105 z-10' : ''}`}
               >
                 {plan.popular && (
                   <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
                     <span className="bg-primary-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow border-2 border-white">Most Popular</span>
                   </div>
                 )}
-                <div className="w-full flex flex-col items-center mb-4">
-                  <h3 className="text-lg font-bold text-gray-900 mb-1 tracking-wide">{plan.name}</h3>
-                  <p className="text-gray-600 text-xs mb-2 text-center">{plan.description}</p>
-                  <div className="flex flex-col items-center gap-0.5 mb-1">
-                    <span className="flex items-center gap-1 text-gray-400 text-sm line-through">
-                      <IndianRupee className="w-4 h-4" />
-                      {plan.originalPrice}
-                    </span>
-                    <span className="flex items-center gap-1 text-primary-700 text-2xl font-extrabold">
-                      <IndianRupee className="w-6 h-6" />
-                      20,000
-                    </span>
-                    <span className="text-xs font-semibold text-gray-700">+ 18% GST</span>
+                <div className="w-full md:w-1/2 flex flex-col items-center md:items-start mb-4 md:mb-0 md:border-r md:border-gray-100 md:pr-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] font-semibold uppercase tracking-widest text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full">Best Value</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-widest text-gray-500">Limited Offer</span>
                   </div>
-                  <span className="text-gray-500 text-xs">{plan.duration}</span>
-                </div>
-                <div className="mb-3 w-full flex flex-wrap justify-center gap-1">
-                  {plan.features.map((feature, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-1 bg-gray-50 border border-gray-100 px-2 py-1 rounded-full text-xs text-gray-700 shadow-sm mb-1"
-                    >
-                      <Check className="w-3 h-3 text-green-500" />
-                      <span>{feature}</span>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1 tracking-wide">{plan.name}</h3>
+                  <p className="text-gray-600 text-xs mb-3 text-center md:text-left">{plan.description}</p>
+                  <div className="mb-2 w-full">
+                    <div className="flex items-center gap-3 md:gap-2 flex-wrap">
+                      <span className="text-base text-gray-400 line-through mr-2">{plan.originalPrice}</span>
+                      <div className="flex items-center gap-2 text-primary-700 text-2xl font-extrabold">
+                        <IndianRupee className="w-6 h-6" />
+                        <span>20,000</span>
+                      </div>
+                      <span className="text-xs font-semibold text-gray-700 bg-gray-100 px-2 py-0.5 rounded">+ 18% GST</span>
+                      <span className="text-xs font-medium text-gray-500">{plan.duration}</span>
                     </div>
-                  ))}
+                  </div>
+                  <p className="text-[11px] text-gray-500 mt-2">Setup in 5-7 business days. Support included.</p>
+                  <Link
+                    href="/payment"
+                    className={`mt-4 inline-flex items-center justify-center w-full md:w-auto text-center py-2 px-6 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-sm ${plan.popular ? 'bg-primary-600 hover:bg-primary-700 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
+                  >
+                    {plan.cta}
+                  </Link>
                 </div>
-                <Link
-                  href="/payment"
-                  className={`block w-full text-center py-2 px-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-sm mt-auto ${plan.popular ? 'bg-primary-600 hover:bg-primary-700 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'}`}
-                >
-                  {plan.cta}
-                </Link>
+                <div className="w-full md:w-1/2 flex flex-col">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-sm font-semibold text-gray-900">What is included</h4>
+                    <span className="text-[11px] text-gray-500">All essentials</span>
+                  </div>
+                  <div className="w-full h-px bg-gray-100 mb-3" />
+                  <div className="flex flex-wrap md:justify-start justify-center gap-1">
+                    {plan.features.map((feature, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center gap-1 bg-gray-50 border border-gray-100 px-2 py-1 rounded-full text-xs text-gray-700 shadow-sm mb-1"
+                      >
+                        <Check className="w-3 h-3 text-green-500" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      
+
 
       {/* FAQ Section */}
       <section className="py-20 bg-white">

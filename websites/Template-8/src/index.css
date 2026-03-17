@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 30% 5%;
+    --foreground: 36 30% 94%;
+    --card: 220 25% 12%;
+    --card-foreground: 36 30% 94%;
+    --popover: 220 25% 12%;
+    --popover-foreground: 36 30% 94%;
+    --primary: 37 40% 60%;
+    --primary-foreground: 220 30% 5%;
+    --secondary: 220 20% 16%;
+    --secondary-foreground: 36 30% 94%;
+    --muted: 215 15% 20%;
+    --muted-foreground: 213 15% 65%;
+    --accent: 37 40% 60%;
+    --accent-foreground: 220 30% 5%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 37 40% 60% / 0.2;
+    --input: 220 20% 16%;
+    --ring: 37 40% 60%;
+    --radius: 0.125rem;
+
+    /* Custom CA Firm tokens */
+    --ink: 222 40% 6%;
+    --deep: 220 33% 11%;
+    --surface: 220 25% 16%;
+    --fog: 33 25% 93%;
+    --parchment: 33 20% 90%;
+    --gold: 37 40% 60%;
+    --gold-bright: 40 60% 69%;
+    --gold-muted: 33 35% 40%;
+    --bronze: 30 46% 33%;
+    --cream: 36 30% 95%;
+    --mist: 213 15% 65%;
+    --slate: 215 25% 24%;
+    --copper: 25 45% 46%;
+
+    --sidebar-background: 220 33% 11%;
+    --sidebar-foreground: 36 30% 94%;
+    --sidebar-primary: 37 40% 60%;
+    --sidebar-primary-foreground: 220 30% 5%;
+    --sidebar-accent: 220 25% 16%;
+    --sidebar-accent-foreground: 36 30% 94%;
+    --sidebar-border: 37 40% 60% / 0.15;
+    --sidebar-ring: 37 40% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .font-body {
+    font-family: 'Outfit', sans-serif;
+  }
+  .font-mono-label {
+    font-family: 'Space Mono', monospace;
+  }
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+@keyframes progress-bar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes float-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes gold-underline-draw {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+.shimmer-btn {
+  background: linear-gradient(
+    110deg,
+    hsl(var(--gold)) 0%,
+    hsl(var(--gold-bright)) 45%,
+    hsl(var(--gold)) 55%,
+    hsl(var(--gold)) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.shimmer-btn:hover {
+  animation-duration: 1.5s;
+}
+
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.ken-burns {
+  animation: ken-burns 6s ease-out forwards;
+}
+
+.bounce-indicator {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+.progress-animate {
+  animation: progress-bar 6s linear forwards;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--ink));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--gold) / 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--gold) / 0.5);
+}
+
+/* Selection */
+::selection {
+  background: hsl(var(--gold) / 0.3);
+  color: hsl(var(--cream));
+}

@@ -19,12 +19,16 @@ export default function PaymentForm() {
   const [isSuccess, setIsSuccess] = useState(false)
 
   const templates = [
-    'Sharma & Associates',
-    'Verma Accounting Services',
-    'Gupta Tax Advisors',
-    'Kapoor Financial Services',
-    'Singh & Co. Advisors',
-    'Patel Consulting',
+    'Template 1',
+    'Template 2',
+    'Template 3',
+    'Template 4',
+    'Template 5',
+    'Template 6',
+    'Template 7',
+    'Template 8',
+    'Template 9',
+    'Template 10',
   ]
 
   const plans = [

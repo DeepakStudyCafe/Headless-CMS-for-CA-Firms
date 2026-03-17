@@ -11,9 +11,78 @@ export default function TemplatesPageContent() {
     const templatesPerPage = 6
 
     const templates = [
+       
+
+{
+            id: 11,
+            name: 'Template-11',
+            slug: 'template-11',
+            theme: 'Vibrant Orange',
+            category: 'Modern',
+            color: '#ea580c',
+            bgGradient: 'from-orange-900 to-orange-700',
+            description: 'Energetic design that stands out from the crowd',
+            url: 'https://temp11.automationcafe.in/',
+            image: '/Template-5.png',
+            pages: 16,
+        },
+
         {
+            id: 10,
+            name: 'Template-10',
+            slug: 'template-10',
+            theme: 'Emerald Green',
+            category: 'Professional',
+            color: '#059669',
+            bgGradient: 'from-emerald-900 to-emerald-700',
+            description: 'Template-4 preview',
+            url: 'https://temp10.automationcafe.in/',
+            image: '/Template-4.png',
+            pages: 16,
+        },
+
+        {
+            id: 12,
+            name: 'Template-12',
+            slug: 'template-12',
+            theme: 'Teal Blue',
+            category: 'Professional',
+            color: '#0d9488',
+            bgGradient: 'from-teal-900 to-teal-700',
+            description: 'Sophisticated teal theme for consulting firms',
+            url: 'https://temp12.automationcafe.in/',
+            image: '/Template-6.png',
+            pages: 16,
+        },
+        {
+            id: 13,
+            name: 'Template-13',
+            slug: 'template-13',
+            theme: 'Professional Blue',
+            category: 'Professional',
+            color: '#1e40af',
+            bgGradient: 'from-blue-900 to-blue-700',
+            description: 'Template-7 preview',
+            url: 'https://temp13.automationcafe.in/',
+            image: '/Template-7.png',
+            pages: 12,
+        },
+        {
+            id: 14,
+            name: 'Template-14',
+            slug: 'template-14',
+            theme: 'Professional Blue',
+            category: 'Professional',
+            color: '#1e40af',
+            bgGradient: 'from-blue-900 to-blue-700',
+            description: 'Template-7 preview',
+            url: 'https://temp14.automationcafe.in/',
+            image: '/Template-8.png',
+            pages: 12,
+        },
+         {
             id: 1,
-            name: 'Sharma & Associates',
+            name: 'Template-1',
             slug: 'sharma-associates',
             theme: 'Professional Blue',
             category: 'Professional',
@@ -24,23 +93,37 @@ export default function TemplatesPageContent() {
             image: '/sagartask.png',
             pages: 16,
         },
-
-         {
-            id: 10,
-            name: 'Template-4',
-            slug: 'Template-4',
-            theme: 'Emerald Green',
+        {
+            id: 15,
+            name: 'Template-15',
+            slug: 'template-15',
+            theme: 'Professional Blue',
             category: 'Professional',
-            color: '#059669',
-            bgGradient: 'from-emerald-900 to-emerald-700',
-            description: 'Template-4 preview',
-            url: 'https://temp10.automationcafe.in/',
-            image: '/Template-4.png',
-            pages: 16,
+            color: '#1e40af',
+            bgGradient: 'from-blue-900 to-blue-700',
+            description: 'Template-7 preview',
+            url: 'https://temp15.automationcafe.in/',
+            image: '/Template-9.png',
+            pages: 12,
         },
+
+        {
+            id: 7,
+            name: 'Template-7',
+            slug: 'template-7',
+            theme: 'Professional Blue',
+            category: 'Professional',
+            color: '#1e40af',
+            bgGradient: 'from-blue-900 to-blue-700',
+            description: 'Template-7 preview',
+            url: 'https://temp7.automationcafe.in/',
+            image: '/Template-1.png',
+            pages: 12,
+        },
+
         {
             id: 2,
-            name: 'Verma Accounting Services',
+            name: 'Template-2',
             slug: 'verma-accounting',
             theme: 'Modern Minimal',
             category: 'Modern',
@@ -51,36 +134,11 @@ export default function TemplatesPageContent() {
             image: '/automatepractice.png',
             pages: 14,
         },
-        {
-            id: 3,
-            name: 'Gupta Tax Advisors',
-            slug: 'gupta-tax-advisors',
-            theme: 'Creative Purple',
-            category: 'Creative',
-            color: '#8b5cf6',
-            bgGradient: 'from-purple-900 to-purple-700',
-            description: 'Bold and creative design for innovative firms',
-            url: 'https://temp3.automationcafe.in/',
-            image: '/capracticeautomation.png',
-            pages: 11,
-        },
-        {
-            id: 8,
-            name: 'Template-2',
-            slug: 'Template-2',
-            theme: 'Modern Minimal',
-            category: 'Modern',
-            color: '#0f172a',
-            bgGradient: 'from-gray-900 to-gray-700',
-            description: 'Template-2 preview',
-            url: 'https://temp8.automationcafe.in/',
-            image: '/Template-2.png',
-            pages: 10,
-        },
-        {
+        
+{
             id: 4,
-            name: 'Kapoor Financial Services',
-            slug: 'kapoor-financial',
+            name: 'Template-4',
+            slug: 'template-4',
             theme: 'Emerald Green',
             category: 'Professional',
             color: '#059669',
@@ -91,9 +149,25 @@ export default function TemplatesPageContent() {
             pages: 16,
         },
         {
+            id: 8,
+            name: 'Template-8',
+            slug: 'template-8',
+            theme: 'Modern Minimal',
+            category: 'Modern',
+            color: '#0f172a',
+            bgGradient: 'from-gray-900 to-gray-700',
+            description: 'Template-2 preview',
+            url: 'https://temp8.automationcafe.in/',
+            image: '/Template-2.png',
+            pages: 10,
+        },
+
+        
+        
+        {
             id: 5,
-            name: 'Singh & Co. Advisors',
-            slug: 'singh-co-advisors',
+            name: 'Template-5',
+            slug: 'template-5',
             theme: 'Vibrant Orange',
             category: 'Modern',
             color: '#ea580c',
@@ -105,8 +179,8 @@ export default function TemplatesPageContent() {
         },
         {
             id: 6,
-            name: 'Patel Consulting',
-            slug: 'patel-consulting',
+            name: 'Template-6',
+            slug: 'template-6',
             theme: 'Teal Blue',
             category: 'Professional',
             color: '#0d9488',
@@ -117,24 +191,26 @@ export default function TemplatesPageContent() {
             pages: 16,
         },
         // New templates (added per request) - do not modify the existing entries above
-        {
-            id: 7,
-            name: 'Template-1',
-            slug: 'Template-1',
-            theme: 'Professional Blue',
-            category: 'Professional',
-            color: '#1e40af',
-            bgGradient: 'from-blue-900 to-blue-700',
-            description: 'Template-1 preview',
-            url: 'https://temp7.automationcafe.in/',
-            image: '/Template-1.png',
-            pages: 12,
+        
+{
+            id: 3,
+            name: 'Template-3',
+            slug: 'gupta-tax-advisors',
+            theme: 'Creative Purple',
+            category: 'Creative',
+            color: '#8b5cf6',
+            bgGradient: 'from-purple-900 to-purple-700',
+            description: 'Bold and creative design for innovative firms',
+            url: 'https://temp3.automationcafe.in/',
+            image: '/capracticeautomation.png',
+            pages: 11,
         },
         
+
         {
             id: 9,
-            name: 'Template-3',
-            slug: 'Template-3',
+            name: 'Template-9',
+            slug: 'template-9',
             theme: 'Creative Purple',
             category: 'Creative',
             color: '#8b5cf6',
@@ -144,7 +220,10 @@ export default function TemplatesPageContent() {
             image: '/Template-3.png',
             pages: 14,
         },
-       
+        
+
+        
+
     ]
 
     const filteredTemplates = activeFilter === 'all'
@@ -233,11 +312,12 @@ export default function TemplatesPageContent() {
 
                             {/* Template Info */}
                             <div className="p-6">
-
-                                {/* description removed per request */}
-
+                                <div className="mb-4 text-center">
+                                    <span className="inline-block px-4 py-1 rounded-full bg-primary-100 text-primary-700 font-bold text-sm shadow-sm border border-primary-200 mb-2">
+                                        {template.name}
+                                    </span>
+                                </div>
                                 <div className="flex gap-24 justify-center">
-
                                     <Link
                                         href="/payment"
                                         className="inline-flex items-center justify-center gap-1 px-2 py-1 text-xs bg-white hover:bg-gray-50 text-primary-600 font-semibold rounded border border-primary-600 transition-all duration-300"

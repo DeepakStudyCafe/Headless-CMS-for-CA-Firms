@@ -3,6 +3,8 @@ import Hero from '@/components/sections/Hero'
 import Features from '@/components/sections/Features'
 import About from '@/components/sections/About'
 import TemplateFeatures from '@/components/sections/TemplateFeatures'
+import TestimonialsCarousel from '@/components/sections/TestimonialsCarousel'
+import ReviewsCarousel from '@/components/sections/ReviewsCarousel'
 import Stats from '@/components/sections/Stats'
 import CTA from '@/components/sections/CTA'
 import FAQ from '@/components/sections/FAQ'
@@ -15,7 +17,9 @@ export default function Home() {
       <Hero />
       <Features />
       <About />
-      <TemplateFeatures />
+      <TestimonialsCarousel />
+      <TemplateFeatures />     
+      <ReviewsCarousel />
       <Stats />
       <FAQ />
       <CTA />

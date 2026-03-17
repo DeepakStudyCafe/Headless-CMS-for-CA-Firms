@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="container-custom py-16">
+      <div className="container-custom py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div>
@@ -137,7 +137,7 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-400">
+                  <p className="text-gray-300">
                     1003, 10th Floor, Modi Tower <br />
                     98, Nehruplace, Delhi 110019
                   </p>
@@ -147,16 +147,21 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-          <p className="text-gray-400">
-            &copy; {currentYear} Automationcafe All Rights Reserved | 
-            <Link href="/privacy" className="hover:text-primary-400 transition-colors duration-300 ml-2">
-              Privacy Policy
-            </Link> | 
-            <Link href="/terms" className="hover:text-primary-400 transition-colors duration-300 ml-2">
-              Terms of Service
-            </Link>
-          </p>
+        <div className="border-t border-gray-800 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between text-center md:text-left">
+            <p className="text-gray-400 mb-2 md:mb-0">
+              &copy; {currentYear} Automationcafe All Rights Reserved |
+              <Link href="/privacy" className="hover:text-primary-400 transition-colors duration-300 ml-2">
+                Privacy Policy
+              </Link> |
+              <Link href="/terms" className="hover:text-primary-400 transition-colors duration-300 ml-2">
+                Terms of Service
+              </Link>
+            </p>
+            <p className="text-gray-400 text-base">
+              Powered By <a href="https://studycafe.in/" target="_blank" rel="noopener" className="underline hover:text-primary-400">Studycafe</a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
