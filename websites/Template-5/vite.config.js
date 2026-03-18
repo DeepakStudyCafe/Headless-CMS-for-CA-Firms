@@ -5,5 +5,10 @@ export default defineConfig({
       "temp7.automationcafe.in",
       "www.temp7.automationcafe.in"
     ]
+  },
+  resolve: {
+    alias: {
+      "@": require("path").resolve(__dirname, "./src")
+    }
   }
 });
