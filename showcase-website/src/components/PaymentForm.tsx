@@ -29,6 +29,11 @@ export default function PaymentForm() {
     'Template 8',
     'Template 9',
     'Template 10',
+    'Template 11',
+    'Template 12',
+    'Template 13',
+    'Template 14',
+    'Template 15',
   ]
 
   const plans = [
@@ -50,7 +55,7 @@ export default function PaymentForm() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
+    
     await new Promise(resolve => setTimeout(resolve, 2000))
 
     setIsSubmitting(false)
