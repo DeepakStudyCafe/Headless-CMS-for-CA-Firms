@@ -16,6 +16,12 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
+  preview: {
+    allowedHosts: [
+      "temp7.automationcafe.in",
+      "www.temp7.automationcafe.in"
+    ]
+  },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
