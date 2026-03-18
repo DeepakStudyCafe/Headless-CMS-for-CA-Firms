@@ -17,10 +17,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   preview: {
-    allowedHosts: [
-      "temp7.automationcafe.in",
-      "www.temp7.automationcafe.in"
-    ]
+    allowedHosts: true
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

@@ -17,7 +17,7 @@ export default defineConfig({
   preview: {
     host: "::",
     port: 8080,
-    allowedHosts: ["temp7.automationcafe.in", "www.temp7.automationcafe.in"],
+    allowedHosts: true,
   },
   resolve: {
     alias: {
