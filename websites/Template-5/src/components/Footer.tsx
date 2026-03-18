@@ -21,11 +21,11 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <img
                 src="https://api.digitechai.in/uploads/footerlogo.png"
-                alt="xyz & Associates Logo"
+                alt="abc & Associates Logo"
                 className="h-9"
               />
               <span className="flex flex-col font-bold text-white text-base leading-tight tracking-wide select-none">
-                xyz & Associates
+                abc & Associates
                 <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
               </span>
             </div>

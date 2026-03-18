@@ -29,7 +29,7 @@ export default function Navbar() {
           <a href="#home" className="flex items-center gap-3">
             <motion.img
               src="https://api.digitechai.in/uploads/logo.png"
-              alt="xyz & Associates Logo"
+              alt="abc & Associates Logo"
               className="h-10 md:h-9 transition-transform duration-500"
               animate={{ scale: scrolled ? 0.85 : 1 }}
               transition={{ duration: 0.4 }}
@@ -37,7 +37,7 @@ export default function Navbar() {
             <span
               className={`hidden md:flex flex-col font-bold text-lg tracking-wide select-none transition-colors duration-500 ${scrolled ? "text-charcoal" : "text-white"}`}
             >
-              xyz & Associates
+              abc & Associates
               <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
             </span>
           </a>
@@ -102,11 +102,11 @@ export default function Navbar() {
               <div className="flex flex-col items-center mb-4">
                 <img
                   src="https://api.digitechai.in/uploads/logo.png"
-                  alt="xyz & Associates Logo"
+                  alt="abc & Associates Logo"
                   className="h-12 mb-1"
                 />
                 <span className="font-bold text-white text-lg tracking-wide select-none flex flex-col items-center">
-                  xyz & Associates
+                  abc & Associates
                   <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
                 </span>
               </div>

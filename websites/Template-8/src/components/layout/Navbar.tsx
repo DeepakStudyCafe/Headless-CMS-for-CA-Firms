@@ -54,11 +54,11 @@ const Navbar = () => {
           >
             <img
               src="https://api.digitechai.in/uploads/logo.png"
-              alt="xyz & Associates Logo"
+              alt="abc & Associates Logo"
               className="h-10 lg:h-9 w-auto"
             />
             <span className="hidden md:flex flex-col font-bold text-cream text-lg leading-tight tracking-wide select-none">
-              xyz & Associates
+              abc & Associates
               <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
             </span>
           </motion.a>

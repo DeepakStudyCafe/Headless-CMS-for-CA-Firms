@@ -29,14 +29,14 @@ const Navbar = () => {
           <motion.a href="#" className="flex items-center gap-2">
             <img
               src="https://api.digitechai.in/uploads/logo.png"
-              alt="xyz & Associates Logo"
+              alt="abc & Associates Logo"
               className="transition-transform duration-500"
               style={{ height: scrolled ? "32px" : "35px" }}
             />
             <span
               className={`hidden md:flex flex-col font-bold text-base leading-tight tracking-wide select-none transition-colors duration-500 ${scrolled ? "text-text-main" : "text-surface"}`}
             >
-              xyz & Associates
+              abc & Associates
               <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
             </span>
           </motion.a>
@@ -112,11 +112,11 @@ const Navbar = () => {
             <div className="flex flex-col items-center mb-8">
               <img
                 src="https://api.digitechai.in/uploads/logo.png"
-                alt="xyz & Associates Logo"
+                alt="abc & Associates Logo"
                 className="h-12 mb-1"
               />
               <span className="font-bold text-surface text-lg tracking-wide select-none flex flex-col items-center">
-                xyz & Associates
+                abc & Associates
                 <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
               </span>
             </div>

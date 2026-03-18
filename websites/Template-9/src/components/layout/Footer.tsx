@@ -39,7 +39,7 @@ const Footer = () => {
                 className="h-9"
               />
               <span className="flex flex-col font-bold text-surface text-base leading-tight tracking-wide select-none">
-                xyz & Associates
+                abc & Associates
                 <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
               </span>
             </div>

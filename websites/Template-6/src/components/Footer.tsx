@@ -16,12 +16,12 @@ const Footer = () => {
             <div className="flex items-center gap-2 mb-4">
               <img
                 src="https://api.digitechai.in/uploads/footerlogo.png"
-                alt="xyz & Associates Logo"
+                alt="abc & Associates Logo"
                 className="h-9"
                 style={{ filter: "drop-shadow(0 0 6px rgba(224,140,46,0.3))" }}
               />
               <span className="flex flex-col font-bold text-linen text-base leading-tight tracking-wide select-none">
-                xyz & Associates
+                abc & Associates
                 <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
               </span>
             </div>

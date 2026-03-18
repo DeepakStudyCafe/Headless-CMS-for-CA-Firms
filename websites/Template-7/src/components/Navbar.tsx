@@ -32,12 +32,12 @@ export default function Navbar() {
           <a href="#" className="flex-shrink-0 flex items-center gap-3" data-cursor="button">
             <img
               src="https://api.digitechai.in/uploads/logo.png"
-              alt="xyz & Associates Logo"
+              alt="abc & Associates Logo"
               className="transition-all duration-[350ms]"
               style={{ height: scrolled ? 32 : 38 }}
             />
             <span className="hidden md:flex flex-col font-bold text-base leading-tight tracking-wide select-none text-charcoal">
-              xyz & Associates
+              abc & Associates
               <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
             </span>
           </a>
@@ -100,9 +100,9 @@ export default function Navbar() {
             style={{ background: '#FAF8F3', borderBottom: '2px solid #C8A96E' }}
           >
             <div className="flex flex-col items-center absolute top-6 left-6">
-              <img src="https://api.digitechai.in/uploads/logo.png" alt="xyz & Associates Logo" className="h-10 mb-1" />
+              <img src="https://api.digitechai.in/uploads/logo.png" alt="abc & Associates Logo" className="h-10 mb-1" />
               <span className="font-bold text-charcoal text-base tracking-wide select-none flex flex-col items-center">
-                xyz & Associates
+                abc & Associates
                 <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
               </span>
             </div>

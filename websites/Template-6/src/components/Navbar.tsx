@@ -30,14 +30,14 @@ const Navbar = () => {
         <div className="flex-shrink-0 flex items-center gap-2">
           <img
             src="https://api.digitechai.in/uploads/logo.png"
-            alt="xyz & Associates Logo"
+            alt="abc & Associates Logo"
             className="h-8 transition-all duration-300"
             style={{
               filter: `drop-shadow(0 0 ${scrolled ? '10px' : '6px'} rgba(224,140,46,${scrolled ? 0.5 : 0.35}))`,
             }}
           />
           <span className="hidden md:flex flex-col font-bold text-base leading-tight tracking-wide select-none text-linen">
-            xyz & Associates
+            abc & Associates
             <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
           </span>
         </div>
@@ -128,11 +128,11 @@ const Navbar = () => {
             <div className="flex flex-col items-center mb-8">
               <img
                 src="https://api.digitechai.in/uploads/logo.png"
-                alt="xyz & Associates Logo"
+                alt="abc & Associates Logo"
                 className="h-12 mb-1"
               />
               <span className="font-bold text-linen text-lg tracking-wide select-none flex flex-col items-center">
-                xyz & Associates
+                abc & Associates
                 <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
               </span>
             </div>
