@@ -8,10 +8,15 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    allowedHosts: ["temp7.automationcafe.in"],
+    allowedHosts: ["temp15.automationcafe.in", "www.temp15.automationcafe.in"],
     hmr: {
       overlay: false,
     },
+  },
+  preview: {
+    host: "::",
+    port: 8080,
+    allowedHosts: ["temp15.automationcafe.in", "www.temp15.automationcafe.in"],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
