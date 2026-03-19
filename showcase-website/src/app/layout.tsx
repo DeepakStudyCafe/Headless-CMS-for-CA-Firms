@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: 'Automationcafe - Professional CA Firm Website Templates',
   description: 'Premium website templates for Chartered Accountant firms. Modern, responsive, and feature-rich designs to elevate your practice.',
   keywords: 'CA website, chartered accountant, accounting website, tax advisor website, professional website templates',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
