@@ -5,9 +5,9 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Automationcafe - Professional CA Firm Website Templates',
-  description: 'Premium website templates for Chartered Accountant firms. Modern, responsive, and feature-rich designs to elevate your practice.',
-  keywords: 'CA website, chartered accountant, accounting website, tax advisor website, professional website templates',
+  title: 'Webcafe - Best CA Firm Website Templates | Chartered Accountant Web Design',
+  description: 'Webcafe offers top-ranked, SEO-friendly website templates for Chartered Accountant firms. Responsive CA websites with tax, audit, GST, finance consultancy pages to boost visibility and conversions.',
+  keywords: 'Webcafe, CA website template, chartered accountant website, accounting firm website, CA web design, GST consultant website, tax advisor web template, audit firm website template',
   icons: {
     icon: '/favicon.png',
     shortcut: '/favicon.png',

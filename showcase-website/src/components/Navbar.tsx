@@ -42,7 +42,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-2">
             <img
               src={isScrolled ? '/automationcafe-black.png' : '/automationcafe-white.png'}
-              alt="Automationcafe Logo"
+              alt="Webcafe Logo"
               className="h-8 w-auto mb-2"
               draggable="false"
             />

@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <div className="flex items-center space-x-2 mb-4 mr-10">
-              <img src="/automationcafe-white.png" alt="Automationcafe Logo" className="w-50 h-50 object-contain" />
+              <img src="/automationcafe-white.png" alt="Webcafe Logo" className="w-50 h-50 object-contain" />
             </div>
             <p className="text-gray-400 mb-4 leading-relaxed">
               Professional website templates specifically designed by the Chartered Accountant for Chartered Accountant firms to help them build credibility, attract clients and grow their practice online.
@@ -150,7 +150,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between text-center md:text-left">
             <p className="text-gray-400 mb-2 md:mb-0">
-              &copy; {currentYear} Automationcafe All Rights Reserved |
+              &copy; {currentYear} Webcafe All Rights Reserved |
               <Link href="/privacy" className="hover:text-primary-400 transition-colors duration-300 ml-2">
                 Privacy Policy
               </Link> |

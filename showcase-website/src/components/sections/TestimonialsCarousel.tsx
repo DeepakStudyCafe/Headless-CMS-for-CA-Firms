@@ -10,7 +10,7 @@ const testimonials = [
     name: 'CA Rajesh Sharma',
     firm: 'Sharma & Associates, New Delhi',
     image: 'RS',
-    content: 'AutomationCafe has completely transformed how our firm manages its online presence. The premium CA templates are perfectly tailored for Indian practices. Setting it up was seamless.',
+    content: 'Webcafe has completely transformed how our firm manages its online presence. The premium CA templates are perfectly tailored for Indian practices. Setting it up was seamless.',
   },
   {
     id: 2,

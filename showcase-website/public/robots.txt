@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location (update domain if different)
-Sitemap: https://automationcafe.in/sitemap.xml
+Sitemap: https://webcafe.co.in/sitemap.xml
