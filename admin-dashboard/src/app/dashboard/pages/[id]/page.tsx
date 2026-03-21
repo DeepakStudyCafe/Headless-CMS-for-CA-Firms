@@ -571,91 +571,113 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                               </Button>
                             </div>
                             
-                            {/* Icon field for services */}
-                            {item.icon !== undefined && (
+                            {typeof item === 'string' ? (
                               <div>
-                                <Label>Icon (e.g., calculator, briefcase, chart)</Label>
+                                <Label>Item Text</Label>
                                 <Input
-                                  value={item.icon || ''}
+                                  value={item}
                                   onChange={(e) => {
                                     const updatedItems = [...section.textContent.items]
-                                    updatedItems[itemIndex] = { ...item, icon: e.target.value }
+                                    updatedItems[itemIndex] = e.target.value
                                     handleSectionUpdate(section.id, 'textContent', {
                                       ...section.textContent,
                                       items: updatedItems,
                                     })
                                   }}
-                                  placeholder="Icon name..."
+                                  placeholder="Text..."
                                 />
                               </div>
-                            )}
-                            
-                            <div>
-                              <Label>Title</Label>
-                              <Input
-                                value={item.title || ''}
-                                onChange={(e) => {
-                                  const updatedItems = [...section.textContent.items]
-                                  updatedItems[itemIndex] = { ...item, title: e.target.value }
-                                  handleSectionUpdate(section.id, 'textContent', {
-                                    ...section.textContent,
-                                    items: updatedItems,
-                                  })
-                                }}
-                                placeholder="Service title..."
-                              />
-                            </div>
-                            <div>
-                              <Label>Description</Label>
-                              <textarea
-                                value={item.description || ''}
-                                onChange={(e) => {
-                                  const updatedItems = [...section.textContent.items]
-                                  updatedItems[itemIndex] = { ...item, description: e.target.value }
-                                  handleSectionUpdate(section.id, 'textContent', {
-                                    ...section.textContent,
-                                    items: updatedItems,
-                                  })
-                                }}
-                                placeholder="Service description..."
-                                className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                              />
-                            </div>
-                            {/* Support for team section items with additional fields */}
-                            {item.name !== undefined && (
-                              <div>
-                                <Label>Name</Label>
-                                <Input
-                                  value={item.name || ''}
-                                  onChange={(e) => {
-                                    const updatedItems = [...section.textContent.items]
-                                    updatedItems[itemIndex] = { ...item, name: e.target.value }
-                                    handleSectionUpdate(section.id, 'textContent', {
-                                      ...section.textContent,
-                                      items: updatedItems,
-                                    })
-                                  }}
-                                  placeholder="Team member name..."
-                                />
-                              </div>
-                            )}
-                            {item.role !== undefined && (
-                              <div>
-                                <Label>Role</Label>
-                                <Input
-                                  value={item.role || ''}
-                                  onChange={(e) => {
-                                    const updatedItems = [...section.textContent.items]
-                                    updatedItems[itemIndex] = { ...item, role: e.target.value }
-                                    handleSectionUpdate(section.id, 'textContent', {
-                                      ...section.textContent,
-                                      items: updatedItems,
-                                    })
-                                  }}
-                                  placeholder="Team member role..."
-                                />
-                              </div>
-                            )}
+                            ) : (
+                              <>
+                                {/* Icon field for services */}
+                                {item.icon !== undefined && (
+                                  <div>
+                                    <Label>Icon (e.g., calculator, briefcase, chart)</Label>
+                                    <Input
+                                      value={item.icon || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, icon: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Icon name..."
+                                    />
+                                  </div>
+                                )}
+                                
+                                {item.title !== undefined && (
+                                  <div>
+                                    <Label>Title</Label>
+                                    <Input
+                                      value={item.title || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, title: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Service title..."
+                                    />
+                                  </div>
+                                )}
+                                {item.description !== undefined && (
+                                  <div>
+                                    <Label>Description</Label>
+                                    <textarea
+                                      value={item.description || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, description: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Service description..."
+                                      className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                    />
+                                  </div>
+                                )}
+                                {/* Support for team section items with additional fields */}
+                                {item.name !== undefined && (
+                                  <div>
+                                    <Label>Name</Label>
+                                    <Input
+                                      value={item.name || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, name: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Team member name..."
+                                    />
+                                  </div>
+                                )}
+                                {item.role !== undefined && (
+                                  <div>
+                                    <Label>Role</Label>
+                                    <Input
+                                      value={item.role || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, role: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Team member role..."
+                                    />
+                                  </div>
+                                )}
                             {item.image !== undefined && (
                               <div>
                                 <Label>Image</Label>
@@ -774,7 +796,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                             )}
 
                             {/* Dynamically render unhandled item fields */}
-                            {Object.keys(item).map(k => {
+                            {typeof item === 'object' && item !== null && Object.keys(item).map(k => {
                               if (['icon', 'title', 'description', 'name', 'role', 'image'].includes(k)) return null;
                               return (
                                 <div key={k}>
@@ -793,6 +815,8 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                 </div>
                               )
                             })}
+                              </>
+                            )}
                           </div>
                         </Card>
                       ))}

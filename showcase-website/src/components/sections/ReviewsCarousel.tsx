@@ -107,8 +107,8 @@ export default function ReviewsCarousel() {
             </motion.div>
           </div>
 
-          {/* Desktop/Tablet view (3 cards) */}
-          <div className="hidden md:flex gap-6 items-stretch justify-center px-4">
+          {/* Desktop/Tablet view (3 cards) - use grid for consistent sizing */}
+          <div className="hidden md:grid md:grid-cols-3 gap-6 items-stretch justify-center px-4">
             <AnimatePresence mode="popLayout">
               {getVisibleReviews().map((review, idx) => (
                 <motion.div
@@ -116,7 +116,7 @@ export default function ReviewsCarousel() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="bg-white rounded-xl p-6 shadow-md border border-gray-200 w-1/3 flex flex-col"
+                  className="bg-white rounded-xl p-6 sm:p-8 shadow-md border border-gray-200 w-full flex flex-col"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">

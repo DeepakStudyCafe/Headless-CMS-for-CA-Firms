@@ -98,8 +98,8 @@ export default function TestimonialsCarousel() {
             </motion.div>
           </div>
 
-          {/* Desktop/Tablet view (3 cards) */}
-          <div className="hidden md:flex gap-6 items-stretch justify-center">
+          {/* Desktop/Tablet view (3 cards) - use grid for better responsiveness */}
+          <div className="hidden md:grid md:grid-cols-3 gap-6 items-stretch justify-center">
             <AnimatePresence mode="popLayout">
               {getVisibleCards().map((testimonial, idx) => (
                 <motion.div
@@ -107,7 +107,7 @@ export default function TestimonialsCarousel() {
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 w-1/3 flex flex-col justify-between"
+                  className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 w-full flex flex-col justify-between"
                 >
                   <div>
                     <Quote className="w-10 h-10 text-primary-200 mb-4" />

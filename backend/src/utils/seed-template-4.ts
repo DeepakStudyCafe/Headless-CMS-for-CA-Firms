@@ -71,9 +71,9 @@ async function main() {
             order: 1,
             textContent: {
               slides: [
-                { image: '/assets/hero-1.jpg', title: 'Strategic Financial\nConsultation', subtitle: 'Empowering businesses with expert advisory and precision-driven financial solutions for sustainable growth.', badge: 'Trusted by 500+ Businesses' },
-                { image: '/assets/hero-2.jpg', title: 'Expert Tax &\nAdvisory Services', subtitle: 'Navigate complex tax landscapes with our seasoned chartered accountants and industry specialists.', badge: '20+ Years of Excellence' },
-                { image: '/assets/hero-3.jpg', title: 'Building Financial\nConfidence', subtitle: 'From compliance to strategic planning — we deliver results that drive your business forward.', badge: 'Award-Winning Firm' },
+                { image: '/uploads/hero-1.jpg', title: 'Strategic Financial\nConsultation', subtitle: 'Empowering businesses with expert advisory and precision-driven financial solutions for sustainable growth.', badge: 'Trusted by 500+ Businesses' },
+                { image: '/uploads/hero-2.jpg', title: 'Expert Tax &\nAdvisory Services', subtitle: 'Navigate complex tax landscapes with our seasoned chartered accountants and industry specialists.', badge: '20+ Years of Excellence' },
+                { image: '/uploads/hero-3.jpg', title: 'Building Financial\nConfidence', subtitle: 'From compliance to strategic planning — we deliver results that drive your business forward.', badge: 'Award-Winning Firm' },
               ]
             }
           },
@@ -172,7 +172,7 @@ async function main() {
           {
             type: 'page-hero',
             order: 1,
-            imageUrl: '/assets/about-hero.jpg',
+            imageUrl: '/uploads/about-hero.jpg',
             textContent: {
               title: 'About Us',
               subtitle: 'Building trust through financial excellence',
@@ -271,7 +271,7 @@ async function main() {
           {
             type: 'page-hero',
             order: 1,
-            imageUrl: '/assets/services-hero.jpg',
+            imageUrl: '/uploads/services-hero.jpg',
             textContent: {
               title: 'Our Services',
               subtitle: 'Comprehensive financial solutions for your business',
@@ -314,7 +314,7 @@ async function main() {
           {
             type: 'page-hero',
             order: 1,
-            imageUrl: '/assets/team-hero.jpg',
+            imageUrl: '/uploads/team-hero.jpg',
             textContent: {
               title: 'Our Team',
               subtitle: 'Meet the experts behind your financial success',
@@ -387,7 +387,7 @@ async function main() {
           {
             type: 'page-hero',
             order: 1,
-            imageUrl: '/assets/gallery-hero.jpg',
+            imageUrl: '/uploads/gallery-hero.jpg',
             textContent: {
               title: 'Gallery',
               subtitle: 'A glimpse into our workspace and events',
@@ -398,15 +398,15 @@ async function main() {
             order: 2,
             textContent: {
               items: [
-                { image: '/assets/gallery-hero.jpg', title: 'Office View 1', category: 'Office' },
-                { image: '/assets/about-hero.jpg', title: 'Office View 2', category: 'Office' },
-                { image: '/assets/hero-1.jpg', title: 'Office View 3', category: 'Office' },
-                { image: '/assets/hero-2.jpg', title: 'Corporate Event 1', category: 'Events' },
-                { image: '/assets/hero-3.jpg', title: 'Corporate Event 2', category: 'Events' },
-                { image: '/assets/team-hero.jpg', title: 'Team Outing', category: 'Events' },
-                { image: '/assets/contact-hero.jpg', title: 'Client Meeting 1', category: 'Events' },
-                { image: '/assets/services-hero.jpg', title: 'Client Meeting 2', category: 'Events' },
-                { image: '/assets/career-hero.jpg', title: 'Career Seminar', category: 'Events' }
+                { image: '/uploads/gallery-hero.jpg', title: 'Office View 1', category: 'Office' },
+                { image: '/uploads/about-hero.jpg', title: 'Office View 2', category: 'Office' },
+                { image: '/uploads/hero-1.jpg', title: 'Office View 3', category: 'Office' },
+                { image: '/uploads/hero-2.jpg', title: 'Corporate Event 1', category: 'Events' },
+                { image: '/uploads/hero-3.jpg', title: 'Corporate Event 2', category: 'Events' },
+                { image: '/uploads/team-hero.jpg', title: 'Team Outing', category: 'Events' },
+                { image: '/uploads/contact-hero.jpg', title: 'Client Meeting 1', category: 'Events' },
+                { image: '/uploads/services-hero.jpg', title: 'Client Meeting 2', category: 'Events' },
+                { image: '/uploads/career-hero.jpg', title: 'Career Seminar', category: 'Events' }
               ],
               labelOffice: 'Our Workspace',
               titleOffice: 'Office Gallery',
@@ -434,7 +434,7 @@ async function main() {
           {
             type: 'page-hero',
             order: 1,
-            imageUrl: '/assets/career-hero.jpg',
+            imageUrl: '/uploads/career-hero.jpg',
             textContent: {
               title: 'Careers',
               subtitle: 'Build your future with a leading CA firm',
@@ -503,7 +503,7 @@ async function main() {
           {
             type: 'page-hero',
             order: 1,
-            imageUrl: '/assets/contact-hero.jpg',
+            imageUrl: '/uploads/contact-hero.jpg',
             textContent: {
               title: 'Contact Us',
               subtitle: 'Let\'s start a conversation about your financial future',
@@ -551,7 +551,7 @@ async function main() {
           {
             type: 'page-hero',
             order: 1,
-            imageUrl: '/assets/contact-hero.jpg',
+            imageUrl: '/uploads/contact-hero.jpg',
             textContent: {
               title: 'Submit a Query',
               subtitle: 'We\'re here to help with your financial needs',
@@ -584,103 +584,146 @@ async function main() {
   })
 
   // Service Details Data (Internal mapping since ServiceDetail.tsx dynamic lookup)
+
   await prisma.page.create({
     data: {
       websiteId: template4.id,
-      slug: 'service-details',
-      title: 'Service Details',
+      title: 'Bookkeeping',
+      slug: 'service-bookkeeping',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
         create: [
-          {
-            type: 'service-details-data',
-            order: 1,
-            textContent: {
-              services: {
-                'bookkeeping': {
-                  title: 'Bookkeeping',
-                  desc: 'Our bookkeeping services ensure your financial records are accurate, up-to-date, and compliant. We manage your day-to-day accounting so you can focus on running your business.',
-                  benefits: ['Accurate financial records', 'Real-time financial visibility', 'Tax-ready books year-round', 'Reduced accounting errors', 'Cost-effective solution'],
-                  steps: ['Initial assessment of current records', 'Setup of chart of accounts', 'Daily transaction recording', 'Monthly reconciliation', 'Financial report delivery'],
-                  faqs: [
-                    { q: 'How often will my books be updated?', a: 'We update your books on a daily or weekly basis depending on transaction volume.' },
-                    { q: 'Do you use cloud-based software?', a: 'Yes, we use leading cloud accounting platforms for real-time access and collaboration.' }
-                  ]
-                },
-                'gst-filing': {
-                  title: 'GST Filing',
-                  desc: 'Stay compliant with India\'s GST regulations with our end-to-end GST filing services. We handle registration, return filing, reconciliation, and advisory.',
-                  benefits: ['Timely return filing', 'Input tax optimization', 'Error-free compliance', 'GST audit support', 'Expert advisory', 'Timely return filing'],
-                  steps: ['GST registration/review', 'Invoice data collection', 'Return preparation', 'Filing & submission', 'Reconciliation & reporting'],
-                  faqs: [
-                    { q: 'Which GST returns do you handle?', a: 'We handle GSTR-1, GSTR-3B, GSTR-9, and all other applicable returns.' },
-                    { q: 'Can you help with GST refund claims?', a: 'Absolutely. We assist with all types of GST refund claims and follow-ups.' }
-                  ]
-                },
-                'payroll': {
-                  title: 'Payroll',
-                  desc: 'Complete payroll management including salary computation, statutory compliance, and employee self-service solutions.',
-                  benefits: ['Accurate salary processing', 'Statutory compliance (PF, ESI, TDS)', 'Employee self-service portal', 'Payslip generation', 'Year-end tax planning'],
-                  steps: ['Payroll setup & configuration', 'Monthly data collection', 'Salary computation', 'Statutory filings', 'Payslip distribution'],
-                  faqs: [
-                    { q: 'Do you handle PF and ESI filings?', a: 'Yes, all statutory filings including PF, ESI, Professional Tax, and TDS are covered.' },
-                    { q: 'Can employees access their payslips online?', a: 'Yes, we provide a self-service portal for employees to access payslips and tax documents.' }
-                  ]
-                },
-                'tax-planning': {
-                  title: 'Tax Planning',
-                  desc: 'Strategic tax planning services to minimize your tax liability while ensuring full compliance with tax laws and regulations.',
-                  benefits: ['Tax liability reduction', 'Investment planning guidance', 'Advance tax computation', 'Tax audit preparation', 'International tax advisory'],
-                  steps: ['Financial review', 'Tax analysis & projections', 'Strategy development', 'Implementation support', 'Quarterly review & adjustment'],
-                  faqs: [
-                    { q: 'Is tax planning only for high-income individuals?', a: 'No, tax planning benefits everyone. We create strategies tailored to your specific financial situation.' },
-                    { q: 'How early should I start tax planning?', a: 'Ideally at the beginning of the financial year for maximum benefit.' }
-                  ]
-                },
-                'company-formation': {
-                  title: 'Company Formation',
-                  desc: 'End-to-end business incorporation services. We handle all aspects from name approval to certificate of incorporation.',
-                  benefits: ['Quick incorporation', 'Compliance-ready setup', 'Expert guidance on structure', 'Post-incorporation support', 'All documentation handled'],
-                  steps: ['Consultation & structure selection', 'Name reservation', 'Documentation preparation', 'Filing with authorities', 'Certificate & compliance setup'],
-                  faqs: [
-                    { q: 'How long does incorporation take?', a: 'Typically 7-15 working days depending on the type of entity and government processing.' },
-                    { q: 'What structure is best for my business?', a: 'We\'ll guide you based on your business goals, liability preferences, and tax implications.' }
-                  ]
-                },
-                'compliance': {
-                  title: 'Compliance',
-                  desc: 'Stay ahead of regulatory requirements with our comprehensive compliance management services covering all statutory obligations.',
-                  benefits: ['Zero penalty guarantee', 'Automated compliance calendar', 'Regular status updates', 'Expert regulatory guidance', 'Annual compliance review'],
-                  steps: ['Compliance audit', 'Calendar setup', 'Document preparation', 'Filing & submission', 'Review & reporting'],
-                  faqs: [
-                    { q: 'What compliances do you cover?', a: 'ROC filings, annual returns, statutory audits, labor law compliance, and more.' },
-                    { q: 'Do you provide compliance reminders?', a: 'Yes, we maintain a comprehensive compliance calendar with automated reminders.' }
-                  ]
-                },
-                'audit-services': {
-                  title: 'Audit Services',
-                  desc: 'Comprehensive audit solutions including statutory audit, internal audit, tax audit, and special purpose audits.',
-                  benefits: ['Thorough examination', 'Risk identification', 'Process improvement insights', 'Regulatory compliance', 'Stakeholder confidence'],
-                  steps: ['Planning & scoping', 'Risk assessment', 'Fieldwork & testing', 'Findings & recommendations', 'Final report delivery'],
-                  faqs: [
-                    { q: 'How long does an audit take?', a: 'Duration varies based on company size, typically 2-6 weeks for standard statutory audits.' },
-                    { q: 'Do you provide management letters?', a: 'Yes, we provide detailed management letters with actionable recommendations.' }
-                  ]
-                },
-                'financial-advisory': {
-                  title: 'Financial Advisory',
-                  desc: 'Expert financial advisory services including business valuation, due diligence, fundraising support, and strategic financial planning.',
-                  benefits: ['Data-driven insights', 'Customized strategies', 'Risk mitigation', 'Growth acceleration', 'Expert guidance'],
-                  steps: ['Needs assessment', 'Data analysis', 'Strategy formulation', 'Implementation roadmap', 'Ongoing advisory support'],
-                  faqs: [
-                    { q: 'What industries do you advise?', a: 'We work across all major industries including technology, manufacturing, real estate, and healthcare.' },
-                    { q: 'Can you help with fundraising?', a: 'Yes, we assist with pitch preparation, financial modeling, and investor connect.' }
-                  ]
-                }
-              }
-            }
-          }
+          { type: 'hero', order: 0, textContent: { title: 'Bookkeeping', description: 'Accurate financial record keeping for informed business decisions.', image: '/uploads/services-hero.jpg' } },
+          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Bookkeeping Service', items: ["Daily transaction recording","Bank reconciliation","Accounts payable & receivable","Financial statement preparation","Cash flow management"] } },
+          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Initial Financial Review","Accounting Software Setup","Daily/Weekly Categorization","Month-end Close & Reporting"] } },
+          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"What software do you use?","a":"We work with Tally, QuickBooks, Zoho, and other major accounting platforms."},{"q":"How often do I get reports?","a":"We provide monthly MIS reports, but can offer weekly summaries upon request."}] } }
+        ]
+      }
+    }
+  })
+
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      title: 'GST Filing',
+      slug: 'service-gst-filing',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          { type: 'hero', order: 0, textContent: { title: 'GST Filing', description: 'Timely GST compliance & returns to keep your business running smoothly.', image: '/uploads/services-hero.jpg' } },
+          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our GST Filing Service', items: ["Monthly GSTR-1 & GSTR-3B filing","Quarterly GSTR-4 for composition dealers","Annual GST return filing","GST reconciliation","Input tax credit optimization"] } },
+          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Invoice Collection","Data Reconciliation & ITC Matching","Draft Return Preparation","Client Approval & Final Filing"] } },
+          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"Can you help with GST Registration?","a":"Yes, we provide end-to-end GST registration support."},{"q":"What if I missed a filing?","a":"We assist with late filings and minimize penalty impacts."}] } }
+        ]
+      }
+    }
+  })
+
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      title: 'Payroll',
+      slug: 'service-payroll',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          { type: 'hero', order: 0, textContent: { title: 'Payroll', description: 'End-to-end payroll management and statutory compliance.', image: '/uploads/services-hero.jpg' } },
+          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Payroll Service', items: ["Salary calculation & disbursement","PF & ESI compliance","TDS on salary computation","Leave & attendance management","Payslip generation"] } },
+          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Attendance Data Integration","Deduction & Tax Calculation","Approval & Salary Disbursement","PF/ESI Return Filings"] } },
+          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"Do you issue payslips?","a":"Yes, digital payslips are provided directly to employees."},{"q":"Are bonus and incentives handled?","a":"We structure performance pay and bonuses in a tax-efficient manner."}] } }
+        ]
+      }
+    }
+  })
+
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      title: 'Tax Planning',
+      slug: 'service-tax-planning',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          { type: 'hero', order: 0, textContent: { title: 'Tax Planning', description: 'Strategic tax optimization to maximize your savings legally.', image: '/uploads/services-hero.jpg' } },
+          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Tax Planning Service', items: ["Income tax planning","Investment advisory","Tax saving strategies","Advance tax computation","Tax return filing"] } },
+          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Historical Tax Review","Goal & Investment Assessment","Strategy Formulation","Implementation & Return Filing"] } },
+          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"When is the right time for tax planning?","a":"Tax planning should ideally begin at the start of the financial year."},{"q":"Do you assist with tax notices?","a":"Yes, we represent clients for scrutiny and notices from the IT department."}] } }
+        ]
+      }
+    }
+  })
+
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      title: 'Company Formation',
+      slug: 'service-company-formation',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          { type: 'hero', order: 0, textContent: { title: 'Company Formation', description: 'Business incorporation services ensuring a solid foundation.', image: '/uploads/services-hero.jpg' } },
+          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Company Formation Service', items: ["Private Limited Company registration","LLP formation","Partnership deed drafting","MSME registration","Startup India registration"] } },
+          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Name Approval & DIN Registration","Drafting MOA & AOA","Filing Incorporation Docs","PAN, TAN & Bank Account Setup"] } },
+          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"How long does incorporation take?","a":"Typically 10-15 working days subject to government approvals."},{"q":"What is the minimum capital required?","a":"There is no minimum paid-up capital requirement for a Private Limited Company now."}] } }
+        ]
+      }
+    }
+  })
+
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      title: 'Compliance Management',
+      slug: 'service-compliance',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          { type: 'hero', order: 0, textContent: { title: 'Compliance Management', description: 'Regulatory compliance support to avoid penalties and audits.', image: '/uploads/services-hero.jpg' } },
+          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Compliance Management Service', items: ["ROC filings & AOC-4/MGT-7","Annual return compliance","Director KYC updates","Statutory registers maintenance","FEMA / RBI guidelines checks"] } },
+          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Compliance Calendar Setup","Document Drafting & Resolution formulation","Board Meeting Minutes Preparation","Filing Forms with Authorities"] } },
+          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"What happens if we miss an ROC filing?","a":"Late filings attract daily penalties. We help regularize past defaults."},{"q":"Do you maintain statutory registers?","a":"Yes, we keep all required corporate records updated."}] } }
+        ]
+      }
+    }
+  })
+
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      title: 'Audit Services',
+      slug: 'service-audit-services',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          { type: 'hero', order: 0, textContent: { title: 'Audit Services', description: 'Comprehensive audit solutions providing true and fair views.', image: '/uploads/services-hero.jpg' } },
+          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Audit Services Service', items: ["Statutory audit under Companies Act","Internal financial controls review","Tax audit under Income Tax Act","Concurrent & Management audits","Due diligence for M&A"] } },
+          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Audit Planning & Scope Design","Fieldwork & Verification","Issue Identification & Discussion","Final Audit Report Issuance"] } },
+          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"Is statutory audit mandatory?","a":"Yes, for all registered companies regardless of turnover or profit."},{"q":"Do you do forensic audits?","a":"Yes, we have specialized personnel for investigative and forensic matters."}] } }
+        ]
+      }
+    }
+  })
+
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      title: 'Financial Advisory',
+      slug: 'service-financial-advisory',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          { type: 'hero', order: 0, textContent: { title: 'Financial Advisory', description: 'Expert financial guidance to navigate growth and restructuring.', image: '/uploads/services-hero.jpg' } },
+          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Financial Advisory Service', items: ["Business valuation","Financial modelling & projections","Merger & acquisition support","Funding & loan assistance","CFO services on-demand"] } },
+          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Needs Analysis & Data Gathering","Market & Financial Modeling","Draft Presentation","Final Execution & Advisory Setup"] } },
+          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"Can you help raise funding?","a":"We assist with pitch decks, valuations, and connecting with financial institutions."},{"q":"What is an outsourced CFO?","a":"It gives you access to high-level strategic financial expertise without a full-time hire cost."}] } }
         ]
       }
     }

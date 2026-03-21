@@ -97,8 +97,8 @@ const ServiceDetail = () => {
   const { slug } = useParams();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const { getWebsiteData, getSection, isLoading } = usePageData('service-' + slug);
-  const siteData = getWebsiteData();
+  const { website, getSection, isLoading } = usePageData('service-' + slug);
+  const siteData = website;
 
   const ctaSec = getSection('hero')?.textContent;
   const benefitsSec = getSection('benefits')?.textContent;

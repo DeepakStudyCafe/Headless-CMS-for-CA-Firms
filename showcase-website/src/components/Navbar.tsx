@@ -28,13 +28,8 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'py-3' : 'py-5'
+        isScrolled ? 'py-3 bg-white shadow-md backdrop-blur-sm' : 'py-5 bg-transparent'
       }`}
-      style={{
-        backgroundColor: isScrolled ? 'white' : 'transparent',
-        boxShadow: isScrolled ? undefined : 'none',
-        backdropFilter: isScrolled ? undefined : 'none',
-      }}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between">
@@ -43,7 +38,7 @@ export default function Navbar() {
             <img
               src={isScrolled ? '/webcafe-black.png' : '/webcafe-white.png'}
               alt="Webcafe Logo"
-              className="h-8 w-auto mb-2"
+              className="h-6 sm:h-8 w-auto"
               draggable="false"
             />
           </Link>
@@ -65,7 +60,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center space-x-4">
             <Link
               href="/schedule-call"
-              className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+              className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
             >
               <Phone className="w-4 h-4" />
               Schedule a Call
@@ -88,13 +83,13 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className={`lg:hidden mt-4 pb-4 ${isScrolled ? 'border-t border-gray-200 bg-white' : 'border-t-0 bg-transparent'}`}>
-            <div className="flex flex-col space-y-3 pt-4 px-4">
+          <div className={`lg:hidden absolute left-0 right-0 top-full z-40 ${isScrolled ? 'border-t border-gray-200 bg-white backdrop-blur-sm' : 'bg-black/70'}`}>
+            <div className="flex flex-col space-y-3 pt-4 px-6 py-6 text-center">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`${isScrolled ? 'text-gray-700 hover:text-primary-600' : 'text-white hover:text-primary-200'} font-medium py-2`}
+                  className={`${isScrolled ? 'text-gray-700 hover:text-primary-600' : 'text-white hover:text-primary-200'} font-medium py-3 text-lg block`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -102,7 +97,7 @@ export default function Navbar() {
               ))}
               <Link
                 href="/schedule-call"
-                className="flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 mt-2"
+                className="flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 mt-2 mx-auto w-fit"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Phone className="w-4 h-4" />

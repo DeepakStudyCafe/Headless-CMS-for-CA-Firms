@@ -8,8 +8,8 @@ import { usePageData } from "@/hooks/useWebsiteData";
 import { getImageUrl } from "@/lib/api";
 
 const Contact = () => {
-  const { getWebsiteData, getSection, isLoading } = usePageData('contact');
-  const siteData = getWebsiteData();
+  const { website, getSection, isLoading } = usePageData('contact');
+  const siteData = website;
 
   const ctaSec = getSection('contact-hero')?.textContent;
   const heroImage = (ctaSec?.image) ? getImageUrl(ctaSec.image) : contactHero;

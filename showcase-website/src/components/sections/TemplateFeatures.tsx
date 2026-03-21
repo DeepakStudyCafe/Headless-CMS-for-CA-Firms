@@ -73,7 +73,7 @@ export default function TemplateFeatures() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card p-6 group"
+                className="card p-4 sm:p-6 group"
               >
                 <div className="w-14 h-14 bg-primary-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Icon className="w-7 h-7 text-primary-600" />

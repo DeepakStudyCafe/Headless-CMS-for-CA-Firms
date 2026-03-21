@@ -8,9 +8,9 @@ export default function CTA() {
   return (
     <section className="py-20 gradient-bg relative overflow-hidden">
       {/* Background Decorations */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="hidden sm:block absolute top-0 left-0 w-56 sm:w-72 md:w-96 h-56 sm:h-72 md:h-96 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+        <div className="hidden sm:block absolute bottom-0 right-0 w-56 sm:w-72 md:w-96 h-56 sm:h-72 md:h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
       </div>
 
       <div className="container-custom relative z-10">

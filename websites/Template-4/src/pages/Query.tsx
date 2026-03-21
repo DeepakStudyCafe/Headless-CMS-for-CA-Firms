@@ -11,8 +11,8 @@ import { getImageUrl } from "@/lib/api";
 
 const Query = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const { getWebsiteData, getSection, isLoading } = usePageData('query');
-  const siteData = getWebsiteData();
+  const { website, getSection, isLoading } = usePageData('query');
+  const siteData = website;
 
   const ctaSec = getSection('hero')?.textContent;
   const faqSec = getSection('faqs')?.textContent;

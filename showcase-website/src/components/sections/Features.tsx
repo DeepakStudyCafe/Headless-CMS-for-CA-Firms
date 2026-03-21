@@ -105,10 +105,10 @@ export default function Features() {
             const Icon = feature.icon
             return (
               <motion.div
-                key={index}
-                variants={itemVariants}
-                className="card p-8 group"
-              >
+                  key={index}
+                  variants={itemVariants}
+                  className="card p-6 sm:p-8 group"
+                >
                 <div className={`w-14 h-14 ${feature.bgColor} rounded-lg flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
                   <Icon className={`w-7 h-7 ${feature.color}`} />
                 </div>

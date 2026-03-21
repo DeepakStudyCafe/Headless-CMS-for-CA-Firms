@@ -88,9 +88,7 @@ export default function WebsiteDetailPage({ params }: { params: { id: string } }
       setWebsite(websiteData)
 
       const filteredPages = Array.isArray(pagesRes.data.data.pages)
-        ? pagesRes.data.data.pages.filter(
-            (p: Page) => p.slug !== 'career' && p.slug !== 'query' && p.slug !== 'contact'
-          )
+        ? pagesRes.data.data.pages
         : []
       setPages(filteredPages)
 

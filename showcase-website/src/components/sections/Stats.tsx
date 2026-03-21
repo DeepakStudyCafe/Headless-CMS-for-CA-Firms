@@ -53,7 +53,7 @@ export default function Stats() {
                 <div className={`w-16 h-16 ${stat.bgColor} rounded-full flex items-center justify-center mx-auto mb-4`}>
                   <Icon className={`w-8 h-8 ${stat.color}`} />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-white mb-2">
+                <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2">
                   {stat.number}
                 </div>
                 <div className="text-white/90 text-sm md:text-base">{stat.label}</div>

@@ -122,7 +122,7 @@ export default function TemplatesPreview() {
             >
               {/* Template Preview */}
               <div
-                className="h-48 relative overflow-hidden"
+                className="h-40 sm:h-48 relative overflow-hidden"
                 style={{
                   background: `linear-gradient(135deg, ${template.color} 0%, ${template.color}dd 100%)`,
                 }}
@@ -167,7 +167,7 @@ export default function TemplatesPreview() {
         </motion.div>
 
         {/* CTA to View All Templates */}
-        <motion.div
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -176,7 +176,7 @@ export default function TemplatesPreview() {
         >
           <Link
             href="/templates"
-            className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 px-10 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg group"
+            className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 sm:py-4 sm:px-10 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg group"
           >
             View All Templates
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

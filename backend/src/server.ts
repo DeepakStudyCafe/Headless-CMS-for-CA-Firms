@@ -88,15 +88,7 @@ app.use('/uploads', (req, res, next) => {
 });
 app.use('/uploads', express.static(rootUploadsPath, { maxAge: '1d' }));
 
-// Static files for assets
-const rootAssetsPath = path.resolve(__dirname, '../assets');
-app.use('/assets', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Cache-Control', 'public, max-age=86400, stale-while-revalidate=3600');
-  res.header('Vary', 'Origin');
-  next();
-});
-app.use('/assets', express.static(rootAssetsPath, { maxAge: '1d' }));
+
 
 // Health check
 app.get('/health', (req, res) => {
