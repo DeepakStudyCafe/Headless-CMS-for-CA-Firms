@@ -38,21 +38,21 @@ app.use(
 // CORS configuration
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3000',
-  'http://localhost:3001', 
+  'http://localhost:3001',
   'http://localhost:3002',
   'http://localhost:3003',
   'http://localhost:3004',
   'http://localhost:3005',
-  'http://localhost:3006'
+  'http://localhost:3006',
+  'http://localhost:8083',
+  'http://localhost:8084'
 ];
-
-
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
+
     // Check if the origin is allowed
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -87,6 +87,16 @@ app.use('/uploads', (req, res, next) => {
   next();
 });
 app.use('/uploads', express.static(rootUploadsPath, { maxAge: '1d' }));
+
+// Static files for assets
+const rootAssetsPath = path.resolve(__dirname, '../assets');
+app.use('/assets', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Cache-Control', 'public, max-age=86400, stale-while-revalidate=3600');
+  res.header('Vary', 'Origin');
+  next();
+});
+app.use('/assets', express.static(rootAssetsPath, { maxAge: '1d' }));
 
 // Health check
 app.get('/health', (req, res) => {

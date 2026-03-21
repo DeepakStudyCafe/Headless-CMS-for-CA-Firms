@@ -7,6 +7,8 @@ import servicesHero from "@/assets/services-hero.jpg";
 import { CheckCircle, ArrowRight, HelpCircle, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePageData } from "@/hooks/useWebsiteData";
+import { getImageUrl } from "@/lib/api";
 
 const serviceData: Record<string, { title: string; desc: string; benefits: string[]; steps: string[]; faqs: { q: string; a: string }[] }> = {
   bookkeeping: {
@@ -51,78 +53,113 @@ const serviceData: Record<string, { title: string; desc: string; benefits: strin
   },
   "company-formation": {
     title: "Company Formation",
-    desc: "End-to-end business incorporation services. We handle all aspects from name approval to certificate of incorporation.",
-    benefits: ["Quick incorporation", "Compliance-ready setup", "Expert guidance on structure", "Post-incorporation support", "All documentation handled"],
-    steps: ["Consultation & structure selection", "Name reservation", "Documentation preparation", "Filing with authorities", "Certificate & compliance setup"],
+    desc: "End-to-end business incorporation services for Private Limited, LLP, OPC, and Partnership firms including all statutory registrations.",
+    benefits: ["Expert guidance on entity type", "Hassle-free documentation", "Quick incorporation process", "Post-incorporation compliance", "Dedicated relationship manager"],
+    steps: ["Name selection & approval", "DSC & DIN application", "MOA & AOA drafting", "Incorporation filing", "PAN/TAN & other registrations"],
     faqs: [
-      { q: "How long does incorporation take?", a: "Typically 7-15 working days depending on the type of entity and government processing." },
-      { q: "What structure is best for my business?", a: "We'll guide you based on your business goals, liability preferences, and tax implications." },
+      { q: "How long does it take to register a private limited company?", a: "Typically 10-15 working days, subject to document readiness and ROC approvals." },
+      { q: "Do I need physical office space for registration?", a: "You need a registered office address. This can be a residential property or a virtual office used solely for registration purposes." },
     ],
   },
   compliance: {
-    title: "Compliance",
-    desc: "Stay ahead of regulatory requirements with our comprehensive compliance management services covering all statutory obligations.",
-    benefits: ["Zero penalty guarantee", "Automated compliance calendar", "Regular status updates", "Expert regulatory guidance", "Annual compliance review"],
-    steps: ["Compliance audit", "Calendar setup", "Document preparation", "Filing & submission", "Review & reporting"],
+    title: "Compliance Management",
+    desc: "Comprehensive regulatory compliance services including ROC filings, annual returns, and ongoing statutory requirements.",
+    benefits: ["Avoiding penalties and late fees", "Peace of mind for directors", "Maintained company good standing", "Timely reminder system", "Expert advisory"],
+    steps: ["Compliance health check", "Timeline mapping", "Document preparation", "Filing & submission", "Ongoing monitoring"],
     faqs: [
-      { q: "What compliances do you cover?", a: "ROC filings, annual returns, statutory audits, labor law compliance, and more." },
-      { q: "Do you provide compliance reminders?", a: "Yes, we maintain a comprehensive compliance calendar with automated reminders." },
+      { q: "What happens if I miss an ROC filing deadline?", a: "Missing deadlines typically results in late fees and penalties. In severe cases, it can lead to director disqualification." },
+      { q: "Can you help regularize past compliance defaults?", a: "Yes, we handle regularization of past defaults taking advantage of conditional immunity schemes when available." },
     ],
   },
   "audit-services": {
     title: "Audit Services",
-    desc: "Comprehensive audit solutions including statutory audit, internal audit, tax audit, and special purpose audits.",
-    benefits: ["Thorough examination", "Risk identification", "Process improvement insights", "Regulatory compliance", "Stakeholder confidence"],
-    steps: ["Planning & scoping", "Risk assessment", "Fieldwork & testing", "Findings & recommendations", "Final report delivery"],
+    desc: "Thorough statutory, internal, tax, and special purpose audit services delivering deep insights into your financial operations.",
+    benefits: ["Enhanced financial credibility", "Risk identification & mitigation", "Process improvement insights", "Regulatory compliance", "Stakeholder trust"],
+    steps: ["Audit planning & strategy", "Risk assessment", "Fieldwork & testing", "Issue identification & discussion", "Final audit report"],
     faqs: [
-      { q: "How long does an audit take?", a: "Duration varies based on company size, typically 2-6 weeks for standard statutory audits." },
-      { q: "Do you provide management letters?", a: "Yes, we provide detailed management letters with actionable recommendations." },
+      { q: "Is a statutory audit mandatory for all companies?", a: "Yes, all registered private limited and public limited companies in India must undergo statutory audit regardless of turnover." },
+      { q: "What is the difference between statutory and internal audit?", a: "Statutory audits are legally required and externally reported, while internal audits are voluntary management tools to improve operations and controls." },
     ],
   },
   "financial-advisory": {
     title: "Financial Advisory",
-    desc: "Expert financial advisory services including business valuation, due diligence, fundraising support, and strategic financial planning.",
-    benefits: ["Data-driven insights", "Customized strategies", "Risk mitigation", "Growth acceleration", "Expert guidance"],
-    steps: ["Needs assessment", "Data analysis", "Strategy formulation", "Implementation roadmap", "Ongoing advisory support"],
+    desc: "Expert guidance for business valuation, due diligence, fundraising support, and strategic financial planning to accelerate growth.",
+    benefits: ["Strategic growth mapping", "Optimized capital structure", "Enhanced business valuation", "Successful fundraising", "Data-driven decision making"],
+    steps: ["Initial consultation & need analysis", "Data collection & analysis", "Strategy formulation", "Implementation guidance", "Performance review"],
     faqs: [
-      { q: "What industries do you advise?", a: "We work across all major industries including technology, manufacturing, real estate, and healthcare." },
-      { q: "Can you help with fundraising?", a: "Yes, we assist with pitch preparation, financial modeling, and investor connect." },
+      { q: "Do you assist with raising capital?", a: "Yes, we provide end-to-end support including pitch deck preparation, valuation, and connecting with potential investors." },
+      { q: "When should a business seek valuation services?", a: "Valuation is needed during fund raising, mergers & acquisitions, ESOP issuances, or shareholder restructuring." },
     ],
   },
 };
 
 const ServiceDetail = () => {
   const { slug } = useParams();
-  const service = slug ? serviceData[slug] : null;
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  if (!service) return <Layout><div className="container py-40 text-center"><h1 className="text-2xl font-heading font-bold">Service not found</h1><Link to="/services" className="text-primary mt-4 inline-block">Back to Services</Link></div></Layout>;
+  const { getWebsiteData, getSection, isLoading } = usePageData('service-' + slug);
+  const siteData = getWebsiteData();
+
+  const ctaSec = getSection('hero')?.textContent;
+  const benefitsSec = getSection('benefits')?.textContent;
+  const stepsSec = getSection('steps')?.textContent;
+  const faqsSec = getSection('faqs')?.textContent;
+
+  const defaultService = serviceData[slug as string];
+
+  if (!defaultService && !ctaSec && !isLoading) {
+    return (
+      <Layout>
+        <div className="flex flex-col items-center justify-center min-h-[60vh]">
+          <h1 className="text-3xl font-bold mb-4">Service Not Found</h1>
+          <Link to="/services" className="text-primary hover:underline">
+            Back to Services
+          </Link>
+        </div>
+      </Layout>
+    );
+  }
+
+  const service = {
+    title: ctaSec?.title || defaultService?.title || "Service Details",
+    desc: ctaSec?.description || defaultService?.desc || "",
+    benefits: benefitsSec?.items || defaultService?.benefits || [],
+    steps: stepsSec?.items || defaultService?.steps || [],
+    faqs: faqsSec?.items || defaultService?.faqs || [],
+  };
+
+  const heroImage = (ctaSec?.image) ? getImageUrl(ctaSec.image) : servicesHero;
 
   return (
     <Layout>
-      <PageHero title={service.title} subtitle="Tailored solutions for your business needs" breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: service.title }]} image={servicesHero} />
+      <PageHero 
+        title={service.title} 
+        subtitle={service.desc} 
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: service.title }]} 
+        image={heroImage} 
+      />
 
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container max-w-4xl text-center">
+      <section className="py-20 md:py-28 bg-muted/50">
+        <div className="container max-w-4xl">
           <ScrollReveal>
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-medium">{service.desc}</p>
+            <div className="text-center mb-16">
+              <SectionHeading label="Overview" title="What You Get" centered={true} />
+              <p className="text-lg text-muted-foreground mt-4 leading-relaxed">{service.desc}</p>
+            </div>
           </ScrollReveal>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 bg-muted/30">
-        <div className="container max-w-5xl">
-          <div className="text-center mb-16">
-            <SectionHeading label="Advantages" title="Key Benefits" centered={true} />
-          </div>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {service.benefits.map((b, i) => (
-              <ScrollReveal key={i} delay={i * 0.08}>
-                <div className="flex flex-col h-full items-start gap-4 p-8 bg-card rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-border/50 hover:border-primary/30">
-                  <div className="bg-primary/10 p-3 rounded-xl">
-                    <CheckCircle className="w-6 h-6 text-primary" />
+          
+          <div className="grid sm:grid-cols-2 gap-6 mt-12">
+            {service.benefits.map((b: any, i: number) => (
+              <ScrollReveal key={i} delay={i * 0.1}>
+                <div className="flex items-start gap-4 p-6 bg-card rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-border/50">
+                  <div className="w-10 h-10 rounded-full bg-emerald-subtle flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckCircle className="w-5 h-5 text-primary" />
                   </div>
-                  <span className="text-foreground font-semibold text-lg">{b}</span>
+                  <div>
+                    <h3 className="font-semibold text-lg text-foreground mb-1">
+                      {typeof b === 'string' ? b : b.title || b}
+                    </h3>
+                  </div>
                 </div>
               </ScrollReveal>
             ))}
@@ -136,7 +173,7 @@ const ServiceDetail = () => {
             <SectionHeading label="Methodology" title="Our Process" centered={true} />
           </div>
           <div className="relative border-l-2 border-primary/20 ml-4 md:ml-8 space-y-12">
-            {service.steps.map((s, i) => (
+            {service.steps.map((s: any, i: number) => (
               <ScrollReveal key={i} delay={i * 0.1}>
                 <div className="relative pl-10 md:pl-16">
                   <div className="absolute -left-6 md:-left-6 top-1 w-12 h-12 rounded-full border-4 border-background bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md">
@@ -144,7 +181,9 @@ const ServiceDetail = () => {
                   </div>
                   <div className="bg-card p-6 md:p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-border/50 hover:border-primary/20 flex flex-col justify-center">
                     <h3 className="text-primary font-semibold text-sm tracking-wider uppercase mb-1">Step {i + 1}</h3>
-                    <p className="text-foreground font-medium text-lg md:text-xl">{s}</p>
+                    <p className="text-foreground font-medium text-lg md:text-xl">
+                      {typeof s === 'string' ? s : s.title || s}
+                    </p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -159,12 +198,12 @@ const ServiceDetail = () => {
             <SectionHeading label="Questions" title="Frequently Asked" centered={true} />
           </div>
           <div className="space-y-4">
-            {service.faqs.map((faq, i) => (
+            {service.faqs.map((faq: any, i: number) => (
               <ScrollReveal key={i} delay={i * 0.1}>
                 <div className={`bg-card rounded-2xl overflow-hidden transition-all duration-300 border ${openFaq === i ? 'border-primary/30 shadow-md' : 'border-border/50 shadow-sm hover:border-primary/20'}`}>
                   <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between p-6 text-left focus:outline-none">
                     <span className="flex items-center gap-4 font-semibold text-foreground text-base md:text-lg">
-                      <HelpCircle className={`w-6 h-6 shrink-0 transition-colors duration-300 ${openFaq === i ? 'text-primary' : 'text-muted-foreground'}`} /> 
+                      <HelpCircle className={`w-6 h-6 shrink-0 transition-colors duration-300 ${openFaq === i ? 'text-primary' : 'text-muted-foreground'}`} />
                       {faq.q}
                     </span>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300 ${openFaq === i ? 'bg-primary/10' : 'bg-muted'}`}>

@@ -772,6 +772,27 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                 />
                               </div>
                             )}
+
+                            {/* Dynamically render unhandled item fields */}
+                            {Object.keys(item).map(k => {
+                              if (['icon', 'title', 'description', 'name', 'role', 'image'].includes(k)) return null;
+                              return (
+                                <div key={k}>
+                                  <Label className="capitalize text-xs">{k}</Label>
+                                  <Input
+                                    value={item[k] || ''}
+                                    onChange={(e) => {
+                                      const updatedItems = [...section.textContent.items]
+                                      updatedItems[itemIndex] = { ...item, [k]: e.target.value }
+                                      handleSectionUpdate(section.id, 'textContent', {
+                                        ...section.textContent,
+                                        items: updatedItems,
+                                      })
+                                    }}
+                                  />
+                                </div>
+                              )
+                            })}
                           </div>
                         </Card>
                       ))}
@@ -871,6 +892,291 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                     </div>
                   </div>
                 )}
+
+                {/* Dynamically render any unhandled textContent fields */}
+                {Object.keys(section.textContent || {}).map((key) => {
+                  const val = section.textContent[key];
+                  // List of keys already handled explicitly
+                  const handledKeys = ['title', 'subtitle', 'heading', 'subheading', 'description', 'cta', 'address', 'phone', 'email', 'hours', 'mapEmbed', 'features', 'items', 'stats'];
+                  if (handledKeys.includes(key)) return null;
+
+                  if (typeof val === 'string' || typeof val === 'number') {
+                    const isImage = key.toLowerCase().includes('image') || key.toLowerCase().includes('logo');
+                    return (
+                      <div key={key}>
+                        <Label className="capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</Label>
+                        {isImage ? (
+                          <div className="space-y-2 mt-1">
+                            <Input
+                              value={val || ''}
+                              onChange={(e) =>
+                                handleSectionUpdate(section.id, 'textContent', {
+                                  ...section.textContent,
+                                  [key]: e.target.value,
+                                })
+                              }
+                              placeholder="Image URL"
+                            />
+                            <div className="flex items-center gap-2">
+                              <Input
+                                type="file"
+                                accept="image/*"
+                                className="w-full text-sm"
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    try {
+                                      const response = await mediaAPI.upload(file);
+                                      handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          [key]: response.data.data.imageUrl,
+                                      });
+                                    } catch (error) {
+                                      console.error(error);
+                                    }
+                                  }
+                                }}
+                              />
+                            </div>
+                            {typeof val === 'string' && val && (
+                               <div className="w-32 h-32 relative mt-2 border rounded overflow-hidden">
+                                  <Image src={getImageUrl(val)} alt={key} fill className="object-cover" />
+                               </div>
+                            )}
+                          </div>
+                        ) : (
+                          <Input
+                            value={val || ''}
+                            onChange={(e) =>
+                              handleSectionUpdate(section.id, 'textContent', {
+                                ...section.textContent,
+                                [key]: typeof val === 'number' ? Number(e.target.value) : e.target.value,
+                              })
+                            }
+                          />
+                        )}
+                      </div>
+                    );
+                  }
+                  
+                  if (Array.isArray(val)) {
+                    return (
+                      <div key={key}>
+                        <Label className="capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</Label>
+                        <div className="space-y-3 mt-2">
+                          {val.map((item: any, itemIndex: number) => (
+                            <Card key={itemIndex} className="p-3">
+                              {typeof item === 'string' ? (
+                                <div className="flex gap-2">
+                                  <Input
+                                    value={item}
+                                    onChange={(e) => {
+                                      const updatedArr = [...val];
+                                      updatedArr[itemIndex] = e.target.value;
+                                      handleSectionUpdate(section.id, 'textContent', {
+                                        ...section.textContent,
+                                        [key]: updatedArr,
+                                      })
+                                    }}
+                                  />
+                                  <Button variant="outline" size="sm" onClick={() => {
+                                      const updatedArr = val.filter((_: any, i: number) => i !== itemIndex);
+                                      handleSectionUpdate(section.id, 'textContent', {
+                                        ...section.textContent,
+                                        [key]: updatedArr,
+                                      })
+                                  }}><Trash2 className="w-4 h-4" /></Button>
+                                </div>
+                              ) : typeof item === 'object' ? (
+                                <div className="space-y-2">
+                                  <div className="flex justify-between items-center">
+                                      <h4 className="font-medium text-sm">Item {itemIndex + 1}</h4>
+                                      <Button variant="outline" size="sm" onClick={() => {
+                                          const updatedArr = val.filter((_: any, i: number) => i !== itemIndex);
+                                          handleSectionUpdate(section.id, 'textContent', {
+                                            ...section.textContent,
+                                            [key]: updatedArr,
+                                          })
+                                      }}><Trash2 className="w-4 h-4" /></Button>
+                                  </div>
+                                  {Object.keys(item).map((itemKey) => {
+                                    const isImage = itemKey.toLowerCase().includes('image') || itemKey.toLowerCase().includes('logo') || itemKey.toLowerCase().includes('avatar');
+                                    return (
+                                    <div key={itemKey}>
+                                      <Label className="capitalize text-xs">{itemKey}</Label>
+                                      {isImage ? (
+                                          <div className="space-y-2 mt-1">
+                                            <Input
+                                              value={item[itemKey] || ''}
+                                              onChange={(e) => {
+                                                const updatedArr = [...val];
+                                                updatedArr[itemIndex] = { ...item, [itemKey]: e.target.value };
+                                                handleSectionUpdate(section.id, 'textContent', {
+                                                  ...section.textContent,
+                                                  [key]: updatedArr,
+                                                })
+                                              }}
+                                              placeholder="Image URL"
+                                            />
+                                            <div className="flex gap-2">
+                                              <Input
+                                                type="file"
+                                                accept="image/*"
+                                                className="text-xs"
+                                                onChange={async (e) => {
+                                                  const file = e.target.files?.[0];
+                                                  if (file) {
+                                                    try {
+                                                      const response = await mediaAPI.upload(file);
+                                                      const updatedArr = [...val];
+                                                      updatedArr[itemIndex] = { ...item, [itemKey]: response.data.data.imageUrl };
+                                                      handleSectionUpdate(section.id, 'textContent', {
+                                                        ...section.textContent,
+                                                        [key]: updatedArr,
+                                                      });
+                                                    } catch (error) { console.error(error); }
+                                                  }
+                                                }}
+                                              />
+                                            </div>
+                                            {item[itemKey] && (
+                                                <div className="w-20 h-20 relative mt-1 border rounded overflow-hidden">
+                                                    <Image src={getImageUrl(item[itemKey])} alt={itemKey} fill className="object-cover" />
+                                                </div>
+                                            )}
+                                          </div>
+                                      ) : (
+                                          itemKey.toLowerCase().includes('desc') || itemKey.toLowerCase().includes('content') ? (
+                                            <textarea
+                                              value={item[itemKey] || ''}
+                                              onChange={(e) => {
+                                                const updatedArr = [...val];
+                                                updatedArr[itemIndex] = { ...item, [itemKey]: e.target.value };
+                                                handleSectionUpdate(section.id, 'textContent', {
+                                                  ...section.textContent,
+                                                  [key]: updatedArr,
+                                                })
+                                              }}
+                                              className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm"
+                                            />
+                                          ) : (
+                                            <Input
+                                              value={item[itemKey] || ''}
+                                              onChange={(e) => {
+                                                const updatedArr = [...val];
+                                                updatedArr[itemIndex] = { ...item, [itemKey]: e.target.value };
+                                                handleSectionUpdate(section.id, 'textContent', {
+                                                  ...section.textContent,
+                                                  [key]: updatedArr,
+                                                })
+                                              }}
+                                            />
+                                          )
+                                      )}
+                                    </div>
+                                  )})}
+                                </div>
+                              ) : null}
+                            </Card>
+                          ))}
+                          <Button variant="outline" size="sm" onClick={() => {
+                            const newItem = val.length > 0 ? (typeof val[0] === 'string' ? '' : Object.keys(val[0]).reduce((acc: any, k) => { acc[k] = ''; return acc; }, {})) : '';
+                            const updatedArr = [...val, newItem];
+                            handleSectionUpdate(section.id, 'textContent', {
+                              ...section.textContent,
+                              [key]: updatedArr,
+                            })
+                          }}><Plus className="w-4 h-4 mr-2" />Add Item</Button>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  if (val && typeof val === 'object' && !Array.isArray(val)) {
+                    return (
+                      <div key={key} className="space-y-4 border p-4 rounded-md bg-gray-50/50">
+                        <Label className="capitalize font-semibold text-base">{key.replace(/([A-Z])/g, ' $1').trim()}</Label>
+                        {Object.keys(val).map((subKey) => {
+                          const subVal = val[subKey];
+                          const isImage = subKey.toLowerCase().includes('image') || subKey.toLowerCase().includes('logo');
+                          
+                          if (typeof subVal === 'string' || typeof subVal === 'number') {
+                            return (
+                              <div key={subKey}>
+                                <Label className="capitalize text-sm">{subKey.replace(/([A-Z])/g, ' $1').trim()}</Label>
+                                {isImage ? (
+                                  <div className="space-y-2 mt-1">
+                                    <Input
+                                      value={subVal || ''}
+                                      onChange={(e) =>
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          [key]: { ...section.textContent[key], [subKey]: e.target.value },
+                                        })
+                                      }
+                                      placeholder="Image URL"
+                                    />
+                                    <div className="flex items-center gap-2">
+                                      <Input
+                                        type="file"
+                                        accept="image/*"
+                                        className="w-full text-sm"
+                                        onChange={async (e) => {
+                                          const file = e.target.files?.[0];
+                                          if (file) {
+                                            try {
+                                              const response = await mediaAPI.upload(file);
+                                              handleSectionUpdate(section.id, 'textContent', {
+                                                  ...section.textContent,
+                                                  [key]: { ...section.textContent[key], [subKey]: response.data.data.imageUrl },
+                                              });
+                                            } catch (error) {
+                                              console.error(error);
+                                            }
+                                          }
+                                        }}
+                                      />
+                                    </div>
+                                    {typeof subVal === 'string' && subVal && (
+                                       <div className="w-32 h-32 relative mt-2 border rounded overflow-hidden">
+                                          <Image src={getImageUrl(subVal)} alt={subKey} fill className="object-cover" />
+                                       </div>
+                                    )}
+                                  </div>
+                                ) : (
+                                  subKey.toLowerCase().includes('desc') || subKey.toLowerCase().includes('content') ? (
+                                    <textarea
+                                      value={subVal || ''}
+                                      onChange={(e) =>
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          [key]: { ...section.textContent[key], [subKey]: e.target.value },
+                                        })
+                                      }
+                                      className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm"
+                                    />
+                                  ) : (
+                                    <Input
+                                      value={subVal || ''}
+                                      onChange={(e) =>
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          [key]: { ...section.textContent[key], [subKey]: typeof subVal === 'number' ? Number(e.target.value) : e.target.value },
+                                        })
+                                      }
+                                    />
+                                  )
+                                )}
+                              </div>
+                            );
+                          }
+                          return null;
+                        })}
+                      </div>
+                    )
+                  }
+                  return null;
+                })}
               </CardContent>
             </Card>
           </motion.div>

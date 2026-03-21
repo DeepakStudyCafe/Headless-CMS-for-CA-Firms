@@ -24,43 +24,13 @@ export function formatDateTime(date: string | Date) {
 }
 
 export function getImageUrl(path: string) {
-  
-  
-  if (!path) return ''
-  
- 
-  if (path.startsWith('https://') && !path.includes('/.')) return path
-  
-  let imagePath = path
-  
-  
-  if (imagePath.includes('/.digitechai.in')) {
-    
-    const match = imagePath.match(/([^\/]+\.(jpg|jpeg|png|gif|webp|svg))$/i)
-    if (match) {
-      imagePath = `/uploads/${match[1]}`
-    } else {
-      imagePath = '/uploads/' + imagePath.split('/').pop()
-    }
+  if (!path) return "";
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  let imagePath = path;
+  if (!imagePath.startsWith('/uploads/') && !imagePath.startsWith('/assets/')) {
+    imagePath = imagePath.replace(/^\/+/, "").replace(/^uploads\//, "");
+    imagePath = '/uploads/' + imagePath;
   }
-  
-  if (imagePath.includes('digitechai.in')) {
-    const match = imagePath.match(/uploads\/([^\/]+\.(jpg|jpeg|png|gif|webp|svg))$/i)
-    if (match) {
-      imagePath = `/uploads/${match[1]}`
-    }
-  }
-  
-  
-  if (!imagePath.startsWith('http') && !imagePath.startsWith('/uploads/')) {
-   
-    imagePath = imagePath.replace(/^\/+/, '').replace(/^uploads\//, '')
-    imagePath = `/uploads/${imagePath}`
-  }
-  
-  const baseUrl = 'https://api.digitechai.in'
-  const finalUrl = `${baseUrl}${imagePath}`
-  
-   
-  return finalUrl
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', "") || 'http://localhost:5000';
+  return baseUrl + imagePath;
 }

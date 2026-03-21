@@ -1,0 +1,699 @@
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function main() {
+  console.log('🌱 Starting Template-4 database seed...')
+
+  // Create Template-4 Website
+  const template4 = await prisma.website.upsert({
+    where: { slug: 'template-4' },
+    update: {
+      name: 'Template 4 Demo',
+      domain: 'http://localhost:5177',
+      phone: '+91 22 1234 5678',
+      email: 'info@sharmaco.com',
+      address: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
+      workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
+      themeConfig: {
+        primaryColor: '#06142b',
+        secondaryColor: '#f3f4f6',
+        fontFamily: 'Inter',
+        theme: 'modern',
+        footerContent: {
+          description: 'A structural financial consulting firm dedicated to bringing robust growth and stability.',
+          copyright: '© 2026 Template-4. All rights reserved.'
+        }
+      },
+    },
+    create: {
+      name: 'Template 4 Demo',
+      slug: 'template-4',
+      domain: 'http://localhost:5177',
+      phone: '+91 22 1234 5678',
+      email: 'info@sharmaco.com',
+      address: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
+      workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
+      themeConfig: {
+        primaryColor: '#06142b',
+        secondaryColor: '#f3f4f6',
+        fontFamily: 'Inter',
+        theme: 'modern',
+        footerContent: {
+          description: 'A structural financial consulting firm dedicated to bringing robust growth and stability.',
+          copyright: '© 2026 Template-4. All rights reserved.'
+        }
+      },
+    },
+  })
+  console.log('✅ Template 4 website created')
+
+  // Helper to safely delete existing old pages to re-seed fresh
+  await prisma.section.deleteMany({
+    where: { page: { websiteId: template4.id } }
+  })
+  await prisma.page.deleteMany({
+    where: { websiteId: template4.id }
+  })
+
+  // Home Page
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'home',
+      title: 'Home',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'hero-slider',
+            order: 1,
+            textContent: {
+              slides: [
+                { image: '/assets/hero-1.jpg', title: 'Strategic Financial\nConsultation', subtitle: 'Empowering businesses with expert advisory and precision-driven financial solutions for sustainable growth.', badge: 'Trusted by 500+ Businesses' },
+                { image: '/assets/hero-2.jpg', title: 'Expert Tax &\nAdvisory Services', subtitle: 'Navigate complex tax landscapes with our seasoned chartered accountants and industry specialists.', badge: '20+ Years of Excellence' },
+                { image: '/assets/hero-3.jpg', title: 'Building Financial\nConfidence', subtitle: 'From compliance to strategic planning — we deliver results that drive your business forward.', badge: 'Award-Winning Firm' },
+              ]
+            }
+          },
+          {
+            type: 'services-grid',
+            order: 2,
+            textContent: {
+              label: 'Our Expertise',
+              title: 'Services That Drive Results',
+              description: 'Comprehensive financial solutions tailored to your business, delivered with precision and deep industry expertise.',
+              items: [
+                { name: 'Bookkeeping', icon: 'BookOpen', desc: 'Precise financial record keeping for informed decision-making.', href: '/services/bookkeeping' },
+                { name: 'GST Filing', icon: 'FileText', desc: 'Seamless GST compliance and return filing advisory.', href: '/services/gst-filing' },
+                { name: 'Payroll', icon: 'Users', desc: 'Complete payroll processing and statutory compliance.', href: '/services/payroll' },
+                { name: 'Tax Planning', icon: 'Calculator', desc: 'Strategic tax optimization to maximize your savings.', href: '/services/tax-planning' },
+                { name: 'Company Formation', icon: 'Building2', desc: 'End-to-end business incorporation services.', href: '/services/company-formation' },
+                { name: 'Compliance', icon: 'Shield', desc: 'Proactive regulatory compliance management.', href: '/services/compliance' },
+                { name: 'Audit Services', icon: 'Search', desc: 'Comprehensive statutory and internal audits.', href: '/services/audit-services' },
+                { name: 'Financial Advisory', icon: 'TrendingUp', desc: 'Expert guidance for financial growth.', href: '/services/financial-advisory' }
+              ]
+            }
+          },
+          {
+            type: 'about-overview',
+            order: 3,
+            textContent: {
+              badge: 'About Our Firm',
+              heading: 'Trusted Financial Partners Since 2005',
+              description1: 'Sharma & Co. is a premier Chartered Accountancy firm committed to delivering exceptional financial services. With nearly two decades of experience, we serve a diverse clientele from ambitious startups to established corporations.',
+              description2: 'Our team brings deep industry expertise ensuring compliance, efficiency, and strategic financial growth for every client we serve.',
+              tags: ['ICAI Registered', 'ISO Certified', 'Award Winning'],
+              stats: [
+                { end: 18, suffix: '+', label: 'Years Experience' },
+                { end: 500, suffix: '+', label: 'Clients Served' },
+                { end: 50, suffix: '+', label: 'Team Members' },
+                { end: 98, suffix: '%', label: 'Client Satisfaction' }
+              ]
+            }
+          },
+          {
+            type: 'industries',
+            order: 4,
+            textContent: {
+              label: 'Industries We Serve',
+              title: 'Expertise Across Sectors',
+              description: 'Deep domain knowledge across key industries ensures tailored solutions for your unique challenges.',
+              items: [
+                { name: 'Startups', icon: 'Rocket', desc: 'Scaling with confidence' },
+                { name: 'SMEs', icon: 'Store', desc: 'Streamlined operations' },
+                { name: 'Manufacturing', icon: 'Factory', desc: 'Cost optimization' },
+                { name: 'IT & Tech', icon: 'Laptop', desc: 'Tax-efficient structures' },
+                { name: 'Real Estate', icon: 'Building', desc: 'Project financing' },
+                { name: 'Consulting', icon: 'Briefcase', desc: 'Strategic advisory' }
+              ]
+            }
+          },
+          {
+            type: 'testimonials',
+            order: 5,
+            textContent: {
+              label: 'Testimonials',
+              title: 'What Our Clients Say',
+              description: 'Hear from the businesses we\'ve helped grow and succeed.',
+              items: [
+                { name: 'Rajesh Kumar', role: 'CEO, TechStartup India', text: 'Sharma & Co. transformed our financial operations. Their expertise in tax planning saved us significantly and their team\'s responsiveness is unmatched.' },
+                { name: 'Priya Mehta', role: 'Director, GreenLeaf Mfg.', text: 'Exceptional audit services and compliance support. They truly understand the manufacturing sector and deliver beyond expectations.' },
+                { name: 'Amit Patel', role: 'Founder, Digital Solutions', text: 'Professional, responsive, and deeply knowledgeable. The best CA firm we\'ve worked with — they feel like an extension of our team.' }
+              ]
+            }
+          },
+          {
+            type: 'cta',
+            order: 6,
+            textContent: {
+              badge: 'Let\'s Work Together',
+              heading: 'Ready to Transform\nYour Business?',
+              description: 'Let our team of expert Chartered Accountants help you navigate your financial journey. Schedule a complimentary consultation today.',
+              buttonText: 'Schedule Free Consultation'
+            }
+          }
+        ]
+      }
+    }
+  })
+  
+  // About Page
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'about',
+      title: 'About Us',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'page-hero',
+            order: 1,
+            imageUrl: '/assets/about-hero.jpg',
+            textContent: {
+              title: 'About Us',
+              subtitle: 'Building trust through financial excellence',
+            }
+          },
+          {
+            type: 'about-intro',
+            order: 2,
+            textContent: {
+              badge: 'Who We Are',
+              heading: 'A Legacy of Financial Excellence',
+              description1: 'Sharma & Co. is one of India\'s leading Chartered Accountancy firms, established in 2005. We provide comprehensive financial services including auditing, taxation, advisory, and compliance solutions.',
+              description2: 'Our team combines deep technical expertise with industry knowledge to deliver customized solutions that drive business growth and ensure regulatory compliance.',
+              stats: [
+                { end: 18, suffix: '+', label: 'Years Experience' },
+                { end: 500, suffix: '+', label: 'Clients Served' },
+                { end: 50, suffix: '+', label: 'Team Members' },
+                { end: 15, suffix: '', label: 'Industry Awards' }
+              ]
+            }
+          },
+          {
+            type: 'mission-vision',
+            order: 3,
+            textContent: {
+              missionIcon: 'Target',
+              visionIcon: 'Eye',
+              missionTitle: 'Our Mission',
+              missionDesc: 'To empower businesses with accurate, timely, and insightful financial services that enable informed decision-making and sustainable growth, while maintaining the highest standards of professional ethics.',
+              visionTitle: 'Our Vision',
+              visionDesc: 'To be the most trusted and innovative Chartered Accountancy firm in India, recognized for transforming businesses through strategic financial guidance and technology-driven solutions.',
+            }
+          },
+          {
+            type: 'core-values',
+            order: 4,
+            textContent: {
+              label: 'Our Values',
+              heading: 'What Drives Us',
+              description: 'The principles that guide every decision and relationship.',
+              items: [
+                { icon: 'Shield', title: 'Integrity', desc: 'Upholding the highest ethical standards in every engagement.' },
+                { icon: 'Award', title: 'Excellence', desc: 'Delivering exceptional quality and precision in all services.' },
+                { icon: 'Users', title: 'Client-Centric', desc: 'Placing our clients\' success at the heart of everything.' },
+                { icon: 'Heart', title: 'Commitment', desc: 'Going beyond expectations to deliver lasting value.' }
+              ]
+            }
+          },
+          {
+            type: 'timeline',
+            order: 5,
+            textContent: {
+              label: 'Our Journey',
+              heading: 'Company Timeline',
+              items: [
+                { year: '2005', title: 'Founded', desc: 'Sharma & Co. established with a vision to redefine financial advisory.' },
+                { year: '2010', title: '100 Clients', desc: 'Crossed the milestone of serving 100 businesses across India.' },
+                { year: '2015', title: 'Team of 30', desc: 'Expanded our team with top chartered accountants and experts.' },
+                { year: '2020', title: 'Digital Transformation', desc: 'Embraced technology for seamless cloud-based financial services.' },
+                { year: '2024', title: '500+ Clients', desc: 'Serving over 500 businesses with 50+ dedicated professionals.' }
+              ]
+            }
+          },
+          {
+            type: 'why-choose-us',
+            order: 6,
+            textContent: {
+              badge: 'Why Choose Us',
+              heading: 'The Sharma & Co. Advantage',
+              description: 'We combine decades of expertise with modern technology to deliver unparalleled financial services.',
+              items: [
+                '20+ years of industry experience',
+                'Team of 50+ qualified professionals',
+                'Technology-driven processes',
+                'Personalized service approach',
+                '99% compliance track record',
+                'Pan-India service coverage'
+              ]
+            }
+          }
+        ]
+      }
+    }
+  })
+
+  // Services Page
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'services',
+      title: 'Our Services',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'page-hero',
+            order: 1,
+            imageUrl: '/assets/services-hero.jpg',
+            textContent: {
+              title: 'Our Services',
+              subtitle: 'Comprehensive financial solutions for your business',
+            }
+          },
+          {
+            type: 'services-list',
+            order: 2,
+            textContent: {
+              label: 'What We Do',
+              heading: 'Comprehensive Financial Solutions',
+              description: 'From compliance to strategic advisory, we offer the full spectrum of financial services.',
+              items: [
+                { name: 'Bookkeeping', slug: 'bookkeeping', icon: 'BookOpen', desc: 'Comprehensive financial record keeping including ledger management, reconciliation, and financial reporting.' },
+                { name: 'GST Filing', slug: 'gst-filing', icon: 'FileText', desc: 'End-to-end GST compliance including registration, return filing, reconciliation, and input tax credit advisory.' },
+                { name: 'Payroll', slug: 'payroll', icon: 'Users', desc: 'Complete payroll processing including salary computation, statutory deductions, PF/ESI compliance.' },
+                { name: 'Tax Planning', slug: 'tax-planning', icon: 'Calculator', desc: 'Strategic tax planning and optimization for individuals and businesses to minimize tax liability.' },
+                { name: 'Company Formation', slug: 'company-formation', icon: 'Building2', desc: 'End-to-end company incorporation including private limited, LLP, OPC, and partnership firm.' },
+                { name: 'Compliance', slug: 'compliance', icon: 'Shield', desc: 'Comprehensive regulatory compliance including ROC filings, annual returns, and statutory audit.' },
+                { name: 'Audit Services', slug: 'audit-services', icon: 'Search', desc: 'Statutory, internal, tax, and special purpose audit services conducted with thoroughness.' },
+                { name: 'Financial Advisory', slug: 'financial-advisory', icon: 'TrendingUp', desc: 'Business valuation, due diligence, fundraising support, and strategic financial planning.' }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  })
+
+  // Team Page
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'team',
+      title: 'Our Team',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'page-hero',
+            order: 1,
+            imageUrl: '/assets/team-hero.jpg',
+            textContent: {
+              title: 'Our Team',
+              subtitle: 'Meet the experts behind your financial success',
+            }
+          },
+          {
+            type: 'partners',
+            order: 2,
+            textContent: {
+              label: 'Leadership',
+              heading: 'Meet Our Partners',
+              description: 'Experienced professionals leading the firm with vision and deep industry expertise.',
+              items: [
+                { name: 'CA Vikram Sharma', role: 'Managing Partner', expertise: 'Audit & Assurance, Tax Advisory', initials: 'VS' },
+                { name: 'CA Neha Kapoor', role: 'Senior Partner', expertise: 'Corporate Finance, M&A Advisory', initials: 'NK' },
+                { name: 'CA Rajat Singh', role: 'Partner - Tax', expertise: 'International Tax, Transfer Pricing', initials: 'RS' }
+              ]
+            }
+          },
+          {
+            type: 'team-members',
+            order: 3,
+            textContent: {
+              label: 'Our Professionals',
+              heading: 'Team Members',
+              items: [
+                { name: 'Anita Desai', role: 'Manager - Audit', dept: 'Audit' },
+                { name: 'Suresh Nair', role: 'Senior Associate - Tax', dept: 'Tax' },
+                { name: 'Meera Iyer', role: 'Manager - Compliance', dept: 'Compliance' },
+                { name: 'Arjun Reddy', role: 'Associate - Advisory', dept: 'Advisory' },
+                { name: 'Kavita Joshi', role: 'Senior Associate - GST', dept: 'Tax' },
+                { name: 'Rahul Verma', role: 'Associate - Payroll', dept: 'Payroll' }
+              ]
+            }
+          },
+          {
+            type: 'certifications',
+            order: 4,
+            textContent: {
+              label: 'Qualifications',
+              heading: 'Certifications & Expertise',
+              items: ['ICAI', 'ACCA', 'CPA', 'CFA', 'DISA', 'FAFD']
+            }
+          },
+          {
+            type: 'culture',
+            order: 5,
+            textContent: {
+              badge: 'Our Culture',
+              heading: 'A Place to Grow & Excel',
+              description: 'At Sharma & Co., we foster a culture of continuous learning, collaboration, and professional development. Our team members are empowered to innovate and excel in their careers.',
+              items: ['Continuous Learning', 'Work-Life Balance', 'Team Collaboration']
+            }
+          }
+        ]
+      }
+    }
+  })
+
+  // Gallery Page
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'gallery',
+      title: 'Gallery',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'page-hero',
+            order: 1,
+            imageUrl: '/assets/gallery-hero.jpg',
+            textContent: {
+              title: 'Gallery',
+              subtitle: 'A glimpse into our workspace and events',
+            }
+          },
+          {
+            type: 'gallery-grid',
+            order: 2,
+            textContent: {
+              items: [
+                { image: '/assets/gallery-hero.jpg', title: 'Office View 1', category: 'Office' },
+                { image: '/assets/about-hero.jpg', title: 'Office View 2', category: 'Office' },
+                { image: '/assets/hero-1.jpg', title: 'Office View 3', category: 'Office' },
+                { image: '/assets/hero-2.jpg', title: 'Corporate Event 1', category: 'Events' },
+                { image: '/assets/hero-3.jpg', title: 'Corporate Event 2', category: 'Events' },
+                { image: '/assets/team-hero.jpg', title: 'Team Outing', category: 'Events' },
+                { image: '/assets/contact-hero.jpg', title: 'Client Meeting 1', category: 'Events' },
+                { image: '/assets/services-hero.jpg', title: 'Client Meeting 2', category: 'Events' },
+                { image: '/assets/career-hero.jpg', title: 'Career Seminar', category: 'Events' }
+              ],
+              labelOffice: 'Our Workspace',
+              titleOffice: 'Office Gallery',
+              descOffice: 'Step inside our modern, collaborative workspace.',
+              labelEvents: 'Moments',
+              titleEvents: 'Events & Meetings',
+              descEvents: 'Highlights from our corporate events and client engagements.'
+            }
+          }
+        ]
+      }
+    }
+  })
+
+  // Career Page
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'career',
+      title: 'Careers',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'page-hero',
+            order: 1,
+            imageUrl: '/assets/career-hero.jpg',
+            textContent: {
+              title: 'Careers',
+              subtitle: 'Build your future with a leading CA firm',
+            }
+          },
+          {
+            type: 'career-intro',
+            order: 2,
+            textContent: {
+              badge: 'Join Our Team',
+              heading: 'Build Your Career With Us',
+              description: 'At Sharma & Co., we nurture talent and provide an environment where professionals can thrive, learn, and grow into industry leaders.'
+            }
+          },
+          {
+            type: 'career-benefits',
+            order: 3,
+            textContent: {
+              label: 'Benefits',
+              heading: 'Why Work With Us',
+              items: [
+                { icon: 'TrendingUp', title: 'Growth Opportunities', desc: 'Clear career progression paths with mentorship programs.' },
+                { icon: 'GraduationCap', title: 'Learning & Development', desc: 'Continuous professional education and certification support.' },
+                { icon: 'Heart', title: 'Work-Life Balance', desc: 'Flexible work arrangements and wellness programs.' },
+                { icon: 'Briefcase', title: 'Competitive Package', desc: 'Industry-leading compensation with comprehensive benefits.' }
+              ]
+            }
+          },
+          {
+            type: 'job-openings',
+            order: 4,
+            textContent: {
+              label: 'Openings',
+              heading: 'Current Roles',
+              items: [
+                { title: 'Senior Audit Associate', dept: 'Audit & Assurance', type: 'Full-time', location: 'Mumbai' },
+                { title: 'Tax Consultant', dept: 'Direct Tax', type: 'Full-time', location: 'Mumbai' },
+                { title: 'GST Analyst', dept: 'Indirect Tax', type: 'Full-time', location: 'Pune' },
+                { title: 'Article Trainee', dept: 'General Practice', type: 'Articleship', location: 'Mumbai' }
+              ]
+            }
+          },
+          {
+            type: 'career-form',
+            order: 5,
+            textContent: {
+              label: 'Apply',
+              heading: 'Submit Your Application'
+            }
+          }
+        ]
+      }
+    }
+  })
+
+  // Contact Page
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'contact',
+      title: 'Contact Us',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'page-hero',
+            order: 1,
+            imageUrl: '/assets/contact-hero.jpg',
+            textContent: {
+              title: 'Contact Us',
+              subtitle: 'Let\'s start a conversation about your financial future',
+            }
+          },
+          {
+            type: 'contact-details',
+            order: 2,
+            textContent: {
+              badge: 'Reach Out',
+              heading: 'Get in Touch',
+              officeHeading: 'Office Details',
+              officeAddress: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
+              officePhone: '+91 22 1234 5678',
+              officeEmail: 'info@sharmaco.com',
+              officeHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
+              mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.5!2d72.86!3d19.06!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDAzJzM2LjAiTiA3MsKwNTEnMzYuMCJF!5e0!3m2!1sen!2sin!4v1'
+            }
+          },
+          {
+            type: 'contact-cta',
+            order: 3,
+            textContent: {
+              heading: 'Ready to Get Started?',
+              description: 'Schedule a free consultation with our expert team today.',
+              buttonText: 'Submit a Query',
+              buttonLink: '/query'
+            }
+          }
+        ]
+      }
+    }
+  })
+
+  // Query Page
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'query',
+      title: 'Submit a Query',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'page-hero',
+            order: 1,
+            imageUrl: '/assets/contact-hero.jpg',
+            textContent: {
+              title: 'Submit a Query',
+              subtitle: 'We\'re here to help with your financial needs',
+            }
+          },
+          {
+            type: 'query-details',
+            order: 2,
+            textContent: {
+              badge: 'Get in Touch',
+              heading: 'Have a Question?',
+              quickContactHeading: 'Quick Contact',
+              quickContacts: [
+                { icon: 'Phone', label: '+91 22 1234 5678', sub: 'Mon-Sat, 9am-6pm' },
+                { icon: 'Mail', label: 'info@sharmaco.com', sub: 'We reply within 24 hours' },
+                { icon: 'MessageCircle', label: 'Live Chat', sub: 'Available during business hours' }
+              ],
+              faqHeading: 'FAQs',
+              faqs: [
+                { q: 'How quickly will I receive a response?', a: 'We aim to respond to all queries within 24 business hours.' },
+                { q: 'Can I schedule a call instead?', a: 'Absolutely! Use our contact page or call us directly to schedule a consultation.' },
+                { q: 'Is the initial consultation free?', a: 'Yes, we offer a complimentary initial consultation to understand your needs.' },
+                { q: 'Do you serve clients outside India?', a: 'Yes, we have experience serving clients across multiple countries.' }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  })
+
+  // Service Details Data (Internal mapping since ServiceDetail.tsx dynamic lookup)
+  await prisma.page.create({
+    data: {
+      websiteId: template4.id,
+      slug: 'service-details',
+      title: 'Service Details',
+      status: 'PUBLISHED',
+      publishedAt: new Date(),
+      sections: {
+        create: [
+          {
+            type: 'service-details-data',
+            order: 1,
+            textContent: {
+              services: {
+                'bookkeeping': {
+                  title: 'Bookkeeping',
+                  desc: 'Our bookkeeping services ensure your financial records are accurate, up-to-date, and compliant. We manage your day-to-day accounting so you can focus on running your business.',
+                  benefits: ['Accurate financial records', 'Real-time financial visibility', 'Tax-ready books year-round', 'Reduced accounting errors', 'Cost-effective solution'],
+                  steps: ['Initial assessment of current records', 'Setup of chart of accounts', 'Daily transaction recording', 'Monthly reconciliation', 'Financial report delivery'],
+                  faqs: [
+                    { q: 'How often will my books be updated?', a: 'We update your books on a daily or weekly basis depending on transaction volume.' },
+                    { q: 'Do you use cloud-based software?', a: 'Yes, we use leading cloud accounting platforms for real-time access and collaboration.' }
+                  ]
+                },
+                'gst-filing': {
+                  title: 'GST Filing',
+                  desc: 'Stay compliant with India\'s GST regulations with our end-to-end GST filing services. We handle registration, return filing, reconciliation, and advisory.',
+                  benefits: ['Timely return filing', 'Input tax optimization', 'Error-free compliance', 'GST audit support', 'Expert advisory', 'Timely return filing'],
+                  steps: ['GST registration/review', 'Invoice data collection', 'Return preparation', 'Filing & submission', 'Reconciliation & reporting'],
+                  faqs: [
+                    { q: 'Which GST returns do you handle?', a: 'We handle GSTR-1, GSTR-3B, GSTR-9, and all other applicable returns.' },
+                    { q: 'Can you help with GST refund claims?', a: 'Absolutely. We assist with all types of GST refund claims and follow-ups.' }
+                  ]
+                },
+                'payroll': {
+                  title: 'Payroll',
+                  desc: 'Complete payroll management including salary computation, statutory compliance, and employee self-service solutions.',
+                  benefits: ['Accurate salary processing', 'Statutory compliance (PF, ESI, TDS)', 'Employee self-service portal', 'Payslip generation', 'Year-end tax planning'],
+                  steps: ['Payroll setup & configuration', 'Monthly data collection', 'Salary computation', 'Statutory filings', 'Payslip distribution'],
+                  faqs: [
+                    { q: 'Do you handle PF and ESI filings?', a: 'Yes, all statutory filings including PF, ESI, Professional Tax, and TDS are covered.' },
+                    { q: 'Can employees access their payslips online?', a: 'Yes, we provide a self-service portal for employees to access payslips and tax documents.' }
+                  ]
+                },
+                'tax-planning': {
+                  title: 'Tax Planning',
+                  desc: 'Strategic tax planning services to minimize your tax liability while ensuring full compliance with tax laws and regulations.',
+                  benefits: ['Tax liability reduction', 'Investment planning guidance', 'Advance tax computation', 'Tax audit preparation', 'International tax advisory'],
+                  steps: ['Financial review', 'Tax analysis & projections', 'Strategy development', 'Implementation support', 'Quarterly review & adjustment'],
+                  faqs: [
+                    { q: 'Is tax planning only for high-income individuals?', a: 'No, tax planning benefits everyone. We create strategies tailored to your specific financial situation.' },
+                    { q: 'How early should I start tax planning?', a: 'Ideally at the beginning of the financial year for maximum benefit.' }
+                  ]
+                },
+                'company-formation': {
+                  title: 'Company Formation',
+                  desc: 'End-to-end business incorporation services. We handle all aspects from name approval to certificate of incorporation.',
+                  benefits: ['Quick incorporation', 'Compliance-ready setup', 'Expert guidance on structure', 'Post-incorporation support', 'All documentation handled'],
+                  steps: ['Consultation & structure selection', 'Name reservation', 'Documentation preparation', 'Filing with authorities', 'Certificate & compliance setup'],
+                  faqs: [
+                    { q: 'How long does incorporation take?', a: 'Typically 7-15 working days depending on the type of entity and government processing.' },
+                    { q: 'What structure is best for my business?', a: 'We\'ll guide you based on your business goals, liability preferences, and tax implications.' }
+                  ]
+                },
+                'compliance': {
+                  title: 'Compliance',
+                  desc: 'Stay ahead of regulatory requirements with our comprehensive compliance management services covering all statutory obligations.',
+                  benefits: ['Zero penalty guarantee', 'Automated compliance calendar', 'Regular status updates', 'Expert regulatory guidance', 'Annual compliance review'],
+                  steps: ['Compliance audit', 'Calendar setup', 'Document preparation', 'Filing & submission', 'Review & reporting'],
+                  faqs: [
+                    { q: 'What compliances do you cover?', a: 'ROC filings, annual returns, statutory audits, labor law compliance, and more.' },
+                    { q: 'Do you provide compliance reminders?', a: 'Yes, we maintain a comprehensive compliance calendar with automated reminders.' }
+                  ]
+                },
+                'audit-services': {
+                  title: 'Audit Services',
+                  desc: 'Comprehensive audit solutions including statutory audit, internal audit, tax audit, and special purpose audits.',
+                  benefits: ['Thorough examination', 'Risk identification', 'Process improvement insights', 'Regulatory compliance', 'Stakeholder confidence'],
+                  steps: ['Planning & scoping', 'Risk assessment', 'Fieldwork & testing', 'Findings & recommendations', 'Final report delivery'],
+                  faqs: [
+                    { q: 'How long does an audit take?', a: 'Duration varies based on company size, typically 2-6 weeks for standard statutory audits.' },
+                    { q: 'Do you provide management letters?', a: 'Yes, we provide detailed management letters with actionable recommendations.' }
+                  ]
+                },
+                'financial-advisory': {
+                  title: 'Financial Advisory',
+                  desc: 'Expert financial advisory services including business valuation, due diligence, fundraising support, and strategic financial planning.',
+                  benefits: ['Data-driven insights', 'Customized strategies', 'Risk mitigation', 'Growth acceleration', 'Expert guidance'],
+                  steps: ['Needs assessment', 'Data analysis', 'Strategy formulation', 'Implementation roadmap', 'Ongoing advisory support'],
+                  faqs: [
+                    { q: 'What industries do you advise?', a: 'We work across all major industries including technology, manufacturing, real estate, and healthcare.' },
+                    { q: 'Can you help with fundraising?', a: 'Yes, we assist with pitch preparation, financial modeling, and investor connect.' }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  })
+
+  console.log('✅ Template 4 seed complete')
+}
+
+main()
+  .catch(e => {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
