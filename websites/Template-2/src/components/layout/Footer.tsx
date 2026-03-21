@@ -89,7 +89,7 @@ const Footer = () => {
           <p className="text-xs text-primary-foreground/50">© 2025 Apex & Associates. All rights reserved.</p>
           <div>
             Powered By{' '}
-            <a href="https://automationcafe.in/" target="_blank" rel="noopener" className="hover:text-accent hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
+            <a href="https://webcafe.co.in/" target="_blank" rel="noopener" className="hover:text-accent hover:underline no-underline">Webcafe Pvt. Ltd.</a>
           </div>
         </div>
       </div>

@@ -72,7 +72,7 @@ const Footer = () => (
         <span>© 2025 Sharma & Co. Chartered Accountants. All rights reserved.</span>
         <div>
           Powered By{' '}
-          <a href="https://automationcafe.in/" target="_blank" rel="noopener" className="hover:text-accent hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
+          <a href="https://webcafe.co.in/" target="_blank" rel="noopener" className="hover:text-accent hover:underline no-underline">Webcafe Pvt. Ltd.</a>
         </div>
       </div>
     </div>

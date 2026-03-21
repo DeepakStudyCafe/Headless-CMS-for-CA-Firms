@@ -41,7 +41,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <img
-              src={isScrolled ? '/automationcafe-black.png' : '/automationcafe-white.png'}
+              src={isScrolled ? '/webcafe-black.png' : '/webcafe-white.png'}
               alt="Webcafe Logo"
               className="h-8 w-auto mb-2"
               draggable="false"

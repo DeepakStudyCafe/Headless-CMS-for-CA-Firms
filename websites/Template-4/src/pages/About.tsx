@@ -116,23 +116,54 @@ const About = () => (
     <section className="py-24 bg-muted/50">
       <div className="container">
         <SectionHeading label="Our Journey" title="Company Timeline" />
-        <div className="max-w-3xl mx-auto">
-          {timeline.map((item, i) => (
-            <ScrollReveal key={item.year} delay={i * 0.1}>
-              <div className="flex gap-6 pb-10 relative">
-                <div className="flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0 shadow-lg">
-                    <span className="text-primary-foreground font-heading font-bold text-xs">{item.year}</span>
+        <div className="max-w-4xl mx-auto relative">
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/30 to-accent/10 rounded-full pointer-events-none -translate-x-1/2 z-0" />
+          <div className="relative z-10">
+            {timeline.map((item, i) => {
+              const isLeft = i % 2 === 0;
+              const midIndex = Math.floor(timeline.length / 2);
+              return (
+                <ScrollReveal key={item.year} delay={i * 0.1}>
+                  <div className="relative flex justify-between items-center pb-16">
+                    {/* Left Side: card stays where it is */}
+                    <div className={`w-1/2 flex ${isLeft ? 'justify-end' : 'justify-end md:justify-start'}`}>
+                      {isLeft && (
+                        <div className="flex items-center gap-8">
+                          <div className="max-w-[760px] mr-2 bg-card rounded-2xl shadow-md border border-border/40 px-6 py-4 md:py-6 md:px-8 text-left">
+                            <h3 className="font-heading font-bold text-foreground text-xl md:text-2xl mb-2">{item.title}</h3>
+                            <p className="text-base text-muted-foreground leading-relaxed">{item.desc}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Center spacer (increased for larger gap between cards and centered year) */}
+                    <div className="w-0 md:w-28" />
+
+                    {/* Right Side: card stays where it is */}
+                    <div className={`w-1/2 flex ${!isLeft ? 'justify-start' : 'justify-start md:justify-end'}`}>
+                      {!isLeft && (
+                        <div className="flex items-center gap-8">
+                          <div className="max-w-[760px] ml-2 bg-card rounded-2xl shadow-md border border-border/40 px-6 py-4 md:py-6 md:px-8 text-left">
+                            <h3 className="font-heading font-bold text-foreground text-xl md:text-2xl mb-2">{item.title}</h3>
+                            <p className="text-base text-muted-foreground leading-relaxed">{item.desc}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Year circle - always centered on the line */}
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                      {/* Increase size slightly for the centered feel; highlight middle item */}
+                      <div className={`w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl border-4 border-background`}>
+                        <span className="text-primary-foreground font-heading font-bold text-lg">{item.year}</span>
+                      </div>
+                    </div>
                   </div>
-                  {i < timeline.length - 1 && <div className="w-px flex-1 bg-gradient-to-b from-primary/30 to-transparent mt-3" />}
-                </div>
-                <div className="pt-3 pb-2">
-                  <h3 className="font-heading font-bold text-foreground text-lg">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
+                </ScrollReveal>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

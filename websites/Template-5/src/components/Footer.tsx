@@ -100,7 +100,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Vanguard & Co. Chartered Accountants. All rights reserved.
           </p>
           <p className="font-sans text-white/30 text-xs">
-            Made with ❤️ in India
+            Webcafe Pvt. Ltd.
           </p>
         </div>
       </div>

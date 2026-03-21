@@ -75,7 +75,7 @@ const Footer = () => {
           <p className="text-xs text-primary-foreground/40">© 2026 Sterling & Co. Chartered Accountants. All rights reserved.</p>
           <div>
             Powered By{' '}
-            <a href="https://automationcafe.in/" target="_blank" rel="noopener" className="hover:text-primary-foreground/60 hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
+            <a href="https://webcafe.co.in/" target="_blank" rel="noopener" className="hover:text-primary-foreground/60 hover:underline no-underline">Webcafe Pvt. Ltd.</a>
           </div>
         </div>
       </div>

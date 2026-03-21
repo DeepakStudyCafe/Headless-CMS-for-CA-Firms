@@ -71,7 +71,7 @@ const Footer = () => {
               </p>
               <div>
                 Powered By{' '}
-                <a href="https://automationcafe.in/" target="_blank" rel="noopener" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }} className="hover:text-accent hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
+                <a href="https://webcafe.co.in/" target="_blank" rel="noopener" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }} className="hover:text-accent hover:underline no-underline">Webcafe Pvt. Ltd.</a>
               </div>
             </div>
       </div>
