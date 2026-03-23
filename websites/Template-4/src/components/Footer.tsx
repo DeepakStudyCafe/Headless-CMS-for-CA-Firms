@@ -6,14 +6,14 @@ const Footer = () => (
     <div className="container py-20">
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
         <div className="lg:col-span-1">
-          <div className="flex items-center gap-3 mb-5">
+          <div className="flex items-center gap-1 mb-5">
             <img
               src="https://api.digitechai.in/uploads/footerlogo.png"
-              alt="Sharma & Co. footer logo"
-              className="w-14 h-14 object-contain p-1 rounded-md bg-transparent"
+              alt="Arvind Gupta & Associates footer logo"
+              className="w-14 h-14 object-contain p-1 rounded-md bg-transparent mb-2"
             />
             <div>
-              <span className="font-heading font-bold text-lg block leading-none">Sharma & Co.</span>
+              <span className="font-heading font-bold text-lg block leading-none">Arvind Gupta & Associates</span>
               <span className="text-[10px] uppercase tracking-[0.2em] opacity-50">Chartered Accountants</span>
             </div>
           </div>
@@ -57,11 +57,11 @@ const Footer = () => (
             </div>
             <div className="flex items-center gap-3">
               <Phone className="w-4 h-4 text-accent" />
-              <span>+91 22 1234 5678</span>
+              <span>+91 9167256899</span>
             </div>
             <div className="flex items-center gap-3">
               <Mail className="w-4 h-4 text-accent" />
-              <span>info@sharmaco.com</span>
+              <span>ca.asgupta@gmail.com</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@ const Footer = () => (
     </div>
     <div className="border-t border-secondary-foreground/8">
       <div className="container py-6 flex flex-col sm:flex-row items-center justify-between text-xs text-secondary-foreground/40">
-        <span>© 2025 Sharma & Co. Chartered Accountants. All rights reserved.</span>
+        <span>© 2025 Arvind Gupta & Associates. All rights reserved.</span>
         <div>
           Powered By{' '}
           <a href="https://webcafe.co.in/" target="_blank" rel="noopener" className="hover:text-accent hover:underline no-underline">Webcafe Pvt. Ltd.</a>
