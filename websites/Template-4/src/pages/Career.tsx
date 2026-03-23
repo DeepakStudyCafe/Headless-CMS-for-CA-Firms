@@ -40,7 +40,7 @@ const Career = () => {
             <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em]">{ctaSec?.tagline || "Join Our Team"}</span>
             <div className="section-divider mt-3 mb-5 mx-auto" />
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">{ctaSec?.heading || "Build Your Career With Us"}</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">{ctaSec?.description || "At Sharma & Co., we nurture talent and provide an environment where professionals can thrive, learn, and grow into industry leaders."}</p>
+            <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">{ctaSec?.description || "At Arvind Gupta & Associates, we nurture talent and provide an environment where professionals can thrive, learn, and grow into industry leaders."}</p>
           </ScrollReveal>
         </div>
       </section>
