@@ -27,6 +27,9 @@ dotenv.config();
 const app: Express = express();
 const PORT = Number(process.env.PORT) || 5000;
 
+// Trust reverse proxy (required for Cloudflare / Nginx and express-rate-limit)
+app.set('trust proxy', 1);
+
 // Security middleware (helmet enabled, but CSP and crossOriginResourcePolicy disabled for static file compatibility)
 app.use(
   helmet({
@@ -53,11 +56,15 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
 
-    // Check if the origin is allowed
-    if (allowedOrigins.includes(origin)) {
+    // Normalize origin by removing trailing slashes
+    const normalizedOrigin = origin.replace(/\/$/, '');
+    const normalizedAllowedOrigins = allowedOrigins.map(o => o.trim().replace(/\/$/, ''));
+
+    // Check if the origin is allowed (or allow all in dev if needed, but let's stick to list)
+    if (normalizedAllowedOrigins.includes(normalizedOrigin)) {
       callback(null, true);
     } else {
-      
+      console.warn(`Blocked CORS origin: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
