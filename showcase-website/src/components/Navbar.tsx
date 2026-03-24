@@ -19,6 +19,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/templates', label: 'Templates' },
+    { href: '/our-client', label: 'Our Client' },
     { href: '/about', label: 'About Us' },
     { href: '/services', label: 'Services' },
     { href: '/pricing', label: 'Online Payment' },
