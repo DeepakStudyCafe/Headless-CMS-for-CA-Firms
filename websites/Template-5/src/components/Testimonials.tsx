@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TESTIMONIALS } from "@/lib/constants";
 import { Star } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import SectionDivider from "./SectionDivider";
@@ -8,24 +7,29 @@ import SectionDivider from "./SectionDivider";
 export default function Testimonials({ data }: { data?: any }) {
   const [active, setActive] = useState(0);
 
-  const testimonialsData = data?.textContent?.items || TESTIMONIALS;
-  const heading = data?.textContent?.heading || "What Our Clients Say";
+  const testimonialsData = data?.textContent?.items || [];
+  const heading = data?.textContent?.heading;
+  const label = data?.textContent?.label;
 
   const nextSlide = useCallback(() => {
+    if (testimonialsData.length === 0) return;
     setActive((prev) => (prev + 1) % testimonialsData.length);
   }, [testimonialsData.length]);
 
   useEffect(() => {
+    if (testimonialsData.length === 0) return;
     const timer = setInterval(nextSlide, 4000);
     return () => clearInterval(timer);
-  }, [nextSlide, active]);
+  }, [nextSlide, testimonialsData.length]);
+
+  if (!testimonialsData || testimonialsData.length === 0) return null;
 
   return (
     <>
       <SectionDivider to="paper" />
       <section id="testimonials" className="py-20 md:py-28 bg-paper diagonal-stripes overflow-hidden relative noise-texture">
         <div className="relative z-10">
-          <SectionHeading label="Client Voices" title={heading} />
+          <SectionHeading label={label} title={heading} />
 
           {/* Spotlight Carousel */}
           <div className="max-w-6xl mx-auto px-6 flex items-center justify-center gap-4 md:gap-6 min-h-[320px]">

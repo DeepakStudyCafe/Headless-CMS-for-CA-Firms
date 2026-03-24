@@ -4,8 +4,8 @@ import CustomCursor from "@/components/CustomCursor";
 import SectionHeading from "@/components/SectionHeading";
 import SectionDivider from "@/components/SectionDivider";
 import CTASection from "@/components/CTASection";
-import { SERVICES, CONTACT_INFO, FAQ_GENERAL } from "@/lib/constants";
 import { motion } from "framer-motion";
+
 import { Clock, Phone, Mail, Calendar, Send, HelpCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,12 +61,26 @@ const Query = () => {
     );
   }
 
+  if (!pageData) {
+    return (
+      <div className="min-h-screen bg-paper flex flex-col">
+        <CustomCursor />
+        <Navbar websiteData={websiteData} />
+        <main className="flex-grow"></main>
+        <Footer websiteData={websiteData} />
+      </div>
+    );
+  }
+
   const heroSection = pageData?.sections?.find(s => s.type === 'hero');
   const contactSection = pageData?.sections?.find(s => s.type === 'contact');
   const faqSection = pageData?.sections?.find(s => s.type === 'faqs' || s.type === 'faq');
+  const servicesSection = pageData?.sections?.find(s => s.type === 'services');
 
-  const infoData = contactSection?.textContent?.info || CONTACT_INFO;
-  const faqsData = faqSection?.textContent?.items || FAQ_GENERAL;
+  const infoData = contactSection?.textContent?.info;
+  const faqsData = faqSection?.textContent?.items || [];
+  const dynamicServices = servicesSection?.textContent?.items || [];
+
 
   return (
     <div className="min-h-screen bg-paper flex flex-col">
@@ -74,42 +88,44 @@ const Query = () => {
       <Navbar websiteData={websiteData} />
 
       {/* Page Hero */}
-      <section className="relative bg-charcoal py-24 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 dot-pattern opacity-[0.03]" />
-        <div className="absolute inset-0 gold-grain" />
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="font-sans text-[10px] uppercase tracking-[0.3em] text-gold font-bold inline-block mb-4"
-          >
-            Get in Touch
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-5xl md:text-6xl lg:text-7xl text-white mb-4"
-          >
-            {heroSection?.textContent?.heading || "Submit a Query"}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="font-sans text-white/50 text-base md:text-lg max-w-2xl mx-auto"
-          >
-            {heroSection?.textContent?.subheading || "Our experts respond within 24 business hours. Share your query and let us guide you."}
-          </motion.p>
-        </div>
-      </section>
+      {heroSection && (
+        <section className="relative bg-charcoal py-24 md:py-32 overflow-hidden">
+          <div className="absolute inset-0 dot-pattern opacity-[0.03]" />
+          <div className="absolute inset-0 gold-grain" />
+          <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="font-sans text-[10px] uppercase tracking-[0.3em] text-gold font-bold inline-block mb-4"
+            >
+              {heroSection.textContent?.label || "Get in Touch"}
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display text-5xl md:text-6xl lg:text-7xl text-white mb-4"
+            >
+              {heroSection.textContent?.heading}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="font-sans text-white/50 text-base md:text-lg max-w-2xl mx-auto"
+            >
+              {heroSection.textContent?.subheading}
+            </motion.p>
+          </div>
+        </section>
+      )}
 
       {/* Query Form + Info Sidebar */}
       <section className="py-20 md:py-28 px-6 lg:px-8 bg-paper relative">
         <div className="absolute inset-0 noise-texture" />
         <div className="relative z-10 max-w-7xl mx-auto">
-          <SectionHeading label="Your Questions" title="How Can We Help?" />
+          <SectionHeading label={contactSection?.textContent?.label || "Your Questions"} title={contactSection?.textContent?.heading || "How Can We Help?"} />
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
             {/* Form */}
             <motion.div
@@ -117,7 +133,7 @@ const Query = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-              className="lg:col-span-3 bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-gold/10"
+              className={`${infoData ? "lg:col-span-3" : "lg:col-span-5 max-w-3xl mx-auto w-full"} bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-gold/10`}
             >
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -160,12 +176,12 @@ const Query = () => {
                               <SelectValue placeholder="Select a service" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
-                            <SelectItem value="general">General Inquiry</SelectItem>
-                            {SERVICES.map((s) => (
-                              <SelectItem key={s.title} value={s.title}>{s.title}</SelectItem>
-                            ))}
-                          </SelectContent>
+                            <SelectContent>
+                              <SelectItem value="general">General Inquiry</SelectItem>
+                              {dynamicServices.map((s: any) => (
+                                <SelectItem key={s.title || s.id} value={s.title}>{s.title}</SelectItem>
+                              ))}
+                            </SelectContent>
                         </Select>
                         <FormMessage />
                       </FormItem>
@@ -188,72 +204,78 @@ const Query = () => {
             </motion.div>
 
             {/* Info Sidebar */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-              className="lg:col-span-2 space-y-6"
-            >
-              {[
-                { icon: Clock, title: "Response Time", desc: "We typically respond within 24 business hours. Urgent queries are prioritized and addressed within 4 hours." },
-                { icon: Phone, title: "Direct Contact", desc: `Phone: ${infoData.phone}\nEmail: ${infoData.email}` },
-                { icon: Calendar, title: "Office Hours", desc: `${infoData.workingHours.weekdays}\n${infoData.workingHours.saturday}\n${infoData.workingHours.sunday}` },
-              ].map((card, i) => (
-                <motion.div
-                  key={card.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 * i, duration: 0.5 }}
-                  className="bg-white p-6 rounded-2xl shadow-sm border border-gold/10 group hover:border-gold/30 transition-colors"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-11 h-11 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
-                      <card.icon className="w-5 h-5 text-gold" />
+            {infoData && (
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+                className="lg:col-span-2 space-y-6"
+              >
+                {[
+                  { icon: Clock, title: "Response Time", desc: "We typically respond within 24 business hours. Urgent queries are prioritized and addressed within 4 hours." },
+                  { icon: Phone, title: "Direct Contact", desc: `Phone: ${infoData.phone}\nEmail: ${infoData.email}` },
+                  { icon: Calendar, title: "Office Hours", desc: `${infoData.workingHours?.weekdays || ""}\n${infoData.workingHours?.saturday || ""}\n${infoData.workingHours?.sunday || ""}` },
+                ].map((card, i) => (
+                  <motion.div
+                    key={card.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.15 * i, duration: 0.5 }}
+                    className="bg-white p-6 rounded-2xl shadow-sm border border-gold/10 group hover:border-gold/30 transition-colors"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-11 h-11 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/20 transition-colors">
+                        <card.icon className="w-5 h-5 text-gold" />
+                      </div>
+                      <div>
+                        <h3 className="font-display text-lg text-charcoal mb-1">{card.title}</h3>
+                        <p className="text-warm-gray font-sans text-sm whitespace-pre-line leading-relaxed">{card.desc}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-display text-lg text-charcoal mb-1">{card.title}</h3>
-                      <p className="text-warm-gray font-sans text-sm whitespace-pre-line leading-relaxed">{card.desc}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <SectionDivider from="paper" to="white" />
-      <section className="py-20 md:py-28 px-6 lg:px-8 bg-white relative">
-        <div className="absolute inset-0 gold-grid opacity-[0.02]" />
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <SectionHeading label="Common Questions" title="Frequently Asked Questions" />
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqsData.map((faq: any, i: number) => (
-                <AccordionItem key={i} value={`faq-${i}`} className="border border-gold/20 rounded-xl px-6 bg-white data-[state=open]:border-gold/40 transition-colors">
-                  <AccordionTrigger className="font-display text-lg text-charcoal hover:no-underline py-5">
-                    <span className="flex items-center gap-3 text-left">
-                      <HelpCircle className="w-5 h-5 text-gold flex-shrink-0" />
-                      {faq.question}
-                    </span>
-                  </AccordionTrigger>
-                  <AccordionContent className="font-sans text-warm-gray text-sm leading-relaxed pb-5">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </motion.div>
-        </div>
-      </section>
+      {faqsData.length > 0 && (
+        <>
+          <SectionDivider from="paper" to="white" />
+          <section className="py-20 md:py-28 px-6 lg:px-8 bg-white relative">
+            <div className="absolute inset-0 gold-grid opacity-[0.02]" />
+            <div className="relative z-10 max-w-4xl mx-auto">
+              <SectionHeading label={faqSection?.textContent?.label || "Common Questions"} title={faqSection?.textContent?.heading || "Frequently Asked Questions"} />
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
+                <Accordion type="single" collapsible className="space-y-4">
+                  {faqsData.map((faq: any, i: number) => (
+                    <AccordionItem key={i} value={`faq-${i}`} className="border border-gold/20 rounded-xl px-6 bg-white data-[state=open]:border-gold/40 transition-colors">
+                      <AccordionTrigger className="font-display text-lg text-charcoal hover:no-underline py-5">
+                        <span className="flex items-center gap-3 text-left">
+                          <HelpCircle className="w-5 h-5 text-gold flex-shrink-0" />
+                          {faq.question}
+                        </span>
+                      </AccordionTrigger>
+                      <AccordionContent className="font-sans text-warm-gray text-sm leading-relaxed pb-5">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </motion.div>
+            </div>
+          </section>
+        </>
+      )}
 
       <CTASection />
       <Footer websiteData={websiteData} />
