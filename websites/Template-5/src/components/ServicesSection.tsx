@@ -4,16 +4,20 @@ import MagneticCard from "./MagneticCard";
 import SectionHeading from "./SectionHeading";
 import SectionDivider from "./SectionDivider";
 
-export default function ServicesSection() {
+export default function ServicesSection({ data }: { data?: any }) {
+  const servicesData = data?.textContent?.items || SERVICES;
+  const heading = data?.textContent?.heading || "Our Core Services";
+  const subheading = data?.textContent?.subheading || "What We Offer";
+
   return (
     <>
       <SectionDivider to="paper" />
       <section id="services" className="bg-paper py-20 md:py-28 relative noise-texture">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <SectionHeading label="What We Offer" title="Our Core Services" />
+          <SectionHeading label={subheading} title={heading} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.map((service, i) => (
+            {servicesData.map((service: any, i: number) => (
               <MagneticCard
                 key={service.title}
                 index={i}

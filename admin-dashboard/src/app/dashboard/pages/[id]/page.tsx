@@ -678,145 +678,251 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                     />
                                   </div>
                                 )}
-                            {item.image !== undefined && (
-                              <div>
-                                <Label>Image</Label>
-                                <div className="relative w-full h-32 mt-2 mb-2 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 group hover:border-gray-400 transition-colors">
-                                  {item.image ? (
-                                    <>
-                                      <Image
-                                        src={getImageUrl(item.image)}
-                                        alt={item.title || item.name || "Item image"}
-                                        fill
-                                        className="object-cover"
-                                      />
-                                      {/* Hover overlay with upload option */}
-                                      <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                        <label className="cursor-pointer bg-white text-black px-3 py-1 rounded text-sm flex items-center gap-1 hover:bg-gray-100 transition-colors">
-                                          <Upload className="w-3 h-3" />
-                                          Change
-                                          <input
-                                            type="file"
-                                            accept="image/*"
-                                            className="hidden"
-                                            onChange={async (e) => {
-                                              const file = e.target.files?.[0]
-                                              if (file) {
-                                                try {
-                                                  const response = await mediaAPI.upload(file)
-                                                  const imageUrl = response.data.data.imageUrl
-                                                  const updatedItems = [...section.textContent.items]
-                                                  updatedItems[itemIndex] = { ...item, image: imageUrl }
-                                                  handleSectionUpdate(section.id, 'textContent', {
-                                                    ...section.textContent,
-                                                    items: updatedItems,
-                                                  })
-                                                } catch (error: any) {
-                                                  toast({
-                                                    variant: 'destructive',
-                                                    title: 'Upload failed',
-                                                    description: 'Failed to upload image',
-                                                  })
-                                                }
-                                              }
-                                            }}
-                                          />
-                                        </label>
-                                      </div>
-                                    </>
-                                  ) : (
-                                    /* Empty state with upload */
-                                    <div className="flex items-center justify-center h-full">
-                                      <label className="cursor-pointer text-gray-500 hover:text-gray-700 transition-colors flex flex-col items-center gap-1">
-                                        <Upload className="w-6 h-6" />
-                                        <span className="text-xs">Upload Image</span>
-                                        <input
-                                          type="file"
-                                          accept="image/*"
-                                          className="hidden"
-                                          onChange={async (e) => {
-                                            const file = e.target.files?.[0]
-                                            if (file) {
-                                              try {
-                                                const response = await mediaAPI.upload(file)
-                                                const imageUrl = response.data.data.imageUrl
-                                                const updatedItems = [...section.textContent.items]
-                                                updatedItems[itemIndex] = { ...item, image: imageUrl }
-                                                handleSectionUpdate(section.id, 'textContent', {
-                                                  ...section.textContent,
-                                                  items: updatedItems,
-                                                })
-                                              } catch (error: any) {
-                                                toast({
-                                                  variant: 'destructive',
-                                                  title: 'Upload failed',
-                                                  description: 'Failed to upload image',
-                                                })
-                                              }
-                                            }
-                                          }}
-                                        />
-                                      </label>
-                                    </div>
-                                  )}
-                                </div>
-                                {item.image && (
-                                  <div className="flex justify-end mt-1">
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      onClick={() => {
+                                {/* Team-specific: designation */}
+                                {item.designation !== undefined && (
+                                  <div>
+                                    <Label>Designation</Label>
+                                    <Input
+                                      value={item.designation || ''}
+                                      onChange={(e) => {
                                         const updatedItems = [...section.textContent.items]
-                                        updatedItems[itemIndex] = { ...item, image: '' }
+                                        updatedItems[itemIndex] = { ...item, designation: e.target.value }
                                         handleSectionUpdate(section.id, 'textContent', {
                                           ...section.textContent,
                                           items: updatedItems,
                                         })
                                       }}
-                                    >
-                                      <Trash2 className="w-3 h-3 mr-1" />
-                                      Remove
-                                    </Button>
+                                      placeholder="e.g., Senior Partner..."
+                                    />
                                   </div>
                                 )}
-                                <Input
-                                  value={item.image || ''}
-                                  onChange={(e) => {
-                                    const updatedItems = [...section.textContent.items]
-                                    updatedItems[itemIndex] = { ...item, image: e.target.value }
-                                    handleSectionUpdate(section.id, 'textContent', {
-                                      ...section.textContent,
-                                      items: updatedItems,
-                                    })
-                                  }}
-                                  placeholder="Or paste image URL..."
-                                  className="mt-2"
-                                />
-                              </div>
-                            )}
-
-                            {/* Dynamically render unhandled item fields */}
-                            {typeof item === 'object' && item !== null && Object.keys(item).map(k => {
-                              if (['icon', 'title', 'description', 'name', 'role', 'image'].includes(k)) return null;
-                              return (
-                                <div key={k}>
-                                  <Label className="capitalize text-xs">{k}</Label>
-                                  <Input
-                                    value={item[k] || ''}
-                                    onChange={(e) => {
-                                      const updatedItems = [...section.textContent.items]
-                                      updatedItems[itemIndex] = { ...item, [k]: e.target.value }
-                                      handleSectionUpdate(section.id, 'textContent', {
-                                        ...section.textContent,
-                                        items: updatedItems,
-                                      })
-                                    }}
-                                  />
-                                </div>
-                              )
-                            })}
+                                {/* Team-specific: qualifications */}
+                                {item.qualifications !== undefined && (
+                                  <div>
+                                    <Label>Qualifications</Label>
+                                    <Input
+                                      value={item.qualifications || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, qualifications: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="e.g., CA, CPA..."
+                                    />
+                                  </div>
+                                )}
+                                {/* Team-specific: bio */}
+                                {item.bio !== undefined && (
+                                  <div>
+                                    <Label>Bio</Label>
+                                    <textarea
+                                      value={item.bio || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, bio: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Short bio..."
+                                      className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                    />
+                                  </div>
+                                )}
+                                {/* Team-specific: linkedin */}
+                                {item.linkedin !== undefined && (
+                                  <div>
+                                    <Label>LinkedIn URL</Label>
+                                    <Input
+                                      value={item.linkedin || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, linkedin: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="https://linkedin.com/in/..."
+                                    />
+                                  </div>
+                                )}
+                                {/* Image field */}
+                                {item.image !== undefined && (
+                                  <div>
+                                    <Label>Image</Label>
+                                    <div className="relative w-full h-32 mt-2 mb-2 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 group hover:border-gray-400 transition-colors">
+                                      {item.image ? (
+                                        <>
+                                          <Image
+                                            src={getImageUrl(item.image)}
+                                            alt={item.title || item.name || "Item image"}
+                                            fill
+                                            className="object-cover"
+                                          />
+                                          <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <label className="cursor-pointer bg-white text-black px-3 py-1 rounded text-sm flex items-center gap-1 hover:bg-gray-100 transition-colors">
+                                              <Upload className="w-3 h-3" />
+                                              Change
+                                              <input
+                                                type="file"
+                                                accept="image/*"
+                                                className="hidden"
+                                                onChange={async (e) => {
+                                                  const file = e.target.files?.[0]
+                                                  if (file) {
+                                                    try {
+                                                      const response = await mediaAPI.upload(file)
+                                                      const imageUrl = response.data.data.imageUrl
+                                                      const updatedItems = [...section.textContent.items]
+                                                      updatedItems[itemIndex] = { ...item, image: imageUrl }
+                                                      handleSectionUpdate(section.id, 'textContent', {
+                                                        ...section.textContent,
+                                                        items: updatedItems,
+                                                      })
+                                                    } catch (error: any) {
+                                                      toast({
+                                                        variant: 'destructive',
+                                                        title: 'Upload failed',
+                                                        description: 'Failed to upload image',
+                                                      })
+                                                    }
+                                                  }
+                                                }}
+                                              />
+                                            </label>
+                                          </div>
+                                        </>
+                                      ) : (
+                                        <div className="flex items-center justify-center h-full">
+                                          <label className="cursor-pointer text-gray-500 hover:text-gray-700 transition-colors flex flex-col items-center gap-1">
+                                            <Upload className="w-6 h-6" />
+                                            <span className="text-xs">Upload Image</span>
+                                            <input
+                                              type="file"
+                                              accept="image/*"
+                                              className="hidden"
+                                              onChange={async (e) => {
+                                                const file = e.target.files?.[0]
+                                                if (file) {
+                                                  try {
+                                                    const response = await mediaAPI.upload(file)
+                                                    const imageUrl = response.data.data.imageUrl
+                                                    const updatedItems = [...section.textContent.items]
+                                                    updatedItems[itemIndex] = { ...item, image: imageUrl }
+                                                    handleSectionUpdate(section.id, 'textContent', {
+                                                      ...section.textContent,
+                                                      items: updatedItems,
+                                                    })
+                                                  } catch (error: any) {
+                                                    toast({
+                                                      variant: 'destructive',
+                                                      title: 'Upload failed',
+                                                      description: 'Failed to upload image',
+                                                    })
+                                                  }
+                                                }
+                                              }}
+                                            />
+                                          </label>
+                                        </div>
+                                      )}
+                                    </div>
+                                    {item.image && (
+                                      <div className="flex justify-end mt-1">
+                                        <Button
+                                          variant="outline"
+                                          size="sm"
+                                          onClick={() => {
+                                            const updatedItems = [...section.textContent.items]
+                                            updatedItems[itemIndex] = { ...item, image: '' }
+                                            handleSectionUpdate(section.id, 'textContent', {
+                                              ...section.textContent,
+                                              items: updatedItems,
+                                            })
+                                          }}
+                                        >
+                                          <Trash2 className="w-3 h-3 mr-1" />
+                                          Remove
+                                        </Button>
+                                      </div>
+                                    )}
+                                    <Input
+                                      value={item.image || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, image: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Or paste image URL..."
+                                      className="mt-2"
+                                    />
+                                  </div>
+                                )}
+                                {/* Gallery-specific: src field */}
+                                {item.src !== undefined && (
+                                  <div>
+                                    <Label>Image Source URL</Label>
+                                    <Input
+                                      value={item.src || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, src: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="https://..."
+                                    />
+                                  </div>
+                                )}
+                                {/* Gallery-specific: category */}
+                                {item.category !== undefined && (
+                                  <div>
+                                    <Label>Category</Label>
+                                    <Input
+                                      value={item.category || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, category: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="e.g., Office, Team, Events..."
+                                    />
+                                  </div>
+                                )}
+                                {/* Gallery-specific: alt text */}
+                                {item.alt !== undefined && (
+                                  <div>
+                                    <Label>Alt Text</Label>
+                                    <Input
+                                      value={item.alt || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, alt: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Image description..."
+                                    />
+                                  </div>
+                                )}
                               </>
                             )}
+
                           </div>
                         </Card>
                       ))}
@@ -826,9 +932,9 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         onClick={() => {
                           // Create a new item with the structure based on the section type
                           const newItem = section.type === 'team' 
-                            ? { name: '', role: '', image: '', description: '' }
+                            ? { name: '', designation: '', qualifications: '', bio: '', image: '', linkedin: '#', isLeadership: false }
                             : section.type === 'gallery'
-                            ? { title: '', image: '' }
+                            ? { src: '', alt: '', category: 'Office', title: '' }
                             : { icon: '', title: '', description: '' }
                           
                           const updatedItems = [...section.textContent.items, newItem]

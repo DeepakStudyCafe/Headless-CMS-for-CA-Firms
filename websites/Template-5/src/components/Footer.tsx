@@ -1,5 +1,6 @@
 import { NAV_ITEMS, SERVICES } from "@/lib/constants";
 import { Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const socialLinks = [
   { icon: Linkedin, href: "#", label: "LinkedIn" },
@@ -8,7 +9,16 @@ const socialLinks = [
   { icon: Instagram, href: "#", label: "Instagram" },
 ];
 
-export default function Footer() {
+export default function Footer({ websiteData }: { websiteData?: any }) {
+  const logo = websiteData?.logo || "https://api.digitechai.in/uploads/footerlogo.png";
+  const name = websiteData?.name || "abc & Associates";
+  const description = websiteData?.themeConfig?.footerContent?.description || "Architects of Fiscal Integrity. Trusted by 500+ businesses across India for audit, tax, and advisory excellence.";
+  const copyrightText = websiteData?.themeConfig?.footerContent?.copyright || `© ${new Date().getFullYear()} ${name} Chartered Accountants. All rights reserved.`;
+  const address = websiteData?.address || "123 Financial District,\nMumbai, Maharashtra 400001";
+  const phone = websiteData?.phone || "+91 99999 99999";
+  const email = websiteData?.email || "info@abcassociates.in";
+  const hours = websiteData?.workingHours || "Mon–Sat: 9:00 AM – 6:00 PM";
+
   return (
     <footer className="bg-[hsl(0,0%,7%)] relative">
       {/* Gold top line */}
@@ -20,18 +30,17 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img
-                src="https://api.digitechai.in/uploads/footerlogo.png"
-                alt="abc & Associates Logo"
+                src={logo}
+                alt={`${name} Logo`}
                 className="h-9"
               />
               <span className="flex flex-col font-bold text-white text-base leading-tight tracking-wide select-none">
-                abc & Associates
+                {name}
                 <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
               </span>
             </div>
             <p className="font-sans text-white/50 text-sm leading-relaxed">
-              Architects of Fiscal Integrity. Trusted by 500+ businesses across India for
-              audit, tax, and advisory excellence.
+              {description}
             </p>
             <div className="flex gap-3 mt-6">
               {socialLinks.map(({ icon: Icon, href, label }) => (
@@ -54,12 +63,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5">
               {NAV_ITEMS.map((item) => (
                 <li key={item.label}>
-                  <a
-                    href={item.href}
-                    className="font-sans text-white/40 text-sm hover:text-gold hover:pl-1 transition-all duration-300"
+                  <Link
+                    to={item.href}
+                    className="font-sans text-white/40 text-sm hover:text-gold hover:pl-1 transition-all duration-300 inline-block"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -72,9 +81,9 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5">
               {SERVICES.map((s) => (
                 <li key={s.title}>
-                  <a href="#services" className="font-sans text-white/40 text-sm hover:text-gold hover:pl-1 transition-all duration-300">
+                  <Link to={s.href} className="font-sans text-white/40 text-sm hover:text-gold hover:pl-1 transition-all duration-300 inline-block">
                     {s.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -84,11 +93,11 @@ export default function Footer() {
           <div>
             <h4 className="font-sans text-[10px] uppercase tracking-[0.2em] text-gold font-bold mb-6">Contact Info</h4>
             <div className="w-8 h-[1px] bg-gold/30 mb-4" />
-            <div className="flex flex-col gap-3 font-sans text-white/40 text-sm">
-              <p>123 Financial District,<br />Mumbai, Maharashtra 400001</p>
-              <p>+91 99999 99999</p>
-              <p>info@vanguardco.in</p>
-              <p>Mon–Sat: 9:00 AM – 6:00 PM</p>
+            <div className="flex flex-col gap-3 font-sans text-white/40 text-sm whitespace-pre-wrap">
+              <p>{address}</p>
+              <p>{phone}</p>
+              <p>{email}</p>
+              <p>{hours}</p>
             </div>
           </div>
         </div>
@@ -97,7 +106,7 @@ export default function Footer() {
       <div className="border-t border-gold/10">
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row justify-between items-center gap-2">
           <p className="font-sans text-white/30 text-xs">
-            © {new Date().getFullYear()} Vanguard & Co. Chartered Accountants. All rights reserved.
+            {copyrightText}
           </p>
           <p className="font-sans text-white/30 text-xs">
             Webcafe Pvt. Ltd.

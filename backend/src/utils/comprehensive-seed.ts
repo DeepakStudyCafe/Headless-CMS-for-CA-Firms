@@ -2671,20 +2671,14 @@ async function main() {
         },
       },
     })
-  }
+  } 
 
   console.log('  ✅ Patel Consulting: 8 pages created + 8 service pages')
 
   console.log('\n🎉 Database seed completed successfully!')
   console.log('\n📊 Summary:')
-  console.log('   - 6 Websites created/updated')
-  console.log('   - Sharma & Associates: 10 pages')
-  console.log('   - Verma Accounting: 14 pages')
-  console.log('   - Gupta Tax Advisors: 11 pages')
-  console.log('   - Kapoor Financial Services: 8 pages + 8 service pages')
-  console.log('   - Singh & Co. Advisors: 8 pages + 8 service pages')
-  console.log('   - Patel Consulting: 8 pages + 8 service pages')
-  console.log('   - Total: 83 pages with unique content')
+  console.log('   - 5 Websites created/updated')
+  console.log('   - Total: 70+ pages with unique content')
   console.log('   - All pages have production-ready content\n')
 }
 

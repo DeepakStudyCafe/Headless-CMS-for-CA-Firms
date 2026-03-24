@@ -11,7 +11,9 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "seed": "ts-node src/utils/seed.ts",
-    "seed:full": "ts-node src/utils/comprehensive-seed.ts"
+    "seed:full": "ts-node src/utils/comprehensive-seed.ts",
+    "seed:template5": "ts-node src/utils/template-5-seed.ts",
+    "setup:admins": "ts-node src/utils/setup-admins.ts"
   },
   "keywords": [
     "cms",

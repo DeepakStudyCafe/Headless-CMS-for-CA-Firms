@@ -3,7 +3,12 @@ import { WHY_CHOOSE_US } from "@/lib/constants";
 import { Check } from "lucide-react";
 import SectionDivider from "./SectionDivider";
 
-export default function WhyChooseUs() {
+export default function WhyChooseUs({ data }: { data?: any }) {
+  const headingArr = data ? (data.textContent?.heading || "Architects of\nFiscal Integrity").split('\n') : ["Architects of", "Fiscal Integrity"];
+  const description = data?.textContent?.description || "We don't just balance books — we engineer financial resilience. Our partners bring a combined century of experience navigating the regulatory landscapes of tomorrow.";
+  const features = data?.textContent?.features || WHY_CHOOSE_US;
+  const imgUrl = data?.imageUrl || "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800";
+
   return (
     <>
       <SectionDivider to="white" />
@@ -18,15 +23,14 @@ export default function WhyChooseUs() {
           >
             <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-gold font-bold">✦ Why Choose Us ✦</span>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-charcoal mt-3 mb-6 leading-[1.1] gold-accent-line">
-              Architects of<br />Fiscal Integrity
+              {headingArr[0]}<br />{headingArr[1] || ''}
             </h2>
             <p className="font-sans text-warm-gray text-sm leading-relaxed mb-8 max-w-lg">
-              We don't just balance books — we engineer financial resilience. Our partners bring
-              a combined century of experience navigating the regulatory landscapes of tomorrow.
+              {description}
             </p>
 
             <div className="flex flex-col gap-4">
-              {WHY_CHOOSE_US.map((item, i) => (
+              {features.map((item: string, i: number) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
@@ -69,7 +73,7 @@ export default function WhyChooseUs() {
             <div className="absolute -bottom-6 -left-6 w-full h-full border border-gold/15 z-0" />
             <div className="relative z-10 overflow-hidden group">
               <img
-                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800"
+                src={imgUrl}
                 alt="Professional team collaboration"
                 className="w-full h-[400px] md:h-[540px] object-cover group-hover:scale-105 transition-transform duration-700"
               />

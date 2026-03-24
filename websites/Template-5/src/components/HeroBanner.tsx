@@ -23,19 +23,22 @@ function WordReveal({ text, delay = 0 }: { text: string; delay?: number }) {
 
 const MARQUEE_ITEMS = ["Tax Planning", "GST Compliance", "Audit & Assurance", "Business Advisory", "Company Registration", "Financial Planning"];
 
-export default function HeroBanner() {
+export default function HeroBanner({ data }: { data?: any }) {
   const [index, setIndex] = useState(0);
 
+  // Use CMS provided slides if available
+  const slides = data?.textContent?.slides || HERO_SLIDES;
+
   const next = useCallback(() => {
-    setIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-  }, []);
+    setIndex((prev) => (prev + 1) % slides.length);
+  }, [slides.length]);
 
   useEffect(() => {
     const timer = setInterval(next, 6000);
     return () => clearInterval(timer);
   }, [next]);
 
-  const slide = HERO_SLIDES[index];
+  const slide = slides[index];
 
   return (
     <section id="home" className="relative w-full overflow-hidden bg-charcoal">

@@ -47,9 +47,11 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3004',
   'http://localhost:3005',
   'http://localhost:3006',
+  'http://localhost:8081',
   'http://localhost:8083',
   'http://localhost:8084'
 ];
+
 
 app.use(cors({
   origin: (origin, callback) => {

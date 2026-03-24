@@ -54,9 +54,17 @@ function CircularProgress({ value, maxValue, isInView }: { value: number; maxVal
   );
 }
 
-export default function StatsSection() {
+export default function StatsSection({ data }: { data?: any }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true });
+
+  const statsData = data?.textContent?.stats?.map((s: any) => {
+    const valStr = String(s.value);
+    const numMatch = valStr.match(/(\d+)/);
+    const num = numMatch ? parseInt(numMatch[1], 10) : 0;
+    const suffix = valStr.replace(/\d+/g, '').trim();
+    return { value: num, suffix, label: s.label };
+  }) || STATS;
 
   return (
     <section ref={sectionRef} id="stats" className="bg-charcoal py-20 md:py-28 relative overflow-hidden gold-grain">
@@ -65,7 +73,7 @@ export default function StatsSection() {
       <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-0 relative z-10">
-        {STATS.map((stat, i) => (
+        {statsData.map((stat: any, i: number) => (
           <motion.div
             key={stat.label}
             initial={{ opacity: 0, y: 30 }}
