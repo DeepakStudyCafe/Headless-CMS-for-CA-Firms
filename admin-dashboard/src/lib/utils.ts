@@ -34,3 +34,4 @@ export function getImageUrl(path: string) {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL?.replace('/api', "") || 'http://localhost:5000';
   return baseUrl + imagePath;
 }
+

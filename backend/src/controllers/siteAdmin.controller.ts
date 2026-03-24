@@ -213,7 +213,7 @@ export const getMyWebsite = async (req: SiteAdminRequest, res: Response) => {
   try {
     const website = await prisma.website.findUnique({
       where: { id: req.siteAdmin!.websiteId },
-      select: { id: true, name: true, slug: true, phone: true, email: true, address: true, workingHours: true, themeConfig: true },
+      select: { id: true, name: true, slug: true, phone: true, email: true, address: true, workingHours: true, themeConfig: true, isActive: true, isAdminEnabled: true },
     });
     if (!website) return res.status(404).json({ success: false, error: 'Website not found' });
     res.json({ success: true, data: { website } });
@@ -222,10 +222,10 @@ export const getMyWebsite = async (req: SiteAdminRequest, res: Response) => {
   }
 };
 
-/** PUT /api/site-admin/website  — update limited website fields (footer, contact) */
+/** PUT /api/site-admin/website  — update limited website fields (footer, contact, site status) */
 export const updateMyWebsite = async (req: SiteAdminRequest, res: Response) => {
   try {
-    const { phone, email, address, workingHours, footerContent, contactContent } = req.body;
+    const { phone, email, address, workingHours, footerContent, contactContent, isActive, isAdminEnabled } = req.body;
 
     const current = await prisma.website.findUnique({ where: { id: req.siteAdmin!.websiteId } });
     if (!current) return res.status(404).json({ success: false, error: 'Website not found' });
@@ -246,6 +246,8 @@ export const updateMyWebsite = async (req: SiteAdminRequest, res: Response) => {
         ...(address !== undefined ? { address } : {}),
         ...(workingHours !== undefined ? { workingHours } : {}),
         ...(hasThemeUpdate ? { themeConfig: newThemeConfig } : {}),
+        ...(typeof isActive === 'boolean' ? { isActive } : {}),
+        ...(typeof isAdminEnabled === 'boolean' ? { isAdminEnabled } : {}),
       },
     });
     res.json({ success: true, data: { website } });

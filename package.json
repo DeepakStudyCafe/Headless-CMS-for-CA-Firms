@@ -36,6 +36,7 @@
     "dev:firm1": "cd websites/firm1-sharma && npm run dev",
     "db:migrate": "cd backend && npm run prisma:migrate",
     "db:seed": "cd backend && npm run seed",
+    "seed:full": "cd backend && npm run seed:full",
     "db:studio": "cd backend && npm run prisma:studio"
   },
   "keywords": [

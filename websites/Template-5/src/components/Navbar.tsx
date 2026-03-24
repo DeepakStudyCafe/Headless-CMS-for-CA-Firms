@@ -1,17 +1,46 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_ITEMS } from "@/lib/constants";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, BookOpen, FileText, Users, Calculator, Building, ShieldCheck, Search, TrendingUp } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
-export default function Navbar() {
+const iconMap: Record<string, any> = {
+  "Bookkeeping": BookOpen,
+  "GST Filing": FileText,
+  "Payroll": Users,
+  "Tax Planning": Calculator,
+  "Company Formation": Building,
+  "Compliance": ShieldCheck,
+  "Audit Services": Search,
+  "Financial Advisory": TrendingUp
+};
+
+export default function Navbar({ websiteData }: { websiteData?: any }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+
+  const logo = websiteData?.logo || "https://api.digitechai.in/uploads/logo.png";
+  const name = websiteData?.name || "abc & Associates";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    // Check initial scroll position
+    setScrolled(window.scrollY > 50 || location.pathname !== "/");
+    
+    // Auto-scroll to top when route changes
+    window.scrollTo(0, 0);
+
+    const onScroll = () => {
+      if (location.pathname === "/") {
+        setScrolled(window.scrollY > 50);
+      } else {
+        setScrolled(true); // Always scrolled state on other pages for visibility
+      }
+    };
+    
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [location.pathname]);
 
   return (
     <>
@@ -21,54 +50,90 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-white/90 backdrop-blur-xl backdrop-saturate-[180%] shadow-[0_4px_30px_rgba(0,0,0,0.08)] border-b-2 border-gold py-2"
+            ? "bg-charcoal/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.1)] border-b border-white/10 py-3"
             : "bg-transparent py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
-          <a href="#home" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <motion.img
-              src="https://api.digitechai.in/uploads/logo.png"
-              alt="abc & Associates Logo"
-              className="h-10 md:h-9 transition-transform duration-500"
-              animate={{ scale: scrolled ? 0.85 : 1 }}
+              src={logo}
+              alt={`${name} Logo`}
+              className="h-10 md:h-9 transition-transform duration-500 rounded bg-white p-1"
+              animate={{ scale: scrolled ? 0.9 : 1 }}
               transition={{ duration: 0.4 }}
             />
             <span
-              className={`hidden md:flex flex-col font-bold text-lg tracking-wide select-none transition-colors duration-500 ${scrolled ? "text-charcoal" : "text-white"}`}
+              className={`hidden md:flex flex-col font-bold text-lg tracking-wide select-none transition-colors duration-500 text-white`}
             >
-              abc & Associates
-              <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
+              {name}
+              <span className="font-normal text-xs tracking-normal -mt-1 text-gold">Chartered Accountants</span>
             </span>
-          </a>
+          </Link>
 
           <div className="hidden lg:flex gap-8 items-center">
-            {NAV_ITEMS.map((item, i) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + i * 0.05, duration: 0.4 }}
-                className={`font-sans text-[11px] uppercase tracking-[0.12em] font-medium transition-all duration-300 relative group ${
-                  scrolled ? "text-charcoal" : "text-white"
-                } hover:text-gold hover:tracking-[0.18em]`}
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-full h-[1.5px] bg-gold origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
-              </motion.a>
-            ))}
-            <a
-              href="#contact"
-              className="shimmer-btn px-6 py-2.5 text-charcoal font-sans text-[10px] uppercase tracking-[0.12em] font-bold transition-all hover:shadow-[0_0_25px_rgba(212,175,55,0.4)]"
+            {NAV_ITEMS.map((item, i) => {
+              if (item.subItems) {
+                return (
+                  <div key={item.label} className="relative group">
+                    <Link
+                      to={item.href}
+                      className={`font-sans text-[13px] flex items-center gap-1 font-medium transition-all duration-300 text-white hover:text-gold py-4`}
+                    >
+                      {item.label}
+                      <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+                    </Link>
+                    
+                    {/* Two-column Dropdown based on the image */}
+                    <div className="absolute top-[80%] -left-[140%] mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-[600px] pointer-events-none group-hover:pointer-events-auto">
+                      <div className="bg-[#CFD4D8] rounded-2xl shadow-2xl border border-white/20 mt-2 overflow-hidden">
+                        <div className="grid grid-cols-2 gap-4 p-6">
+                            {item.subItems.map(subItem => {
+                              const Icon = iconMap[subItem.label] || BookOpen;
+                              return (
+                                <Link
+                                  key={subItem.label}
+                                  to={subItem.href}
+                                  className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/40 transition-colors group/item"
+                                >
+                                  <div className="mt-0.5 text-[#2A3B36]">
+                                    <Icon size={24} strokeWidth={1.5} />
+                                  </div>
+                                  <div>
+                                    <div className="font-bold text-[#2A3B36] text-[15px] group-hover/item:text-[#1F2C28]">{subItem.label}</div>
+                                    <div className="text-[#5B6D67] text-[13px] leading-tight mt-1">{subItem.description}</div>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`font-sans text-[13px] font-medium transition-all duration-300 text-white hover:text-gold`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+            <Link
+              to="/contact"
+              className="bg-[#2A3B36] text-white px-6 py-2.5 rounded hover:bg-[#1F2C28] font-sans text-[13px] font-medium transition-all"
             >
-              Get Consultation
-            </a>
+              Get a Quote
+            </Link>
           </div>
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className={`lg:hidden ${scrolled ? "text-charcoal" : "text-white"}`}
+            className={`lg:hidden text-white`}
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -76,63 +141,77 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Mobile menu - full screen overlay */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 bg-charcoal z-40 lg:hidden flex flex-col justify-center items-center"
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 bg-paper z-[100] lg:hidden flex flex-col overflow-y-auto"
           >
-            {/* Gold accent lines */}
-            <div className="absolute top-0 left-8 w-[1px] h-full bg-gold/10" />
-            <div className="absolute top-0 right-8 w-[1px] h-full bg-gold/10" />
-
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="absolute top-6 right-6 text-white"
-              aria-label="Close menu"
-            >
-              <X size={28} />
-            </button>
-
-            <div className="flex flex-col items-center gap-6">
-              <div className="flex flex-col items-center mb-4">
+            {/* Dark Header inside Mobile Menu */}
+            <div className="bg-charcoal relative flex items-center justify-between p-4 px-6 shadow-md shrink-0 border-b border-gold/20">
+              <div className="flex items-center gap-3">
                 <img
-                  src="https://api.digitechai.in/uploads/logo.png"
-                  alt="abc & Associates Logo"
-                  className="h-12 mb-1"
+                  src={logo}
+                  alt={`${name} Logo`}
+                  className="h-10 transition-transform duration-500 rounded bg-white p-1"
                 />
-                <span className="font-bold text-white text-lg tracking-wide select-none flex flex-col items-center">
-                  abc & Associates
-                  <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
+                <span
+                  className="flex flex-col font-bold text-[17px] tracking-wide select-none text-white leading-tight"
+                >
+                  {name}
+                  <span className="font-semibold text-[8px] tracking-[0.15em] text-gold uppercase">Chartered Accountants</span>
                 </span>
               </div>
-              {NAV_ITEMS.map((item, i) => (
-                <motion.a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.07, duration: 0.4 }}
-                  className="font-display text-2xl text-white hover:text-gold transition-colors"
-                >
-                  {item.label}
-                </motion.a>
-              ))}
-              <motion.a
-                href="#contact"
+              
+              <button
                 onClick={() => setMobileOpen(false)}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.4 }}
-                className="shimmer-btn px-8 py-3 text-charcoal font-sans text-xs uppercase tracking-[0.12em] font-bold mt-4"
+                className="text-white hover:text-gold transition-colors p-1"
+                aria-label="Close menu"
               >
-                Get Consultation
-              </motion.a>
+                <X size={24} strokeWidth={1.5} />
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-1 w-full p-6 pb-12 overflow-y-auto">
+              {NAV_ITEMS.map((item, i) => (
+                <div key={item.label} className="w-full">
+                  <Link
+                    to={item.href}
+                    onClick={() => !item.subItems && setMobileOpen(false)}
+                    className="font-sans text-[15px] font-semibold text-charcoal hover:text-gold transition-colors py-3 block w-full"
+                  >
+                    {item.label}
+                  </Link>
+                  {item.subItems && (
+                    <div className="flex flex-col gap-1 mt-1 mb-4">
+                      {item.subItems.map(subItem => (
+                        <Link
+                          key={subItem.label}
+                          to={subItem.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="text-charcoal/70 hover:text-charcoal pl-6 text-[14.5px] font-medium transition-colors py-1.5 block w-full"
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              
+              <div className="mt-8">
+                <Link
+                  to="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="bg-charcoal text-gold px-8 py-3.5 w-full text-center block rounded-md font-bold uppercase tracking-wider text-sm hover:bg-gold hover:text-charcoal transition-colors border border-transparent hover:border-charcoal/10 shadow-md"
+                >
+                  Get a Quote
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}

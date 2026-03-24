@@ -5,12 +5,15 @@ import { Star } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import SectionDivider from "./SectionDivider";
 
-export default function Testimonials() {
+export default function Testimonials({ data }: { data?: any }) {
   const [active, setActive] = useState(0);
 
+  const testimonialsData = data?.textContent?.items || TESTIMONIALS;
+  const heading = data?.textContent?.heading || "What Our Clients Say";
+
   const nextSlide = useCallback(() => {
-    setActive((prev) => (prev + 1) % TESTIMONIALS.length);
-  }, []);
+    setActive((prev) => (prev + 1) % testimonialsData.length);
+  }, [testimonialsData.length]);
 
   useEffect(() => {
     const timer = setInterval(nextSlide, 4000);
@@ -22,14 +25,14 @@ export default function Testimonials() {
       <SectionDivider to="paper" />
       <section id="testimonials" className="py-20 md:py-28 bg-paper diagonal-stripes overflow-hidden relative noise-texture">
         <div className="relative z-10">
-          <SectionHeading label="Client Voices" title="What Our Clients Say" />
+          <SectionHeading label="Client Voices" title={heading} />
 
           {/* Spotlight Carousel */}
           <div className="max-w-6xl mx-auto px-6 flex items-center justify-center gap-4 md:gap-6 min-h-[320px]">
-            {TESTIMONIALS.map((t, i) => {
+            {testimonialsData.map((t: any, i: number) => {
               const isActive = i === active;
-              const isPrev = i === (active - 1 + TESTIMONIALS.length) % TESTIMONIALS.length;
-              const isNext = i === (active + 1) % TESTIMONIALS.length;
+              const isPrev = i === (active - 1 + testimonialsData.length) % testimonialsData.length;
+              const isNext = i === (active + 1) % testimonialsData.length;
               const isVisible = isActive || isPrev || isNext;
 
               if (!isVisible) return null;
@@ -89,7 +92,7 @@ export default function Testimonials() {
 
           {/* Progress bar */}
           <div className="max-w-xs mx-auto mt-8 flex gap-2">
-            {TESTIMONIALS.map((_, i) => (
+            {testimonialsData.map((_: any, i: number) => (
               <div key={i} className="flex-1 h-[2px] bg-gold/10 rounded-full overflow-hidden cursor-pointer" onClick={() => setActive(i)}>
                 {i === active && (
                   <motion.div
