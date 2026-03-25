@@ -17,7 +17,7 @@ const WEBSITE_EMAILS = {
   'firm4-kapoor': process.env.FIRM4_EMAIL || 'kapoor.contact@gmail.com',
   'firm5-singh': process.env.FIRM5_EMAIL || 'singh.contact@gmail.com',
   'firm6-patel': process.env.FIRM6_EMAIL || 'patel.contact@gmail.com',
-  'template-4': process.env.TEMPLATE_4_EMAIL || 'sdeepakncy@gmail.com'
+  'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com'
 };
 
 // Website names mapping
