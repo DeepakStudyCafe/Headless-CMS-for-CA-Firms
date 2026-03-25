@@ -920,6 +920,42 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                     />
                                   </div>
                                 )}
+                                {/* FAQ-specific: q and a */}
+                                {item.q !== undefined && (
+                                  <div>
+                                    <Label>Question</Label>
+                                    <Input
+                                      value={item.q || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, q: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Question..."
+                                    />
+                                  </div>
+                                )}
+                                {item.a !== undefined && (
+                                  <div>
+                                    <Label>Answer</Label>
+                                    <textarea
+                                      value={item.a || ''}
+                                      onChange={(e) => {
+                                        const updatedItems = [...section.textContent.items]
+                                        updatedItems[itemIndex] = { ...item, a: e.target.value }
+                                        handleSectionUpdate(section.id, 'textContent', {
+                                          ...section.textContent,
+                                          items: updatedItems,
+                                        })
+                                      }}
+                                      placeholder="Answer..."
+                                      className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 mt-2"
+                                    />
+                                  </div>
+                                )}
                               </>
                             )}
 
@@ -931,12 +967,16 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         size="sm"
                         onClick={() => {
                           // Create a new item with the structure based on the section type
-                          const newItem = section.type === 'team' 
+                          const newItem = section.type === 'team'
                             ? { name: '', designation: '', qualifications: '', bio: '', image: '', linkedin: '#', isLeadership: false }
                             : section.type === 'gallery'
                             ? { src: '', alt: '', category: 'Office', title: '' }
+                            : section.type === 'faqs'
+                            ? { q: '', a: '' }
+                            : (section.type === 'benefits' || section.type === 'steps')
+                            ? ''
                             : { icon: '', title: '', description: '' }
-                          
+
                           const updatedItems = [...section.textContent.items, newItem]
                           handleSectionUpdate(section.id, 'textContent', {
                             ...section.textContent,

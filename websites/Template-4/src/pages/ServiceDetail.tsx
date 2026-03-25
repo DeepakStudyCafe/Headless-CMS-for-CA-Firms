@@ -100,7 +100,8 @@ const ServiceDetail = () => {
   const { website, getSection, isLoading } = usePageData('service-' + slug);
   const siteData = website;
 
-  const ctaSec = getSection('hero')?.textContent;
+  const heroSection = getSection('hero');
+  const ctaSec = heroSection?.textContent;
   const benefitsSec = getSection('benefits')?.textContent;
   const stepsSec = getSection('steps')?.textContent;
   const faqsSec = getSection('faqs')?.textContent;
@@ -128,7 +129,8 @@ const ServiceDetail = () => {
     faqs: faqsSec?.items || defaultService?.faqs || [],
   };
 
-  const heroImage = (ctaSec?.image) ? getImageUrl(ctaSec.image) : servicesHero;
+  const heroImgUrl = heroSection?.imageUrl || ctaSec?.image;
+  const heroImage = heroImgUrl ? getImageUrl(heroImgUrl) : servicesHero;
 
   return (
     <Layout>
