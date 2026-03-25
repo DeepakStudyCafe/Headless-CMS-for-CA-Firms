@@ -69,7 +69,7 @@ const Contact = () => {
 
                 <div className="rounded-2xl overflow-hidden card-shadow h-64 mt-4">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.5!2d72.86!3d19.06!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDAzJzM2LjAiTiA3MsKwNTEnMzYuMCJF!5e0!3m2!1sen!2sin!4v1"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3149.524846498629!2d72.8367607!3d18.952024500000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce24ffd9c049%3A0x9aca725fa5432078!2sANAND%20BUILDING%2C%2086%2C%20Kazi%20Syed%20St%2C%20Mandvi%20Koliwada%2C%20Vadgadi%2C%20Masjid%20Bandar%20West%2C%20Masjid%20Bandar%2C%20Mumbai%2C%20Maharashtra%20400003!5e1!3m2!1sen!2sin!4v1774424425194!5m2!1sen!2sin"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
