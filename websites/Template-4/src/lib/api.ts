@@ -24,3 +24,38 @@ export const getImageUrl = (path: string | null) => {
   }
   return path;
 };
+
+// Form submission helpers
+export async function submitContactForm(formData: {
+  name: string;
+  email: string;
+  phone: string;
+  company?: string;
+  message: string;
+}) {
+  try {
+    const payload = {
+      ...formData,
+      website: import.meta.env.VITE_WEBSITE_SLUG || 'template-4'
+    };
+    const res = await api.post(`/forms/contact`, payload);
+    return res.data;
+  } catch (err: any) {
+    console.error('submitContactForm error', err?.message || err);
+    return { success: false, message: 'An error occurred. Please try again.' };
+  }
+}
+
+export async function submitQueryForm(formData: any) {
+  try {
+    const payload = {
+      ...formData,
+      website: import.meta.env.VITE_WEBSITE_SLUG || 'template-4'
+    };
+    const res = await api.post(`/forms/query`, payload);
+    return res.data;
+  } catch (err: any) {
+    console.error('submitQueryForm error', err?.message || err);
+    return { success: false, message: 'An error occurred. Please try again.' };
+  }
+}

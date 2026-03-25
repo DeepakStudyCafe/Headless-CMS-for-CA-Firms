@@ -3,9 +3,11 @@ import PageHero from "@/components/PageHero";
 import ScrollReveal from "@/components/ScrollReveal";
 import contactHero from "@/assets/contact-hero.jpg";
 import { Phone, Mail, MapPin, Clock, Send, ArrowRight } from "lucide-react";
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 import { usePageData } from "@/hooks/useWebsiteData";
-import { getImageUrl } from "@/lib/api";
+import { getImageUrl, submitContactForm } from "@/lib/api";
+import { toast } from "sonner";
 
 const Contact = () => {
   const { website, getSection, isLoading } = usePageData('contact');
@@ -31,17 +33,39 @@ const Contact = () => {
               <div className="section-divider mt-3 mb-5" />
               <h2 className="text-3xl font-heading font-bold text-foreground mb-8">{ctaSec?.heading || "Get in Touch"}</h2>
               
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const data = new FormData(form);
+                const payload = {
+                  name: (data.get('fullName') as string) || '',
+                  email: (data.get('email') as string) || '',
+                  phone: (data.get('phone') as string) || '',
+                  company: (data.get('company') as string) || '',
+                  message: (data.get('message') as string) || '',
+                };
+                try {
+                  const res = await submitContactForm(payload);
+                  if (res?.success) {
+                    toast.success(res.message || 'Message sent successfully', { position: "top-right" });
+                    form.reset();
+                  } else {
+                    toast.error(res?.message || 'Failed to send message', { position: "top-right" });
+                  }
+                } catch (err) {
+                  toast.error('An error occurred. Please try again.', { position: "top-right" });
+                }
+              }}>
                 <div className="grid sm:grid-cols-2 gap-5">
-                  <input type="text" placeholder="Full Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
-                  <input type="email" placeholder="Email Address" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
+                  <input name="fullName" type="text" placeholder="Full Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" required />
+                  <input name="email" type="email" placeholder="Email Address" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" required />
                 </div>
                 <div className="grid sm:grid-cols-2 gap-5">
-                  <input type="tel" placeholder="Phone Number" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
-                  <input type="text" placeholder="Company Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
+                  <input name="phone" type="tel" placeholder="Phone Number" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" required />
+                  <input name="company" type="text" placeholder="Company Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
                 </div>
-                <textarea placeholder="Your Message" rows={5} className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition resize-none" />
-                <button type="button" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all">
+                <textarea name="message" placeholder="Your Message" rows={5} className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition resize-none" required />
+                <button type="submit" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all">
                   <Send className="w-4 h-4" /> Send Message
                 </button>
               </form>

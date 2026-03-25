@@ -16,7 +16,8 @@ const WEBSITE_EMAILS = {
   'firm3-gupta': process.env.FIRM3_EMAIL || 'gupta.k.deepak@gmail.com',
   'firm4-kapoor': process.env.FIRM4_EMAIL || 'kapoor.contact@gmail.com',
   'firm5-singh': process.env.FIRM5_EMAIL || 'singh.contact@gmail.com',
-  'firm6-patel': process.env.FIRM6_EMAIL || 'patel.contact@gmail.com'
+  'firm6-patel': process.env.FIRM6_EMAIL || 'patel.contact@gmail.com',
+  'template-4': process.env.TEMPLATE_4_EMAIL || 'sdeepakncy@gmail.com'
 };
 
 // Website names mapping
@@ -26,7 +27,8 @@ const WEBSITE_NAMES = {
   'firm3-gupta': process.env.FIRM3_NAME || 'Gupta Partners',
   'firm4-kapoor': process.env.FIRM4_NAME || 'Kapoor Associates',
   'firm5-singh': process.env.FIRM5_NAME || 'Singh & Partners',
-  'firm6-patel': process.env.FIRM6_NAME || 'Patel Group'
+  'firm6-patel': process.env.FIRM6_NAME || 'Patel Group',
+  'template-4': process.env.TEMPLATE_4_NAME || 'Arvind Gupta & Associates'
 };
 
 // Email sender function
