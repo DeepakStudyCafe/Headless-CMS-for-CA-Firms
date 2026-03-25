@@ -31,6 +31,17 @@ const Index = () => {
     );
   }
 
+  if (!pageData) {
+    return (
+      <div className="min-h-screen bg-paper flex flex-col">
+        <CustomCursor />
+        <Navbar websiteData={websiteData} />
+        <main className="flex-grow"></main>
+        <Footer websiteData={websiteData} />
+      </div>
+    );
+  }
+
   const heroSection = pageData?.sections?.find(s => s.type === 'hero');
   const statsSection = pageData?.sections?.find(s => s.type === 'stats');
   const servicesSection = pageData?.sections?.find(s => s.type === 'services');

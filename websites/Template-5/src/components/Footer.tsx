@@ -1,4 +1,21 @@
-import { NAV_ITEMS, SERVICES } from "@/lib/constants";
+const NAV_ITEMS = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Team", href: "/team" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Contact", href: "/contact" },
+];
+
+const SERVICES = [
+  { title: "Bookkeeping", href: "/services/bookkeeping" },
+  { title: "GST Filing", href: "/services/gst-filing" },
+  { title: "Payroll", href: "/services/payroll" },
+  { title: "Tax Planning", href: "/services/tax-planning" },
+  { title: "Company Formation", href: "/services/company-formation" },
+  { title: "Compliance", href: "/services/compliance" },
+  { title: "Audit Services", href: "/services/audit-services" },
+  { title: "Financial Advisory", href: "/services/financial-advisory" },
+];
 import { Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 

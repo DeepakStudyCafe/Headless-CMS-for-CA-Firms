@@ -5,7 +5,6 @@ import SectionHeading from "@/components/SectionHeading";
 import SectionDivider from "@/components/SectionDivider";
 import MagneticCard from "@/components/MagneticCard";
 import CTASection from "@/components/CTASection";
-import { SERVICES, PROCESS_STEPS, INDUSTRIES } from "@/lib/constants";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Receipt, Users, Calculator, Building, Shield, FileSearch, TrendingUp, Factory, Monitor, Stethoscope, Building2, ShoppingCart, Rocket } from "lucide-react";
@@ -41,14 +40,25 @@ const Services = () => {
     );
   }
 
+  if (!pageData) {
+    return (
+      <div className="min-h-screen bg-paper flex flex-col">
+        <CustomCursor />
+        <Navbar websiteData={websiteData} />
+        <main className="flex-grow"></main>
+        <Footer websiteData={websiteData} />
+      </div>
+    );
+  }
+
   const heroSection = pageData?.sections?.find(s => s.type === 'hero');
   const servicesSection = pageData?.sections?.find(s => s.type === 'services');
   const processSection = pageData?.sections?.find(s => s.type === 'process');
   const industriesSection = pageData?.sections?.find(s => s.type === 'industries');
 
-  const servicesData = servicesSection?.textContent?.items || SERVICES;
-  const processData = processSection?.textContent?.items || PROCESS_STEPS;
-  const industriesData = industriesSection?.textContent?.items || INDUSTRIES;
+  const servicesData = servicesSection?.textContent?.items || [];
+  const processData = processSection?.textContent?.items || [];
+  const industriesData = industriesSection?.textContent?.items || [];
 
   return (
     <div className="min-h-screen bg-paper flex flex-col">

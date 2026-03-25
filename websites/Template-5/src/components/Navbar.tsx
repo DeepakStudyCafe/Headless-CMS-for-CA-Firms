@@ -1,6 +1,29 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NAV_ITEMS } from "@/lib/constants";
+
+const NAV_ITEMS = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Team", href: "/team" },
+  { label: "Gallery", href: "/gallery" },
+  { 
+    label: "Services", 
+    href: "/services",
+    subItems: [
+      { label: "Bookkeeping", href: "/services/bookkeeping", description: "Accurate financial record keeping" },
+      { label: "GST Filing", href: "/services/gst-filing", description: "Timely GST compliance & returns" },
+      { label: "Payroll", href: "/services/payroll", description: "End-to-end payroll management" },
+      { label: "Tax Planning", href: "/services/tax-planning", description: "Strategic tax optimization" },
+      { label: "Company Formation", href: "/services/company-formation", description: "Business incorporation services" },
+      { label: "Compliance", href: "/services/compliance", description: "Regulatory compliance support" },
+      { label: "Audit Services", href: "/services/audit-services", description: "Comprehensive audit solutions" },
+      { label: "Financial Advisory", href: "/services/financial-advisory", description: "Expert financial guidance" },
+    ]
+  },
+  { label: "Query", href: "/query" },
+  { label: "Career", href: "/career" },
+  { label: "Contact", href: "/contact" },
+];
 import { Menu, X, ChevronDown, BookOpen, FileText, Users, Calculator, Building, ShieldCheck, Search, TrendingUp } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 

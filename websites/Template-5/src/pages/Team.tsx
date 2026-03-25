@@ -4,19 +4,13 @@ import CustomCursor from "@/components/CustomCursor";
 import SectionHeading from "@/components/SectionHeading";
 import SectionDivider from "@/components/SectionDivider";
 import CTASection from "@/components/CTASection";
-import { TEAM_MEMBERS } from "@/lib/constants";
 import { motion, useInView } from "framer-motion";
 import { Linkedin, Mail, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import { getPageData, getWebsiteData, PageData } from "@/lib/api";
 
-const teamStats = [
-  { value: 50, suffix: "+", label: "Years Combined Experience" },
-  { value: 4, suffix: "", label: "Senior Partners" },
-  { value: 20, suffix: "+", label: "Team Members" },
-  { value: 8, suffix: "", label: "Specializations" },
-];
+const teamStats = [];
 
 const AnimatedCounter = ({ value, suffix }: { value: number; suffix: string }) => {
   const [count, setCount] = useState(0);
@@ -67,12 +61,33 @@ const Team = () => {
     );
   }
 
+  if (!pageData) {
+    return (
+      <div className="min-h-screen bg-paper flex flex-col">
+        <CustomCursor />
+        <Navbar websiteData={websiteData} />
+        <main className="flex-grow"></main>
+        <Footer websiteData={websiteData} />
+      </div>
+    );
+  }
+
   const heroSection = pageData?.sections?.find(s => s.type === 'hero');
   const teamSection = pageData?.sections?.find(s => s.type === 'team');
-  const teamMembersData = teamSection?.textContent?.items || TEAM_MEMBERS;
+  const statsSection = pageData?.sections?.find(s => s.type === 'stats');
+  const ctaSection = pageData?.sections?.find(s => s.type === 'cta');
 
+  const teamMembersData = teamSection?.textContent?.items || [];
   const leadership = teamMembersData.filter((m: any) => m.isLeadership);
   const members = teamMembersData.filter((m: any) => !m.isLeadership);
+
+  const dynamicStatsData = statsSection?.textContent?.stats?.map((s: any) => {
+    const valStr = String(s.value);
+    const numMatch = valStr.match(/(\d+)/);
+    const num = numMatch ? parseInt(numMatch[1], 10) : 0;
+    const suffix = valStr.replace(/\d+/g, '').trim();
+    return { value: num, suffix, label: s.label };
+  }) || [];
 
   return (
     <div className="min-h-screen bg-paper flex flex-col">
@@ -90,7 +105,7 @@ const Team = () => {
             transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="font-sans text-[10px] uppercase tracking-[0.3em] text-gold font-bold inline-block mb-4"
           >
-            Our People
+            {heroSection?.textContent?.label}
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -98,7 +113,7 @@ const Team = () => {
             transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="font-display text-5xl md:text-6xl lg:text-7xl text-white mb-4"
           >
-            {heroSection?.textContent?.heading || "Meet Our Experts"}
+            {heroSection?.textContent?.heading}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -106,18 +121,19 @@ const Team = () => {
             transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="font-sans text-white/50 text-base md:text-lg max-w-2xl mx-auto"
           >
-            {heroSection?.textContent?.subheading || "A team of seasoned professionals dedicated to your financial success and business growth."}
+            {heroSection?.textContent?.subheading}
           </motion.p>
         </div>
       </section>
 
       {/* Leadership */}
-      <section className="py-20 md:py-28 px-6 lg:px-8 bg-paper relative">
-        <div className="absolute inset-0 noise-texture" />
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <SectionHeading label="Leadership" title="Our Senior Partners" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {leadership.map((member: any, i: number) => (
+      {leadership.length > 0 && (
+        <section className="py-20 md:py-28 px-6 lg:px-8 bg-paper relative">
+          <div className="absolute inset-0 noise-texture" />
+          <div className="relative z-10 max-w-7xl mx-auto">
+            <SectionHeading label={teamSection?.textContent?.label || "Leadership"} title={teamSection?.textContent?.heading || "Our Senior Partners"} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {leadership.map((member: any, i: number) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 40 }}
@@ -154,15 +170,18 @@ const Team = () => {
           </div>
         </div>
       </section>
+    )}
 
       {/* Team Members */}
-      <SectionDivider from="paper" to="white" />
-      <section className="py-20 md:py-28 px-6 lg:px-8 bg-white relative">
-        <div className="absolute inset-0 gold-grid opacity-[0.02]" />
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <SectionHeading label="The Team" title="Our Professionals" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {members.map((member: any, i: number) => (
+      {members.length > 0 && (
+        <>
+          <SectionDivider from="paper" to="white" />
+          <section className="py-20 md:py-28 px-6 lg:px-8 bg-white relative">
+            <div className="absolute inset-0 gold-grid opacity-[0.02]" />
+            <div className="relative z-10 max-w-7xl mx-auto">
+              <SectionHeading label="The Team" title="Our Professionals" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {members.map((member: any, i: number) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 40 }}
@@ -200,51 +219,57 @@ const Team = () => {
           </div>
         </div>
       </section>
+    </>
+        )}
 
-      {/* Team Stats */}
-      <section className="bg-charcoal py-16 px-6 lg:px-8 relative border-t-2 border-gold/30">
-        <div className="absolute inset-0 gold-grain" />
-        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {teamStats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 * i, duration: 0.6 }}
-            >
-              <div className="font-display text-4xl md:text-5xl text-gold mb-2">
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-              </div>
-              <p className="font-sans text-white/50 text-xs uppercase tracking-[0.15em]">{stat.label}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+        {/* Team Stats */}
+        {dynamicStatsData.length > 0 && (
+          <section className="bg-charcoal py-16 px-6 lg:px-8 relative border-t-2 border-gold/30">
+            <div className="absolute inset-0 gold-grain" />
+            <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              {dynamicStatsData.map((stat: any, i: number) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 * i, duration: 0.6 }}
+                >
+                  <div className="font-display text-4xl md:text-5xl text-gold mb-2">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <p className="font-sans text-white/50 text-xs uppercase tracking-[0.15em]">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        )}
 
-      {/* Join Us CTA */}
-      <section className="py-20 md:py-24 px-6 lg:px-8 bg-paper relative">
-        <div className="absolute inset-0 noise-texture" />
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-gold font-bold inline-block mb-3">
-              Grow With Us
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl text-charcoal mb-4">Want to Join Our Team?</h2>
-            <p className="font-sans text-warm-gray text-base mb-8 max-w-xl mx-auto">
-              We are always looking for talented professionals who share our passion for excellence. Explore career opportunities and become part of our growing family.
-            </p>
-            <Link to="/career" className="shimmer-btn px-8 py-3 text-charcoal font-sans text-xs uppercase tracking-widest font-bold inline-flex items-center gap-2">
-              View Open Positions <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+        {/* Join Us CTA */}
+        {ctaSection && (
+          <section className="py-20 md:py-24 px-6 lg:px-8 bg-paper relative">
+            <div className="absolute inset-0 noise-texture" />
+            <div className="relative z-10 max-w-3xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7 }}
+              >
+                <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-gold font-bold inline-block mb-3">
+                  {ctaSection.textContent?.label}
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl text-charcoal mb-4">{ctaSection.textContent?.heading}</h2>
+                <p className="font-sans text-warm-gray text-base mb-8 max-w-xl mx-auto">
+                  {ctaSection.textContent?.subheading}
+                </p>
+                <Link to="/career" className="shimmer-btn px-8 py-3 text-charcoal font-sans text-xs uppercase tracking-widest font-bold inline-flex items-center gap-2">
+                  {ctaSection.textContent?.ctaPrimary} <ArrowRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
+            </div>
+          </section>
+        )}
 
       <CTASection />
       <Footer websiteData={websiteData} />

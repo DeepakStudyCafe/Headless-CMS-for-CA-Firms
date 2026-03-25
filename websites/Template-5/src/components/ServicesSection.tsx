@@ -1,13 +1,14 @@
-import { SERVICES } from "@/lib/constants";
 import ServiceIcon from "./ServiceIcons";
 import MagneticCard from "./MagneticCard";
 import SectionHeading from "./SectionHeading";
 import SectionDivider from "./SectionDivider";
 
 export default function ServicesSection({ data }: { data?: any }) {
-  const servicesData = data?.textContent?.items || SERVICES;
-  const heading = data?.textContent?.heading || "Our Core Services";
-  const subheading = data?.textContent?.subheading || "What We Offer";
+  const servicesData = data?.textContent?.items || [];
+  const heading = data?.textContent?.heading;
+  const subheading = data?.textContent?.subheading;
+
+  if (!servicesData || servicesData.length === 0) return null;
 
   return (
     <>

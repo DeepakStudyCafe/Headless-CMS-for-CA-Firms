@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HERO_SLIDES } from "@/lib/constants";
 
 function WordReveal({ text, delay = 0 }: { text: string; delay?: number }) {
   return (
@@ -21,22 +20,27 @@ function WordReveal({ text, delay = 0 }: { text: string; delay?: number }) {
   );
 }
 
-const MARQUEE_ITEMS = ["Tax Planning", "GST Compliance", "Audit & Assurance", "Business Advisory", "Company Registration", "Financial Planning"];
 
 export default function HeroBanner({ data }: { data?: any }) {
   const [index, setIndex] = useState(0);
 
   // Use CMS provided slides if available
-  const slides = data?.textContent?.slides || HERO_SLIDES;
+  const slides = data?.textContent?.slides || [];
+  const marqueeItems = data?.textContent?.marquee || [];
+
+  if (!slides || slides.length === 0) {
+    return null;
+  }
 
   const next = useCallback(() => {
     setIndex((prev) => (prev + 1) % slides.length);
   }, [slides.length]);
 
   useEffect(() => {
+    if (slides.length === 0) return;
     const timer = setInterval(next, 6000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, slides.length]);
 
   const slide = slides[index];
 
@@ -123,43 +127,47 @@ export default function HeroBanner({ data }: { data?: any }) {
               href="#services"
               className="shimmer-btn px-10 py-4 text-charcoal font-sans font-bold uppercase tracking-[0.15em] text-[11px] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all"
             >
-              Our Services
+              {data?.textContent?.ctaPrimary}
             </a>
             <a
               href="#contact"
               className="border border-gold/50 text-gold px-10 py-4 font-sans font-bold uppercase tracking-[0.15em] text-[11px] hover:bg-gold hover:text-charcoal transition-all duration-300 backdrop-blur-sm"
             >
-              Contact Us
+              {data?.textContent?.ctaSecondary}
             </a>
           </motion.div>
         </div>
 
         {/* Slide indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-          {HERO_SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIndex(i)}
-              className={`transition-all duration-500 rounded-full ${
-                i === index ? "bg-gold w-8 h-3" : "bg-white/30 hover:bg-white/50 w-3 h-3"
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
+        {slides.length > 1 && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+            {slides.map((_: any, i: number) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className={`transition-all duration-500 rounded-full ${
+                  i === index ? "bg-gold w-8 h-3" : "bg-white/30 hover:bg-white/50 w-3 h-3"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Marquee ticker */}
-      <div className="bg-charcoal border-t border-gold/20 py-3 overflow-hidden">
-        <div className="marquee-scroll flex w-max">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-            <span key={i} className="flex items-center gap-4 px-4">
-              <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-gold/70 whitespace-nowrap">{item}</span>
-              <span className="text-gold/30">◆</span>
-            </span>
-          ))}
+      {marqueeItems.length > 0 && (
+        <div className="bg-charcoal border-t border-gold/20 py-3 overflow-hidden">
+          <div className="marquee-scroll flex w-max">
+            {[...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems].map((item: any, i: number) => (
+              <span key={i} className="flex items-center gap-4 px-4">
+                <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-gold/70 whitespace-nowrap">{item}</span>
+                <span className="text-gold/30">◆</span>
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }

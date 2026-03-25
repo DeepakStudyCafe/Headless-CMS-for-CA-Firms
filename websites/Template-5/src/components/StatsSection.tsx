@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { STATS } from "@/lib/constants";
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -64,7 +63,9 @@ export default function StatsSection({ data }: { data?: any }) {
     const num = numMatch ? parseInt(numMatch[1], 10) : 0;
     const suffix = valStr.replace(/\d+/g, '').trim();
     return { value: num, suffix, label: s.label };
-  }) || STATS;
+  });
+
+  if (!statsData || statsData.length === 0) return null;
 
   return (
     <section ref={sectionRef} id="stats" className="bg-charcoal py-20 md:py-28 relative overflow-hidden gold-grain">
@@ -81,7 +82,7 @@ export default function StatsSection({ data }: { data?: any }) {
             viewport={{ once: true }}
             transition={{ delay: i * 0.15, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
             className={`flex flex-col items-center text-center relative group ${
-              i < STATS.length - 1 ? "md:border-r-0" : ""
+              i < statsData.length - 1 ? "md:border-r-0" : ""
             }`}
           >
             {/* Circular progress ring */}
@@ -96,7 +97,7 @@ export default function StatsSection({ data }: { data?: any }) {
             </span>
 
             {/* Glow divider */}
-            {i < STATS.length - 1 && (
+            {i < statsData.length - 1 && (
               <div className="hidden md:block absolute right-0 top-[15%] h-[70%] glow-divider" />
             )}
           </motion.div>

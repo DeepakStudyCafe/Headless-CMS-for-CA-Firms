@@ -5,8 +5,18 @@ import SectionHeading from "@/components/SectionHeading";
 import SectionDivider from "@/components/SectionDivider";
 import MagneticCard from "@/components/MagneticCard";
 import CTASection from "@/components/CTASection";
-import { SERVICES } from "@/lib/constants";
 import { motion } from "framer-motion";
+
+const SERVICES = [
+  { title: "Bookkeeping", href: "/services/bookkeeping", description: "Accurate financial record keeping" },
+  { title: "GST Filing", href: "/services/gst-filing", description: "Timely GST compliance & returns" },
+  { title: "Payroll", href: "/services/payroll", description: "End-to-end payroll management" },
+  { title: "Tax Planning", href: "/services/tax-planning", description: "Strategic tax optimization" },
+  { title: "Company Formation", href: "/services/company-formation", description: "Business incorporation services" },
+  { title: "Compliance", href: "/services/compliance", description: "Regulatory compliance support" },
+  { title: "Audit Services", href: "/services/audit-services", description: "Comprehensive audit solutions" },
+  { title: "Financial Advisory", href: "/services/financial-advisory", description: "Expert financial guidance" },
+];
 import { Link, useParams } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
@@ -49,9 +59,11 @@ const ServiceDetail = () => {
 
   if (!pageData) {
     return (
-      <div className="min-h-screen bg-charcoal flex flex-col items-center justify-center text-white">
-        <h1 className="text-4xl font-display mb-4">Service Not Found</h1>
-        <Link to="/services" className="text-gold hover:underline">Return to Services</Link>
+      <div className="min-h-screen bg-paper flex flex-col">
+        <CustomCursor />
+        <Navbar websiteData={websiteData} />
+        <main className="flex-grow"></main>
+        <Footer websiteData={websiteData} />
       </div>
     );
   }
