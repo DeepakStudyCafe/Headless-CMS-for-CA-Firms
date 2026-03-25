@@ -25,6 +25,7 @@ const Index = () => {
 
   const heroSlider = getSection('hero-slider')?.textContent;
   const slides = heroSlider?.slides || [];
+  const slideImage = getImageUrl(slides?.[current]?.image);
 
   const servicesGrid = getSection('services-grid')?.textContent;
   const services = servicesGrid?.items || [];
@@ -54,7 +55,9 @@ const Index = () => {
               transition={{ duration: 1 }}
               className="absolute inset-0"
             >
-              <img src={getImageUrl(slides[current].image)} alt={slides[current].title} className="w-full h-full object-cover" />
+              {slideImage && (
+                <img src={slideImage} alt={slides[current]?.title || ''} className="w-full h-full object-cover" />
+              )}
               <div className="absolute inset-0 hero-overlay" />
               <div className="absolute inset-0 bg-gradient-to-t from-secondary/50 via-transparent to-secondary/20" />
             </motion.div>

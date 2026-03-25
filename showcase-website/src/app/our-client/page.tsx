@@ -20,7 +20,7 @@ export default function OurClientPage() {
         // { name: 'Patel Group', url: 'https://patel.example', img: '/client-6.png' },
     ]
 
-    
+
 
     return (
         <main className="min-h-screen bg-white text-slate-800">
