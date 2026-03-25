@@ -1,13 +1,27 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Section } from "@/lib/api";
 
-const features = [
-  { num: "01", title: "18+ Years of Expertise", desc: "Nearly two decades of navigating India's complex regulatory landscape with precision." },
-  { num: "02", title: "Personalized Solutions", desc: "Every strategy is custom-built for your unique financial situation and goals." },
-  { num: "03", title: "Pan-India Network", desc: "From metro hubs to tier-2 cities, our network spans the entire nation." },
-  { num: "04", title: "Zero Compliance Risk", desc: "Zero penalties, zero missed deadlines, complete peace of mind." },
-];
 
-const WhyChooseUs = () => {
+const WhyChooseUs = ({ data }: { data?: Section }) => {
+  const label = data?.textContent?.label || "";
+  const heading = data?.textContent?.heading || "";
+  const quote = data?.textContent?.subheading || "";
+  const badge = data?.textContent?.badge || "";
+  const image = data?.imageUrl || "";
+
+  const rawFeatures = (data?.textContent?.features as any[]) || [];
+  const features = rawFeatures.map((f: any, i: number) => {
+    if (typeof f === 'string') {
+      return { num: String(i + 1).padStart(2, '0'), title: f, desc: "" };
+    }
+    return {
+      num: f.num || String(i + 1).padStart(2, '0'),
+      title: f.title || f.name || "",
+      desc: f.desc || f.description || "",
+    };
+  });
+
   return (
     <section className="relative py-20 px-6 md:px-[6%]" style={{ background: "#FAF7F2" }}>
       <div className="max-w-7xl mx-auto">
@@ -20,16 +34,16 @@ const WhyChooseUs = () => {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="font-mono text-[10px] text-amber2 tracking-[2px] uppercase block mb-3">
-              // WHY_DIGITECHCA
+              // {label}
             </span>
             <h2
-              className="font-heading font-bold text-charcoal-deep leading-[1.1] tracking-[-0.02em] mb-4"
+              className="font-heading font-bold text-charcoal-deep leading-[1.1] tracking-[-0.02em] mb-4 whitespace-pre-wrap"
               style={{ fontSize: "clamp(28px, 3.5vw, 44px)" }}
             >
-              Excellence Built on Trust
+              {heading}
             </h2>
-            <p className="font-body italic text-base mb-5" style={{ color: "rgba(26,26,26,0.6)" }}>
-              "We don't just file returns — we build financial futures."
+            <p className="font-body italic text-base mb-5 whitespace-pre-wrap" style={{ color: "rgba(26,26,26,0.6)" }}>
+              "{quote}"
             </p>
             <div className="h-px w-[60px] bg-amber2 mb-6" />
 
@@ -52,21 +66,23 @@ const WhyChooseUs = () => {
                     <h4 className="font-heading font-semibold text-base text-charcoal-deep mb-1">
                       {f.title}
                     </h4>
-                    <p className="font-body font-light text-sm" style={{ color: "rgba(26,26,26,0.55)" }}>
-                      {f.desc}
-                    </p>
+                    {f.desc && (
+                      <p className="font-body font-light text-sm" style={{ color: "rgba(26,26,26,0.55)" }}>
+                        {f.desc}
+                      </p>
+                    )}
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            <a
-              href="#about"
+            <Link
+              to="/about"
               className="inline-block mt-6 font-heading font-medium text-sm text-amber2 hover:tracking-wider transition-all duration-300 group"
             >
               Discover Our Story →
               <span className="block h-px bg-amber2 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mt-0.5" />
-            </a>
+            </Link>
           </motion.div>
 
           {/* Right column — image */}
@@ -87,7 +103,7 @@ const WhyChooseUs = () => {
             />
             <div className="relative overflow-hidden rounded-xl z-10 group">
               <img
-                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900"
+                src={image}
                 alt="Professional team collaboration"
                 className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 loading="lazy"
@@ -101,7 +117,7 @@ const WhyChooseUs = () => {
                 borderRadius: "6px",
               }}
             >
-              18+ Years of Excellence
+              {badge}
             </div>
           </motion.div>
         </div>

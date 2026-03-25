@@ -1,18 +1,29 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { testimonials } from "@/lib/constants";
+import { Section } from "@/lib/api";
 
-const Testimonials = () => {
+const Testimonials = ({ data }: { data?: Section }) => {
+  const rawCards = (data?.textContent?.items as any[]) || [];
+  // Normalise: API uses name/designation, constants use author/role
+  const cards = rawCards.slice(0, 3).map((t: any) => ({
+    author: t.author || t.name || "Client",
+    role: t.role || t.designation || "",
+    text: t.text || t.review || "",
+    rating: t.rating ?? 5,
+    initials: t.initials || (t.author || t.name || "C").substring(0, 2).toUpperCase(),
+  }));
+  const label = data?.textContent?.label || "";
+  const heading = data?.textContent?.heading || "";
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    if (cards.length <= 1) return;
     const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % 3);
+      setActive((prev) => (prev + 1) % cards.length);
     }, 4500);
     return () => clearInterval(interval);
-  }, []);
+  }, [cards.length]);
 
-  const cards = testimonials.slice(0, 3);
 
   return (
     <section
@@ -36,17 +47,17 @@ const Testimonials = () => {
             viewport={{ once: true }}
             className="font-mono text-[10px] text-amber2 tracking-[2px] uppercase block mb-3"
           >
-            {"// CLIENT_VOICES"}
+            // {label}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="font-heading font-bold text-linen leading-[1.1] tracking-[-0.02em]"
+            className="font-heading font-bold text-linen leading-[1.1] tracking-[-0.02em] whitespace-pre-wrap"
             style={{ fontSize: "clamp(28px, 3.5vw, 44px)" }}
           >
-            Words of Trust
+            {heading}
           </motion.h2>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -154,7 +165,7 @@ const Testimonials = () => {
         {/* Nav buttons */}
         <div className="flex justify-end gap-3 mt-8">
           <button
-            onClick={() => setActive((active - 1 + 3) % 3)}
+            onClick={() => setActive((active - 1 + cards.length) % cards.length)}
             className="w-9 h-9 flex items-center justify-center border rounded transition-all duration-200 hover:bg-amber2/10 hover:border-amber2 text-linen/60 hover:text-amber2"
             style={{ borderColor: "rgba(224,140,46,0.25)" }}
             aria-label="Previous"
@@ -162,7 +173,7 @@ const Testimonials = () => {
             ←
           </button>
           <button
-            onClick={() => setActive((active + 1) % 3)}
+            onClick={() => setActive((active + 1) % cards.length)}
             className="w-9 h-9 flex items-center justify-center border rounded transition-all duration-200 hover:bg-amber2/10 hover:border-amber2 text-linen/60 hover:text-amber2"
             style={{ borderColor: "rgba(224,140,46,0.25)" }}
             aria-label="Next"

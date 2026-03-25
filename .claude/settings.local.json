@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(find 'c:/Users/user/Desktop/Website Template/Headless-CMS-for-CA-Firms/websites/firm1-sharma/src/components' -type f -name *.tsx -o -name *.ts -o -name *.css)",
+      "Bash(find 'c:/Users/user/Desktop/Website Template/Headless-CMS-for-CA-Firms/websites/firm1-sharma/src/pages' -type f -name *.tsx -o -name *.ts)",
+      "Bash(find 'c:/Users/user/Desktop/Website Template/Headless-CMS-for-CA-Firms/websites/firm1-sharma/src/app' -type f -name *.tsx -o -name *.ts)",
+      "Bash(grep -E \"^-.*\\\\.\\(ts\\)$\")"
+    ]
+  }
+}

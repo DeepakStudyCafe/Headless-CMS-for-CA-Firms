@@ -1,8 +1,17 @@
 import { motion } from "framer-motion";
-import { services } from "@/lib/constants";
 import { useRef, MouseEvent } from "react";
+import { Section } from "@/lib/api";
+import { Link } from "react-router-dom";
 
-const ServicesSection = () => {
+const ServicesSection = ({ data }: { data?: Section }) => {
+  const apiItems = (data?.textContent?.items as any[]) || [];
+  const services = apiItems.map((s: any, i: number) => ({
+    ...s,
+    id: s.id || String(i + 1).padStart(2, '0'),
+    featured: i === 0,
+  }));
+  const label = data?.textContent?.label || "";
+  const heading = data?.textContent?.heading || "";
   return (
     <section
       id="services"
@@ -16,9 +25,9 @@ const ServicesSection = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="font-mono text-[10px] text-amber2 tracking-[2px] block mb-3"
+            className="font-mono text-[10px] text-amber2 tracking-[2px] block mb-3 uppercase"
           >
-            {"// PRACTICE_AREAS"}
+            // {label}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 32 }}
@@ -28,7 +37,7 @@ const ServicesSection = () => {
             className="font-heading font-bold text-linen leading-[1.1] tracking-[-0.02em]"
             style={{ fontSize: "clamp(28px, 3.5vw, 44px)" }}
           >
-            What We Excel At
+            {heading}
           </motion.h2>
         </div>
 
@@ -46,8 +55,8 @@ const ServicesSection = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-px"
           style={{ background: "#E08C2E" }}
         >
-          {services.map((service, i) => (
-            <ServiceCard key={service.id} service={service} index={i} />
+          {services.map((service: any, i: number) => (
+            <ServiceCard key={service.id || i} service={service} index={i} />
           ))}
         </div>
       </div>
@@ -55,7 +64,7 @@ const ServicesSection = () => {
   );
 };
 
-const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
+const ServiceCard = ({ service, index }: { service: any; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -138,10 +147,15 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         {service.description}
       </p>
 
-      {/* Learn More */}
-      <span className="inline-block mt-5 font-heading font-medium text-[13px] text-amber2/50 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
-        Learn More →
-      </span>
+      {service.href ? (
+        <Link to={service.href} className="inline-block mt-5 font-heading font-medium text-[13px] text-amber2/50 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
+          Learn More →
+        </Link>
+      ) : (
+        <span className="inline-block mt-5 font-heading font-medium text-[13px] text-amber2/50 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
+          Learn More →
+        </span>
+      )}
 
       {/* Shimmer sweep on hover */}
       <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 overflow-hidden transition-opacity duration-300">

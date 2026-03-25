@@ -51,6 +51,9 @@
   * {
     @apply border-border;
   }
+  html, body {
+    overflow-x: hidden;
+  }
   body {
     font-family: var(--font-body);
     background: hsl(var(--charcoal-void));

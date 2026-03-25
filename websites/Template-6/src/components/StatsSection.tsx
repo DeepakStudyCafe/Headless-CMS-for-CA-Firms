@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { stats } from "@/lib/constants";
+import { Section } from "@/lib/api";
 
 const AnimatedCounter = ({ target, suffix }: { target: number; suffix: string }) => {
   const [count, setCount] = useState(0);
@@ -52,7 +52,10 @@ const Sparkline = () => {
   );
 };
 
-const StatsSection = () => {
+const StatsSection = ({ data }: { data?: Section }) => {
+  const stats = (data?.textContent?.stats as any[]) || [];
+  const label = data?.textContent?.label || "";
+  const heading = data?.textContent?.heading || "";
   return (
     <section className="relative py-20 px-6 md:px-[6%]" style={{ background: "#FAF7F2" }}>
       <div className="max-w-7xl mx-auto">
@@ -64,17 +67,17 @@ const StatsSection = () => {
             viewport={{ once: true }}
             className="font-mono text-[10px] text-amber2 tracking-[2px] uppercase block mb-3"
           >
-            // OUR_NUMBERS
+            // {label}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="font-heading font-bold text-charcoal-deep leading-[1.1] tracking-[-0.02em]"
+            className="font-heading font-bold text-charcoal-deep leading-[1.1] tracking-[-0.02em] whitespace-pre-wrap"
             style={{ fontSize: "clamp(28px, 3.5vw, 44px)" }}
           >
-            A Track Record That Speaks
+            {heading}
           </motion.h2>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -123,9 +126,11 @@ const StatsSection = () => {
                 >
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </span>
-                <p className="font-body font-light text-[13px] mt-2 transition-colors duration-[350ms] text-charcoal-mid/55 group-hover:text-linen/50">
-                  Verified & Growing
-                </p>
+                {stat.subtitle && (
+                  <p className="font-body font-light text-[13px] mt-2 transition-colors duration-[350ms] text-charcoal-mid/55 group-hover:text-linen/50">
+                    {stat.subtitle}
+                  </p>
+                )}
                 <Sparkline />
               </div>
             </motion.div>
@@ -133,11 +138,13 @@ const StatsSection = () => {
         </div>
 
         {/* Bottom rule */}
-        <div className="mt-10 pt-4 border-t border-amber2/20">
-          <span className="font-mono text-[11px] text-charcoal-light/50 tracking-wider">
-            LIVE DATA · UPDATED FY 2023–24
-          </span>
-        </div>
+        {data?.textContent?.footnote && (
+          <div className="mt-10 pt-4 border-t border-amber2/20">
+            <span className="font-mono text-[11px] text-charcoal-light/50 tracking-wider">
+              {data.textContent.footnote}
+            </span>
+          </div>
+        )}
       </div>
     </section>
   );

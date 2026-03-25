@@ -13,6 +13,7 @@
     "seed": "ts-node src/utils/seed.ts",
     "seed:full": "ts-node src/utils/comprehensive-seed.ts",
     "seed:template5": "ts-node src/utils/template-5-seed.ts",
+    "seed:template6": "ts-node src/utils/template-6-seed.ts",
     "setup:admins": "ts-node src/utils/setup-admins.ts"
   },
   "keywords": [

@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { tickerItems } from "@/lib/constants";
+import { Link } from "react-router-dom";
+import { Section } from "@/lib/api";
 
-const heroImages = [
-  "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1920",
-  "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1920",
-  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920",
-];
 
-const floatingCards = [
-  { label: "CLIENTS", value: "500+", type: "bar" },
-  { label: "EXPERIENCE", value: "18 Yrs", type: "dot" },
-  { label: "RETAINED", value: "98%", type: "arc" },
-];
-
-const HeroBanner = () => {
+const HeroBanner = ({ data }: { data?: Section }) => {
+  const slides = data?.textContent?.slides as any[] | undefined;
+  const heroImages = slides?.length ? slides.map((s: any) => s.img) : (data?.imageUrl ? [data.imageUrl] : []);
+  const tickerItems = data?.textContent?.tickerItems || [];
+  const heading = data?.textContent?.heading || "";
+  const subHeadingLine2 = data?.textContent?.subHeadingLine2 || "";
+  const subheading = data?.textContent?.subheading || "";
+  const cta = data?.textContent?.cta || "";
+  const secondaryCta = data?.textContent?.secondaryCta || "";
+  const label = data?.textContent?.label || "";
+  const floatingCards = data?.textContent?.customCards || [];
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const HeroBanner = () => {
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="font-mono text-[10px] text-amber2 tracking-[3px] mb-6"
               >
-                [ CHARTERED ACCOUNTANTS · EST. 2005 ]
+                [ {label} ]
               </motion.div>
 
               {/* Main heading */}
@@ -89,20 +89,22 @@ const HeroBanner = () => {
                   initial={{ clipPath: "inset(0 100% 0 0)" }}
                   animate={{ clipPath: "inset(0 0% 0 0)" }}
                   transition={{ delay: 0.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-heading font-bold text-linen leading-[1.1] tracking-[-0.02em] block"
-                  style={{ fontSize: "min(5vw, 48px)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                  className="font-heading font-bold text-linen leading-[1.1] tracking-[-0.02em] block whitespace-pre-wrap"
+                  style={{ fontSize: "clamp(28px, 5vw, 60px)" }}
                 >
-                  Financial Clarity & Growth,
+                  {heading}
                 </motion.span>
-                <motion.span
-                  initial={{ clipPath: "inset(0 100% 0 0)" }}
-                  animate={{ clipPath: "inset(0 0% 0 0)" }}
-                  transition={{ delay: 0.65, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="block font-heading font-light italic text-amber2 leading-[1.1] tracking-[-0.02em]"
-                  style={{ fontSize: "clamp(36px, 5vw, 60px)" }}
-                >
-                  Expert Guidance.
-                </motion.span>
+                {subHeadingLine2 && (
+                  <motion.span
+                    initial={{ clipPath: "inset(0 100% 0 0)" }}
+                    animate={{ clipPath: "inset(0 0% 0 0)" }}
+                    transition={{ delay: 0.65, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    className="block font-heading font-light italic text-amber2 leading-[1.1] tracking-[-0.02em]"
+                    style={{ fontSize: "clamp(36px, 5vw, 60px)" }}
+                  >
+                    {subHeadingLine2}
+                  </motion.span>
+                )}
               </h1>
 
               {/* Amber rule */}
@@ -118,10 +120,10 @@ const HeroBanner = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.5 }}
-                className="font-body font-light text-[15px] leading-[1.75] max-w-[440px]"
+                className="font-body font-light text-[15px] leading-[1.75] max-w-[440px] whitespace-pre-wrap"
                 style={{ color: "rgba(245,240,232,0.65)" }}
               >
-                DigitechCA & Associates — trusted by 500+ businesses for taxation, compliance, and strategic financial advisory, delivering reliable, transparent, and growth-focused financial solutions.
+                {subheading}
               </motion.p>
 
               {/* Buttons */}
@@ -131,27 +133,27 @@ const HeroBanner = () => {
                 transition={{ delay: 1.0, duration: 0.5 }}
                 className="flex flex-wrap gap-3 mt-7"
               >
-                <a
-                  href="#services"
-                  className="btn-shimmer inline-block bg-amber2 text-charcoal-deep font-heading font-semibold text-sm px-7 py-3 rounded hover:bg-amber2-hot hover:-translate-y-0.5 transition-all duration-250"
-                  onMouseEnter={(e) => {
-                    (e.target as HTMLElement).style.boxShadow = "0 0 30px rgba(224,140,46,0.5)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.target as HTMLElement).style.boxShadow = "none";
-                  }}
-                >
-                  Explore Services
-                </a>
-                <a
-                  href="#contact"
-                  className="inline-block font-heading font-semibold text-sm px-7 py-3 rounded transition-all duration-250 text-linen hover:text-amber2 hover:border-amber2"
-                  style={{
-                    border: "1px solid rgba(245,240,232,0.35)",
-                  }}
-                >
-                  Contact Us
-                </a>
+                  <Link
+                    to="/services"
+                    className="btn-shimmer inline-block bg-amber2 text-charcoal-deep font-heading font-semibold text-sm px-7 py-3 rounded hover:bg-amber2-hot hover:-translate-y-0.5 transition-all duration-250"
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 0 30px rgba(224,140,46,0.5)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    }}
+                  >
+                    {cta}
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="inline-block font-heading font-semibold text-sm px-7 py-3 rounded transition-all duration-250 text-linen hover:text-amber2 hover:border-amber2"
+                    style={{
+                      border: "1px solid rgba(245,240,232,0.35)",
+                    }}
+                  >
+                    {secondaryCta}
+                  </Link>
               </motion.div>
             </div>
 

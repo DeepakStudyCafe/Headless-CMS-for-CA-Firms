@@ -1,17 +1,49 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navItems } from "@/lib/constants";
+import { Link, useLocation } from "react-router-dom";
 
-const Navbar = () => {
+const DEFAULT_NAV = [
+  { label: "HOME", href: "/" },
+  { label: "ABOUT", href: "/about" },
+  { label: "SERVICES", href: "/services", subItems: [] as { label: string; href: string }[] },
+  { label: "TEAM", href: "/team" },
+  { label: "GALLERY", href: "/gallery" },
+  { label: "QUERY", href: "/query" },
+  { label: "CAREER", href: "/career" },
+  { label: "CONTACT", href: "/contact" },
+];
+
+const Navbar = ({ websiteData }: { websiteData?: any }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const logo = websiteData?.logo || "";
+  const name = websiteData?.name || "";
+  const email = websiteData?.email || "";
+  const phone = websiteData?.phone || "";
+
+  // Build nav items with dynamic services from API
+  const NAV_ITEMS = useMemo(() => {
+    const servicesList: { title: string; href: string }[] = websiteData?.themeConfig?.services || [];
+    return DEFAULT_NAV.map((item) => {
+      if (item.label === "SERVICES" && servicesList.length > 0) {
+        return {
+          ...item,
+          subItems: servicesList.map((s) => ({ label: s.title, href: s.href })),
+        };
+      }
+      return item;
+    });
+  }, [websiteData]);
 
   return (
     <>
@@ -28,67 +60,92 @@ const Navbar = () => {
       >
         {/* Logo + Company Name */}
         <div className="flex-shrink-0 flex items-center gap-2">
-          <img
-            src="https://api.digitechai.in/uploads/logo.png"
-            alt="abc & Associates Logo"
-            className="h-8 transition-all duration-300"
-            style={{
-              filter: `drop-shadow(0 0 ${scrolled ? '10px' : '6px'} rgba(224,140,46,${scrolled ? 0.5 : 0.35}))`,
-            }}
-          />
-          <span className="hidden md:flex flex-col font-bold text-base leading-tight tracking-wide select-none text-linen">
-            abc & Associates
-            <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
-          </span>
+          <Link to="/" className="flex items-center gap-2">
+            {logo && (
+              <img
+                src={logo}
+                alt={`${name} Logo`}
+                className="h-8 transition-all duration-300"
+                style={{
+                  filter: `drop-shadow(0 0 ${scrolled ? '10px' : '6px'} rgba(224,140,46,${scrolled ? 0.5 : 0.35}))`,
+                }}
+              />
+            )}
+            {name && (
+              <span className="hidden md:flex flex-col font-bold text-base leading-tight tracking-wide select-none text-linen">
+                {name}
+                <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
+              </span>
+            )}
+          </Link>
         </div>
 
         {/* Center nav links - desktop */}
-        <div className="hidden lg:flex items-center gap-1 mx-auto">
-          {navItems.map((item) => (
-            <a
+        <div className="hidden lg:flex items-center gap-1 mx-auto relative">
+          {NAV_ITEMS.map((item) => (
+            <div
               key={item.label}
-              href={item.href}
-              className="relative font-heading text-[13px] font-medium tracking-[0.5px] px-3 py-1.5 rounded transition-all duration-200"
-              style={{
-                color: hoveredLink === item.label ? "#E08C2E" : "rgba(245,240,232,0.7)",
-                background: hoveredLink === item.label ? "rgba(224,140,46,0.07)" : "transparent",
-              }}
-              onMouseEnter={() => setHoveredLink(item.label)}
-              onMouseLeave={() => setHoveredLink(null)}
+              className="relative"
+              onMouseEnter={() => { setHoveredLink(item.label); if (item.subItems?.length) setServicesOpen(true); }}
+              onMouseLeave={() => { setHoveredLink(null); setServicesOpen(false); }}
             >
-              {item.label}
-              {/* Underline */}
-              <span
-                className="absolute bottom-0 left-3 right-3 h-px bg-amber2 transition-transform duration-250 origin-left"
+              <Link
+                to={item.href}
+                className="relative font-heading text-[13px] font-medium tracking-[0.5px] px-3 py-1.5 rounded transition-all duration-200 flex items-center gap-1"
                 style={{
-                  transform: hoveredLink === item.label ? "scaleX(1)" : "scaleX(0)",
+                  color: hoveredLink === item.label || location.pathname.startsWith(item.href) && item.href !== '/' || location.pathname === item.href ? "#E08C2E" : "rgba(245,240,232,0.7)",
+                  background: hoveredLink === item.label ? "rgba(224,140,46,0.07)" : "transparent",
                 }}
-              />
-            </a>
+              >
+                {item.label}
+                {item.subItems && item.subItems.length > 0 && <span className="text-[10px] ml-0.5">▾</span>}
+                {/* Underline */}
+                <span
+                  className="absolute bottom-0 left-3 right-3 h-px bg-amber2 transition-transform duration-250 origin-left"
+                  style={{
+                    transform: hoveredLink === item.label ? "scaleX(1)" : "scaleX(0)",
+                  }}
+                />
+              </Link>
+
+              {/* Services dropdown */}
+              {item.subItems && item.subItems.length > 0 && servicesOpen && hoveredLink === item.label && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="absolute top-full left-0 mt-1 py-2 w-52 rounded-lg z-[100]"
+                  style={{
+                    background: "rgba(13,13,13,0.96)",
+                    border: "1px solid rgba(224,140,46,0.2)",
+                    backdropFilter: "blur(20px)",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
+                  }}
+                >
+                  {item.subItems.map((sub) => (
+                    <Link
+                      key={sub.href}
+                      to={sub.href}
+                      className="block px-4 py-2 font-body text-[13px] text-linen/70 hover:text-amber2 hover:bg-amber2/5 transition-colors"
+                    >
+                      ▸ {sub.label}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </div>
           ))}
         </div>
 
         {/* Right side */}
         <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-          <div className="w-2 h-2 rounded-full bg-amber2 animate-pulse-dot" />
-          <span className="font-mono text-[11px] text-amber2 tracking-wide">
-            OPEN FOR CONSULTATION
-          </span>
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             className="btn-shimmer font-heading text-[13px] font-semibold bg-amber2 text-charcoal-void px-5 py-2.5 rounded hover:bg-amber2-hot hover:-translate-y-px transition-all duration-250"
-            style={{
-              boxShadow: "none",
-            }}
-            onMouseEnter={(e) => {
-              (e.target as HTMLElement).style.boxShadow = "0 0 20px rgba(224,140,46,0.4)";
-            }}
-            onMouseLeave={(e) => {
-              (e.target as HTMLElement).style.boxShadow = "none";
-            }}
+            style={{ boxShadow: "none" }}
           >
             Connect →
-          </a>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -111,7 +168,7 @@ const Navbar = () => {
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[60] flex flex-col justify-center px-8"
+            className="fixed inset-0 z-[60] flex flex-col pt-24 pb-12 px-8 overflow-y-auto"
             style={{ background: "#0D0D0D" }}
           >
             <motion.button
@@ -126,38 +183,54 @@ const Navbar = () => {
             </motion.button>
 
             <div className="flex flex-col items-center mb-8">
-              <img
-                src="https://api.digitechai.in/uploads/logo.png"
-                alt="abc & Associates Logo"
-                className="h-12 mb-1"
-              />
-              <span className="font-bold text-linen text-lg tracking-wide select-none flex flex-col items-center">
-                abc & Associates
-                <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
-              </span>
+              {logo && <img src={logo} alt={`${name} Logo`} className="h-12 mb-1" />}
+              {name && (
+                <span className="font-bold text-linen text-lg tracking-wide select-none flex flex-col items-center">
+                  {name}
+                  <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
+                </span>
+              )}
             </div>
-            <div className="space-y-5">
-              {navItems.map((item, i) => (
-                <motion.a
-                  key={item.label}
-                  href={item.href}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
-                  className="block font-heading font-bold text-3xl text-linen hover:text-amber2 transition-colors"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  <span className="font-mono text-sm text-amber2 mr-3">
-                    {String(i + 1).padStart(2, "0")}_
-                  </span>
-                  {item.label}
-                </motion.a>
+            <div className="space-y-4">
+              {NAV_ITEMS.map((item, i) => (
+                <div key={item.label}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
+                  >
+                    <Link
+                      to={item.href}
+                      className="block font-heading font-bold text-3xl text-linen hover:text-amber2 transition-colors"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      <span className="font-mono text-sm text-amber2 mr-3">
+                        {String(i + 1).padStart(2, "0")}_
+                      </span>
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                  {item.subItems && item.subItems.length > 0 && (
+                    <div className="pl-10 mt-2 space-y-2">
+                      {item.subItems.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          to={sub.href}
+                          className="block font-body text-sm text-linen/50 hover:text-amber2 transition-colors"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          › {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
 
-            <div className="absolute bottom-8 left-8 font-mono text-xs text-linen/40 space-y-1">
-              <p>hello@digitechca.in</p>
-              <p>+91 98765 43210</p>
+            <div className="mt-12 mb-8 font-mono text-xs text-linen/40 space-y-1">
+              {email && <p>{email}</p>}
+              {phone && <p>{phone}</p>}
             </div>
           </motion.div>
         )}
