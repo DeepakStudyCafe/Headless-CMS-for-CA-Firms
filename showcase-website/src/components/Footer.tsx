@@ -5,37 +5,37 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="container-custom py-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer className="bg-gradient-to-t from-gray-900 to-gray-800 text-gray-300">
+      <div className="container-custom px-2 md:px-4 pt-12 pb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
           {/* Company Info */}
-          <div>
-            <div className="flex items-center space-x-2 mb-4 mr-10">
-              <img src="/webcafe-white.png" alt="Webcafe Logo" className="w-50 h-50 object-contain" />
+          <div className="flex flex-col min-w-0">
+            <div className="flex items-center space-x-2 mb-4">
+              <img src="/webcafe-white.png" alt="Webcafe Logo" className="w-44 object-contain" />
             </div>
-            <p className="text-gray-400 mb-4 leading-relaxed">
-              Professional website templates specifically designed by the Chartered Accountant for Chartered Accountant firms to help them build credibility, attract clients and grow their practice online.
+            <p className="text-gray-300 mb-4 leading-relaxed text-sm text-justify">
+              High-quality, conversion-focused website solutions crafted for Chartered Accountant firms — helping you build trust, generate qualified leads, and establish a strong digital presence.
             </p>
-            <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
-                <Facebook className="w-5 h-5" />
+            <div className="flex gap-3 mt-auto">
+              <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
+                <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
-                <Twitter className="w-5 h-5" />
+              <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
+                <Twitter className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
-                <Linkedin className="w-5 h-5" />
+              <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
+                <Linkedin className="w-4 h-4" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
-                <Instagram className="w-5 h-5" />
+              <a href="#" className="w-8 h-8 bg-gray-800 hover:bg-primary-600 rounded-full flex items-center justify-center transition-colors duration-300">
+                <Instagram className="w-4 h-4" />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-white font-bold text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+          <div className="flex flex-col min-w-0 ml-10">
+            <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Quick Links</h3>
+            <ul className="space-y-2 text-sm text-gray-300">
               <li>
                 <Link href="/" className="hover:text-primary-400 transition-colors duration-300">
                   Home
@@ -70,9 +70,9 @@ export default function Footer() {
           </div>
 
           {/* Services */}
-          <div>
-            <h3 className="text-white font-bold text-lg mb-4">Our Services</h3>
-            <ul className="space-y-2">
+          <div className="flex flex-col min-w-0">
+            <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Our Services</h3>
+            <ul className="space-y-2 text-sm text-gray-300">
               <li>
                 <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">
                   Website Design
@@ -106,38 +106,65 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Legal & Policies */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Contact Us</h3>
-            <ul className="space-y-4">
+            <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Legal & Policies</h3>
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li>
+                <Link href="/privacy-policy" className="hover:text-primary-400 transition-colors duration-300 text-sm">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms-and-conditions" className="hover:text-primary-400 transition-colors duration-300 text-sm">
+                  Terms and Conditions
+                </Link>
+              </li>
+              <li>
+                <Link href="/cancellation-and-refund" className="hover:text-primary-400 transition-colors duration-300 text-sm">
+                  Cancellation and Refund Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/shipping-and-delivery" className="hover:text-primary-400 transition-colors duration-300 text-sm">
+                  Shipping and Delivery Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div className="flex flex-col min-w-0">
+            <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Contact Us</h3>
+            <ul className="space-y-3 text-sm text-gray-300">
               <li className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <a href="mailto:support@studycafe.in" className="hover:text-primary-400 transition-colors duration-300">
+                  <a href="mailto:support@studycafe.in" className="hover:text-primary-400 transition-colors duration-300 text-sm">
                     support@studycafe.in
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+                <Mail className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <a href="mailto:marketing@studycafe.in" className="hover:text-primary-400 transition-colors duration-300">
+                  <a href="mailto:marketing@studycafe.in" className="hover:text-primary-400 transition-colors duration-300 text-sm">
                     marketing@studycafe.in
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+                <Phone className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <a href="tel:+919876543210" className="hover:text-primary-400 transition-colors duration-300">
+                  <a href="tel:+919625080264" className="hover:text-primary-400 transition-colors duration-300 text-sm">
                     +91 9625080264
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+                <MapPin className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 text-sm">
                     1003, 10th Floor, Modi Tower <br />
                     98, Nehruplace, Delhi 110019
                   </p>
@@ -147,18 +174,20 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8">
+        <div className="border-t border-gray-800 mt-10 pt-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between text-center md:text-left">
-            <p className="text-gray-400 mb-2 md:mb-0">
-              &copy; {currentYear} Webcafe All Rights Reserved |
-              <Link href="/privacy" className="hover:text-primary-400 transition-colors duration-300 ml-2">
+            <p className="text-gray-400 mb-2 md:mb-0 text-xs">
+              &copy; {currentYear} Webcafe. All rights reserved. 
+              <span className="mx-2">|</span>
+              <Link href="/privacy-policy" className="hover:text-primary-400 transition-colors duration-300 ml-1 text-xs">
                 Privacy Policy
-              </Link> |
-              <Link href="/terms" className="hover:text-primary-400 transition-colors duration-300 ml-2">
-                Terms of Service
+              </Link>
+              <span className="mx-2">|</span>
+              <Link href="/terms-and-conditions" className="hover:text-primary-400 transition-colors duration-300 ml-1 text-xs">
+                Terms
               </Link>
             </p>
-            <p className="text-gray-400 text-base">
+            <p className="text-gray-400 text-xs mt-3 md:mt-0">
               Powered By <a href="https://studycafe.in/" target="_blank" rel="noopener" className="underline hover:text-primary-400">Studycafe</a>
             </p>
           </div>
