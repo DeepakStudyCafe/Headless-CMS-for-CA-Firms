@@ -1,14 +1,32 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_SLIDES, MARQUEE_ITEMS } from "@/lib/constants";
+import { Section } from "@/lib/api";
+import { Link } from "react-router-dom";
 
-const HeroBanner = () => {
+const HeroBanner = ({ data }: { data?: Section }) => {
+  const rawSlides = (data?.textContent?.slides as any[]) || HERO_SLIDES;
+  const slides = rawSlides
+    .map((s: any) => ({
+      image: s?.image || s?.img || "",
+      heading: s?.heading || s?.title || data?.textContent?.heading || "Trusted Financial Advisory",
+      subtext: s?.subtext || s?.subtitle || data?.textContent?.subheading || "Strategic guidance with compliance confidence.",
+    }))
+    .filter((s: any) => s.image || s.heading);
+  const marqueeItems = (data?.textContent?.tickerItems as string[]) || MARQUEE_ITEMS;
+  const heroHeading = data?.textContent?.heading || "";
+  const heroSubline = data?.textContent?.subHeadingLine2 || "";
+  const heroLabel = data?.textContent?.label || "EST. 2005 · VOLUME XII";
+  const heroCta = data?.textContent?.cta || "Explore Services";
+  const heroSecondaryCta = data?.textContent?.secondaryCta || "Watch Our Story";
+  const heroStats = data?.textContent?.statsTeaser || "500+ Clients · 18 Yrs · 98% Retention";
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
 
   const next = useCallback(() => {
-    setCurrent((c) => (c + 1) % HERO_SLIDES.length);
-  }, []);
+    if (slides.length === 0) return;
+    setCurrent((c) => (c + 1) % slides.length);
+  }, [slides.length]);
 
   useEffect(() => {
     if (paused) return;
@@ -16,10 +34,15 @@ const HeroBanner = () => {
     return () => clearInterval(timer);
   }, [paused, next]);
 
-  const slide = HERO_SLIDES[current];
+  const slide = slides[current] || {
+    image: HERO_SLIDES[0]?.image || HERO_SLIDES[0]?.img || "",
+    heading: HERO_SLIDES[0]?.heading || HERO_SLIDES[0]?.title || "Trusted Financial Advisory",
+    subtext: HERO_SLIDES[0]?.subtext || HERO_SLIDES[0]?.subtitle || "Strategic guidance with compliance confidence.",
+  };
 
   // Split heading into two lines for editorial effect
-  const words = slide.heading.split(" ");
+  const safeHeading = (slide.heading || "Trusted Financial Advisory").toString();
+  const words = safeHeading.split(" ");
   const mid = Math.ceil(words.length / 2);
   const line1 = words.slice(0, mid).join(" ");
   const line2 = words.slice(mid).join(" ");
@@ -71,7 +94,7 @@ const HeroBanner = () => {
                     transition={{ delay: 0.1, duration: 0.5 }}
                     className="font-label text-[10px] text-surface/40 tracking-[4px] mb-4 block"
                   >
-                    EST. 2005 · VOLUME XII
+                    {heroLabel}
                   </motion.span>
 
                   {/* Pill chip label */}
@@ -83,7 +106,7 @@ const HeroBanner = () => {
                     className="inline-flex items-center gap-2 px-3 py-1 border border-ca-accent-2/30 mb-6"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-ca-accent-2 animate-pulse" />
-                    <span className="font-label text-[10px] text-ca-accent-2 tracking-[2px]">INDIA'S TRUSTED CA FIRM</span>
+                    <span className="font-label text-[10px] text-ca-accent-2 tracking-[2px]">{heroLabel}</span>
                   </motion.span>
 
                   {/* H1 — two lines with editorial contrast */}
@@ -98,7 +121,7 @@ const HeroBanner = () => {
                           transition={{ delay: 0.4, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                           className="block font-display text-5xl sm:text-7xl lg:text-[90px] font-bold text-surface leading-[0.95] tracking-tight"
                         >
-                          {line1}
+                          {heroHeading || line1}
                         </motion.span>
                         {/* Line 2 — italic teal */}
                         <motion.span
@@ -108,7 +131,7 @@ const HeroBanner = () => {
                           transition={{ delay: 0.55, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                           className="block font-display text-5xl sm:text-7xl lg:text-[90px] font-bold italic text-ca-accent-2 leading-[0.95] tracking-tight"
                         >
-                          {line2}
+                          {heroSubline || line2}
                         </motion.span>
                       </motion.div>
                     </AnimatePresence>
@@ -131,7 +154,7 @@ const HeroBanner = () => {
                     transition={{ delay: 0.75, duration: 0.5 }}
                     className="font-label text-[11px] text-surface/45 tracking-[1.5px] mb-5 block"
                   >
-                    500+ Clients · 18 Yrs · 98% Retention
+                    {heroStats}
                   </motion.span>
 
                   <motion.p
@@ -151,18 +174,18 @@ const HeroBanner = () => {
                     transition={{ delay: 1.0, duration: 0.4 }}
                     className="flex items-center gap-4"
                   >
-                    <a
-                      href="#services"
+                    <Link
+                      to="/services"
                       className="btn-shimmer inline-flex items-center gap-2 px-6 py-3 bg-ca-accent text-surface font-body font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-ca-accent/90 active:scale-95"
                     >
-                      Explore Services <span>→</span>
-                    </a>
-                    <a
-                      href="#"
+                      {heroCta} <span>→</span>
+                    </Link>
+                    <Link
+                      to="/contact"
                       className="inline-flex items-center gap-2 font-body font-semibold text-sm text-surface/70 tracking-wide hover:text-surface transition-colors duration-300"
                     >
-                      Watch Our Story <span>→</span>
-                    </a>
+                      {heroSecondaryCta} <span>→</span>
+                    </Link>
                   </motion.div>
                 </div>
               </div>
@@ -202,7 +225,7 @@ const HeroBanner = () => {
 
         {/* Vertical pill indicators — right edge */}
         <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-2 hidden lg:flex">
-          {HERO_SLIDES.map((_, i) => (
+          {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
@@ -215,7 +238,7 @@ const HeroBanner = () => {
 
         {/* Bottom progress line */}
         <div className="absolute bottom-0 left-0 right-0 z-20 flex">
-          {HERO_SLIDES.map((_, i) => (
+          {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
@@ -238,7 +261,7 @@ const HeroBanner = () => {
       {/* Marquee ticker — tighter */}
       <div className="bg-deep py-2 overflow-hidden border-t border-surface/[0.06]">
         <div className="animate-marquee whitespace-nowrap flex items-center">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
+          {[...marqueeItems, ...marqueeItems, ...marqueeItems, ...marqueeItems].map((item, i) => (
             <span key={i} className="inline-flex items-center mx-3">
               <span className="font-label text-[11px] text-surface/60 tracking-[1px]" style={{ textTransform: 'uppercase' }}>{item}</span>
               <span className="ml-6 text-ca-accent-2/50 text-[8px] inline-block">◆</span>

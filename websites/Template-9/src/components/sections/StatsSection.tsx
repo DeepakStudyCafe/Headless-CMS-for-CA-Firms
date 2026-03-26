@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { STATS } from "@/lib/constants";
+import { Section } from "@/lib/api";
 
 const STAT_LABELS = ["CLIENTS SERVED", "YEARS IN PRACTICE", "EXPERT ADVISORS", "CLIENT RETENTION"];
 
@@ -30,19 +31,32 @@ const AnimatedCounter = ({ target, suffix }: { target: number; suffix: string })
   );
 };
 
-const StatsSection = () => {
+const StatsSection = ({ data }: { data?: Section }) => {
+  const rawStats = (data?.textContent?.stats as any[]) || STATS;
+  const stats = rawStats.map((stat: any) => {
+    const rawNumber = stat?.number ?? stat?.value ?? 0;
+    const numberFromString = typeof rawNumber === "string" ? parseInt(rawNumber.replace(/[^\d]/g, ""), 10) : Number(rawNumber);
+    return {
+      label: stat?.label || "",
+      number: Number.isFinite(numberFromString) ? numberFromString : 0,
+      suffix: stat?.suffix || (typeof rawNumber === "string" && rawNumber.includes("+") ? "+" : ""),
+    };
+  });
+  const heading = data?.textContent?.heading || "Trusted across industries";
+  const image = data?.imageUrl || "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80";
+
   return (
     <section className="relative py-16 overflow-hidden">
       {/* Background image + overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url(https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80)" }}
+        style={{ backgroundImage: `url(${image})` }}
       />
       <div className="absolute inset-0 bg-deep/[0.92]" />
 
       {/* Decorative background text */}
       <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display italic text-[80px] sm:text-[100px] text-surface/[0.04] leading-none pointer-events-none select-none whitespace-nowrap">
-        Trusted across industries
+        {heading}
       </span>
 
       <div className="relative z-10 container mx-auto px-6">
@@ -67,15 +81,15 @@ const StatsSection = () => {
 
         {/* Stats row — horizontal band, no boxes */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-0">
-          {STATS.map((stat, i) => (
+          {stats.map((stat, i) => (
             <motion.div
-              key={stat.label}
+              key={`${stat.label || "stat"}-${i}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.12, duration: 0.5 }}
               className={`flex flex-col items-center text-center px-6 ${
-                i < STATS.length - 1 ? "lg:border-r lg:border-surface/[0.1]" : ""
+                i < stats.length - 1 ? "lg:border-r lg:border-surface/[0.1]" : ""
               }`}
             >
               <span className="font-label text-[10px] text-ca-accent-2/70 tracking-[2px] mb-2">

@@ -1,17 +1,50 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NAV_ITEMS } from "@/lib/constants";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
-const Navbar = () => {
+const DEFAULT_NAV = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Services", href: "/services", subItems: [] as { label: string; href: string }[] },
+  { label: "Our Team", href: "/team" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Query", href: "/query" },
+  { label: "Career", href: "/career" },
+  { label: "Contact Us", href: "/contact" },
+];
+
+const Navbar = ({ websiteData }: { websiteData?: any }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  // Build nav items with dynamic services from API
+  const navItems = useMemo(() => {
+    const servicesList: { title: string; href: string }[] = websiteData?.themeConfig?.services || [];
+    return DEFAULT_NAV.map((item) => {
+      if (item.label === "Services" && servicesList.length > 0) {
+        return {
+          ...item,
+          subItems: servicesList.map((s) => ({ label: s.title, href: s.href })),
+        };
+      }
+      return item;
+    });
+  }, [websiteData]);
 
   return (
     <>
@@ -26,53 +59,96 @@ const Navbar = () => {
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <motion.a href="#" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <img
-              src="https://api.digitechai.in/uploads/logo.png"
-              alt="abc & Associates Logo"
+              src={websiteData?.logo || "https://api.digitechai.in/uploads/logo.png"}
+              alt={`${websiteData?.name || "abc & Associates"} Logo`}
               className="transition-transform duration-500"
               style={{ height: scrolled ? "32px" : "35px" }}
             />
             <span
               className={`hidden md:flex flex-col font-bold text-base leading-tight tracking-wide select-none transition-colors duration-500 ${scrolled ? "text-text-main" : "text-surface"}`}
             >
-              abc & Associates
+              {websiteData?.name || "abc & Associates"}
               <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
             </span>
-          </motion.a>
+          </Link>
 
-          <div className="hidden lg:flex items-center gap-8">
-            {NAV_ITEMS.map((item, i) => (
-              <motion.a
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center gap-6">
+            {navItems.map((item, i) => (
+              <motion.div
                 key={item.label}
-                href={item.href}
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
-                className={`relative text-sm font-body font-medium transition-all duration-300 hover:tracking-wider group ${
-                  scrolled ? "text-text-main" : "text-surface"
-                } hover:text-ca-accent`}
+                className="relative"
+                onMouseEnter={() => { setHoveredLink(item.label); if (item.subItems?.length) setServicesOpen(true); }}
+                onMouseLeave={() => { setHoveredLink(null); setServicesOpen(false); }}
               >
-                {item.label}
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-ca-accent transition-all duration-300 group-hover:w-full group-hover:left-0" />
-              </motion.a>
+                <Link
+                  to={item.href}
+                  className={`relative text-sm font-body font-medium transition-all duration-300 group flex items-center gap-1 ${
+                    scrolled ? "text-text-main" : "text-surface"
+                  } hover:text-ca-accent`}
+                >
+                  {item.label}
+                  {item.subItems && item.subItems.length > 0 && (
+                    <ChevronDown size={12} className="opacity-60" />
+                  )}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ca-accent transition-all duration-300 group-hover:w-full" />
+                </Link>
+
+                {/* Services dropdown */}
+                {item.subItems && item.subItems.length > 0 && servicesOpen && hoveredLink === item.label && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    className="absolute top-full left-0 mt-2 py-2 w-56 z-[100] rounded"
+                    style={{
+                      background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(10,16,24,0.97)",
+                      border: `1px solid ${scrolled ? "rgba(0,0,0,0.1)" : "rgba(61,166,142,0.25)"}`,
+                      backdropFilter: "blur(20px)",
+                      boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+                    }}
+                  >
+                    {item.subItems.map((sub) => (
+                      <Link
+                        key={sub.href}
+                        to={sub.href}
+                        className={`block px-4 py-2.5 text-[13px] font-body transition-colors duration-200 ${
+                          scrolled
+                            ? "text-text-main/70 hover:text-ca-accent hover:bg-ca-accent/5"
+                            : "text-surface/70 hover:text-ca-accent-2 hover:bg-ca-accent-2/5"
+                        }`}
+                      >
+                        → {sub.label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </motion.div>
             ))}
           </div>
 
           <div className="flex items-center gap-4">
-            <motion.a
-              href="#contact"
+            <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.4 }}
-              className={`hidden lg:inline-flex btn-shimmer px-5 py-2.5 text-sm font-body font-semibold rounded transition-all duration-300 ${
-                scrolled
-                  ? "bg-ca-accent text-surface hover:bg-transparent hover:text-ca-accent border border-ca-accent"
-                  : "bg-ca-accent text-surface hover:bg-transparent hover:text-surface border border-transparent hover:border-surface"
-              }`}
             >
-              Book Consultation
-            </motion.a>
+              <Link
+                to="/contact"
+                className={`hidden lg:inline-flex btn-shimmer px-5 py-2.5 text-sm font-body font-semibold rounded transition-all duration-300 ${
+                  scrolled
+                    ? "bg-ca-accent text-surface hover:bg-transparent hover:text-ca-accent border border-ca-accent"
+                    : "bg-ca-accent text-surface hover:bg-transparent hover:text-surface border border-transparent hover:border-surface"
+                }`}
+              >
+                Book Consultation
+              </Link>
+            </motion.div>
             <button
               onClick={() => setMobileOpen(true)}
               className={`lg:hidden p-2 ${scrolled ? "text-text-main" : "text-surface"}`}
@@ -83,6 +159,7 @@ const Navbar = () => {
         </div>
       </motion.nav>
 
+      {/* Mobile overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -90,7 +167,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[60] bg-deep/97 flex flex-col items-center justify-center"
+            className="fixed inset-0 z-[60] bg-deep/97 flex flex-col items-center justify-center overflow-y-auto"
           >
             <button
               onClick={() => setMobileOpen(false)}
@@ -111,28 +188,45 @@ const Navbar = () => {
 
             <div className="flex flex-col items-center mb-8">
               <img
-                src="https://api.digitechai.in/uploads/logo.png"
-                alt="abc & Associates Logo"
+                src={websiteData?.logo || "https://api.digitechai.in/uploads/logo.png"}
+                alt={`${websiteData?.name || "abc & Associates"} Logo`}
                 className="h-12 mb-1"
               />
               <span className="font-bold text-surface text-lg tracking-wide select-none flex flex-col items-center">
-                abc & Associates
+                {websiteData?.name || "abc & Associates"}
                 <span className="font-normal text-xs tracking-normal -mt-1">Chartered Accountants</span>
               </span>
             </div>
-            <nav className="flex flex-col items-center gap-6">
-              {NAV_ITEMS.map((item, i) => (
-                <motion.a
+            <nav className="flex flex-col items-center gap-5">
+              {navItems.map((item, i) => (
+                <motion.div
                   key={item.label}
-                  href={item.href}
                   initial={{ x: -40, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: i * 0.06, duration: 0.4 }}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-surface font-display text-4xl font-semibold hover:text-ca-accent-2 transition-colors"
+                  className="flex flex-col items-center"
                 >
-                  {item.label}
-                </motion.a>
+                  <Link
+                    to={item.href}
+                    className="text-surface font-display text-3xl font-semibold hover:text-ca-accent-2 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                  {/* Show service sub-items in mobile too */}
+                  {item.subItems && item.subItems.length > 0 && (
+                    <div className="mt-2 flex flex-col items-center gap-1">
+                      {item.subItems.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          to={sub.href}
+                          className="text-surface/50 font-body text-sm hover:text-ca-accent-2 transition-colors"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
               ))}
             </nav>
           </motion.div>
