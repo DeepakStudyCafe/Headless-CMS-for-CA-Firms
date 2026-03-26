@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { sendEmail, createContactEmailTemplate, createQueryEmailTemplate, createCareerEmailTemplate } from '../config/email';
+import { sendEmail, createContactEmailTemplate, createQueryEmailTemplate, createCareerEmailTemplate, createQueryEmailTemplateTemplate4 } from '../config/email';
 
 // Contact Form Handler
 export const submitContactForm = async (req: Request, res: Response): Promise<void> => {
@@ -23,6 +23,7 @@ export const submitContactForm = async (req: Request, res: Response): Promise<vo
         name,
         email,
         phone,
+        company,
         message
       })
     );
@@ -43,17 +44,19 @@ export const submitContactForm = async (req: Request, res: Response): Promise<vo
 // Query Form Handler
 export const submitQueryForm = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { 
-      name, 
-      company, 
-      city, 
-      email, 
-      telephone, 
-      mobile, 
-      otherUpdates, 
-      subjectOfQuery, 
+    const {
+      name,
+      company,
+      city,
+      email,
+      telephone,
+      mobile,
+      otherUpdates,
+      service,
+      serviceType,
+      subjectOfQuery,
       query,
-      website 
+      website
     } = req.body;
 
     // Validate required fields
@@ -65,20 +68,44 @@ export const submitQueryForm = async (req: Request, res: Response): Promise<void
       return;
     }
 
-    // Send email
-    await sendEmail(
-      website,
-      `New Query Form Submission - ${name}`,
-      createQueryEmailTemplate({
-        name,
-        company,
-        city,
-        email,
-        phone: telephone || mobile,
-        serviceType: subjectOfQuery,
-        query
-      })
-    );
+    const serviceTypeValue = (serviceType as string) || service || otherUpdates || '';
+    // Map known service keys to human-friendly labels
+    const SERVICE_LABELS: Record<string, string> = {
+      bookkeeping: 'Bookkeeping',
+      gst: 'GST Filing',
+      payroll: 'Payroll',
+      'tax-planning': 'Tax Planning',
+      'company-formation': 'Company Formation',
+      compliance: 'Compliance',
+      audit: 'Audit & Assurance',
+      'financial-advisory': 'Financial Advisory',
+      taxation: 'Taxation & Compliance',
+      advisory: 'Business Advisory',
+      other: 'Other Queries'
+    };
+
+    const serviceLabel = SERVICE_LABELS[serviceTypeValue] || serviceTypeValue || 'Not specified';
+
+    // Send email (use Template-4 specialized template when website is 'template-4')
+    const html = website === 'template-4'
+      ? createQueryEmailTemplateTemplate4({
+          name,
+          email,
+          serviceType: serviceLabel,
+          subjectOfQuery,
+          query
+        })
+      : createQueryEmailTemplate({
+          name,
+          company,
+          city,
+          email,
+          phone: telephone || mobile,
+          serviceType: serviceLabel,
+          query
+        });
+
+    await sendEmail(website, `New Query Form Submission - ${name}`, html);
 
     res.status(200).json({
       success: true,

@@ -17,7 +17,7 @@ const WEBSITE_EMAILS = {
   'firm4-kapoor': process.env.FIRM4_EMAIL || 'kapoor.contact@gmail.com',
   'firm5-singh': process.env.FIRM5_EMAIL || 'singh.contact@gmail.com',
   'firm6-patel': process.env.FIRM6_EMAIL || 'patel.contact@gmail.com',
-  'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com'
+  'template-4': process.env.TEMPLATE_4_EMAIL || 'sdeepakncy@gmail.com'
 };
 
 // Website names mapping
@@ -161,6 +161,10 @@ export const createContactEmailTemplate = (formData: any): string => {
           <div class="field-label">📱 Phone:</div>
           <div class="field-value">${formData.phone || 'Not provided'}</div>
         </div>
+        <div class="field">
+          <div class="field-label">🏢 Company:</div>
+          <div class="field-value">${formData.company || 'Not provided'}</div>
+        </div>
       </div>
 
       <div class="section">
@@ -189,122 +193,98 @@ export const createQueryEmailTemplate = (formData: any): string => {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Query Form Submission</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      line-height: 1.6; 
-      margin: 0; 
-      padding: 0; 
-      background-color: #f4f4f4; 
-    }
-    .email-container { 
-      max-width: 600px; 
-      margin: 0 auto; 
-      background: white; 
-      border-radius: 10px; 
-      overflow: hidden; 
-      box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-    }
-    .header { 
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-      color: white; 
-      padding: 30px; 
-      text-align: center; 
-    }
-    .header h1 { 
-      margin: 0; 
-      font-size: 24px; 
-      font-weight: 600; 
-    }
-    .content { 
-      padding: 30px; 
-    }
-    .section { 
-      margin-bottom: 25px; 
-      border-left: 4px solid #667eea; 
-      padding-left: 20px; 
-    }
-    .section-title { 
-      font-size: 18px; 
-      font-weight: 600; 
-      margin-bottom: 15px; 
-      color: #333; 
-    }
-    .field { 
-      margin-bottom: 12px; 
-    }
-    .field-label { 
-      font-weight: 600; 
-      color: #555; 
-      margin-bottom: 5px; 
-    }
-    .field-value { 
-      color: #333; 
-      background: #f8f9fa; 
-      padding: 8px 12px; 
-      border-radius: 4px; 
-      border: 1px solid #e9ecef; 
-    }
-    .footer { 
-      background: #f8f9fa; 
-      padding: 20px 30px; 
-      border-top: 1px solid #e9ecef; 
-      color: #6c757d; 
-      font-size: 14px; 
-    }
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; }
+    .container { max-width:600px; margin:20px auto; background:#fff; border-radius:8px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    h1 { font-size:20px; margin:0 0 12px; }
+    .row { margin-bottom:12px; }
+    .label { font-weight:600; color:#333; margin-bottom:4px; }
+    .value { background:#f8f9fa; padding:8px 10px; border-radius:4px; border:1px solid #ececec; color:#222; }
+    .footer { font-size:13px; color:#666; margin-top:18px; }
   </style>
 </head>
 <body>
-  <div class="email-container">
-    <div class="header">
-      <h1>❓ New Query Form Submission</h1>
-    </div>
-    
-    <div class="content">
-      <div class="section">
-        <div class="section-title">Client Information</div>
-        <div class="field">
-          <div class="field-label">👤 Name:</div>
-          <div class="field-value">${formData.name || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">📧 Email:</div>
-          <div class="field-value">${formData.email || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">📱 Phone:</div>
-          <div class="field-value">${formData.phone || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">🏢 Company:</div>
-          <div class="field-value">${formData.company || 'Not provided'}</div>
-        </div>
-      </div>
+  <div class="container">
+    <h1>❓ New Query Form Submission</h1>
 
-      <div class="section">
-        <div class="section-title">Query Details</div>
-        <div class="field">
-          <div class="field-label">💼 Service Type:</div>
-          <div class="field-value">${formData.serviceType || 'Not specified'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">💰 Budget Range:</div>
-          <div class="field-value">${formData.budget || 'Not specified'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">📅 Timeline:</div>
-          <div class="field-value">${formData.timeline || 'Not specified'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">💭 Query Details:</div>
-          <div class="field-value">${formData.query || 'No query details provided'}</div>
-        </div>
-      </div>
+    <div class="row">
+      <div class="label">👤 Name</div>
+      <div class="value">${formData.name || 'Not provided'}</div>
     </div>
 
-    <div class="footer">
-      <p>This email was sent from your website query form</p>
-      <p>Received on: ${new Date().toLocaleString()}</p>
+    <div class="row">
+      <div class="label">📧 Email</div>
+      <div class="value">${formData.email || 'Not provided'}</div>
     </div>
+
+    <div class="row">
+      <div class="label">💼 Service</div>
+      <div class="value">${formData.serviceType || formData.service || 'Not specified'}</div>
+    </div>
+
+    <div class="row">
+      <div class="label">📝 Subject</div>
+      <div class="value">${formData.subjectOfQuery || formData.subject || 'No subject'}</div>
+    </div>
+
+    <div class="row">
+      <div class="label">💭 Query Details</div>
+      <div class="value">${formData.query || 'No query details provided'}</div>
+    </div>
+
+    <div class="footer">This email was sent from your website query form — Received on: ${new Date().toLocaleString()}</div>
+  </div>
+</body>
+</html>`;
+};
+
+// Specialized Query email template for Template-4 (only includes fields used by Template-4 form)
+export const createQueryEmailTemplateTemplate4 = (formData: any): string => {
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template-4 - New Query Submission</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; }
+    .container { max-width:600px; margin:20px auto; background:#fff; border-radius:8px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    h1 { font-size:20px; margin:0 0 12px; }
+    .row { margin-bottom:12px; }
+    .label { font-weight:600; color:#333; margin-bottom:4px; }
+    .value { background:#f8f9fa; padding:8px 10px; border-radius:4px; border:1px solid #ececec; color:#222; }
+    .footer { font-size:13px; color:#666; margin-top:18px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>❓ New Query Submission</h1>
+
+    <div class="row">
+      <div class="label">👤 Name</div>
+      <div class="value">${formData.name || 'Not provided'}</div>
+    </div>
+
+    <div class="row">
+      <div class="label">📧 Email</div>
+      <div class="value">${formData.email || 'Not provided'}</div>
+    </div>
+
+    <div class="row">
+      <div class="label">💼 Service</div>
+      <div class="value">${formData.serviceType || formData.service || 'Not specified'}</div>
+    </div>
+
+    <div class="row">
+      <div class="label">📝 Subject</div>
+      <div class="value">${formData.subjectOfQuery || formData.subject || 'No subject'}</div>
+    </div>
+
+    <div class="row">
+      <div class="label">💭 Query Details</div>
+      <div class="value">${formData.query || 'No query details provided'}</div>
+    </div>
+
+    <div class="footer"> ${new Date().toLocaleString()}</div>
   </div>
 </body>
 </html>`;

@@ -49,14 +49,15 @@ const Query = () => {
                 e.preventDefault();
                 const form = e.currentTarget;
                 const formData = new FormData(form);
+
                 const data = {
-                  name: formData.get("fullName") as string,
-                  email: formData.get("email") as string,
-                  subjectOfQuery: formData.get("subject") as string,
-                  otherUpdates: formData.get("service") as string,
-                  query: formData.get("query") as string
+                  name: (formData.get("fullName") as string) || '',
+                  email: (formData.get("email") as string) || '',
+                  subjectOfQuery: (formData.get("subject") as string) || '',
+                  serviceType: (formData.get("service") as string) || '',
+                  query: (formData.get("query") as string) || ''
                 };
-                
+
                 try {
                   await submitQueryForm(data);
                   toast.success("Your query has been submitted successfully.", { position: "top-right" });
@@ -73,11 +74,15 @@ const Query = () => {
                 <input type="text" name="subject" required placeholder="Subject" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
                 <select name="service" required className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
                   <option value="" disabled selected>Select Service</option>
-                  <option value="Bookkeeping">Bookkeeping</option>
-                  <option value="GST Filing">GST Filing</option>
-                  <option value="Tax Planning">Tax Planning</option>
-                  <option value="Audit Services">Audit Services</option>
-                  <option value="Other">Other</option>
+                  <option value="bookkeeping">Bookkeeping</option>
+                  <option value="gst">GST Filing</option>
+                  <option value="payroll">Payroll</option>
+                  <option value="tax-planning">Tax Planning</option>
+                  <option value="company-formation">Company Formation</option>
+                  <option value="compliance">Compliance</option>
+                  <option value="audit">Audit Services</option>
+                  <option value="financial-advisory">Financial Advisory</option>
+                  <option value="other">Other Queries</option>
                 </select>
                 <textarea name="query" required placeholder="Your Query" rows={5} className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition resize-none"></textarea>
                 <button type="submit" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all">

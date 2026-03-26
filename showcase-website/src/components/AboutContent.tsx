@@ -25,7 +25,7 @@ export default function AboutContent() {
 
   const team = [
     { name: 'Deepak Gupta', role: 'Founder & CEO', image: '/DeepakGupta.webp' },
-    { name: 'Raza Mehta', role: 'Manager', image: '/Raja.jpeg' },
+    { name: 'Raja Mehta', role: 'Manager', image: '/Raja.jpeg' },
     { name: 'Deepak Sharma', role: 'Software Developer', image: '/Deepak.webp' },
     { name: 'Sagar Gupta', role: 'Software Developer', image: '/sagar.jpeg' },
     { name: 'Rohit', role: 'Software Developer', image: '/Rohit.jpeg' },
