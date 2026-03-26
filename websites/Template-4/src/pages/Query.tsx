@@ -8,10 +8,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePageData } from "@/hooks/useWebsiteData";
 import { getImageUrl, submitQueryForm } from "@/lib/api";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 const Query = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const { website, getSection, isLoading } = usePageData('query');
   const siteData = website;
 
@@ -58,13 +59,16 @@ const Query = () => {
                   query: (formData.get("query") as string) || ''
                 };
 
+                setSubmitting(true);
                 try {
                   await submitQueryForm(data);
-                  toast.success("Your query has been submitted successfully.", { position: "top-right" });
+                  toast.success("Your query has been submitted successfully.");
                   form.reset();
                 } catch (error) {
                   console.error("Failed to submit query", error);
-                  toast.error("Failed to submit your query. Please try again later.", { position: "top-right" });
+                  toast.error("Failed to submit your query. Please try again later.");
+                } finally {
+                  setSubmitting(false);
                 }
               }}>
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -85,8 +89,13 @@ const Query = () => {
                   <option value="other">Other Queries</option>
                 </select>
                 <textarea name="query" required placeholder="Your Query" rows={5} className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition resize-none"></textarea>
-                <button type="submit" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all">
-                  <Send className="w-4 h-4" /> Submit Query
+                <button type="submit" disabled={submitting} className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed">
+                  {submitting ? (
+                    <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                  {submitting ? 'Submitting...' : 'Submit Query'}
                 </button>
               </form>
             </ScrollReveal>

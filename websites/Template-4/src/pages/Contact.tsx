@@ -7,11 +7,12 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import { usePageData } from "@/hooks/useWebsiteData";
 import { getImageUrl, submitContactForm } from "@/lib/api";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const { website, getSection, isLoading } = usePageData('contact');
   const siteData = website;
+  const [submitting, setSubmitting] = useState(false);
 
   const ctaSec = getSection('contact-hero')?.textContent;
   const heroImage = (ctaSec?.image) ? getImageUrl(ctaSec.image) : contactHero;
@@ -44,16 +45,19 @@ const Contact = () => {
                   company: (data.get('company') as string) || '',
                   message: (data.get('message') as string) || '',
                 };
+                setSubmitting(true);
                 try {
                   const res = await submitContactForm(payload);
                   if (res?.success) {
-                    toast.success(res.message || 'Message sent successfully', { position: "top-right" });
+                    toast.success(res.message || 'Message sent successfully');
                     form.reset();
                   } else {
-                    toast.error(res?.message || 'Failed to send message', { position: "top-right" });
+                    toast.error(res?.message || 'Failed to send message');
                   }
                 } catch (err) {
-                  toast.error('An error occurred. Please try again.', { position: "top-right" });
+                  toast.error('An error occurred. Please try again.');
+                } finally {
+                  setSubmitting(false);
                 }
               }}>
                 <div className="grid sm:grid-cols-2 gap-5">
@@ -65,8 +69,13 @@ const Contact = () => {
                   <input name="company" type="text" placeholder="Company Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
                 </div>
                 <textarea name="message" placeholder="Your Message" rows={5} className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition resize-none" required />
-                <button type="submit" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all">
-                  <Send className="w-4 h-4" /> Send Message
+                <button type="submit" disabled={submitting} className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed">
+                  {submitting ? (
+                    <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                  {submitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </ScrollReveal>
