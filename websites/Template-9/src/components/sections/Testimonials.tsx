@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { TESTIMONIALS } from "@/lib/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import EditorialHeading from "@/components/ui/EditorialHeading";
+import { Section } from "@/lib/api";
 
 const Star = () => (
   <svg className="w-3.5 h-3.5 text-gold fill-current" viewBox="0 0 20 20">
@@ -14,7 +15,7 @@ const TestimonialCard = ({
   testimonial,
   isActive,
 }: {
-  testimonial: typeof TESTIMONIALS[0];
+  testimonial: any;
   isActive: boolean;
 }) => (
   <div
@@ -61,10 +62,28 @@ const TestimonialCard = ({
   </div>
 );
 
-const Testimonials = () => {
+const Testimonials = ({ data }: { data?: Section }) => {
+  const rawTestimonials = (data?.textContent?.items as any[]) || TESTIMONIALS;
+  const testimonials = rawTestimonials
+    .map((item: any) => {
+      const name = item?.name || item?.author || "Client";
+      return {
+        ...item,
+        text: item?.text || item?.review || item?.description || "",
+        name,
+        designation: item?.designation || item?.role || "",
+        initials: item?.initials || String(name).split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase() || "CL",
+      };
+    })
+    .filter((item: any) => item.text);
+  const heading = data?.textContent?.heading || "What Our Clients Say";
+  const label = data?.textContent?.label || "CLIENT STORIES";
+
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const total = TESTIMONIALS.length;
+  const total = testimonials.length;
+
+  if (total === 0) return null;
 
   const prev = useCallback(() => setActive((a) => (a - 1 + total) % total), [total]);
   const next = useCallback(() => setActive((a) => (a + 1) % total), [total]);
@@ -109,8 +128,8 @@ const Testimonials = () => {
         <div className="flex justify-end mb-12">
           <EditorialHeading
             folio="05"
-            label="CLIENT STORIES"
-            heading="What Our Clients Say"
+            label={label}
+            heading={heading}
             headingSize="text-3xl sm:text-4xl lg:text-[48px]"
             className="text-right items-end"
             light
@@ -142,7 +161,7 @@ const Testimonials = () => {
                 transition={{ delay: (offset + 1) * 0.15, duration: 0.5 }}
                 className={`transition-transform duration-500 ${isCenter ? "hover:scale-[1.02]" : ""}`}
               >
-                <TestimonialCard testimonial={TESTIMONIALS[idx]} isActive={isCenter} />
+                <TestimonialCard testimonial={testimonials[idx]} isActive={isCenter} />
               </motion.div>
             );
           })}
@@ -158,7 +177,7 @@ const Testimonials = () => {
               exit={{ opacity: 0, x: -60 }}
               transition={{ duration: 0.4 }}
             >
-              <TestimonialCard testimonial={TESTIMONIALS[active]} isActive />
+              <TestimonialCard testimonial={testimonials[active]} isActive />
             </motion.div>
           </AnimatePresence>
         </div>
@@ -173,7 +192,7 @@ const Testimonials = () => {
           </button>
 
           <div className="flex items-center gap-2">
-            {TESTIMONIALS.map((_, i) => (
+            {testimonials.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}

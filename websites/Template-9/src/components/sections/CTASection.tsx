@@ -1,7 +1,16 @@
 import { motion } from "framer-motion";
 import EditorialHeading from "@/components/ui/EditorialHeading";
+import { Section } from "@/lib/api";
+import { Link } from "react-router-dom";
 
-const CTASection = () => {
+const CTASection = ({ data, websiteData }: { data?: Section; websiteData?: any }) => {
+  const heading = data?.textContent?.heading || "Ready to Transform Your Financial Future?";
+  const subheading = data?.textContent?.subheading || "Schedule a free consultation with our experts and discover how we can help you achieve your financial goals.";
+  const cta = data?.textContent?.cta || "Schedule Free Consultation";
+  const secondaryCta = data?.textContent?.secondaryCta || `Call: ${websiteData?.phone || "+91 XXXXX XXXXX"}`;
+  const label = data?.textContent?.label || "TAKE THE FIRST STEP";
+  const phoneHref = websiteData?.phone ? `tel:${String(websiteData.phone).replace(/\s/g, "")}` : "tel:+91XXXXXXXXXX";
+
   return (
     <section id="contact" className="relative py-8 md:py-8 overflow-hidden">
       {/* Background */}
@@ -18,8 +27,8 @@ const CTASection = () => {
       <div className="relative z-10 container mx-auto px-6 text-center">
         <EditorialHeading
           folio="06"
-          label="TAKE THE FIRST STEP"
-          heading="Ready to Transform Your Financial Future?"
+          label={label}
+          heading={heading}
           headingSize="text-4xl sm:text-5xl lg:text-[56px]"
           light
           className="text-center items-center mx-auto max-w-3xl"
@@ -32,7 +41,7 @@ const CTASection = () => {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="font-body text-surface/50 mb-10 max-w-lg mx-auto mt-6"
         >
-          Schedule a free consultation with our experts and discover how we can help you achieve your financial goals.
+          {subheading}
         </motion.p>
 
         <motion.div
@@ -42,17 +51,17 @@ const CTASection = () => {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="flex flex-wrap justify-center gap-4"
         >
-          <a
-            href="#"
+          <Link
+            to="/contact"
             className="btn-shimmer inline-flex items-center gap-2 px-8 py-4 bg-ca-accent-2 text-surface font-body font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-ca-accent-2/90 active:scale-95"
           >
-            Schedule Free Consultation
-          </a>
+            {cta}
+          </Link>
           <a
-            href="tel:+91XXXXXXXXXX"
+            href={phoneHref}
             className="inline-flex items-center gap-2 px-8 py-4 border border-surface/30 text-surface font-body font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-surface/10 active:scale-95"
           >
-            Call: +91 XXXXX XXXXX
+            {secondaryCta}
           </a>
         </motion.div>
       </div>

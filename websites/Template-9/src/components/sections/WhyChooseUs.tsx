@@ -1,16 +1,25 @@
 import { motion } from "framer-motion";
 import { WHY_CHOOSE_US } from "@/lib/constants";
 import EditorialHeading from "@/components/ui/EditorialHeading";
+import { Section } from "@/lib/api";
+import { Link } from "react-router-dom";
 
-const WhyChooseUs = () => {
+const WhyChooseUs = ({ data }: { data?: Section }) => {
+  const features = (data?.textContent?.features as any[]) || WHY_CHOOSE_US;
+  const heading = data?.textContent?.heading || "Proven Track Record";
+  const label = data?.textContent?.label || "WHY CHOOSE US";
+  const quote = data?.textContent?.subheading || "We combine deep domain expertise with a client-first approach, delivering results that go beyond compliance.";
+  const badge = data?.textContent?.badge || "ISO 9001 Certified";
+  const image = data?.imageUrl || "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=85";
+
   return (
     <section className="relative py-28 bg-ca-bg overflow-hidden editorial-texture">
       <div className="container mx-auto px-6">
         {/* Folio */}
         <EditorialHeading
           folio="04"
-          label="WHY CHOOSE US"
-          heading="Proven Track Record"
+          label={label}
+          heading={heading}
           headingSize="text-4xl sm:text-5xl lg:text-[56px]"
           className="mb-16 max-w-2xl"
         />
@@ -28,19 +37,19 @@ const WhyChooseUs = () => {
             <div className="relative lg:-mr- z-10">
               <span className="font-display text-[80px] text-ca-accent-2/15 leading-none block -mb-8">"</span>
               <blockquote className="font-display text-2xl sm:text-[28px] italic text-text-main leading-[1.6] typewriter-cursor">
-                We combine deep domain expertise with a client-first approach, delivering results that go beyond compliance.
+                {quote}
               </blockquote>
             </div>
 
             <div className="mt-10 flex items-center gap-6">
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="btn-shimmer inline-flex items-center gap-2 px-7 py-3.5 bg-ca-accent text-surface font-body font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-ca-accent/90 active:scale-95"
               >
                 Get Started →
-              </a>
+              </Link>
               <span className="font-label text-[10px] text-text-muted-custom border border-primary/15 px-3 py-1.5">
-                ISO 9001 Certified
+                {badge}
               </span>
             </div>
           </motion.div>
@@ -54,9 +63,9 @@ const WhyChooseUs = () => {
             className="lg:col-span-4"
           >
             <div className="space-y-0">
-              {WHY_CHOOSE_US.map((item, i) => (
+              {features.map((item: any, i: number) => (
                 <motion.div
-                  key={item.title}
+                  key={item.title || item}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -69,9 +78,9 @@ const WhyChooseUs = () => {
                     </span>
                     <div>
                       <h4 className="font-body text-sm font-semibold text-text-main mb-1 group-hover:text-ca-accent transition-colors duration-300">
-                        {item.title}
+                        {item.title || item}
                       </h4>
-                      <p className="font-body text-xs text-text-muted-custom leading-relaxed">{item.description}</p>
+                      <p className="font-body text-xs text-text-muted-custom leading-relaxed">{item.description || ""}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -92,7 +101,7 @@ const WhyChooseUs = () => {
               <div className="absolute inset-0 border border-ca-accent-2/30 translate-x-3 translate-y-3 z-0" />
               <div className="relative overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=85"
+                  src={image}
                   alt="Professional handshake"
                   className="w-full h-[420px] object-cover editorial-image transition-transform duration-700 hover:scale-105"
                   loading="lazy"

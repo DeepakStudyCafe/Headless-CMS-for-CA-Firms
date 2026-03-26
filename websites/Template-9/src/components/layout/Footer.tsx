@@ -1,8 +1,26 @@
 import { motion } from "framer-motion";
 import { FOOTER_LINKS } from "@/lib/constants";
 import { Linkedin, Twitter, Instagram, Facebook, MapPin, Phone, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Footer = ({ websiteData }: { websiteData?: any }) => {
+  const footerContent = websiteData?.themeConfig?.footerContent || {};
+  const serviceLinks = websiteData?.themeConfig?.services || FOOTER_LINKS.services;
+  const socialLinks = [
+    { Icon: Linkedin, href: footerContent.linkedin || "#", label: "LinkedIn" },
+    { Icon: Twitter, href: footerContent.twitter || "#", label: "Twitter" },
+    { Icon: Instagram, href: footerContent.instagram || "#", label: "Instagram" },
+    { Icon: Facebook, href: footerContent.facebook || "#", label: "Facebook" },
+  ];
+  const quickLinks = [
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about" },
+    { label: "Our Team", href: "/team" },
+    { label: "Services", href: "/services" },
+    { label: "Careers", href: "/career" },
+    { label: "Contact Us", href: "/contact" },
+  ];
+
   return (
     <footer className="relative bg-[#0A1018] pt-20 pb-8">
       {/* Thin gold ruled line */}
@@ -34,23 +52,26 @@ const Footer = () => {
           >
             <div className="flex items-center gap-2 mb-4">
               <img
-                src="https://api.digitechai.in/uploads/footerlogo.png"
+                src={websiteData?.logo || "https://api.digitechai.in/uploads/footerlogo.png"}
                 alt="CA Firm Footer Logo"
                 className="h-9"
               />
               <span className="flex flex-col font-bold text-surface text-base leading-tight tracking-wide select-none">
-                abc & Associates
+                {websiteData?.name || "abc & Associates"}
                 <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
               </span>
             </div>
             <p className="font-body text-sm text-surface/40 mb-6 leading-relaxed">
-              Trusted chartered accountancy services, helping businesses navigate financial complexities since 2005.
+              {footerContent.description || "Trusted chartered accountancy services, helping businesses navigate financial complexities since 2005."}
             </p>
             <div className="flex gap-3">
-              {[Linkedin, Twitter, Instagram, Facebook].map((Icon, i) => (
+              {socialLinks.map(({ Icon, href, label }, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noreferrer" : undefined}
+                  aria-label={label}
                   className="w-8 h-8 border border-surface/10 flex items-center justify-center text-surface/40 hover:text-ca-accent-2 hover:border-ca-accent-2/50 transition-all duration-300"
                 >
                   <Icon size={14} />
@@ -69,12 +90,12 @@ const Footer = () => {
             <h4 className="font-label text-[10px] text-surface/40 tracking-[2px] mb-6">Quick Links</h4>
             <div className="h-px bg-surface/[0.06] mb-4" />
             <ul className="space-y-3">
-              {FOOTER_LINKS.quickLinks.map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="group font-body text-sm text-surface/40 hover:text-ca-accent-2 transition-colors duration-300 flex items-center gap-2">
+                  <Link to={link.href} className="group font-body text-sm text-surface/40 hover:text-ca-accent-2 transition-colors duration-300 flex items-center gap-2">
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-ca-accent-2">→</span>
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -90,12 +111,12 @@ const Footer = () => {
             <h4 className="font-label text-[10px] text-surface/40 tracking-[2px] mb-6">Our Services</h4>
             <div className="h-px bg-surface/[0.06] mb-4" />
             <ul className="space-y-3">
-              {FOOTER_LINKS.services.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="group font-body text-sm text-surface/40 hover:text-ca-accent-2 transition-colors duration-300 flex items-center gap-2">
+              {serviceLinks.map((link: any, i: number) => (
+                <li key={`${link?.label || link?.title || "service"}-${link?.href || "nohref"}-${i}`}>
+                  <Link to={link?.href || "/services"} className="group font-body text-sm text-surface/40 hover:text-ca-accent-2 transition-colors duration-300 flex items-center gap-2">
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-ca-accent-2">→</span>
-                    {link.label}
-                  </a>
+                    {link.label || link.title}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -114,16 +135,16 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <MapPin size={14} className="text-ca-accent-2/60 mt-0.5 flex-shrink-0" />
                 <p className="font-body text-sm text-surface/40">
-                  123 Financial District,<br />Mumbai, Maharashtra 400001
+                  {websiteData?.address || "123 Financial District,"}<br />{websiteData?.address ? "" : "Mumbai, Maharashtra 400001"}
                 </p>
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={14} className="text-ca-accent-2/60 flex-shrink-0" />
-                <p className="font-body text-sm text-surface/40">+91 XXXXX XXXXX</p>
+                <p className="font-body text-sm text-surface/40">{websiteData?.phone || "+91 XXXXX XXXXX"}</p>
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={14} className="text-ca-accent-2/60 flex-shrink-0" />
-                <p className="font-body text-sm text-surface/40">info@cafirm.com</p>
+                <p className="font-body text-sm text-surface/40">{websiteData?.email || "info@cafirm.com"}</p>
               </div>
             </div>
           </motion.div>
@@ -132,7 +153,7 @@ const Footer = () => {
         {/* Bottom bar — masthead style */}
         <div className="border-t border-surface/[0.06] pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="font-label text-[9px] text-surface/20 tracking-[2px]">
-            EST. 2005 · ALL RIGHTS RESERVED
+            {footerContent.copyright || "EST. 2005 · ALL RIGHTS RESERVED"}
           </p>
           <p className="font-body text-xs text-surface/20">
             Crafted with ♥ for Excellence

@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { SERVICES } from "@/lib/constants";
 import { FileText, Receipt, ShieldCheck, Building2, BarChart3, Globe } from "lucide-react";
 import EditorialHeading from "@/components/ui/EditorialHeading";
+import { Section } from "@/lib/api";
+import { Link } from "react-router-dom";
 
 const iconMap: Record<string, React.ReactNode> = {
   tax: <FileText size={36} />,
@@ -17,7 +19,7 @@ const cardVariant = {
   animate: { opacity: 1, y: 0, scale: 1 },
 };
 
-const ServiceCard = ({ service, index }: { service: typeof SERVICES[0]; index: number }) => {
+const ServiceCard = ({ service, index }: { service: any; index: number }) => {
   const num = String(index + 1).padStart(2, "0");
 
   return (
@@ -50,10 +52,10 @@ const ServiceCard = ({ service, index }: { service: typeof SERVICES[0]; index: n
 
         {/* Bottom link */}
         <div className="mt-auto pt-3 border-t border-primary/[0.06]">
-          <span className="inline-flex items-center gap-1 font-label text-[12px] text-ca-accent-2 tracking-[0.5px] group-hover:text-ca-accent-2">
+          <Link to={service.href || "/services"} className="inline-flex items-center gap-1 font-label text-[12px] text-ca-accent-2 tracking-[0.5px] group-hover:text-ca-accent-2">
             Learn more
             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </span>
+          </Link>
         </div>
       </div>
 
@@ -65,7 +67,11 @@ const ServiceCard = ({ service, index }: { service: typeof SERVICES[0]; index: n
   );
 };
 
-const ServicesSection = () => {
+const ServicesSection = ({ data }: { data?: Section }) => {
+  const services = (data?.textContent?.items as any[]) || SERVICES;
+  const label = data?.textContent?.label || "WHAT WE OFFER";
+  const heading = data?.textContent?.heading || "Our Core Services";
+
   return (
     <section id="services" className="relative py-16 bg-surface overflow-hidden">
       {/* Large editorial folio background */}
@@ -85,8 +91,8 @@ const ServicesSection = () => {
 
         <EditorialHeading
           folio="03"
-          label="WHAT WE OFFER"
-          heading="Our Core Services"
+          label={label}
+          heading={heading}
           headingSize="text-4xl sm:text-5xl lg:text-[72px]"
           className="mb-12"
         />
@@ -99,7 +105,7 @@ const ServicesSection = () => {
           transition={{ staggerChildren: 0.08 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {SERVICES.map((service, index) => (
+          {services.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />
           ))}
         </motion.div>
