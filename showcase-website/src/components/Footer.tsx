@@ -188,7 +188,7 @@ export default function Footer() {
               </Link>
             </p>
             <p className="text-gray-400 text-xs mt-3 md:mt-0">
-              Powered By <a href="https://studycafe.in/" target="_blank" rel="noopener" className="underline hover:text-primary-400">Studycafe</a>
+              Powered By Webcafe a Product of <a href="https://studycafe.in/" target="_blank" rel="noopener" className="underline hover:text-primary-400">Studycafe Pvt Ltd</a>
             </p>
           </div>
         </div>

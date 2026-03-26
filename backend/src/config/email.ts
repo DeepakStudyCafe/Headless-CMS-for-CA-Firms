@@ -12,12 +12,13 @@ export const transporter = nodemailer.createTransport({
 // Dynamic website to email mapping using environment variables
 const WEBSITE_EMAILS = {
   'firm1-sharma': process.env.FIRM1_EMAIL || 'sharma.contact@gmail.com',
-  'firm2-verma': process.env.FIRM2_EMAIL || 'verma.business@gmail.com', 
+  'firm2-verma': process.env.FIRM2_EMAIL || 'verma.business@gmail.com',
   'firm3-gupta': process.env.FIRM3_EMAIL || 'gupta.k.deepak@gmail.com',
   'firm4-kapoor': process.env.FIRM4_EMAIL || 'kapoor.contact@gmail.com',
   'firm5-singh': process.env.FIRM5_EMAIL || 'singh.contact@gmail.com',
   'firm6-patel': process.env.FIRM6_EMAIL || 'patel.contact@gmail.com',
-  'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com'
+  'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com',
+  'showcase-website': process.env.SHOWCASE_EMAIL || 'sdeepakncy@gmail.com'
 };
 
 // Website names mapping
@@ -28,7 +29,8 @@ const WEBSITE_NAMES = {
   'firm4-kapoor': process.env.FIRM4_NAME || 'Kapoor Associates',
   'firm5-singh': process.env.FIRM5_NAME || 'Singh & Partners',
   'firm6-patel': process.env.FIRM6_NAME || 'Patel Group',
-  'template-4': process.env.TEMPLATE_4_NAME || 'Arvind Gupta & Associates'
+  'template-4': process.env.TEMPLATE_4_NAME || 'Arvind Gupta & Associates',
+  'showcase-website': process.env.SHOWCASE_NAME || 'StudyCafe Showcase'
 };
 
 // Email sender function
@@ -41,7 +43,7 @@ export const sendEmail = async (
   try {
     const recipientEmail = WEBSITE_EMAILS[website as keyof typeof WEBSITE_EMAILS];
     const websiteName = WEBSITE_NAMES[website as keyof typeof WEBSITE_NAMES];
-    
+
     if (!recipientEmail) {
       throw new Error(`No email configured for website: ${website}`);
     }
@@ -426,6 +428,71 @@ export const createCareerEmailTemplate = (formData: any): string => {
       <p>This email was sent from your website career form</p>
       <p>Received on: ${new Date().toLocaleString()}</p>
     </div>
+  </div>
+</body>
+</html>`;
+};
+
+export const createShowcaseContactEmailTemplate = (formData: any): string => {
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Showcase Website - Contact Submission</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; }
+    .container { max-width:600px; margin:20px auto; background:#fff; border-radius:8px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    h1 { font-size:20px; margin:0 0 12px; }
+    .row { margin-bottom:12px; }
+    .label { font-weight:600; color:#333; margin-bottom:4px; }
+    .value { background:#f8f9fa; padding:8px 10px; border-radius:4px; border:1px solid #ececec; color:#222; }
+    .footer { font-size:13px; color:#666; margin-top:18px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📧 New Contact Submission (Showcase Website)</h1>
+    <div class="row"><div class="label">👤 Name</div><div class="value">${formData.name || 'Not provided'}</div></div>
+    <div class="row"><div class="label">📧 Email</div><div class="value">${formData.email || 'Not provided'}</div></div>
+    <div class="row"><div class="label">📱 Phone</div><div class="value">${formData.phone || 'Not provided'}</div></div>
+    <div class="row"><div class="label">📝 Subject</div><div class="value">${formData.subject || 'Not provided'}</div></div>
+    <div class="row"><div class="label">💬 Message</div><div class="value">${formData.message || 'No message provided'}</div></div>
+    <div class="footer">${new Date().toLocaleString()}</div>
+  </div>
+</body>
+</html>`;
+};
+
+export const createShowcaseScheduleEmailTemplate = (formData: any): string => {
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Showcase Website - Schedule Call</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; }
+    .container { max-width:600px; margin:20px auto; background:#fff; border-radius:8px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    h1 { font-size:20px; margin:0 0 12px; }
+    .row { margin-bottom:12px; }
+    .label { font-weight:600; color:#333; margin-bottom:4px; }
+    .value { background:#f8f9fa; padding:8px 10px; border-radius:4px; border:1px solid #ececec; color:#222; }
+    .footer { font-size:13px; color:#666; margin-top:18px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📞 New Scheduled Call Request (Showcase Website)</h1>
+    <div class="row"><div class="label">👤 Name</div><div class="value">${formData.name || 'Not provided'}</div></div>
+    <div class="row"><div class="label">📧 Email</div><div class="value">${formData.email || 'Not provided'}</div></div>
+    <div class="row"><div class="label">📱 Phone</div><div class="value">${formData.phone || 'Not provided'}</div></div>
+    <div class="row"><div class="label">🏢 Company/Firm Name</div><div class="value">${formData.company || 'Not provided'}</div></div>
+    <div class="row"><div class="label">📅 Date</div><div class="value">${formData.date || 'Not provided'}</div></div>
+    <div class="row"><div class="label">⏰ Time</div><div class="value">${formData.time || 'Not provided'}</div></div>
+    <div class="row"><div class="label">📞 Call Type</div><div class="value">${formData.callType || 'Not provided'}</div></div>
+    <div class="row"><div class="label">💬 Message</div><div class="value">${formData.message || 'No message provided'}</div></div>
+    <div class="footer">${new Date().toLocaleString()}</div>
   </div>
 </body>
 </html>`;

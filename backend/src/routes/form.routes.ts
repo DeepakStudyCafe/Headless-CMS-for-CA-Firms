@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import path from 'path';
-import { submitContactForm, submitQueryForm, submitCareerForm } from '../controllers/form.controller';
+import { submitContactForm, submitQueryForm, submitCareerForm, submitScheduleForm } from '../controllers/form.controller';
 
 const router = express.Router();
 
@@ -47,5 +47,6 @@ if (!fs.existsSync(uploadsDir)) {
 router.post('/contact', submitContactForm);
 router.post('/query', submitQueryForm);
 router.post('/career', upload.single('resume'), submitCareerForm);
+router.post('/schedule', submitScheduleForm);
 
 export default router;

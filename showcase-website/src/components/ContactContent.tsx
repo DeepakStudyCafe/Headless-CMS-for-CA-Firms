@@ -9,6 +9,7 @@ export default function ContactContent() {
     name: '',
     email: '',
     phone: '',
+    company: '',
     subject: '',
     message: '',
   })
@@ -24,20 +25,44 @@ export default function ContactContent() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const response = await fetch(`${apiUrl}/forms/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company || '',
+          subject: formData.subject,
+          message: formData.message,
+          website: 'showcase-website'
+        }),
+      });
 
-    setIsSubmitting(false)
-    setIsSuccess(true)
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSuccess(false)
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-    }, 3000)
+      const data = await response.json();
+      if (data.success) {
+        setIsSuccess(true);
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setIsSuccess(false);
+          setFormData({ name: '', email: '', phone: '', company: '', subject: '', message: '' });
+        }, 3000);
+      } else {
+        alert(data.message || 'Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const contactInfo = [
