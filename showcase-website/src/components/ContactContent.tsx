@@ -29,7 +29,13 @@ export default function ContactContent() {
     setIsSubmitting(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      if (!apiUrl) {
+        setIsSubmitting(false);
+        alert('Missing NEXT_PUBLIC_API_URL environment variable.');
+        return;
+      }
+
       const response = await fetch(`${apiUrl}/forms/contact`, {
         method: 'POST',
         headers: {
