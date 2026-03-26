@@ -49,6 +49,20 @@ const Query = () => {
                     <input type="tel" placeholder="Phone Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent/30" />
                     <input type="text" placeholder="Subject *" required value={formData.subject} onChange={e => setFormData({...formData, subject: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent/30" />
                   </div>
+                  <div className="mt-3">
+                    <select name="service" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent/30">
+                      <option value="" disabled selected>Select Service</option>
+                      <option value="bookkeeping">Bookkeeping</option>
+                      <option value="gst">GST Filing</option>
+                      <option value="payroll">Payroll</option>
+                      <option value="tax-planning">Tax Planning</option>
+                      <option value="company-formation">Company Formation</option>
+                      <option value="compliance">Compliance</option>
+                      <option value="audit">Audit Services</option>
+                      <option value="financial-advisory">Financial Advisory</option>
+                      <option value="other">Other Queries</option>
+                    </select>
+                  </div>
                   <textarea placeholder="Your Query *" required rows={5} value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 resize-none" />
                   <Button variant="navy" size="lg" type="submit">
                     <Send className="w-4 h-4 mr-2" /> Submit Query

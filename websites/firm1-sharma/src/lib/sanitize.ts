@@ -3,14 +3,7 @@ import sanitizeHtml from 'sanitize-html'
 /** Domains considered "monitored" — links pointing here get rewritten to /post/<slug> */
 const MONITORED_DOMAINS = ['studycafe.in', 'www.studycafe.in']
 
-/**
- * Extract an internal slug from a StudyCafe URL.
- * Handles:
- *   /some-post-slug/          → some-post-slug
- *   /some-post-slug-123/      → some-post-slug  (strips trailing numeric suffix)
- *   /some-post.html           → some-post
- *   /?p=123                   → null (ID-only — cannot derive slug)
- */
+
 function extractSlug(url: URL): string | null {
   // ID-only query link ?p=123
   if (url.searchParams.get('p')) return null

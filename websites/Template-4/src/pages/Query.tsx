@@ -7,10 +7,12 @@ import { Send, Phone, Mail, MessageCircle, HelpCircle, ChevronDown } from "lucid
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePageData } from "@/hooks/useWebsiteData";
-import { getImageUrl } from "@/lib/api";
+import { getImageUrl, submitQueryForm } from "@/lib/api";
+import { toast } from "react-toastify";
 
 const Query = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const { website, getSection, isLoading } = usePageData('query');
   const siteData = website;
 
@@ -44,23 +46,56 @@ const Query = () => {
               <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em]">{ctaSec?.tagline || "Get in Touch"}</span>
               <div className="section-divider mt-3 mb-5" />
               <h2 className="text-3xl font-heading font-bold text-foreground mb-8">{ctaSec?.heading || "Have a Question?"}</h2>
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                const formData = new FormData(form);
+
+                const data = {
+                  name: (formData.get("fullName") as string) || '',
+                  email: (formData.get("email") as string) || '',
+                  subjectOfQuery: (formData.get("subject") as string) || '',
+                  serviceType: (formData.get("service") as string) || '',
+                  query: (formData.get("query") as string) || ''
+                };
+
+                setSubmitting(true);
+                try {
+                  await submitQueryForm(data);
+                  toast.success("Your query has been submitted successfully.");
+                  form.reset();
+                } catch (error) {
+                  console.error("Failed to submit query", error);
+                  toast.error("Failed to submit your query. Please try again later.");
+                } finally {
+                  setSubmitting(false);
+                }
+              }}>
                 <div className="grid sm:grid-cols-2 gap-5">
-                  <input type="text" placeholder="Full Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
-                  <input type="email" placeholder="Email Address" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
+                  <input type="text" name="fullName" required placeholder="Full Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
+                  <input type="email" name="email" required placeholder="Email Address" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
                 </div>
-                <input type="text" placeholder="Subject" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
-                <select className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
-                  <option>Select Service</option>
-                  <option>Bookkeeping</option>
-                  <option>GST Filing</option>
-                  <option>Tax Planning</option>
-                  <option>Audit Services</option>
-                  <option>Other</option>
+                <input type="text" name="subject" required placeholder="Subject" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
+                <select name="service" required className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition">
+                  <option value="" disabled selected>Select Service</option>
+                  <option value="bookkeeping">Bookkeeping</option>
+                  <option value="gst">GST Filing</option>
+                  <option value="payroll">Payroll</option>
+                  <option value="tax-planning">Tax Planning</option>
+                  <option value="company-formation">Company Formation</option>
+                  <option value="compliance">Compliance</option>
+                  <option value="audit">Audit Services</option>
+                  <option value="financial-advisory">Financial Advisory</option>
+                  <option value="other">Other Queries</option>
                 </select>
-                <textarea placeholder="Your Query" rows={5} className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition resize-none" />
-                <button type="button" className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all">
-                  <Send className="w-4 h-4" /> Submit Query
+                <textarea name="query" required placeholder="Your Query" rows={5} className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition resize-none"></textarea>
+                <button type="submit" disabled={submitting} className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed">
+                  {submitting ? (
+                    <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                  {submitting ? 'Submitting...' : 'Submit Query'}
                 </button>
               </form>
             </ScrollReveal>
@@ -70,8 +105,8 @@ const Query = () => {
                 <h3 className="font-heading font-bold text-foreground text-xl mb-5">Quick Contact</h3>
                 <div className="space-y-3">
                   {[
-                    { icon: Phone, label: siteData?.phone || "+91 22 1234 5678", sub: siteData?.workingHours || "Mon-Sat, 9am-6pm" },
-                    { icon: Mail, label: siteData?.email || "info@sharmaco.com", sub: "We reply within 24 hours" },
+                    { icon: Phone, label: siteData?.phone || "+91 9167256899", sub: siteData?.workingHours || "Mon-Sat, 10.30 am - 07.30 pm" },
+                    { icon: Mail, label: siteData?.email || "ca.asgupta@gmail.com", sub: "We reply within 24 hours" },
                     { icon: MessageCircle, label: "Live Chat", sub: "Available during business hours" },
                   ].map((c, i) => (
                     <div key={i} className="flex items-center gap-4 p-5 bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 hover:-translate-y-1">

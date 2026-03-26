@@ -22,17 +22,15 @@ const Footer = () => {
       <div className="container py-20">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-1 mb-5">
+            <div className="flex items-center gap-1 mb-2">
               <img
-                src={website?.logoUrl ? getImageUrl(website.logoUrl) : undefined}
-                alt={siteName}
+                src="https://api.digitechai.in/uploads/footerlogo.png"
+                alt="Arvind Gupta & Associates"
                 className="w-14 h-14 object-contain p-1 rounded-md bg-transparent mb-2"
               />
               <div>
-                <span className="font-heading font-bold text-lg block leading-none">{siteName}</span>
-                {website?.tagline && (
-                  <span className="text-[10px] uppercase tracking-[0.2em] opacity-50">{website.tagline}</span>
-                )}
+                <span className="font-heading font-bold text-lg block leading-none">Arvind Gupta & Associates</span>
+                <span className="text-xs uppercase tracking-[0.08em] opacity-60">Chartered Accountants</span>
               </div>
             </div>
             <p className="text-secondary-foreground/60 text-sm leading-relaxed mb-6">
