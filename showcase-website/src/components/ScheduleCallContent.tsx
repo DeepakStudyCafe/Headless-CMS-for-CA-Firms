@@ -35,11 +35,37 @@ export default function ScheduleCallContent() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      if (!apiUrl) {
+        setIsSubmitting(false);
+        alert('Missing NEXT_PUBLIC_API_URL environment variable.');
+        return;
+      }
 
-    setIsSubmitting(false)
-    setIsSuccess(true)
+      const response = await fetch(`${apiUrl}/forms/schedule`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          website: 'showcase-website'
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setIsSuccess(true);
+      } else {
+        alert(data.message || 'Failed to schedule call');
+      }
+    } catch (error) {
+      console.error('Schedule form error:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (isSuccess) {
