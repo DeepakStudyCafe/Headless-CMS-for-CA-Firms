@@ -228,6 +228,27 @@ module.exports = {
       instances: 1,
       exec_mode: 'fork',
       watch: false,
+      autorestart: true,
+      restart_delay: 5000
+    },
+
+    // Abhishekrajaram
+    {
+      name: 'abhishekrajaram',
+      cwd: './websites/Abhishekrajaram',
+      script: 'npm',
+      args: 'run preview',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8088
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 8088
+      },
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
       max_memory_restart: '512M',
       autorestart: true,
       restart_delay: 5000
