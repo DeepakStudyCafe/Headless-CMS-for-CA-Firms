@@ -14,6 +14,7 @@
     "seed:full": "ts-node src/utils/comprehensive-seed.ts",
     "seed:template5": "ts-node src/utils/template-5-seed.ts",
     "seed:template6": "ts-node src/utils/template-6-seed.ts",
+    "seed:template1": "ts-node src/utils/template-1-seed.ts",
     "seed:template9": "ts-node src/utils/template-9-seed.ts",
     "setup:admins": "ts-node src/utils/setup-admins.ts"
   },
