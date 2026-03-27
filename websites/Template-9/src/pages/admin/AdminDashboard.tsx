@@ -157,6 +157,53 @@ export default function AdminDashboard() {
         {/* Pages Tab */}
         {activeTab === "pages" && (
           <div className="space-y-3">
+            <div className="rounded-xl border p-4 mb-4" style={{ background: "#111111", borderColor: "rgba(224,140,46,0.15)" }}>
+              <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(245,240,232,0.45)" }}>
+                Quick Visibility Controls
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="flex items-center justify-between rounded-lg p-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(224,140,46,0.1)" }}>
+                  <div>
+                    <p className="text-sm font-medium" style={{ color: "#F5F0E8" }}>Website Live</p>
+                    <p className="text-xs" style={{ color: "rgba(245,240,232,0.4)" }}>{siteSettings.isActive ? "Visitors can access site" : "Site is offline"}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSiteSettings((s) => ({ ...s, isActive: !s.isActive }))}
+                    className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                    style={{ background: siteSettings.isActive ? "#22c55e" : "rgba(255,255,255,0.15)" }}
+                  >
+                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${siteSettings.isActive ? "translate-x-6" : "translate-x-1"}`} />
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between rounded-lg p-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(224,140,46,0.1)" }}>
+                  <div>
+                    <p className="text-sm font-medium" style={{ color: "#F5F0E8" }}>Admin Route</p>
+                    <p className="text-xs" style={{ color: "rgba(245,240,232,0.4)" }}>{siteSettings.isAdminEnabled ? "Admin login enabled" : "Admin login locked"}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSiteSettings((s) => ({ ...s, isAdminEnabled: !s.isAdminEnabled }))}
+                    className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                    style={{ background: siteSettings.isAdminEnabled ? "#22c55e" : "rgba(255,255,255,0.15)" }}
+                  >
+                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${siteSettings.isAdminEnabled ? "translate-x-6" : "translate-x-1"}`} />
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleSettingsSave}
+                disabled={settingsSaving}
+                className="mt-3 text-xs px-4 py-2 rounded-lg disabled:opacity-60"
+                style={{ background: "#E08C2E", color: "#0D0D0D", fontWeight: 700 }}
+              >
+                {settingsSaving ? "Saving..." : "Save Quick Controls"}
+              </button>
+            </div>
+
             <p className="text-sm mb-4" style={{ color: "rgba(245,240,232,0.4)" }}>Select a page to edit its sections.</p>
             {pages.map((page) => (
               <button key={page.id} type="button"
