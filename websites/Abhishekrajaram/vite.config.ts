@@ -8,19 +8,15 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8088,
-    allowedHosts: ["temp15.automationcafe.in", "www.temp15.automationcafe.in"],
+    allowedHosts: ["abhishekrajaram.in", "www.abhishekrajaram.in"],
     hmr: {
       overlay: false,
-    },
-    proxy: {
-      "/api": { target: "http://localhost:5000", changeOrigin: true },
-      "/uploads": { target: "http://localhost:5000", changeOrigin: true },
     },
   },
   preview: {
     host: "::",
     port: 8088,
-    allowedHosts: ["temp15.automationcafe.in", "www.temp15.automationcafe.in"],
+    allowedHosts: ["abhishekrajaram.in", "www.abhishekrajaram.in"],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
