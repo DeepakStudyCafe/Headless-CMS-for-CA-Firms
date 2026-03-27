@@ -956,6 +956,8 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                     />
                                   </div>
                                 )}
+
+{Object.keys(item).map(k => {const handled = ['icon', 'title', 'description', 'name', 'role', 'designation', 'image', 'src', 'category', 'alt', 'q', 'a']; if (handled.includes(k)) return null; const val = item[k]; if (typeof val !== 'string' && typeof val !== 'number' && typeof val !== 'boolean') return null; const isLongText = typeof val === 'string' && (val.length > 50 || k.toLowerCase().includes('desc') || k.toLowerCase().includes('text') || k.toLowerCase().includes('bio') || k.toLowerCase().includes('qualifications') || k.toLowerCase() === 'a'); return (<div key={k} className="mt-2"><Label className="capitalize">{k.replace(/([A-Z])/g, ' $1').trim()}</Label>{isLongText ? (<textarea value={val || ''} onChange={(e) => {const updatedItems = [...section.textContent.items]; updatedItems[itemIndex] = { ...item, [k]: e.target.value }; handleSectionUpdate(section.id, 'textContent', {...section.textContent, items: updatedItems });}} className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 mt-1" />) : (<Input type={typeof val === 'boolean' ? 'checkbox' : 'text'} checked={typeof val === 'boolean' ? val : undefined} value={typeof val === 'boolean' ? undefined : (val || '')} onChange={(e) => {const updatedItems = [...section.textContent.items]; updatedItems[itemIndex] = { ...item, [k]: typeof val === 'boolean' ? e.target.checked : e.target.value }; handleSectionUpdate(section.id, 'textContent', {...section.textContent, items: updatedItems });}} className={typeof val === 'boolean' ? 'mt-1' : 'mt-1 w-full'} />)}</div>)})}
                               </>
                             )}
 
@@ -998,23 +1000,39 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                     <div className="space-y-3 mt-2">
                       {section.textContent.stats.map((stat: any, statIndex: number) => (
                         <Card key={statIndex} className="p-3">
-                          <div className="flex gap-3 items-center">
-                            <div className="flex-1">
-                              <Label>Value</Label>
+                          <div className="flex gap-3 items-center flex-wrap">
+                            <div className="flex-1 min-w-[120px]">
+                              <Label>Value/End</Label>
                               <Input
-                                value={stat.value || ''}
+                                value={stat.end !== undefined ? stat.end : (stat.value || '')}
                                 onChange={(e) => {
                                   const updatedStats = [...section.textContent.stats]
-                                  updatedStats[statIndex] = { ...stat, value: e.target.value }
+                                  const key = stat.end !== undefined ? 'end' : 'value'
+                                  updatedStats[statIndex] = { ...stat, [key]: e.target.value }
                                   handleSectionUpdate(section.id, 'textContent', {
                                     ...section.textContent,
                                     stats: updatedStats,
                                   })
                                 }}
-                                placeholder="500+"
+                                placeholder="500"
                               />
                             </div>
-                            <div className="flex-1">
+                            <div className="flex-1 min-w-[80px]">
+                              <Label>Suffix</Label>
+                              <Input
+                                value={stat.suffix || ''}
+                                onChange={(e) => {
+                                  const updatedStats = [...section.textContent.stats]
+                                  updatedStats[statIndex] = { ...stat, suffix: e.target.value }
+                                  handleSectionUpdate(section.id, 'textContent', {
+                                    ...section.textContent,
+                                    stats: updatedStats,
+                                  })
+                                }}
+                                placeholder="+"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-[120px]">
                               <Label>Label</Label>
                               <Input
                                 value={stat.label || ''}
@@ -1049,7 +1067,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         variant="outline"
                         size="sm"
                         onClick={() => {
-                          const updatedStats = [...section.textContent.stats, { value: '', label: '' }]
+                          const updatedStats = [...section.textContent.stats, { value: '', suffix: '', label: '' }]
                           handleSectionUpdate(section.id, 'textContent', {
                             ...section.textContent,
                             stats: updatedStats,
@@ -1071,6 +1089,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                   if (handledKeys.includes(key)) return null;
 
                   if (typeof val === 'string' || typeof val === 'number') {
+                    const isLongText = typeof val === 'string' && (val.length > 80 || key.toLowerCase().includes('desc') || key.toLowerCase().includes('text') || key.toLowerCase().includes('address') || key.toLowerCase().includes('mission') || key.toLowerCase().includes('vision'));
                     const isImage = key.toLowerCase().includes('image') || key.toLowerCase().includes('logo');
                     return (
                       <div key={key}>
@@ -1114,6 +1133,17 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                </div>
                             )}
                           </div>
+                        ) : isLongText ? (
+                          <textarea
+                            value={val || ''}
+                            onChange={(e) =>
+                              handleSectionUpdate(section.id, 'textContent', {
+                                ...section.textContent,
+                                [key]: e.target.value,
+                              })
+                            }
+                            className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 mt-1"
+                          />
                         ) : (
                           <Input
                             value={val || ''}
@@ -1355,3 +1385,6 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
     </div>
   )
 }
+
+
+
