@@ -54,11 +54,11 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-1 group">
           <img
             src="https://api.digitechai.in/uploads/logo.png"
-            alt="Arvind Gupta & Associates logo"
+            alt="xyz & Associates logo"
             className="w-14 h-14 object-contain p-1 mb-2 rounded-md bg-transparent"
           />
           <div className={`transition-colors ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
-            <span className="font-heading font-bold text-lg leading-none block">Arvind Gupta & Associates</span>
+            <span className="font-heading font-bold text-lg leading-none block">xyz & Associates</span>
             <span className="text-[10px] uppercase tracking-[0.2em] opacity-70 font-medium">Chartered Accountants</span>
           </div>
         </Link>

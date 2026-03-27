@@ -25,11 +25,11 @@ const Footer = () => {
             <div className="flex items-center gap-1 mb-2">
               <img
                 src="https://api.digitechai.in/uploads/footerlogo.png"
-                alt="Arvind Gupta & Associates"
+                alt="xyz & Associates"
                 className="w-14 h-14 object-contain p-1 rounded-md bg-transparent mb-2"
               />
               <div>
-                <span className="font-heading font-bold text-lg block leading-none">Arvind Gupta & Associates</span>
+                <span className="font-heading font-bold text-lg block leading-none">xyz & Associates</span>
                 <span className="text-xs uppercase tracking-[0.08em] opacity-60">Chartered Accountants</span>
               </div>
             </div>
