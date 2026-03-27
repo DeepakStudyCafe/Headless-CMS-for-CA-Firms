@@ -29,7 +29,7 @@ async function main() {
     where: { slug: 'abhishekrajaram' },
     update: {
       name: 'Abhishek Raja Ram & Co.',
-      domain: 'https://abhishekrajaram.local',
+      domain: 'https://abhishekrajaram.in',
       logo: 'https://api.digitechai.in/uploads/logo.png',
       phone: '+91 123 456 7890',
       email: 'info@sterlingco.in',
@@ -62,7 +62,7 @@ async function main() {
     create: {
       name: 'Abhishek Raja Ram & Co.',
       slug: 'abhishekrajaram',
-      domain: 'https://abhishekrajaram.local',
+      domain: 'https://abhishekrajaram.in',
       logo: 'https://api.digitechai.in/uploads/logo.png',
       phone: '+91 123 456 7890',
       email: 'info@sterlingco.in',
@@ -599,7 +599,7 @@ async function main() {
 
   // ─── Seed SiteAdmin credentials for /admin route ─────────────────────────────
   const bcrypt = await import('bcryptjs')
-  const siteAdminEmail = 'admin@abhishekrajaram.local'
+  const siteAdminEmail = 'admin@abhishekrajaram.in'
   const siteAdminPassword = 'Admin@123'
   const passwordHash = await bcrypt.hash(siteAdminPassword, 12)
 

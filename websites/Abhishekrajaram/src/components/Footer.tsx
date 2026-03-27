@@ -29,11 +29,11 @@ const Footer = () => {
   ].filter(s => s.url);
 
   return (
-    <footer className="gradient-navy text-primary-foreground">
-      <div className="container-max mx-auto section-padding">
+    <footer className="gradient-navy text-primary-foreground mt-[0.1rem]">
+      <div className="container-max mx-auto pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-1 mb-4">
               <div className="w-12 h-12 rounded-lg overflow-hidden bg-transparent flex items-center justify-center p-1">
                 <img src={logoUrl} alt={`${firmName} logo`} className="w-full h-full object-contain" />
               </div>

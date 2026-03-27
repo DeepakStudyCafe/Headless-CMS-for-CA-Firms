@@ -59,7 +59,7 @@ const Navbar = () => {
     >
       <div className="container-max mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-1">
             <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg overflow-hidden bg-transparent flex items-center justify-center p-1">
               <img src={logoUrl} alt={`${firmName} logo`} className="w-full h-full object-contain" />
             </div>
