@@ -59,15 +59,25 @@ const Contact = () => {
   const services = websiteData?.themeConfig?.services || [];
   const heroSection = pageData?.sections?.find((s: any) => s.type === 'hero');
   const contactSection = pageData?.sections?.find((s: any) => s.type === 'contact');
-  const info = contactSection?.textContent?.info || {};
+  // Unified source: section textContent overrides websiteData; both are edited by different admin tools
+  const phone = contactSection?.textContent?.phone || websiteData?.phone || '';
+  const email = contactSection?.textContent?.email || websiteData?.email || '';
+  const address = contactSection?.textContent?.address || websiteData?.address || '';
+  const workingHours = contactSection?.textContent?.workingHours || websiteData?.workingHours || '';
+  const phone2 = contactSection?.textContent?.phone2 || cc.phone2 || '';
+  const email2 = contactSection?.textContent?.email2 || cc.email2 || '';
+  const mapEmbedUrl = contactSection?.textContent?.mapEmbedUrl || cc.mapUrl || '';
+  const formHeading = contactSection?.textContent?.formHeading || 'Send Us a Message';
+  const ctaHeading = contactSection?.textContent?.ctaHeading || cc.ctaHeading || 'Prefer to Talk?';
+  const ctaSubheading = contactSection?.textContent?.ctaSubheading || cc.ctaSubheading || 'Schedule a free 30-minute consultation with our experts.';
 
   return (
     <Layout>
       {heroSection && (
         <PageHero
-          title={heroSection.textContent?.heading?.split(' ').slice(0, -1).join(' ') || ''}
-          highlight={heroSection.textContent?.heading?.split(' ').pop() || ''}
-          subtitle={heroSection.textContent?.subheading || cc.heroSubtitle || ''}
+          title={heroSection.textContent?.titleMain || heroSection.textContent?.heading || ''}
+          highlight={heroSection.textContent?.highlight || heroSection.textContent?.titleHighlight || ''}
+          subtitle={heroSection.textContent?.subheading || ''}
           image={heroSection.imageUrl ? getImageUrl(heroSection.imageUrl) : ''}
           breadcrumb={[{ label: 'Contact' }]}
         />
@@ -79,7 +89,7 @@ const Contact = () => {
             <div className="grid lg:grid-cols-5 gap-12">
               <div className="lg:col-span-3">
                 <ScrollReveal>
-                  <h2 className="heading-md text-foreground mb-8 font-sans">{contactSection?.textContent?.formHeading || 'Send Us a Message'}</h2>
+                  <h2 className="heading-md text-foreground mb-8 font-sans">{formHeading}</h2>
 
                   {submitted && (
                     <div className="mb-6 p-4 rounded-lg bg-green-50 border border-green-200 flex items-center gap-3">
@@ -136,36 +146,39 @@ const Contact = () => {
                 <div className="card-premium p-8">
                   <h3 className="font-semibold text-foreground font-sans mb-6">Office Details</h3>
                   <div className="space-y-5">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-foreground">Head Office</p>
-                        <p className="text-xs text-muted-foreground mt-1">{info.address || websiteData?.address || '42, Sterling Tower, Business Park, Andheri East, Mumbai 400001'}</p>
+                    {address && (
+                      <div className="flex items-start gap-3">
+                        <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-foreground">Head Office</p>
+                          <p className="text-xs text-muted-foreground mt-1">{address}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Phone className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                      <div>
-                        <a href={`tel:${(info.phone || websiteData?.phone || '+91 123 456 7890').replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.phone || websiteData?.phone || '+91 123 456 7890'}</a>
-                        {(info.phone2) && <a href={`tel:${info.phone2.replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.phone2}</a>}
+                    )}
+                    {phone && (
+                      <div className="flex items-start gap-3">
+                        <Phone className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                        <div>
+                          <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{phone}</a>
+                          {phone2 && <a href={`tel:${phone2.replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{phone2}</a>}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Mail className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                      <div>
-                        <a href={`mailto:${info.email || websiteData?.email || 'info@sterlingco.in'}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.email || websiteData?.email || 'info@sterlingco.in'}</a>
-                        {(info.email2) && <a href={`mailto:${info.email2}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.email2}</a>}
+                    )}
+                    {email && (
+                      <div className="flex items-start gap-3">
+                        <Mail className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                        <div>
+                          <a href={`mailto:${email}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{email}</a>
+                          {email2 && <a href={`mailto:${email2}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{email2}</a>}
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Clock className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                      <div>
-                        {typeof info.workingHours === 'object'
-                          ? Object.values(info.workingHours).filter(Boolean).map((h: any, i: number) => <p key={i} className="text-sm text-muted-foreground">{h}</p>)
-                          : <p className="text-sm text-muted-foreground">{info.workingHours || websiteData?.workingHours || 'Mon - Fri: 9:30 AM - 6:30 PM'}</p>
-                        }
+                    )}
+                    {workingHours && (
+                      <div className="flex items-start gap-3">
+                        <Clock className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                        <p className="text-sm text-muted-foreground">{workingHours}</p>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </ScrollReveal>
@@ -173,7 +186,7 @@ const Contact = () => {
               <ScrollReveal delay={0.2}>
                 <div className="card-premium overflow-hidden">
                   <iframe
-                    src={cc.mapUrl || info.mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.006!2d72.8544!3d19.1136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA2JzQ5LjAiTiA3MsKwNTEnMTUuOCJF!5e0!3m2!1sen!2sin!4v1234567890"}
+                    src={mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.006!2d72.8544!3d19.1136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA2JzQ5LjAiTiA3MsKwNTEnMTUuOCJF!5e0!3m2!1sen!2sin!4v1234567890"}
                     width="100%"
                     height="250"
                     style={{ border: 0 }}
@@ -191,14 +204,14 @@ const Contact = () => {
       </section>
       )}
 
-      {websiteData?.phone && (
+      {phone && (
         <section className="section-padding gradient-navy text-center">
           <div className="container-max mx-auto">
             <ScrollReveal>
-              <h2 className="heading-lg text-primary-foreground mb-4">{cc.ctaHeading || 'Prefer to Talk?'}</h2>
-              <p className="text-lg text-primary-foreground/50 mb-8">{cc.ctaSubheading || 'Schedule a free 30-minute consultation with our experts.'}</p>
+              <h2 className="heading-lg text-primary-foreground mb-4">{ctaHeading}</h2>
+              <p className="text-lg text-primary-foreground/50 mb-8">{ctaSubheading}</p>
               <Button variant="gold" size="lg" asChild>
-                <a href={`tel:${(websiteData?.phone || '').replace(/\\s/g, '')}`}><Phone className="w-4 h-4 mr-2" /> Call Us Now</a>
+                <a href={`tel:${phone.replace(/\s/g, '')}`}><Phone className="w-4 h-4 mr-2" /> Call Us Now</a>
               </Button>
             </ScrollReveal>
           </div>

@@ -39,8 +39,8 @@ const Team = () => {
     <Layout>
       {heroSection && (
         <PageHero
-          title={heroSection.textContent?.heading?.replace(/\\s\\S+\\s\\S+$/, '') || ''}
-          highlight={heroSection.textContent?.heading?.split(' ').slice(-2).join(' ') || ''}
+          title={heroSection.textContent?.titleMain || heroSection.textContent?.heading || ''}
+          highlight={heroSection.textContent?.highlight || heroSection.textContent?.titleHighlight || ''}
           subtitle={heroSection.textContent?.subheading || ''}
           image={heroSection.imageUrl ? getImageUrl(heroSection.imageUrl) : ''}
           breadcrumb={[{ label: 'Team' }]}

@@ -1,8 +1,17 @@
 import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
-export default function CTASection() {
+export default function CTASection({ data, websiteData }: { data?: any; websiteData?: any }) {
   const { ref, isVisible } = useIntersectionObserver(0.3);
+
+  const tc = data?.textContent || {};
+  const label = tc.label || "LET'S TALK";
+  const heading = tc.heading || 'Ready to Build Your Financial Future?';
+  const subheading = tc.subheading || 'Take the first step toward financial clarity. Our expert team is ready to craft a strategy tailored to your business goals.';
+  const ctaLabel = tc.cta || 'Book Consultation';
+  const secondaryCtaLabel = tc.secondaryCta || 'Call Us';
+  const footnote = tc.footnote || 'Response within 24 hrs · No obligation';
+  const phone = websiteData?.phone || '';
 
   return (
     <section ref={ref} className="relative py-24 overflow-hidden" style={{ background: '#2D2D2D' }}>
@@ -31,13 +40,13 @@ export default function CTASection() {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="font-body text-[10px] font-semibold tracking-[3px] uppercase block mb-4" style={{ color: '#C8A96E' }}>
-            LET'S TALK
+            {label}
           </span>
           <h2 className="font-display font-semibold mx-auto mb-5" style={{ fontSize: 'clamp(28px, 4vw, 48px)', lineHeight: 1.12, color: '#FAF8F3', maxWidth: '580px' }}>
-            Ready to Build Your Financial Future?
+            {heading}
           </h2>
           <p className="font-body font-light text-[16px] max-w-[480px] mx-auto leading-[1.7] mb-4" style={{ color: 'rgba(250,248,243,0.6)' }}>
-            Take the first step toward financial clarity. Our expert team is ready to craft a strategy tailored to your business goals.
+            {subheading}
           </p>
 
           {/* Accent rule */}
@@ -55,20 +64,20 @@ export default function CTASection() {
                 hover:-translate-y-[2px] hover:shadow-[0_8px_32px_rgba(0,0,0,0.2)]"
               style={{ background: '#FAF8F3', color: '#2D2D2D' }}
             >
-              Book Consultation
+              {ctaLabel}
             </a>
-            <a href="#" data-cursor="button"
+            <a href={phone ? `tel:${phone.replace(/\s/g, '')}` : '#'} data-cursor="button"
               className="font-body text-[13px] font-medium px-[30px] py-[14px] rounded-md transition-all duration-[250ms]"
               style={{ border: '1.5px solid rgba(250,248,243,0.3)', color: 'rgba(250,248,243,0.8)' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = '#C8A96E'; e.currentTarget.style.color = '#C8A96E'; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(250,248,243,0.3)'; e.currentTarget.style.color = 'rgba(250,248,243,0.8)'; }}
             >
-              Call Us
+              {secondaryCtaLabel}
             </a>
           </div>
 
           <span className="block font-body text-[11px] font-light mt-6" style={{ color: 'rgba(250,248,243,0.35)' }}>
-            Response within 24 hrs · No obligation
+            {footnote}
           </span>
         </motion.div>
       </div>

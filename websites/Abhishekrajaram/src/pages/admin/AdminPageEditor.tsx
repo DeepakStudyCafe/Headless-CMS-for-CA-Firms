@@ -168,11 +168,25 @@ export default function AdminPageEditor() {
               )}
 
               {/* Text fields */}
-              {section.textContent?.heading !== undefined && <div><label className={lbl} style={lblStyle}>Heading</label><input value={section.textContent.heading || ""} onChange={(e) => updateSection(section.id, "textContent", { heading: e.target.value })} className={inp} placeholder="Heading..." style={inpStyle} /></div>}
+              {section.textContent?.heading !== undefined && (
+                <div className="space-y-3">
+                  <div><label className={lbl} style={lblStyle}>Heading (full title)</label><input value={section.textContent.heading || ""} onChange={(e) => updateSection(section.id, "textContent", { heading: e.target.value })} className={inp} placeholder="Heading..." style={inpStyle} /></div>
+                  {section.type === "hero" && (
+                    <div className="rounded-lg p-3 space-y-3" style={{ background: "rgba(224,140,46,0.04)", border: "1px solid rgba(224,140,46,0.12)" }}>
+                      <p className="text-xs" style={{ color: "rgba(245,240,232,0.35)" }}>Optional: Split the title into two parts for a two-toned heading effect (white + gold).</p>
+                      <div><label className={lbl} style={lblStyle}>Title — White Part</label><input value={section.textContent.titleMain || ""} onChange={(e) => updateSection(section.id, "textContent", { titleMain: e.target.value })} className={inp} placeholder="e.g. Our" style={inpStyle} /></div>
+                      <div><label className={lbl} style={lblStyle}>Title — Gold Highlight Part</label><input value={section.textContent.highlight || ""} onChange={(e) => updateSection(section.id, "textContent", { highlight: e.target.value })} className={inp} placeholder="e.g. Gallery" style={inpStyle} /></div>
+                    </div>
+                  )}
+                </div>
+              )}
               {section.textContent?.subheading !== undefined && <div><label className={lbl} style={lblStyle}>Subheading</label><input value={section.textContent.subheading || ""} onChange={(e) => updateSection(section.id, "textContent", { subheading: e.target.value })} className={inp} placeholder="Subheading..." style={inpStyle} /></div>}
+              {section.textContent?.label !== undefined && <div><label className={lbl} style={lblStyle}>Label (small text above heading)</label><input value={section.textContent.label || ""} onChange={(e) => updateSection(section.id, "textContent", { label: e.target.value })} className={inp} placeholder="e.g. Who We Are" style={inpStyle} /></div>}
               {section.textContent?.description !== undefined && <div><label className={lbl} style={lblStyle}>Description</label><textarea rows={3} value={section.textContent.description || ""} onChange={(e) => updateSection(section.id, "textContent", { description: e.target.value })} className={`${inp} resize-vertical`} placeholder="Description..." style={inpStyle} /></div>}
               {section.textContent?.cta !== undefined && <div><label className={lbl} style={lblStyle}>Button Text</label><input value={section.textContent.cta || ""} onChange={(e) => updateSection(section.id, "textContent", { cta: e.target.value })} className={inp} placeholder="e.g. Get Started" style={inpStyle} /></div>}
+              {section.textContent?.ctaLink !== undefined && <div><label className={lbl} style={lblStyle}>Button Link</label><input value={section.textContent.ctaLink || ""} onChange={(e) => updateSection(section.id, "textContent", { ctaLink: e.target.value })} className={inp} placeholder="/contact" style={inpStyle} /></div>}
               {section.textContent?.secondaryCta !== undefined && <div><label className={lbl} style={lblStyle}>Secondary Button Text</label><input value={section.textContent.secondaryCta || ""} onChange={(e) => updateSection(section.id, "textContent", { secondaryCta: e.target.value })} className={inp} placeholder="e.g. Ask a Question" style={inpStyle} /></div>}
+              {section.textContent?.secondaryCtaLink !== undefined && <div><label className={lbl} style={lblStyle}>Secondary Button Link</label><input value={section.textContent.secondaryCtaLink || ""} onChange={(e) => updateSection(section.id, "textContent", { secondaryCtaLink: e.target.value })} className={inp} placeholder="/query" style={inpStyle} /></div>}
 
               {/* Gallery Categories */}
               {Array.isArray(section.textContent?.categories) && (
@@ -290,6 +304,101 @@ export default function AdminPageEditor() {
                 </div>
               )}
 
+              {/* Career Section — Why Work With Us + Positions */}
+              {section.type === "career" && (
+                <div className="space-y-5">
+                  <div className="pb-4 border-b" style={{ borderColor: "rgba(224,140,46,0.1)" }}>
+                    <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(245,240,232,0.4)" }}>Why Work With Us Section</p>
+                    <div className="space-y-3">
+                      <div><label className={lbl} style={lblStyle}>Section Heading</label><input value={section.textContent?.benefitsHeading || ""} onChange={(e) => updateSection(section.id, "textContent", { benefitsHeading: e.target.value })} className={inp} placeholder="Why Work With Us?" style={inpStyle} /></div>
+                      <div><label className={lbl} style={lblStyle}>Section Description</label><textarea rows={2} value={section.textContent?.benefitsDescription || ""} onChange={(e) => updateSection(section.id, "textContent", { benefitsDescription: e.target.value })} className={`${inp} resize-vertical`} placeholder="Short description..." style={inpStyle} /></div>
+                    </div>
+                  </div>
+                  {/* Benefits (Why Work With Us items) */}
+                  <div className="pb-4 border-b" style={{ borderColor: "rgba(224,140,46,0.1)" }}>
+                    <label className={lbl} style={lblStyle}>Benefits / Perks</label>
+                    <div className="space-y-3 mt-1">
+                      {(section.textContent?.benefits || []).map((b: any, bi: number) => (
+                        <div key={bi} className="rounded-xl p-4 space-y-2" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(224,140,46,0.1)" }}>
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs font-semibold" style={{ color: "rgba(245,240,232,0.4)" }}>Benefit {bi + 1}</span>
+                            <button onClick={() => { const benefits = (section.textContent?.benefits || []).filter((_: any, i: number) => i !== bi); updateSection(section.id, "textContent", { benefits }); }} className="text-red-400 hover:text-red-300 text-xs">Remove</button>
+                          </div>
+                          <div><label className={lbl} style={lblStyle}>Icon (e.g. TrendingUp, Heart, BookOpen, Briefcase)</label><input value={b.icon || ""} onChange={(e) => { const benefits = [...(section.textContent?.benefits || [])]; benefits[bi] = { ...b, icon: e.target.value }; updateSection(section.id, "textContent", { benefits }); }} className={inp} placeholder="TrendingUp" style={inpStyle} /></div>
+                          <div><label className={lbl} style={lblStyle}>Title</label><input value={b.title || ""} onChange={(e) => { const benefits = [...(section.textContent?.benefits || [])]; benefits[bi] = { ...b, title: e.target.value }; updateSection(section.id, "textContent", { benefits }); }} className={inp} placeholder="Growth Opportunities" style={inpStyle} /></div>
+                          <div><label className={lbl} style={lblStyle}>Description</label><textarea rows={2} value={b.description || b.desc || ""} onChange={(e) => { const benefits = [...(section.textContent?.benefits || [])]; benefits[bi] = { ...b, description: e.target.value }; updateSection(section.id, "textContent", { benefits }); }} className={`${inp} resize-vertical`} placeholder="Description..." style={inpStyle} /></div>
+                        </div>
+                      ))}
+                      <button onClick={() => { const benefits = [...(section.textContent?.benefits || []), { icon: "", title: "", description: "" }]; updateSection(section.id, "textContent", { benefits }); }} className="text-xs hover:underline" style={{ color: "#E08C2E" }}>+ Add Benefit</button>
+                    </div>
+                  </div>
+                  {/* Open Positions */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className={lbl} style={lblStyle}>Open Positions</label>
+                    </div>
+                    <div><label className={lbl} style={lblStyle}>Application Form Heading</label><input value={section.textContent?.formHeading || ""} onChange={(e) => updateSection(section.id, "textContent", { formHeading: e.target.value })} className={`${inp} mb-3`} placeholder="Apply Now" style={inpStyle} /></div>
+                    <div className="space-y-3">
+                      {(section.textContent?.positions || []).map((pos: any, pi: number) => (
+                        <div key={pi} className="rounded-xl p-4 space-y-2" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(224,140,46,0.1)" }}>
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs font-semibold" style={{ color: "rgba(245,240,232,0.4)" }}>{pos.title || `Position ${pi + 1}`}</span>
+                            <button onClick={() => { const positions = (section.textContent?.positions || []).filter((_: any, i: number) => i !== pi); updateSection(section.id, "textContent", { positions }); }} className="text-red-400 hover:text-red-300 text-xs">Remove</button>
+                          </div>
+                          <div><label className={lbl} style={lblStyle}>Job Title</label><input value={pos.title || ""} onChange={(e) => { const positions = [...(section.textContent?.positions || [])]; positions[pi] = { ...pos, title: e.target.value }; updateSection(section.id, "textContent", { positions }); }} className={inp} placeholder="CA Intern" style={inpStyle} /></div>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div><label className={lbl} style={lblStyle}>Location</label><input value={pos.location || ""} onChange={(e) => { const positions = [...(section.textContent?.positions || [])]; positions[pi] = { ...pos, location: e.target.value }; updateSection(section.id, "textContent", { positions }); }} className={inp} placeholder="Mumbai" style={inpStyle} /></div>
+                            <div><label className={lbl} style={lblStyle}>Type</label><input value={pos.type || ""} onChange={(e) => { const positions = [...(section.textContent?.positions || [])]; positions[pi] = { ...pos, type: e.target.value }; updateSection(section.id, "textContent", { positions }); }} className={inp} placeholder="Full-time / Internship" style={inpStyle} /></div>
+                          </div>
+                          <div><label className={lbl} style={lblStyle}>Description</label><textarea rows={2} value={pos.description || ""} onChange={(e) => { const positions = [...(section.textContent?.positions || [])]; positions[pi] = { ...pos, description: e.target.value }; updateSection(section.id, "textContent", { positions }); }} className={`${inp} resize-vertical`} placeholder="Role description..." style={inpStyle} /></div>
+                        </div>
+                      ))}
+                      <button onClick={() => { const positions = [...(section.textContent?.positions || []), { title: "", location: "", type: "", description: "" }]; updateSection(section.id, "textContent", { positions }); }} className="text-xs hover:underline" style={{ color: "#E08C2E" }}>+ Add Position</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Contact Section Editor */}
+              {section.type === "contact" && (
+                <div className="space-y-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(245,240,232,0.4)" }}>Contact Details</p>
+                  <p className="text-xs" style={{ color: "rgba(245,240,232,0.3)" }}>These override the values set in the Admin Dashboard Contact tab.</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div><label className={lbl} style={lblStyle}>Phone</label><input value={section.textContent?.phone || ""} onChange={(e) => updateSection(section.id, "textContent", { phone: e.target.value })} className={inp} placeholder="+91 XX XXXX XXXX" style={inpStyle} /></div>
+                    <div><label className={lbl} style={lblStyle}>Phone 2 (optional)</label><input value={section.textContent?.phone2 || ""} onChange={(e) => updateSection(section.id, "textContent", { phone2: e.target.value })} className={inp} placeholder="+91 XX XXXX XXXX" style={inpStyle} /></div>
+                    <div><label className={lbl} style={lblStyle}>Email</label><input type="email" value={section.textContent?.email || ""} onChange={(e) => updateSection(section.id, "textContent", { email: e.target.value })} className={inp} placeholder="info@firm.in" style={inpStyle} /></div>
+                    <div><label className={lbl} style={lblStyle}>Email 2 (optional)</label><input type="email" value={section.textContent?.email2 || ""} onChange={(e) => updateSection(section.id, "textContent", { email2: e.target.value })} className={inp} placeholder="support@firm.in" style={inpStyle} /></div>
+                    <div className="sm:col-span-2"><label className={lbl} style={lblStyle}>Address</label><input value={section.textContent?.address || ""} onChange={(e) => updateSection(section.id, "textContent", { address: e.target.value })} className={inp} placeholder="Complete office address" style={inpStyle} /></div>
+                    <div className="sm:col-span-2"><label className={lbl} style={lblStyle}>Working Hours</label><input value={section.textContent?.workingHours || ""} onChange={(e) => updateSection(section.id, "textContent", { workingHours: e.target.value })} className={inp} placeholder="Mon - Sat: 9:30 AM - 6:30 PM" style={inpStyle} /></div>
+                  </div>
+                  <div><label className={lbl} style={lblStyle}>Contact Form Heading</label><input value={section.textContent?.formHeading || ""} onChange={(e) => updateSection(section.id, "textContent", { formHeading: e.target.value })} className={inp} placeholder="Send Us a Message" style={inpStyle} /></div>
+                  <div><label className={lbl} style={lblStyle}>CTA Heading (bottom CTA section)</label><input value={section.textContent?.ctaHeading || ""} onChange={(e) => updateSection(section.id, "textContent", { ctaHeading: e.target.value })} className={inp} placeholder="Prefer to Talk?" style={inpStyle} /></div>
+                  <div><label className={lbl} style={lblStyle}>CTA Subheading</label><textarea rows={2} value={section.textContent?.ctaSubheading || ""} onChange={(e) => updateSection(section.id, "textContent", { ctaSubheading: e.target.value })} className={`${inp} resize-vertical`} placeholder="Schedule a free consultation..." style={inpStyle} /></div>
+                  <div><label className={lbl} style={lblStyle}>Google Maps Embed URL</label><input value={section.textContent?.mapEmbedUrl || ""} onChange={(e) => updateSection(section.id, "textContent", { mapEmbedUrl: e.target.value })} className={inp} placeholder="https://maps.google.com/maps?..." style={inpStyle} /><p className="text-xs mt-1" style={{ color: "rgba(245,240,232,0.25)" }}>Google Maps → Share → Embed a map → copy the src URL</p></div>
+                </div>
+              )}
+
+              {/* Query Form Section Editor */}
+              {section.type === "query-form" && (
+                <div className="space-y-4">
+                  <div><label className={lbl} style={lblStyle}>Form Heading</label><input value={section.textContent?.formHeading || ""} onChange={(e) => updateSection(section.id, "textContent", { formHeading: e.target.value })} className={inp} placeholder="Send Us a Query" style={inpStyle} /></div>
+                  <div>
+                    <label className={lbl} style={lblStyle}>Query Types</label>
+                    <div className="space-y-2 mt-1">
+                      {(section.textContent?.queryTypes || []).map((qt: any, qi: number) => (
+                        <div key={qi} className="flex gap-2 items-center rounded-lg p-2" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(224,140,46,0.08)" }}>
+                          <div className="flex-1"><label className={lbl} style={lblStyle}>Label</label><input value={qt.label || ""} onChange={(e) => { const queryTypes = [...(section.textContent?.queryTypes || [])]; queryTypes[qi] = { ...qt, label: e.target.value }; updateSection(section.id, "textContent", { queryTypes }); }} className={inp} placeholder="GST Query" style={inpStyle} /></div>
+                          <div className="flex-1"><label className={lbl} style={lblStyle}>Value</label><input value={qt.value || ""} onChange={(e) => { const queryTypes = [...(section.textContent?.queryTypes || [])]; queryTypes[qi] = { ...qt, value: e.target.value }; updateSection(section.id, "textContent", { queryTypes }); }} className={inp} placeholder="gst" style={inpStyle} /></div>
+                          <button onClick={() => { const queryTypes = (section.textContent?.queryTypes || []).filter((_: any, i: number) => i !== qi); updateSection(section.id, "textContent", { queryTypes }); }} className="text-red-400 hover:text-red-300 text-xs mt-3">✕</button>
+                        </div>
+                      ))}
+                      <button onClick={() => { const queryTypes = [...(section.textContent?.queryTypes || []), { label: "", value: "" }]; updateSection(section.id, "textContent", { queryTypes }); }} className="text-xs hover:underline" style={{ color: "#E08C2E" }}>+ Add Query Type</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Pricing items */}
               {Array.isArray(section.textContent?.items) && section.type === "pricing" && (
                 <div>
@@ -313,58 +422,65 @@ export default function AdminPageEditor() {
                 </div>
               )}
 
-              {/* Generic Items (not faqs/pricing) */}
-              {Array.isArray(section.textContent?.items) && section.type !== "faqs" && section.type !== "pricing" && (
+              {/* Generic Items (not faqs/pricing/career/contact/query-form) */}
+              {Array.isArray(section.textContent?.items) && section.type !== "faqs" && section.type !== "pricing" && section.type !== "career" && section.type !== "contact" && section.type !== "query-form" && (
                 <div>
                   <label className={lbl} style={lblStyle}>{section.type === "team" ? "Team Members" : section.type === "gallery" ? "Gallery Images" : "Items"}</label>
                   <div className="space-y-3 mt-1">
                     {section.textContent.items.map((item: any, ii: number) => (
                       <div key={ii} className="rounded-xl p-4 space-y-3" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(224,140,46,0.1)" }}>
                         <div className="flex justify-between items-center">
-                          <span className="text-xs font-semibold" style={{ color: "rgba(245,240,232,0.4)" }}>{section.type === "team" ? (item.name || `Member ${ii + 1}`) : (item.title || `Item ${ii + 1}`)}</span>
+                          <span className="text-xs font-semibold" style={{ color: "rgba(245,240,232,0.4)" }}>{section.type === "team" ? (item.name || `Member ${ii + 1}`) : (typeof item === 'string' ? `Item ${ii + 1}` : item.title || `Item ${ii + 1}`)}</span>
                           <button onClick={() => { const items = section.textContent.items.filter((_: any, i: number) => i !== ii); updateSection(section.id, "textContent", { items }); }} className="text-red-400 hover:text-red-300 text-xs">Remove</button>
                         </div>
-                        {item.name !== undefined && <div><label className={lbl} style={lblStyle}>Name</label><input value={item.name || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, name: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Name..." style={inpStyle} /></div>}
-                        {item.designation !== undefined && <div><label className={lbl} style={lblStyle}>Designation</label><input value={item.designation || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, designation: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Senior Partner..." style={inpStyle} /></div>}
-                        {item.bio !== undefined && <div><label className={lbl} style={lblStyle}>Bio</label><textarea rows={2} value={item.bio || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, bio: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={`${inp} resize-vertical`} placeholder="Short bio..." style={inpStyle} /></div>}
-                        {item.year !== undefined && <div><label className={lbl} style={lblStyle}>Year</label><input value={item.year || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, year: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="2024" style={inpStyle} /></div>}
-                        {item.icon !== undefined && <div><label className={lbl} style={lblStyle}>Icon</label><input value={item.icon || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, icon: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="e.g. Shield, Award, TrendingUp" style={inpStyle} /></div>}
-                        {item.title !== undefined && <div><label className={lbl} style={lblStyle}>Title</label><input value={item.title || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, title: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Title..." style={inpStyle} /></div>}
-                        {item.description !== undefined && <div><label className={lbl} style={lblStyle}>Description</label><textarea rows={2} value={item.description || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, description: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={`${inp} resize-vertical`} placeholder="Description..." style={inpStyle} /></div>}
-                        {item.review !== undefined && <div><label className={lbl} style={lblStyle}>Review</label><textarea rows={3} value={item.review || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, review: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={`${inp} resize-vertical`} placeholder="Client review..." style={inpStyle} /></div>}
-                        {item.category !== undefined && <div><label className={lbl} style={lblStyle}>Category</label><input value={item.category || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, category: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="e.g. Office, Events..." style={inpStyle} /></div>}
-                        {item.linkedin !== undefined && <div><label className={lbl} style={lblStyle}>LinkedIn URL</label><input value={item.linkedin || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, linkedin: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="https://linkedin.com/in/..." style={inpStyle} /></div>}
-                        {item.href !== undefined && <div><label className={lbl} style={lblStyle}>Link / URL</label><input value={item.href || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, href: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="/services/..." style={inpStyle} /></div>}
-                        {(item.image !== undefined || item.src !== undefined) && (() => {
-                          const field = item.image !== undefined ? "image" : "src";
-                          const url = item[field] || "";
-                          return (
-                            <div>
-                              <label className={lbl} style={lblStyle}>Image</label>
-                              <div className="relative h-32 rounded-lg overflow-hidden border-2 border-dashed group mb-2" style={{ borderColor: "rgba(224,140,46,0.2)" }}>
-                                {url ? (
-                                  <>
-                                    <img src={url} alt="" className="w-full h-full object-cover" />
-                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                      <label className="cursor-pointer px-3 py-1 rounded text-xs" style={{ background: "#E08C2E", color: "#0D0D0D" }}>
-                                        Change
-                                        <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(section.id, f, ii, field); }} />
-                                      </label>
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div className="flex items-center justify-center h-full">
-                                    <label className="cursor-pointer text-xs flex flex-col items-center gap-1" style={{ color: "rgba(245,240,232,0.3)" }}>
-                                      Upload Image
-                                      <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(section.id, f, ii, field); }} />
-                                    </label>
+                        {/* Plain string item — show single text input */}
+                        {typeof item === 'string' ? (
+                          <div><label className={lbl} style={lblStyle}>Text</label><input value={item} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = e.target.value; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Item text..." style={inpStyle} /></div>
+                        ) : (
+                          <>
+                            {item.name !== undefined && <div><label className={lbl} style={lblStyle}>Name</label><input value={item.name || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, name: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Name..." style={inpStyle} /></div>}
+                            {item.designation !== undefined && <div><label className={lbl} style={lblStyle}>Designation</label><input value={item.designation || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, designation: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Senior Partner..." style={inpStyle} /></div>}
+                            {item.bio !== undefined && <div><label className={lbl} style={lblStyle}>Bio</label><textarea rows={2} value={item.bio || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, bio: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={`${inp} resize-vertical`} placeholder="Short bio..." style={inpStyle} /></div>}
+                            {item.year !== undefined && <div><label className={lbl} style={lblStyle}>Year</label><input value={item.year || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, year: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="2024" style={inpStyle} /></div>}
+                            {item.icon !== undefined && <div><label className={lbl} style={lblStyle}>Icon</label><input value={item.icon || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, icon: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="e.g. Shield, Award, TrendingUp" style={inpStyle} /></div>}
+                            {item.title !== undefined && <div><label className={lbl} style={lblStyle}>Title</label><input value={item.title || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, title: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Title..." style={inpStyle} /></div>}
+                            {item.description !== undefined && <div><label className={lbl} style={lblStyle}>Description</label><textarea rows={2} value={item.description || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, description: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={`${inp} resize-vertical`} placeholder="Description..." style={inpStyle} /></div>}
+                            {item.review !== undefined && <div><label className={lbl} style={lblStyle}>Review</label><textarea rows={3} value={item.review || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, review: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={`${inp} resize-vertical`} placeholder="Client review..." style={inpStyle} /></div>}
+                            {item.category !== undefined && <div><label className={lbl} style={lblStyle}>Category</label><input value={item.category || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, category: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="e.g. Office, Events..." style={inpStyle} /></div>}
+                            {item.linkedin !== undefined && <div><label className={lbl} style={lblStyle}>LinkedIn URL</label><input value={item.linkedin || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, linkedin: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="https://linkedin.com/in/..." style={inpStyle} /></div>}
+                            {item.href !== undefined && <div><label className={lbl} style={lblStyle}>Link / URL</label><input value={item.href || ""} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, href: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="/services/..." style={inpStyle} /></div>}
+                            {(item.image !== undefined || item.src !== undefined) && (() => {
+                              const field = item.image !== undefined ? "image" : "src";
+                              const url = item[field] || "";
+                              return (
+                                <div>
+                                  <label className={lbl} style={lblStyle}>Image</label>
+                                  <div className="relative h-32 rounded-lg overflow-hidden border-2 border-dashed group mb-2" style={{ borderColor: "rgba(224,140,46,0.2)" }}>
+                                    {url ? (
+                                      <>
+                                        <img src={url} alt="" className="w-full h-full object-cover" />
+                                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                          <label className="cursor-pointer px-3 py-1 rounded text-xs" style={{ background: "#E08C2E", color: "#0D0D0D" }}>
+                                            Change
+                                            <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(section.id, f, ii, field); }} />
+                                          </label>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <div className="flex items-center justify-center h-full">
+                                        <label className="cursor-pointer text-xs flex flex-col items-center gap-1" style={{ color: "rgba(245,240,232,0.3)" }}>
+                                          Upload Image
+                                          <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(section.id, f, ii, field); }} />
+                                        </label>
+                                      </div>
+                                    )}
                                   </div>
-                                )}
-                              </div>
-                              <input type="text" value={url} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, [field]: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Or paste image URL..." style={inpStyle} />
-                            </div>
-                          );
-                        })()}
+                                  <input type="text" value={url} onChange={(e) => { const its = [...section.textContent.items]; its[ii] = { ...item, [field]: e.target.value }; updateSection(section.id, "textContent", { items: its }); }} className={inp} placeholder="Or paste image URL..." style={inpStyle} />
+                                </div>
+                              );
+                            })()}
+                          </>
+                        )}
                       </div>
                     ))}
                     <button
@@ -388,6 +504,7 @@ export default function AdminPageEditor() {
                   </div>
                 </div>
               )}
+
 
             </div>
           </div>

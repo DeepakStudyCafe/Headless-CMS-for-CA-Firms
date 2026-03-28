@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { stats } from "@/lib/constants";
 import { fadeUp } from "@/lib/animations";
 
 const AnimatedCounter = ({ value, suffix }: { value: number; suffix: string }) => {
@@ -28,9 +27,23 @@ const AnimatedCounter = ({ value, suffix }: { value: number; suffix: string }) =
   );
 };
 
-const StatsSection = () => {
+const StatsSection = ({ data }: { data?: any }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const tc = data?.textContent || {};
+  const DEFAULT_STATS = [
+    { value: 500, suffix: "+", label: "Satisfied Clients", desc: "Trusted by businesses across India" },
+    { value: 18, suffix: "+", label: "Years of Expertise", desc: "Delivering excellence since 2005" },
+    { value: 12, suffix: "", label: "Expert Professionals", desc: "ICAI certified team members" },
+    { value: 98, suffix: "%", label: "Client Retention Rate", desc: "Long-term partnerships built on trust" },
+  ];
+  const stats = (tc.stats || DEFAULT_STATS).map((s: any) => ({
+    value: Number(s.value) || 0,
+    suffix: s.suffix || '',
+    label: s.label || '',
+    desc: s.desc || s.description || '',
+  }));
 
   return (
     <section className="relative py-24 bg-ink overflow-hidden">

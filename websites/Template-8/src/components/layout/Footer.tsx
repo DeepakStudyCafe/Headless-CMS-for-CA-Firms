@@ -1,4 +1,3 @@
-import { navItems, services } from "@/lib/constants";
 import { Linkedin, Twitter, Instagram, Facebook } from "lucide-react";
 
 const socials = [
@@ -8,7 +7,31 @@ const socials = [
   { icon: Facebook, label: "Facebook" },
 ];
 
-const Footer = () => {
+const Footer = ({ websiteData }: { websiteData?: any }) => {
+  const DEFAULT_NAV = [
+    { label: "Home", href: "#home" },
+    { label: "About Us", href: "#about" },
+    { label: "Services", href: "#services" },
+    { label: "Our Team", href: "#team" },
+    { label: "Insights", href: "#insights" },
+    { label: "Contact", href: "#contact" },
+  ];
+  const navItems = DEFAULT_NAV;
+  const serviceLinks = websiteData?.themeConfig?.services || [
+    { title: 'Tax Planning & Advisory' },
+    { title: 'GST Compliance & Filing' },
+    { title: 'Audit & Assurance' },
+    { title: 'Company Registration' },
+    { title: 'Financial Planning' },
+    { title: 'Business Advisory' },
+  ];
+  const name = websiteData?.name || 'CA Firm';
+  const address = websiteData?.address || '123 Financial District, Mumbai, Maharashtra 400001';
+  const phone = websiteData?.phone || '';
+  const email = websiteData?.email || '';
+  const footerContent = websiteData?.themeConfig?.footerContent || {};
+  const copyright = footerContent.copyright || `© ${new Date().getFullYear()} ${name}. All rights reserved.`;
+
   return (
     <footer className="relative bg-[#060A12]">
       {/* Top gold line */}
@@ -36,12 +59,12 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img
-                src="https://api.digitechai.in/uploads/footerlogo.png"
-                alt="abc & Associates Logo"
+                src={websiteData?.logo || 'https://api.digitechai.in/uploads/footerlogo.png'}
+                alt={name + ' Logo'}
                 className="h-9"
               />
               <span className="flex flex-col font-bold text-cream text-base leading-tight tracking-wide select-none">
-                abc & Associates
+                {name}
                 <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
               </span>
             </div>
@@ -80,8 +103,8 @@ const Footer = () => {
           <div>
             <h4 className="font-body text-sm font-semibold text-cream mb-4 tracking-wide uppercase">Services</h4>
             <ul className="space-y-2">
-              {services.map((s) => (
-                <li key={s.num}>
+              {serviceLinks.map((s: any) => (
+                <li key={s.title}>
                   <a href="#services" className="font-body text-sm text-mist hover:text-gold transition-colors">
                     {s.title}
                   </a>
@@ -94,13 +117,17 @@ const Footer = () => {
           <div>
             <h4 className="font-body text-sm font-semibold text-cream mb-4 tracking-wide uppercase">Contact</h4>
             <div className="space-y-3 font-body text-sm text-mist">
-              <p>123 Financial District, <br />Mumbai, Maharashtra 400001</p>
-              <p>
-                <a href="tel:+919876543210" className="hover:text-gold transition-colors">+91 98765 43210</a>
-              </p>
-              <p>
-                <a href="mailto:info@precisionfinancial.in" className="hover:text-gold transition-colors">info@precisionfinancial.in</a>
-              </p>
+              <p>{address}</p>
+              {phone && (
+                <p>
+                  <a href={`tel:${phone.replace(/\s/g, '')}`} className="hover:text-gold transition-colors">{phone}</a>
+                </p>
+              )}
+              {email && (
+                <p>
+                  <a href={`mailto:${email}`} className="hover:text-gold transition-colors">{email}</a>
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -109,7 +136,7 @@ const Footer = () => {
       {/* Bottom bar */}
       <div className="border-t border-gold/10">
         <div className="max-w-[1200px] mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="font-body text-xs text-mist/60">© 2025 Precision Financial. All rights reserved.</p>
+          <p className="font-body text-xs text-mist/60">{copyright}</p>
           <div className="flex gap-4">
             <a href="#" className="font-body text-xs text-mist/60 hover:text-gold transition-colors">Privacy Policy</a>
             <span className="text-gold/20">·</span>

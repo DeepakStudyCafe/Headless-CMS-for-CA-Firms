@@ -1,12 +1,26 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { teamMembers } from "@/lib/constants";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { Linkedin } from "lucide-react";
 
-const TeamSection = () => {
+const TeamSection = ({ data }: { data?: any }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const tc = data?.textContent || {};
+  const label = tc.label || 'Meet The Team';
+  const heading = tc.heading || 'Our Expert Team';
+  const DEFAULT_TEAM = [
+    { name: "Rajesh Sharma", role: "Managing Partner", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" },
+    { name: "Priya Patel", role: "Senior Tax Consultant", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" },
+    { name: "Amit Verma", role: "Audit Director", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" },
+    { name: "Sneha Kapoor", role: "Financial Advisor", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400" },
+  ];
+  const teamMembers = (tc.items || DEFAULT_TEAM).map((m: any) => ({
+    name: m.name || '',
+    role: m.role || m.designation || '',
+    image: m.image || m.imageUrl || '',
+  }));
 
   return (
     <section id="team" className="relative py-24 bg-deep overflow-hidden">
@@ -22,10 +36,10 @@ const TeamSection = () => {
           transition={{ duration: 0.7 }}
           className="mb-16"
         >
-          <span className="font-mono-label text-[11px] text-gold tracking-[3px] uppercase">Meet The Team</span>
+          <span className="font-mono-label text-[11px] text-gold tracking-[3px] uppercase">{label}</span>
           <div className="flex items-start gap-4 mt-3">
             <div className="w-1 h-14 bg-gold mt-1" />
-            <h2 className="font-display text-4xl lg:text-6xl text-cream font-semibold">Our Expert Team</h2>
+            <h2 className="font-display text-4xl lg:text-6xl text-cream font-semibold">{heading}</h2>
           </div>
         </motion.div>
 

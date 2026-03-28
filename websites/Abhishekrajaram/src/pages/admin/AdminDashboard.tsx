@@ -9,10 +9,10 @@ const lblStyle = { color: "rgba(245,240,232,0.4)" };
 
 interface Page { id: string; title: string; slug: string; status: string; _count?: { sections: number }; }
 interface FooterForm { phone: string; email: string; address: string; workingHours: string; description: string; facebook: string; twitter: string; linkedin: string; instagram: string; youtube: string; copyright: string; }
-interface ContactForm { phone: string; email: string; address: string; workingHours: string; phone2: string; email2: string; heroTitle: string; heroSubtitle: string; mapUrl: string; }
+interface ContactForm { phone: string; email: string; address: string; workingHours: string; phone2: string; email2: string; heroTitle: string; heroSubtitle: string; mapUrl: string; ctaHeading: string; ctaSubheading: string; }
 interface SiteSettings { isActive: boolean; isAdminEnabled: boolean; }
 
-const emptyContact: ContactForm = { phone: "", email: "", address: "", workingHours: "", phone2: "", email2: "", heroTitle: "", heroSubtitle: "", mapUrl: "" };
+const emptyContact: ContactForm = { phone: "", email: "", address: "", workingHours: "", phone2: "", email2: "", heroTitle: "", heroSubtitle: "", mapUrl: "", ctaHeading: "", ctaSubheading: "" };
 const emptyFooter: FooterForm = { phone: "", email: "", address: "", workingHours: "", description: "", facebook: "", twitter: "", linkedin: "", instagram: "", youtube: "", copyright: "" };
 
 export default function AdminDashboard() {
@@ -46,7 +46,7 @@ export default function AdminDashboard() {
         const fc = w.themeConfig?.footerContent || {};
         setFooterForm({ phone: w.phone || "", email: w.email || "", address: w.address || "", workingHours: w.workingHours || "", description: fc.description || "", facebook: fc.facebook || "", twitter: fc.twitter || "", linkedin: fc.linkedin || "", instagram: fc.instagram || "", youtube: fc.youtube || "", copyright: fc.copyright || "" });
         const cc = w.themeConfig?.contactContent || {};
-        setContactForm({ phone: w.phone || "", email: w.email || "", address: w.address || "", workingHours: w.workingHours || "", phone2: cc.phone2 || "", email2: cc.email2 || "", heroTitle: cc.heroTitle || "", heroSubtitle: cc.heroSubtitle || "", mapUrl: cc.mapUrl || "" });
+        setContactForm({ phone: w.phone || "", email: w.email || "", address: w.address || "", workingHours: w.workingHours || "", phone2: cc.phone2 || "", email2: cc.email2 || "", heroTitle: cc.heroTitle || "", heroSubtitle: cc.heroSubtitle || "", mapUrl: cc.mapUrl || "", ctaHeading: cc.ctaHeading || "", ctaSubheading: cc.ctaSubheading || "" });
         setSiteSettings({ isActive: w.isActive ?? true, isAdminEnabled: w.isAdminEnabled ?? true });
       }),
     ]).catch(() => { localStorage.removeItem("site_admin_token"); navigate("/admin/login", { replace: true }); })
@@ -65,8 +65,8 @@ export default function AdminDashboard() {
   const handleContactSave = async () => {
     setContactSaving(true);
     try {
-      const { phone, email, address, workingHours, phone2, email2, heroTitle, heroSubtitle, mapUrl } = contactForm;
-      await apiFetch("/website", { method: "PUT", body: JSON.stringify({ phone, email, address, workingHours, contactContent: { phone2, email2, heroTitle, heroSubtitle, mapUrl } }) });
+      const { phone, email, address, workingHours, phone2, email2, heroTitle, heroSubtitle, mapUrl, ctaHeading, ctaSubheading } = contactForm;
+      await apiFetch("/website", { method: "PUT", body: JSON.stringify({ phone, email, address, workingHours, contactContent: { phone2, email2, heroTitle, heroSubtitle, mapUrl, ctaHeading, ctaSubheading } }) });
       showToast("Contact info saved successfully");
     } catch (e: any) { showToast(e.message, "err"); } finally { setContactSaving(false); }
   };
@@ -228,8 +228,10 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(245,240,232,0.4)" }}>Map</p>
+              <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(245,240,232,0.4)" }}>Map & CTA</p>
               <div><label className={lbl} style={lblStyle}>Google Maps Embed URL</label><input type="url" value={contactForm.mapUrl} onChange={(e) => setContactForm((f) => ({ ...f, mapUrl: e.target.value }))} placeholder="https://maps.google.com/maps?..." className={inp} style={inpStyle} /><p className="text-xs mt-1" style={{ color: "rgba(245,240,232,0.25)" }}>Google Maps → Share → Embed a map → copy the src URL</p></div>
+              <div><label className={lbl} style={lblStyle}>CTA Heading</label><input type="text" value={contactForm.ctaHeading} onChange={(e) => setContactForm((f) => ({ ...f, ctaHeading: e.target.value }))} placeholder="Prefer to Talk?" className={inp} style={inpStyle} /></div>
+              <div><label className={lbl} style={lblStyle}>CTA Subheading</label><textarea rows={2} value={contactForm.ctaSubheading} onChange={(e) => setContactForm((f) => ({ ...f, ctaSubheading: e.target.value }))} placeholder="Schedule a free consultation..." className={`${inp} resize-vertical`} style={inpStyle} /></div>
             </div>
             <button type="button" onClick={handleContactSave} disabled={contactSaving} className="flex items-center gap-2 text-sm px-5 py-2.5 rounded-lg disabled:opacity-50 transition-all" style={{ background: "#E08C2E", color: "#0D0D0D", fontWeight: 600 }}>
               {contactSaving ? <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-current" /> : <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>}

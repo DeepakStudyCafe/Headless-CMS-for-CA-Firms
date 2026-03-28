@@ -3,15 +3,15 @@ import { useCountUp } from '@/hooks/useCountUp';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-const stats = [
+const DEFAULT_STATS = [
   { value: 500, suffix: '+', label: 'CLIENTS SERVED', desc: 'Businesses trust our expertise' },
   { value: 18, suffix: '+', label: 'YEARS ACTIVE', desc: 'Of consistent excellence' },
   { value: 12, suffix: '', label: 'OUR EXPERTS', desc: 'Qualified professionals' },
   { value: 98, suffix: '%', label: 'SATISFACTION', desc: 'Client retention rate' },
 ];
 
-function StatBlock({ stat, isVisible, index }: { stat: typeof stats[0]; isVisible: boolean; index: number }) {
-  const count = useCountUp(stat.value, 2000, isVisible);
+function StatBlock({ stat, isVisible, index }: { stat: any; isVisible: boolean; index: number }) {
+  const count = useCountUp(Number(stat.value) || 0, 2000, isVisible);
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -50,14 +50,25 @@ function StatBlock({ stat, isVisible, index }: { stat: typeof stats[0]; isVisibl
         className="block font-body text-[13px] font-light mt-2 transition-colors duration-300"
         style={{ color: '#6B6B6B' }}
       >
-        {stat.desc}
+        {stat.desc || stat.description || ''}
       </span>
     </motion.div>
   );
 }
 
-export default function StatsSection() {
+export default function StatsSection({ data }: { data?: any }) {
   const { ref, isVisible } = useIntersectionObserver(0.3);
+
+  const tc = data?.textContent || {};
+  const stats = (tc.stats || DEFAULT_STATS).map((s: any) => ({
+    value: Number(s.value) || 0,
+    suffix: s.suffix || '',
+    label: s.label || '',
+    desc: s.desc || s.description || '',
+  }));
+  const label = tc.label || 'OUR IMPACT';
+  const heading = tc.heading || 'Numbers That Define Our Legacy';
+  const description = tc.description || 'Our track record speaks volumes. These milestones reflect the trust our clients place in us every single year.';
 
   return (
     <section ref={ref} className="py-20" style={{ background: '#FFFFFF' }}>
@@ -66,14 +77,14 @@ export default function StatsSection() {
         <div className="grid lg:grid-cols-2 gap-6 items-end mb-10">
           <div>
             <span className="font-body text-[10px] font-semibold tracking-[2.5px] uppercase block mb-2" style={{ color: '#C8A96E' }}>
-              OUR IMPACT
+              {label}
             </span>
             <h2 className="font-display font-semibold" style={{ fontSize: 'clamp(26px, 3vw, 40px)', lineHeight: 1.12, letterSpacing: '-0.015em', color: '#2D2D2D' }}>
-              Numbers That Define Our Legacy
+              {heading}
             </h2>
           </div>
           <p className="font-body text-[15px] font-light leading-[1.75] lg:text-right" style={{ color: '#6B6B6B' }}>
-            Our track record speaks volumes. These milestones reflect the trust our clients place in us every single year.
+            {description}
           </p>
         </div>
 

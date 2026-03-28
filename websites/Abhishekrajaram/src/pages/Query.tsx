@@ -67,8 +67,8 @@ const Query = () => {
     <Layout>
       {heroSection && (
         <PageHero
-          title={heroSection.textContent?.heading?.replace(/\\s\\S+$/, '') || ''}
-          highlight={heroSection.textContent?.heading?.split(' ').pop() || ''}
+          title={heroSection.textContent?.titleMain || heroSection.textContent?.heading || ''}
+          highlight={heroSection.textContent?.highlight || heroSection.textContent?.titleHighlight || ''}
           subtitle={heroSection.textContent?.subheading || ''}
           image={heroSection.imageUrl ? getImageUrl(heroSection.imageUrl) : ''}
           breadcrumb={[{ label: 'Query' }]}

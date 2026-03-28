@@ -1,25 +1,46 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getImageUrl } from '@/lib/api';
 
-const images = [
+const DEFAULT_IMAGES = [
   'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200',
   'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1200',
   'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200',
 ];
 
-const stats = [
-  { value: '500+', label: 'Clients' },
-  { value: '18+', label: 'Years' },
-  { value: '98%', label: 'Retention' },
-];
-
-export default function HeroSection() {
+export default function HeroSection({ data }: { data?: any }) {
   const [current, setCurrent] = useState(0);
 
+  const tc = data?.textContent || {};
+
+  const slides: any[] = (tc.slides || []);
+  const images = slides.length > 0
+    ? slides.map((s: any) => {
+        const raw = typeof s === 'string' ? s : (s.img || s.image || '');
+        return raw.startsWith('http') ? raw : (raw ? getImageUrl(raw) : '');
+      }).filter(Boolean)
+    : (data?.imageUrl ? [getImageUrl(data.imageUrl)] : DEFAULT_IMAGES);
+  const displayImages = images.length > 0 ? images : DEFAULT_IMAGES;
+
+  const heroStats = tc.heroStats || [
+    { value: '500+', label: 'Clients' },
+    { value: '18+', label: 'Years' },
+    { value: '98%', label: 'Retention' },
+  ];
+
+  const ticker = tc.ticker || 'TAX PLANNING · GST COMPLIANCE · AUDIT & ASSURANCE · COMPANY REGISTRATION · WEALTH ADVISORY';
+  const label = tc.label || 'CHARTERED ACCOUNTANTS';
+  const line1 = tc.line1 || 'Trusted Financial';
+  const line2 = tc.line2 || 'Expertise,';
+  const line3 = tc.line3 || 'Delivered.';
+  const subheading = tc.subheading || 'Trusted by 500+ businesses across India for taxation, compliance, audit, and financial strategy.';
+  const ctaLabel = tc.cta || 'Our Services';
+  const secondaryCtaLabel = tc.secondaryCta || 'Contact Us';
+
   useEffect(() => {
-    const timer = setInterval(() => setCurrent(p => (p + 1) % images.length), 5000);
+    const timer = setInterval(() => setCurrent(p => (p + 1) % displayImages.length), 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [displayImages.length]);
 
   return (
     <>
@@ -37,7 +58,7 @@ export default function HeroSection() {
             className="mb-4"
           >
             <span className="font-body text-[10px] font-semibold tracking-[3px] uppercase" style={{ color: '#C8A96E' }}>
-              CHARTERED ACCOUNTANTS
+              {label}
             </span>
           </motion.div>
 
@@ -52,7 +73,7 @@ export default function HeroSection() {
 
           {/* Heading */}
           <h1>
-            {['Trusted Financial'].map((line, i) => (
+            {[line1].map((line, i) => (
               <motion.span
                 key={i}
                 initial={{ clipPath: 'inset(0 0 100% 0)' }}
@@ -71,7 +92,7 @@ export default function HeroSection() {
               className="block font-display font-light italic leading-[1.08] tracking-[-0.02em]"
               style={{ fontSize: 'clamp(34px, 4.5vw, 56px)', color: '#C8A96E' }}
             >
-              Expertise,
+              {line2}
             </motion.span>
             <motion.span
               initial={{ clipPath: 'inset(0 0 100% 0)' }}
@@ -80,7 +101,7 @@ export default function HeroSection() {
               className="block font-display font-bold leading-[1.08] tracking-[-0.02em]"
               style={{ fontSize: 'clamp(34px, 4.5vw, 56px)', color: '#2D2D2D' }}
             >
-              Delivered.
+              {line3}
             </motion.span>
           </h1>
 
@@ -92,7 +113,7 @@ export default function HeroSection() {
             className="font-body font-light text-[15px] max-w-[400px] leading-[1.75] mt-5"
             style={{ color: '#6B6B6B' }}
           >
-            DigitechCA & Associates — trusted by 500+ businesses across India for taxation, compliance, audit, and financial strategy.
+            {subheading}
           </motion.p>
 
           {/* Stats row */}
@@ -103,13 +124,13 @@ export default function HeroSection() {
             className="flex items-center gap-0 mt-8 pt-6"
             style={{ borderTop: '1px solid #E8E2D9' }}
           >
-            {stats.map((s, i) => (
+            {heroStats.map((s: any, i: number) => (
               <div key={i} className="flex items-center">
                 <div className="pr-6">
                   <span className="block font-display font-bold text-[28px]" style={{ color: '#2D2D2D' }}>{s.value}</span>
                   <span className="block font-body text-[12px]" style={{ color: '#6B6B6B' }}>{s.label}</span>
                 </div>
-                {i < stats.length - 1 && <div className="w-[1px] h-10 mr-6" style={{ background: '#E8E2D9' }} />}
+                {i < heroStats.length - 1 && <div className="w-[1px] h-10 mr-6" style={{ background: '#E8E2D9' }} />}
               </div>
             ))}
           </motion.div>
@@ -128,7 +149,7 @@ export default function HeroSection() {
                 hover:-translate-y-[2px] hover:shadow-[0_8px_24px_rgba(45,45,45,0.2)] active:scale-[0.97]"
               style={{ background: '#2D2D2D', color: '#FAF8F3' }}
             >
-              Our Services
+              {ctaLabel}
             </a>
             <a
               href="#"
@@ -138,7 +159,7 @@ export default function HeroSection() {
               onMouseEnter={e => { e.currentTarget.style.background = '#C8A96E'; e.currentTarget.style.color = '#FAF8F3'; }}
               onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#2D2D2D'; }}
             >
-              Contact Us
+              {secondaryCtaLabel}
             </a>
           </motion.div>
         </div>
@@ -156,7 +177,7 @@ export default function HeroSection() {
               style={{ boxShadow: '0 8px 32px rgba(45,45,45,0.18)' }}
             >
               <motion.img
-                src={images[current]}
+                src={displayImages[current]}
                 alt="Professional financial services"
                 className="w-full h-full object-cover"
                 style={{ animation: 'kenburns 6s ease-in-out forwards' }}
@@ -164,7 +185,7 @@ export default function HeroSection() {
               />
               {/* Optional overlay caption */}
               <div className="absolute bottom-4 left-4 bg-[rgba(45,45,45,0.7)] text-[#FAF8F3] px-4 py-2 rounded-lg text-[15px] font-body font-light shadow-md backdrop-blur-sm">
-                Empowering Your Growth
+                {slides[current]?.caption || 'Empowering Your Growth'}
               </div>
             </motion.div>
           </AnimatePresence>
@@ -175,10 +196,10 @@ export default function HeroSection() {
           {/* Slide counter + dots */}
           <div className="absolute bottom-6 left-6 flex items-center gap-4">
             <span className="font-body text-[14px] font-semibold tracking-wider" style={{ color: '#FAF8F3', letterSpacing: '2px' }}>
-              0{current + 1} / 03
+              0{current + 1} / 0{displayImages.length}
             </span>
             <div className="flex gap-2">
-              {images.map((_, i) => (
+              {displayImages.map((_, i) => (
                 <div
                   key={i}
                   className="h-[8px] rounded-full transition-all duration-300"
@@ -210,7 +231,7 @@ export default function HeroSection() {
         <div className="ticker-track flex whitespace-nowrap">
           {[...Array(4)].map((_, j) => (
             <span key={j} className="font-body text-[11px] font-medium tracking-[2px] uppercase" style={{ color: '#C8A96E' }}>
-              TAX PLANNING &nbsp;<span style={{ color: 'rgba(232,226,217,0.5)' }}>·</span>&nbsp; GST COMPLIANCE &nbsp;<span style={{ color: 'rgba(232,226,217,0.5)' }}>·</span>&nbsp; AUDIT & ASSURANCE &nbsp;<span style={{ color: 'rgba(232,226,217,0.5)' }}>·</span>&nbsp; COMPANY REGISTRATION &nbsp;<span style={{ color: 'rgba(232,226,217,0.5)' }}>·</span>&nbsp; WEALTH ADVISORY &nbsp;<span style={{ color: 'rgba(232,226,217,0.5)' }}>·</span>&nbsp;&nbsp;
+              {ticker}&nbsp;&nbsp;
             </span>
           ))}
         </div>

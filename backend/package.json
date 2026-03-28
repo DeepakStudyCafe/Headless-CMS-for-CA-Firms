@@ -18,6 +18,8 @@
     "seed:abhishekrajaram": "ts-node src/utils/abhishekrajaram-seed.ts",
     "seed:template9": "ts-node src/utils/template-9-seed.ts",
     "seed:template10": "ts-node src/utils/template-10-seed.ts",
+    "seed:template7": "ts-node src/utils/template-7-seed.ts",
+    "seed:template8": "ts-node src/utils/template-8-seed.ts",
     "setup:admins": "ts-node src/utils/setup-admins.ts"
   },
   "keywords": [

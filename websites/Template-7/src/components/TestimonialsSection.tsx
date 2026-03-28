@@ -2,24 +2,35 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
-const testimonials = [
+const DEFAULT_TESTIMONIALS = [
   { quote: "DigitechCA transformed our financial operations. Their strategic tax planning saved us over 30% in the first year alone. Truly exceptional service that exceeded every expectation.", name: "Rajesh Mehta", role: "CEO, Mehta Industries", initials: "RM" },
   { quote: "The team's attention to detail during our statutory audit was remarkable. They identified opportunities we'd missed for years.", name: "Priya Sharma", role: "Director, Sharma Exports", initials: "PS" },
   { quote: "From GST compliance to financial advisory, DigitechCA handles everything flawlessly. Trusted partners for over 8 years.", name: "Amit Patel", role: "Founder, TechVentures Pvt Ltd", initials: "AP" },
   { quote: "Their proactive approach to compliance and deadlines gives us complete peace of mind. We can focus on growth while they handle the numbers.", name: "Sunita Reddy", role: "CFO, Reddy Pharmaceuticals", initials: "SR" },
 ];
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ data }: { data?: any }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const { ref, isVisible } = useIntersectionObserver(0.2);
   const timerRef = useRef<ReturnType<typeof setInterval>>();
 
+  const tc = data?.textContent || {};
+  const label = tc.label || 'CLIENT VOICES';
+  const heading = tc.heading || 'What Our Clients Say';
+
+  const testimonials = (tc.items || DEFAULT_TESTIMONIALS).map((t: any) => ({
+    quote: t.quote || t.review || '',
+    name: t.name || '',
+    role: t.role || t.designation || '',
+    initials: t.initials || String(t.name || '?').split(' ').map((w: string) => w[0] || '').join('').slice(0, 2).toUpperCase(),
+  }));
+
   useEffect(() => {
     if (paused) return;
     timerRef.current = setInterval(() => setActive(p => (p + 1) % testimonials.length), 4500);
     return () => clearInterval(timerRef.current);
-  }, [active, paused]);
+  }, [active, paused, testimonials.length]);
 
   // Featured + 2 small cards
   const smallIndices = [(active + 1) % testimonials.length, (active + 2) % testimonials.length];
@@ -40,10 +51,10 @@ export default function TestimonialsSection() {
         {/* Header — centered */}
         <div className="text-center mb-12">
           <span className="font-body text-[10px] font-semibold tracking-[2.5px] uppercase block mb-2" style={{ color: '#C8A96E' }}>
-            CLIENT VOICES
+            {label}
           </span>
           <h2 className="font-display font-semibold" style={{ fontSize: 'clamp(26px, 3vw, 40px)', lineHeight: 1.12, letterSpacing: '-0.015em', color: '#2D2D2D' }}>
-            What Our Clients Say
+            {heading}
           </h2>
         </div>
 
@@ -67,11 +78,11 @@ export default function TestimonialsSection() {
                   className="w-11 h-11 rounded-full flex items-center justify-center font-display font-bold text-[16px]"
                   style={{ background: '#2D2D2D', color: '#FAF8F3' }}
                 >
-                  {testimonials[active].initials}
+                  {testimonials[active]?.initials}
                 </div>
                 <div>
-                  <p className="font-display font-semibold text-[16px]" style={{ color: '#2D2D2D' }}>{testimonials[active].name}</p>
-                  <p className="font-body text-[13px]" style={{ color: '#6B6B6B' }}>{testimonials[active].role}</p>
+                  <p className="font-display font-semibold text-[16px]" style={{ color: '#2D2D2D' }}>{testimonials[active]?.name}</p>
+                  <p className="font-body text-[13px]" style={{ color: '#6B6B6B' }}>{testimonials[active]?.role}</p>
                 </div>
               </div>
               {/* Stars */}
@@ -88,7 +99,7 @@ export default function TestimonialsSection() {
             {/* Right: testimonial text */}
             <div className="flex flex-col justify-center">
               <p className="font-accent italic text-[18px] leading-[1.85]" style={{ color: '#3D3D3D' }}>
-                "{testimonials[active].quote}"
+                "{testimonials[active]?.quote}"
               </p>
             </div>
           </div>
@@ -110,6 +121,7 @@ export default function TestimonialsSection() {
         <div className="grid md:grid-cols-2 gap-4">
           {smallIndices.map((idx) => {
             const t = testimonials[idx];
+            if (!t) return null;
             return (
               <div
                 key={idx}
