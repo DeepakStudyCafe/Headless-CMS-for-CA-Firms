@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function OurClientPage() {
     const clients = [
-        { name: 'Monika S', url: 'https://monikas.in/', img: '/abhishekrajaram.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
+        // { name: 'Monika S', url: 'https://monikas.in/', img: '/abhishekrajaram.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         { name: 'Abhishek Raja Ram & Co', url: 'https://abhishekrajaram.in/', img: '/abhishekrajaram.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         { name: 'PD Gupta & CO', url: 'https://pdgupta.com/', img: '/client-1.png', description: 'Full-service CA firm offering taxation, audit and advisory with modern client portal.' },
         { name: 'Arvind Gupta & Associates', url: 'https://caasgupta.in/', img: '/client-2.png', description: 'Specialized in SME tax planning and accounting; mobile-friendly site with contact forms.' },
