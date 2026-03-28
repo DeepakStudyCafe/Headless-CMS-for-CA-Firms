@@ -54,7 +54,8 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:8087',
   'https://temp9.automationcafe.in',
   'http://localhost:3007',
-  'http://localhost:8088/'
+  'http://localhost:8088/',
+  'http://localhost:8090/'
 ];
 
 

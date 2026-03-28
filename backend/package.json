@@ -16,6 +16,7 @@
     "seed:template6": "ts-node src/utils/template-6-seed.ts",
     "seed:template1": "ts-node src/utils/template-1-seed.ts",
     "seed:abhishekrajaram": "ts-node src/utils/abhishekrajaram-seed.ts",
+    "seed:monikas": "ts-node src/utils/monikas-seed.ts",
     "seed:template9": "ts-node src/utils/template-9-seed.ts",
     "seed:template10": "ts-node src/utils/template-10-seed.ts",
     "seed:template7": "ts-node src/utils/template-7-seed.ts",

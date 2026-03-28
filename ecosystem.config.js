@@ -254,6 +254,28 @@ module.exports = {
       restart_delay: 5000
     },
 
+    // Monika S
+    {
+      name: 'monikas',
+      cwd: './websites/MonikaS',
+      script: 'npm',
+      args: 'run dev',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8090
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 8090
+      },
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '512M',
+      autorestart: true,
+      restart_delay: 5000
+    },
+
     // Template-2 (temp8.automationcafe.in)
     {
       name: 'template-2',

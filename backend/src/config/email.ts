@@ -19,7 +19,8 @@ const WEBSITE_EMAILS = {
   'firm6-patel': process.env.FIRM6_EMAIL || 'patel.contact@gmail.com',
   'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com',
   'showcase-website': process.env.SHOWCASE_EMAIL || 'info@studycafe.in',
-  'abhishekrajaram': 'sdeepakncy@gmail.com'
+  'abhishekrajaram': 'sdeepakncy@gmail.com',
+  'monikas': 'admin@monikas.in',
 };
 
 // Website names mapping
@@ -32,7 +33,8 @@ const WEBSITE_NAMES = {
   'firm6-patel': process.env.FIRM6_NAME || 'Patel Group',
   'template-4': process.env.TEMPLATE_4_NAME || 'Arvind Gupta & Associates',
   'showcase-website': process.env.SHOWCASE_NAME || 'StudyCafe Showcase',
-  'abhishekrajaram': 'Abhishek Rajaram CA Firm'
+  'abhishekrajaram': 'Abhishek Rajaram CA Firm',
+  'monikas': 'Monika S CA Firm',
 };
 
 // Email sender function
