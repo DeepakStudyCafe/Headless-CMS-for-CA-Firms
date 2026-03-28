@@ -189,6 +189,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
+      )}
 
       {websiteData?.phone && (
         <section className="section-padding gradient-navy text-center">

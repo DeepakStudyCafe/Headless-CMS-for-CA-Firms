@@ -15,7 +15,7 @@ const Gallery = () => {
   const heroSection = pageData?.sections?.find((s: any) => s.type === 'hero');
   const gallerySection = pageData?.sections?.find((s: any) => s.type === 'gallery');
 
-  const categories: string[] = gallerySection?.textContent?.categories || [];
+  const categories: string[] = (gallerySection?.textContent?.categories || []).filter((c: string) => c && c !== 'All');
   const images: any[] = gallerySection?.textContent?.items || [];
 
   const filtered = active === 'All' ? images : images.filter(img => (img.category || img.cat) === active);
