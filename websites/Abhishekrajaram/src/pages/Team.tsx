@@ -5,7 +5,6 @@ import PageHero from '@/components/PageHero';
 import ScrollReveal from '@/components/ScrollReveal';
 import { Button } from '@/components/ui/button';
 import { Award, Users, Linkedin, ArrowRight } from 'lucide-react';
-import heroTeam from '@/assets/hero-team.jpg';
 import { getPageData, getWebsiteData, getImageUrl } from '@/lib/api';
 
 const Team = () => {
@@ -24,11 +23,7 @@ const Team = () => {
   const certsSection = pageData?.sections?.find((s: any) => s.type === 'certifications');
   const ctaSection = pageData?.sections?.find((s: any) => s.type === 'cta');
 
-  const allMembers = teamSection?.textContent?.items || [
-    { name: 'Vikram Desai', designation: 'Managing Partner', bio: 'Corporate Tax & Advisory, 25+ years', image: '' },
-    { name: 'Anita Kapoor', designation: 'Senior Partner', bio: 'Audit & Assurance, 22+ years', image: '' },
-    { name: 'Suresh Menon', designation: 'Partner', bio: 'GST & Indirect Tax, 18+ years', image: '' },
-  ];
+  const allMembers = teamSection?.textContent?.items || [];
 
   // Split: partners (designation includes Partner/Managing/Senior) vs team
   const partners = allMembers.filter((m: any) =>
@@ -38,23 +33,19 @@ const Team = () => {
     !/partner|managing|senior partner/i.test(m.designation || '')
   );
 
-  const certifications = certsSection?.textContent?.items || [
-    { title: 'ICAI Certified' },
-    { title: 'DISA Qualified' },
-    { title: 'FAFD Certified' },
-    { title: 'Registered Valuers' },
-    { title: 'Insolvency Professionals' },
-  ];
+  const certifications = certsSection?.textContent?.items || [];
 
   return (
     <Layout>
-      <PageHero
-        title={heroSection?.textContent?.heading?.replace(/\s\S+\s\S+$/, '') || "Meet the"}
-        highlight={heroSection?.textContent?.heading?.split(' ').slice(-2).join(' ') || "Team"}
-        subtitle={heroSection?.textContent?.subheading || "A team of 85+ dedicated professionals driven by expertise, integrity, and a passion for client success."}
-        image={heroSection?.imageUrl ? getImageUrl(heroSection.imageUrl) : heroTeam}
-        breadcrumb={[{ label: 'Team' }]}
-      />
+      {heroSection && (
+        <PageHero
+          title={heroSection.textContent?.heading?.replace(/\\s\\S+\\s\\S+$/, '') || ''}
+          highlight={heroSection.textContent?.heading?.split(' ').slice(-2).join(' ') || ''}
+          subtitle={heroSection.textContent?.subheading || ''}
+          image={heroSection.imageUrl ? getImageUrl(heroSection.imageUrl) : ''}
+          breadcrumb={[{ label: 'Team' }]}
+        />
+      )}
 
       {/* Leadership / Partners */}
       {partners.length > 0 && (
@@ -62,8 +53,8 @@ const Team = () => {
           <div className="container-max mx-auto">
             <ScrollReveal>
               <div className="text-center mb-16">
-                <span className="text-xs font-medium uppercase tracking-wider text-accent">Leadership</span>
-                <h2 className="heading-lg text-foreground mt-2">Our Partners</h2>
+                <span className="text-xs font-medium uppercase tracking-wider text-accent">{teamSection?.textContent?.partnersLabel || 'Leadership'}</span>
+                <h2 className="heading-lg text-foreground mt-2">{teamSection?.textContent?.partnersHeading || 'Our Partners'}</h2>
               </div>
             </ScrollReveal>
             <div className="grid md:grid-cols-3 gap-8">
@@ -101,7 +92,7 @@ const Team = () => {
           <div className="container-max mx-auto">
             <ScrollReveal>
               <div className="text-center mb-16">
-                <h2 className="heading-lg text-foreground">Our Professionals</h2>
+                <h2 className="heading-lg text-foreground">{teamSection?.textContent?.teamHeading || 'Our Professionals'}</h2>
               </div>
             </ScrollReveal>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -164,10 +155,10 @@ const Team = () => {
           <div className="container-max mx-auto text-center">
             <ScrollReveal>
               <Users className="w-12 h-12 text-gold mx-auto mb-6" />
-              <h2 className="heading-lg text-primary-foreground mb-4">{ctaSection.textContent?.heading || 'Our Culture'}</h2>
+              <h2 className="heading-lg text-primary-foreground mb-4">{ctaSection.textContent?.heading}</h2>
               <p className="text-lg text-primary-foreground/60 max-w-2xl mx-auto mb-8">{ctaSection.textContent?.subheading}</p>
               <Button variant="gold" size="lg" asChild>
-                <Link to="/contact">{ctaSection.textContent?.cta || 'Book a Consultation'} <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                <Link to={ctaSection.textContent?.ctaLink || "/contact"}>{ctaSection.textContent?.cta || 'Book a Consultation'} <ArrowRight className="w-4 h-4 ml-1" /></Link>
               </Button>
             </ScrollReveal>
           </div>
