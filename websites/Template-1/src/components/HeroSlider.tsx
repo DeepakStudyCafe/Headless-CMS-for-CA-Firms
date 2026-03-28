@@ -3,62 +3,49 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getPageData, getImageUrl } from '@/lib/api';
+import { getImageUrl } from '@/lib/api';
 
-import heroSlide1 from '@/assets/hero-slide-1.jpg';
-import heroSlide2 from '@/assets/hero-slide-2.jpg';
-import heroSlide3 from '@/assets/hero-slide-3.jpg';
-
-const fallbackSlides = [
-  { image: heroSlide1, headline: 'Trusted Chartered Accountant Services', description: 'Helping businesses manage tax, compliance, and financial growth with precision and integrity.', cta: { label: 'Schedule a Consultation', href: '/contact' } },
-  { image: heroSlide2, headline: 'Professional Tax & Compliance Solutions', description: 'Expert GST, audit, and regulatory compliance services tailored for your business needs.', cta: { label: 'Explore Services', href: '/services' } },
-  { image: heroSlide3, headline: 'Strategic Financial Advisory for Growth', description: 'Helping startups and enterprises scale with confidence through data-driven financial strategies.', cta: { label: 'Get Started', href: '/contact' } },
-];
-
-const localImages = [heroSlide1, heroSlide2, heroSlide3];
-
-const HeroSlider = () => {
+const HeroSlider = ({ data }: { data?: any }) => {
   const [current, setCurrent] = useState(0);
-  const [slides, setSlides] = useState(fallbackSlides);
+
+  let slides: any[] = [];
+  
+  if (data?.textContent) {
+    const tc = data.textContent;
+    const ctaLabel = tc.cta || 'Get Started';
+
+    if (Array.isArray(tc.slides) && tc.slides.length > 0) {
+      slides = tc.slides.map((s: any) => ({
+        image: s.img ? getImageUrl(s.img) : '',
+        headline: s.title || '',
+        description: s.subtitle || '',
+        cta: { label: ctaLabel, href: '/contact' },
+      })).filter((s: any) => s.image || s.headline);
+    } else if (tc.heading) {
+      slides = [{
+        image: data.imageUrl ? getImageUrl(data.imageUrl) : '',
+        headline: tc.heading,
+        description: tc.subheading || '',
+        cta: { label: ctaLabel, href: '/contact' },
+      }];
+    }
+  }
+
+  const next = useCallback(() => {
+    if (slides.length > 0) {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }
+  }, [slides.length]);
 
   useEffect(() => {
-    getPageData('home').then((page) => {
-      if (!page) return;
-      const heroSection = page.sections?.find((s: any) => s.type === 'hero');
-      if (!heroSection?.textContent) return;
-      const tc = heroSection.textContent;
-      const ctaLabel = tc.cta || 'Get Started';
-
-      // Use slides array if present
-      if (Array.isArray(tc.slides) && tc.slides.length > 0) {
-        const cmsSlides = tc.slides.map((s: any, i: number) => ({
-          image: s.img ? getImageUrl(s.img) : localImages[i % localImages.length],
-          headline: s.title || fallbackSlides[i]?.headline || '',
-          description: s.subtitle || fallbackSlides[i]?.description || '',
-          cta: { label: ctaLabel, href: '/contact' },
-        }));
-        setSlides(cmsSlides);
-        return;
-      }
-
-      // Fallback: use section-level heading/subheading as single slide
-      if (tc.heading) {
-        setSlides([{
-          image: heroSection.imageUrl ? getImageUrl(heroSection.imageUrl) : localImages[0],
-          headline: tc.heading,
-          description: tc.subheading || '',
-          cta: { label: ctaLabel, href: '/contact' },
-        }]);
-      }
-    });
-  }, []);
-
-  const next = useCallback(() => setCurrent((prev) => (prev + 1) % slides.length), [slides.length]);
-
-  useEffect(() => {
+    if (slides.length <= 1) return;
     const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, slides.length]);
+
+  if (!slides || slides.length === 0) {
+    return null;
+  }
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ backgroundColor: '#06142b' }}>
@@ -71,7 +58,9 @@ const HeroSlider = () => {
           transition={{ duration: 0.8, ease: 'easeInOut' }}
           className="absolute inset-0"
         >
-          <img src={slides[current].image} alt={slides[current].headline} className="w-full h-full object-cover" />
+          {slides[current].image && (
+            <img src={slides[current].image} alt={slides[current].headline} className="w-full h-full object-cover" />
+          )}
           <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(6,20,60,0.9) 0%, rgba(8,24,56,0.78) 50%, rgba(12,30,72,0.65) 100%)' }} />
         </motion.div>
       </AnimatePresence>
@@ -93,7 +82,7 @@ const HeroSlider = () => {
               <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto leading-relaxed text-center font-sans">{slides[current].description}</p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Button variant="hero" size="lg" asChild>
-                  <Link to={slides[current].cta.href}>{slides[current].cta.label} <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                  <Link to={slides[current].cta?.href || '/contact'}>{slides[current].cta?.label || 'Get Started'} <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
                 <Button variant="hero-outline" size="lg" asChild>
                   <Link to="/services">Our Services</Link>
@@ -104,16 +93,18 @@ const HeroSlider = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'w-8 bg-white' : 'w-2 bg-white/40 hover:bg-white/60'}`}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
-      </div>
+      {slides.length > 1 && (
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'w-8 bg-white' : 'w-2 bg-white/40 hover:bg-white/60'}`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
