@@ -17,3 +17,19 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+User-agent: Bingbot
+Allow: /
+Allow: /admin
+
+User-agent: Twitterbot
+Allow: /
+Allow: /admin
+
+User-agent: facebookexternalhit
+Allow: /
+Allow: /admin
+
+User-agent: *
+Allow: /
+Allow: /admin
