@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Target, Eye, Award, Users, Code, TrendingUp, User } from 'lucide-react'
+import { Target, Eye, Award, Users, Code, TrendingUp, User, Linkedin } from 'lucide-react'
 import Link from 'next/link'
 
 export default function AboutContent() {
@@ -24,16 +24,14 @@ export default function AboutContent() {
   ]
 
   const team = [
-    { name: 'Deepak Gupta', role: 'Founder & CEO', image: '/Deepak-gupta.jpeg' },
-    { name: 'Raja Mehta', role: 'Manager', image: '/Raja.jpeg' },
-    { name: 'Deepak Sharma', role: 'Software Developer', image: '/Deepak.webp' },
-    { name: 'Sagar Gupta', role: 'Software Developer', image: '/sagar.jpeg' },
-    { name: 'Rohit', role: 'Software Developer', image: '/Rohit.jpeg' },
-    { name: 'Kirtika', role: 'Digital Marketing Executive', image: '/Kirtika.jpeg' },
-    { name: 'Mahima Gupta', role: 'Sales operations manager', image: '/Mahima.png' },
-    { name: 'Chanchal', role: 'Client Relations Specialist', image: '/Chanchal.jpeg' },
-    
-    
+    { name: 'Deepak Gupta', role: 'Founder & CEO', image: '/Deepak-gupta.jpeg', linkedin: 'https://www.linkedin.com/in/ca-deepak-gupta-/' },
+    { name: 'Raja Mehta', role: 'Manager', image: '/Raja.jpeg', linkedin: '' },
+    { name: 'Deepak Sharma', role: 'Software Developer', image: '/Deepak.webp', linkedin: 'https://www.linkedin.com/in/deepak-sharma-588b33231?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
+    { name: 'Sagar Gupta', role: 'Software Developer', image: '/sagar.jpeg', linkedin: '' },
+    { name: 'Rohit', role: 'Software Developer', image: '/Rohit.jpeg', linkedin: '' },
+    { name: 'Kirtika', role: 'Digital Marketing Executive', image: '/Kirtika.jpeg', linkedin: 'https://www.linkedin.com/in/kirtika-prajapati-61087537b?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
+    { name: 'Mahima Gupta', role: 'Sales operations manager', image: '/Mahima.png', linkedin: 'https://www.linkedin.com/in/mahima-gupta-39562b244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
+    { name: 'Chanchal', role: 'Client Relations Specialist', image: '/Chanchal.jpeg', linkedin: '' },
   ]
 
   const stats = [
@@ -196,9 +194,20 @@ export default function AboutContent() {
                     return <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-400 to-blue-500"><Icon className="w-12 h-12 text-white" /></div>
                   })()
                 )}
-                <div className="relative z-10 bg-black/60 w-full p-4 text-center">
-                  <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
-                  <p className="text-gray-200 text-sm">{member.role}</p>
+                <div className="relative z-10 bg-black/60 w-full p-4 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
+                    <p className="text-gray-200 text-sm">{member.role}</p>
+                  </div>
+                  <a
+                    href={ (member as any).linkedin || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-4 text-white/90 hover:text-primary-300 transition-colors"
+                    aria-label={`Open ${member.name} on LinkedIn`}
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
                 </div>
               </motion.div>
             ))}
