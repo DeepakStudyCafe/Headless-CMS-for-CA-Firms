@@ -1,15 +1,30 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
-import { testimonials } from "@/lib/constants";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
-const TestimonialsSection = () => {
+const TestimonialsSection = ({ data }: { data?: any }) => {
   const [active, setActive] = useState(0);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
-  const next = useCallback(() => setActive((p) => (p + 1) % testimonials.length), []);
-  const prev = useCallback(() => setActive((p) => (p - 1 + testimonials.length) % testimonials.length), []);
+  const tc = data?.textContent || {};
+  const label = tc.label || 'Testimonials';
+  const heading = tc.heading || 'What Our Clients Say';
+  const DEFAULT_TESTIMONIALS = [
+    { quote: "Their meticulous approach to tax planning saved our company over ₹2 crore in the first year alone.", name: "Vikram Mehta", role: "CEO, TechVista Solutions", stars: 5 },
+    { quote: "The team's dedication to compliance and their proactive advisory approach has been invaluable.", name: "Ananya Singh", role: "Founder, GreenLeaf Organics", stars: 5 },
+    { quote: "Professional, responsive, and incredibly knowledgeable. Trusted partners for over a decade.", name: "Ravi Kumar", role: "Director, Kumar Industries", stars: 5 },
+    { quote: "From GST filing to strategic planning, they handle everything with precision.", name: "Deepika Joshi", role: "MD, Horizon Exports", stars: 5 },
+  ];
+  const testimonials = (tc.items || DEFAULT_TESTIMONIALS).map((t: any) => ({
+    quote: t.quote || t.review || '',
+    name: t.name || '',
+    role: t.role || t.designation || '',
+    stars: Number(t.stars) || 5,
+  }));
+
+  const next = useCallback(() => setActive((p) => (p + 1) % testimonials.length), [testimonials.length]);
+  const prev = useCallback(() => setActive((p) => (p - 1 + testimonials.length) % testimonials.length), [testimonials.length]);
 
   useEffect(() => {
     const t = setInterval(next, 4000);
@@ -30,8 +45,8 @@ const TestimonialsSection = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <span className="font-mono-label text-[11px] text-gold-muted tracking-[3px] uppercase">Testimonials</span>
-          <h2 className="font-display text-4xl lg:text-6xl text-ink font-semibold mt-3">What Our Clients Say</h2>
+          <span className="font-mono-label text-[11px] text-gold-muted tracking-[3px] uppercase">{label}</span>
+          <h2 className="font-display text-4xl lg:text-6xl text-ink font-semibold mt-3">{heading}</h2>
         </motion.div>
 
         {/* Cards */}

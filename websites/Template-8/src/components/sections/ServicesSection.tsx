@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { services } from "@/lib/constants";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { Calculator, FileCheck, ShieldCheck, Building, TrendingUp, Briefcase } from "lucide-react";
 
@@ -13,9 +12,27 @@ const iconMap: Record<string, React.ElementType> = {
   briefcase: Briefcase,
 };
 
-const ServicesSection = () => {
+const ServicesSection = ({ data }: { data?: any }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  const tc = data?.textContent || {};
+  const label = tc.label || 'What We Offer';
+  const heading = tc.heading || 'Our Core Services';
+  const DEFAULT_SERVICES = [
+    { num: "01", title: "Tax Planning & Advisory", desc: "Strategic tax planning and advisory services to minimize liabilities and maximize savings for individuals and corporations.", icon: "calculator" },
+    { num: "02", title: "GST Compliance & Filing", desc: "End-to-end GST registration, return filing, and compliance management.", icon: "file-check" },
+    { num: "03", title: "Audit & Assurance", desc: "Comprehensive statutory, internal, and tax audits with detailed reporting.", icon: "shield-check" },
+    { num: "04", title: "Company Registration", desc: "Seamless incorporation services for private limited, LLP, OPC, and other business structures.", icon: "building" },
+    { num: "05", title: "Financial Planning", desc: "Holistic financial planning and wealth management strategies tailored to your long-term goals.", icon: "trending-up" },
+    { num: "06", title: "Business Advisory", desc: "Expert guidance on business strategy, restructuring, mergers, and operational optimization.", icon: "briefcase" },
+  ];
+  const services = (tc.items || DEFAULT_SERVICES).map((s: any, i: number) => ({
+    num: s.num || String(i + 1).padStart(2, '0'),
+    title: s.title || '',
+    desc: s.description || s.desc || '',
+    icon: s.icon || 'briefcase',
+  }));
 
   return (
     <section id="services" className="relative py-24 bg-fog overflow-hidden">
@@ -33,10 +50,10 @@ const ServicesSection = () => {
           transition={{ duration: 0.7 }}
           className="mb-16"
         >
-          <span className="font-mono-label text-[11px] text-gold-muted tracking-[3px] uppercase">What We Offer</span>
+          <span className="font-mono-label text-[11px] text-gold-muted tracking-[3px] uppercase">{label}</span>
           <div className="flex items-start gap-4 mt-3">
             <div className="w-1 h-14 bg-gold mt-1" />
-            <h2 className="font-display text-4xl lg:text-6xl text-ink font-semibold">Our Core Services</h2>
+            <h2 className="font-display text-4xl lg:text-6xl text-ink font-semibold">{heading}</h2>
           </div>
         </motion.div>
 
@@ -48,7 +65,7 @@ const ServicesSection = () => {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {services.map((service, i) => {
-            const Icon = iconMap[service.icon];
+            const Icon = iconMap[service.icon] || Briefcase;
             return <ServiceCard key={service.num} service={service} Icon={Icon} index={i} />;
           })}
         </motion.div>
@@ -62,7 +79,7 @@ const ServiceCard = ({
   Icon,
   index,
 }: {
-  service: (typeof services)[0];
+  service: any;
   Icon: React.ElementType;
   index: number;
 }) => {

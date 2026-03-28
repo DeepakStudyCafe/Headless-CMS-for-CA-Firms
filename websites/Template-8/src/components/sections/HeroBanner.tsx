@@ -1,23 +1,39 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { heroSlides, marqueeText } from "@/lib/constants";
 import { wordReveal } from "@/lib/animations";
 import { ChevronDown } from "lucide-react";
 
-const HeroBanner = () => {
+const HeroBanner = ({ data }: { data?: any }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const tc = data?.textContent || {};
+  const DEFAULT_SLIDES = [
+    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920",
+    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920",
+    "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=1920",
+  ];
+  const heroSlides = (tc.slides || []).length > 0
+    ? tc.slides.map((s: any) => typeof s === 'string' ? s : (s.img || s.image || ''))
+    : DEFAULT_SLIDES;
+  const marqueeText = tc.ticker || "Tax Planning • GST Filing • Audit & Assurance • Company Registration • Financial Advisory • Business Compliance • FEMA Consulting • ";
+  const label = tc.label || 'Chartered Accountants — Est. 2005';
+  const subheading = tc.subheading || 'Empowering businesses with strategic financial solutions, regulatory compliance, and trusted advisory services.';
+  const cta = tc.cta || 'Explore Services';
+  const secondaryCta = tc.secondaryCta || 'Our Approach →';
+
+  const headingLine1 = tc.line1 || "Precision. Trust.";
+  const headingLine2 = tc.line2 || "Financial Excellence.";
+  const line1Words = headingLine1.split(' ');
+  const line2Words = headingLine2.split(' ');
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  }, []);
+  }, [heroSlides.length]);
 
   useEffect(() => {
     const timer = setInterval(nextSlide, 6000);
     return () => clearInterval(timer);
   }, [nextSlide]);
-
-  const line1Words = ["Precision.", "Trust."];
-  const line2Words = ["Financial", "Excellence."];
 
   return (
     <section id="home" className="relative w-full">
@@ -59,7 +75,7 @@ const HeroBanner = () => {
           >
             <span className="w-12 h-[1px] bg-gold" />
             <span className="font-mono-label text-[11px] text-gold tracking-[3px] uppercase">
-              Chartered Accountants — Est. 2005
+              {label}
             </span>
             <span className="w-12 h-[1px] bg-gold" />
           </motion.div>
@@ -68,7 +84,7 @@ const HeroBanner = () => {
           <h1 className="mb-6">
             <span className="block">
               {line1Words.map((word, i) => (
-                <span key={word} className="inline-block overflow-hidden mr-4">
+                <span key={word + i} className="inline-block overflow-hidden mr-4">
                   <motion.span
                     className="inline-block font-display text-5xl sm:text-7xl lg:text-[88px] font-light italic text-cream leading-none"
                     custom={i}
@@ -83,7 +99,7 @@ const HeroBanner = () => {
             </span>
             <span className="block mt-2">
               {line2Words.map((word, i) => (
-                <span key={word} className="inline-block overflow-hidden mr-4">
+                <span key={word + i} className="inline-block overflow-hidden mr-4">
                   <motion.span
                     className="inline-block font-display text-5xl sm:text-7xl lg:text-[88px] font-semibold text-cream leading-none"
                     custom={i + line1Words.length}
@@ -105,7 +121,7 @@ const HeroBanner = () => {
             transition={{ delay: 1.4, duration: 0.6 }}
             className="font-body text-lg text-mist max-w-[520px] mb-10"
           >
-            Empowering businesses with strategic financial solutions, regulatory compliance, and trusted advisory services.
+            {subheading}
           </motion.p>
 
           {/* CTAs */}
@@ -119,13 +135,13 @@ const HeroBanner = () => {
               href="#services"
               className="shimmer-btn px-8 py-3.5 font-body text-sm font-medium text-primary-foreground rounded-sm hover:scale-[1.03] active:scale-[0.97] transition-transform"
             >
-              Explore Services
+              {cta}
             </a>
             <a
               href="#about"
               className="px-8 py-3.5 font-body text-sm font-medium text-cream border border-cream/30 rounded-sm hover:bg-gold hover:text-primary-foreground hover:border-gold transition-all duration-300 active:scale-[0.97]"
             >
-              Our Approach →
+              {secondaryCta}
             </a>
           </motion.div>
         </div>

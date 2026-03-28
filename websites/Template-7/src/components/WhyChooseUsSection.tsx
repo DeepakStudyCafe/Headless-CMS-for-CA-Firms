@@ -1,17 +1,31 @@
 import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useState } from 'react';
+import { getImageUrl } from '@/lib/api';
 
-const features = [
+const DEFAULT_FEATURES = [
   { title: 'Dedicated Team of Experts', desc: 'A qualified team of CAs, CS, and legal professionals delivering comprehensive financial solutions.' },
   { title: 'Technology-Driven Approach', desc: 'We leverage cutting-edge tools for accurate, efficient financial management and real-time reporting.' },
   { title: 'Transparent Communication', desc: 'Regular updates, clear reporting, and a single point of contact — always accessible.' },
   { title: '100% Compliance Guarantee', desc: 'We ensure every filing meets regulatory deadlines with zero penalties, every single time.' },
 ];
 
-export default function WhyChooseUsSection() {
+export default function WhyChooseUsSection({ data }: { data?: any }) {
   const { ref, isVisible } = useIntersectionObserver(0.2);
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
+
+  const tc = data?.textContent || {};
+  const label = tc.label || 'WHY US';
+  const heading = tc.heading || 'Trusted. Expert. Always.';
+  const quote = tc.quote || '"More than compliance — we build lasting financial clarity."';
+  const badge = tc.badge || 'Trusted Since 2005';
+  const ctaLabel = tc.cta || 'Our Story';
+  const imageUrl = data?.imageUrl ? getImageUrl(data.imageUrl) : 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900';
+
+  const features = (tc.items || DEFAULT_FEATURES).map((f: any) => ({
+    title: f.title || '',
+    desc: f.description || f.desc || '',
+  }));
 
   return (
     <section ref={ref} className="py-20 overflow-hidden" style={{ background: '#FFFFFF' }}>
@@ -34,8 +48,8 @@ export default function WhyChooseUsSection() {
 
             <div className="relative overflow-hidden rounded-2xl z-[1] group-hover:scale-[1.03] transition-transform duration-500">
               <img
-                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900"
-                alt="Professional handshake symbolizing trust and partnership"
+                src={imageUrl}
+                alt="Professional partnership symbolizing trust"
                 className="w-full h-[380px] lg:h-[460px] object-cover transition-[filter] duration-[1s] ease-out"
                 style={{ filter: isVisible ? 'grayscale(0%)' : 'grayscale(80%)' }}
                 data-cursor="image"
@@ -47,7 +61,7 @@ export default function WhyChooseUsSection() {
               className="absolute -bottom-4 right-6 z-[2] font-body text-[12px] font-semibold px-[18px] py-[10px] rounded-lg shadow-lg"
               style={{ background: '#2D2D2D', color: '#FAF8F3' }}
             >
-              Trusted Since 2005
+              {badge}
             </div>
           </motion.div>
 
@@ -58,13 +72,13 @@ export default function WhyChooseUsSection() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           >
             <span className="font-body text-[10px] font-semibold tracking-[2.5px] uppercase block mb-2" style={{ color: '#C8A96E' }}>
-              WHY DIGITECHCA
+              {label}
             </span>
             <h2 className="font-display font-semibold mb-3" style={{ fontSize: 'clamp(26px, 3vw, 40px)', lineHeight: 1.12, letterSpacing: '-0.015em', color: '#2D2D2D' }}>
-              Trusted. Expert. Always.
+              {heading}
             </h2>
             <p className="font-accent italic text-[16px] leading-[1.8] mb-4" style={{ color: '#6B6B6B' }}>
-              "More than compliance — we build lasting financial clarity."
+              {quote}
             </p>
 
             {/* Accent rule */}
@@ -115,7 +129,7 @@ export default function WhyChooseUsSection() {
               className="inline-block mt-6 font-body text-[13px] font-medium relative group/link transition-all duration-300"
               style={{ color: '#2D2D2D' }}
             >
-              Our Story →
+              {ctaLabel} →
               <span
                 className="absolute bottom-0 left-0 w-full h-[1px] origin-left scale-x-0 group-hover/link:scale-x-100 transition-transform duration-300"
                 style={{ background: '#C8A96E' }}
