@@ -2,7 +2,7 @@ export const HERO_SLIDES = [
   {
     img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600",
     title: "Nearly Three Decades of Financial Excellence",
-    subtitle: "Sterling & Co. — trusted by 2,500+ businesses for taxation, compliance, and strategic financial advisory since 1995.",
+    subtitle: "Abhishek Raja Ram & Co. — trusted by 2,500+ businesses for taxation, compliance, and strategic financial advisory since 1995.",
   },
   {
     img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600",
@@ -87,7 +87,7 @@ export const TESTIMONIALS = [
   {
     name: "Rajesh Mehta",
     designation: "CEO, TechVault India",
-    review: "Sterling & Co. transformed our financial operations. Their expertise in tax planning saved us over 30% in the first year.",
+    review: "Abhishek Raja Ram & Co. transformed our financial operations. Their expertise in tax planning saved us over 30% in the first year.",
     rating: 5,
     image: "",
   },
@@ -101,7 +101,7 @@ export const TESTIMONIALS = [
   {
     name: "Amit Patel",
     designation: "Founder, NexGen Solutions",
-    review: "The team at Sterling & Co. goes above and beyond. Their advisory services have been invaluable to our expansion.",
+    review: "The team at Abhishek Raja Ram & Co. goes above and beyond. Their advisory services have been invaluable to our expansion.",
     rating: 5,
     image: "",
   },
@@ -153,7 +153,7 @@ export const TEAM_MEMBERS = [
 ];
 
 export const COMPANY_TIMELINE = [
-  { year: "1995", title: "Founded", description: "Sterling & Co. established in Mumbai as a boutique CA practice." },
+  { year: "1995", title: "Founded", description: "Abhishek Raja Ram & Co. established in Mumbai as a boutique CA practice." },
   { year: "2002", title: "100 Clients", description: "Crossed 100 active clients milestone and expanded the team." },
   { year: "2008", title: "Full Service Firm", description: "Expanded into financial advisory, company formation, and compliance." },
   { year: "2014", title: "Technology Adoption", description: "Introduced cloud-based accounting and digital filing systems." },
