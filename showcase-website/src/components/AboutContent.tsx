@@ -32,7 +32,7 @@ export default function AboutContent() {
     { name: 'Deepanshi Rohilla', role: 'Digital Marketing Executive', image: '/dipancy.jpeg', linkedin: 'https://www.linkedin.com/in/deepanshi-rohilla-206657290?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
     { name: 'Kirtika', role: 'Digital Marketing Executive', image: '/Kirtika.jpeg', linkedin: 'https://www.linkedin.com/in/kirtika-prajapati-61087537b?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
     
-    { name: 'Chanchal', role: 'Client Relations Specialist', image: '/Chanchal.jpeg', linkedin: 'https://www.linkedin.com/in/chanchal-sharma-668190396?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
+    { name: 'Chanchal', role: 'Client Relations Specialist', image: '/chanchal.jpeg', linkedin: 'https://www.linkedin.com/in/chanchal-sharma-668190396?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
   ]
 
   const stats = [
