@@ -24,8 +24,8 @@ const Gallery = () => {
     <Layout>
       {heroSection && (
         <PageHero
-          title={heroSection.textContent?.heading?.replace(/\\s\\S+\\s\\S+$/, '') || ''}
-          highlight={heroSection.textContent?.heading?.split(' ').slice(-2).join(' ') || ''}
+          title={heroSection.textContent?.titleMain || heroSection.textContent?.heading || ''}
+          highlight={heroSection.textContent?.highlight || heroSection.textContent?.titleHighlight || ''}
           subtitle={heroSection.textContent?.subheading || ''}
           image={heroSection.imageUrl ? getImageUrl(heroSection.imageUrl) : ''}
           breadcrumb={[{ label: 'Gallery' }]}
@@ -35,12 +35,6 @@ const Gallery = () => {
       {images.length > 0 && (
         <section className="section-padding">
           <div className="container-max mx-auto">
-            {gallerySection?.textContent?.heading && (
-              <ScrollReveal>
-                <h2 className="heading-lg text-foreground text-center mb-8">{gallerySection.textContent.heading}</h2>
-              </ScrollReveal>
-            )}
-            
             {categories.length > 0 && (
               <div className="flex justify-center flex-wrap gap-2 mb-12">
                 <button

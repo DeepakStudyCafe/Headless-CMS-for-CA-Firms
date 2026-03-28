@@ -21,10 +21,11 @@ const About = () => {
   }, []);
 
   const heroSection = pageData?.sections?.find((s: any) => s.type === 'hero');
-  const featuresSection = pageData?.sections?.find((s: any) => s.type === 'features' && s.order <= 3);
+  const allFeatureSections = pageData?.sections?.filter((s: any) => s.type === 'features') || [];
+  const featuresSection = allFeatureSections[0] || null;  // Mission & Vision
+  const whyChooseSection = allFeatureSections[1] || null; // Why Choose Us (second features section)
   const valuesSection = pageData?.sections?.find((s: any) => s.type === 'text-image');
   const timelineSection = pageData?.sections?.find((s: any) => s.type === 'timeline');
-  const whyChooseSection = pageData?.sections?.find((s: any) => s.type === 'features' && s.order > 3);
   const ctaSection = pageData?.sections?.find((s: any) => s.type === 'cta');
 
   const missionVision = featuresSection?.textContent?.items || [];
@@ -36,8 +37,8 @@ const About = () => {
     <Layout>
       {heroSection && (
         <PageHero
-          title={heroSection.textContent?.heading?.replace(/\\s\\S+\\s\\S+$/, '') || ''}
-          highlight={heroSection.textContent?.heading?.split(' ').slice(-2).join(' ') || ''}
+          title={heroSection.textContent?.titleMain || heroSection.textContent?.heading || ''}
+          highlight={heroSection.textContent?.highlight || heroSection.textContent?.titleHighlight || ''}
           subtitle={heroSection.textContent?.subheading || ''}
           image={heroSection.imageUrl ? getImageUrl(heroSection.imageUrl) : ''}
           breadcrumb={[{ label: 'About Us' }]}
@@ -82,8 +83,17 @@ const About = () => {
               <div className="text-center mb-16">
                 <span className="text-xs font-medium uppercase tracking-wider text-accent">{valuesSection.textContent?.label || 'Our Foundation'}</span>
                 <h2 className="heading-lg text-foreground mt-2">{valuesSection.textContent?.heading}</h2>
+                {valuesSection.textContent?.description && <p className="text-body mt-4 max-w-2xl mx-auto">{valuesSection.textContent.description}</p>}
               </div>
             </ScrollReveal>
+            {/* Show section image if uploaded */}
+            {valuesSection.imageUrl && (
+              <ScrollReveal>
+                <div className="mb-14 rounded-2xl overflow-hidden max-h-80">
+                  <img src={getImageUrl(valuesSection.imageUrl)} alt={valuesSection.textContent?.heading || 'Core Values'} className="w-full h-full object-cover" />
+                </div>
+              </ScrollReveal>
+            )}
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {values.map((v: any, i: number) => {
                 const Icon = iconMap[v.icon] || Shield;
