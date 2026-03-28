@@ -124,37 +124,7 @@ const ServiceDetail = () => {
         </section>
       )}
 
-      {/* Pricing */}
-      {pricingTiers.length > 0 && (
-        <section className="section-padding">
-          <div className="container-max mx-auto max-w-4xl">
-            <ScrollReveal>
-              <h2 className="heading-md text-foreground mb-8 font-sans text-center">{pricingSection?.textContent?.heading || 'Transparent Pricing'}</h2>
-            </ScrollReveal>
-            <div className="grid sm:grid-cols-3 gap-6">
-              {pricingTiers.map((tier: any, i: number) => (
-                <ScrollReveal key={tier.name || i} delay={i * 0.1}>
-                  <div className={`card-premium p-8 text-center h-full flex flex-col ${i === 1 ? 'ring-2 ring-accent' : ''}`}>
-                    <h4 className="font-semibold text-foreground font-sans mb-2">{tier.name}</h4>
-                    <div className="heading-md text-accent mb-4">{tier.price}</div>
-                    <ul className="text-sm text-muted-foreground space-y-2 flex-1 mb-6">
-                      {(tier.features || []).map((f: string, fi: number) => (
-                        <li key={fi} className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-accent shrink-0" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                    <Button variant={i === 1 ? 'navy' : 'outline'} size="sm" asChild>
-                      <Link to="/contact">Get Started</Link>
-                    </Button>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+     
 
       {/* FAQs */}
       {faqs.length > 0 && (

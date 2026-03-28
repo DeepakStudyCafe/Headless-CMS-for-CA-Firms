@@ -18,7 +18,8 @@ const WEBSITE_EMAILS = {
   'firm5-singh': process.env.FIRM5_EMAIL || 'singh.contact@gmail.com',
   'firm6-patel': process.env.FIRM6_EMAIL || 'patel.contact@gmail.com',
   'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com',
-  'showcase-website': process.env.SHOWCASE_EMAIL || 'info@studycafe.in'
+  'showcase-website': process.env.SHOWCASE_EMAIL || 'info@studycafe.in',
+  'abhishekrajaram': 'sdeepakncy@gmail.com'
 };
 
 // Website names mapping
@@ -30,7 +31,8 @@ const WEBSITE_NAMES = {
   'firm5-singh': process.env.FIRM5_NAME || 'Singh & Partners',
   'firm6-patel': process.env.FIRM6_NAME || 'Patel Group',
   'template-4': process.env.TEMPLATE_4_NAME || 'Arvind Gupta & Associates',
-  'showcase-website': process.env.SHOWCASE_NAME || 'StudyCafe Showcase'
+  'showcase-website': process.env.SHOWCASE_NAME || 'StudyCafe Showcase',
+  'abhishekrajaram': 'Abhishek Rajaram CA Firm'
 };
 
 // Email sender function
@@ -69,177 +71,61 @@ export const sendEmail = async (
 
 
 
+// Helper for dynamically building email tables
+const formatKey = (k: string) => k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).trim();
+
+const generateBaseEmail = (title: string, emoji: string, formData: any) => {
+  const exclude = ['website', 'websiteSlug', 'formType', 'subject'];
+  const escape = (v: any) => String(v).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  let rows = '';
+  for (const [key, value] of Object.entries(formData)) {
+    if (value === undefined || value === null || value === '' || exclude.includes(key)) continue;
+    rows += `
+      <tr>
+        <td style="padding:8px 10px; vertical-align:top; width:35%; font-weight:600; color:#333; font-size:13px;">${formatKey(key)}</td>
+        <td style="padding:8px 10px; vertical-align:top; color:#222; font-size:13px;">${escape(value)}</td>
+      </tr>`;
+  }
+
+  const content = rows
+    ? `<table role="presentation" style="width:100%; border-collapse:collapse;">${rows}</table>`
+    : '<p style="margin:0; color:#666; font-style:italic;">No specific fields were provided.</p>';
+
+  return `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New ${title} Submission</title>
+</head>
+<body style="margin:0; padding:0; background:#f6f7f8; font-family:Arial,Helvetica,sans-serif; color:#222;">
+  <div style="max-width:620px; margin:20px auto; padding:0 16px; box-sizing:border-box;">
+    <div style="background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <div style="background:#1e3c72; color:#fff; padding:18px 16px; text-align:left;">
+        <div style="font-size:16px; font-weight:700;">${emoji} New ${title} Submission</div>
+      </div>
+      <div style="padding:14px 16px;">
+        <div style="font-size:14px; font-weight:600; color:#1e3c72; margin-bottom:8px;">Submission Details</div>
+        <div style="margin-bottom:6px;">
+          ${content}
+        </div>
+      </div>
+      <div style="background:#fafbfc; padding:10px 16px; border-top:1px solid #eef0f2; font-size:12px; color:#6c757d; text-align:right;">
+        Received: ${new Date().toLocaleString()}
+      </div>
+    </div>
+    <div style="text-align:center; font-size:12px; color:#9aa0a6; margin-top:10px;">This email was generated from your website.</div>
+  </div>
+</body>
+</html>`;
+};
+
 // Email templates with modern design and emoji icons
-export const createContactEmailTemplate = (formData: any): string => {
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Contact Form Submission</title>
-  <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      line-height: 1.6; 
-      margin: 0; 
-      padding: 0; 
-      background-color: #f4f4f4; 
-    }
-    .email-container { 
-      max-width: 600px; 
-      margin: 0 auto; 
-      background: white; 
-      border-radius: 10px; 
-      overflow: hidden; 
-      box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-    }
-    .header { 
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-      color: white; 
-      padding: 30px; 
-      text-align: center; 
-    }
-    .header h1 { 
-      margin: 0; 
-      font-size: 24px; 
-      font-weight: 600; 
-    }
-    .content { 
-      padding: 30px; 
-    }
-    .section { 
-      margin-bottom: 25px; 
-      border-left: 4px solid #667eea; 
-      padding-left: 20px; 
-    }
-    .section-title { 
-      font-size: 18px; 
-      font-weight: 600; 
-      margin-bottom: 15px; 
-      color: #333; 
-    }
-    .field { 
-      margin-bottom: 12px; 
-    }
-    .field-label { 
-      font-weight: 600; 
-      color: #555; 
-      margin-bottom: 5px; 
-    }
-    .field-value { 
-      color: #333; 
-      background: #f8f9fa; 
-      padding: 8px 12px; 
-      border-radius: 4px; 
-      border: 1px solid #e9ecef; 
-    }
-    .footer { 
-      background: #f8f9fa; 
-      padding: 20px 30px; 
-      border-top: 1px solid #e9ecef; 
-      color: #6c757d; 
-      font-size: 14px; 
-    }
-  </style>
-</head>
-<body>
-  <div class="email-container">
-    <div class="header">
-      <h1>📧 New Contact Form Submission</h1>
-    </div>
-    
-    <div class="content">
-      <div class="section">
-        <div class="section-title">Contact Information</div>
-        <div class="field">
-          <div class="field-label">👤 Name:</div>
-          <div class="field-value">${formData.name || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">📧 Email:</div>
-          <div class="field-value">${formData.email || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">📱 Phone:</div>
-          <div class="field-value">${formData.phone || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">🏢 Company:</div>
-          <div class="field-value">${formData.company || 'Not provided'}</div>
-        </div>
-      </div>
+export const createContactEmailTemplate = (formData: any): string => generateBaseEmail('Contact', '📧', formData);
+export const createQueryEmailTemplate = (formData: any): string => generateBaseEmail('Query', '❓', formData);
+export const createCareerEmailTemplate = (formData: any): string => generateBaseEmail('Career', '💼', formData);
 
-      <div class="section">
-        <div class="section-title">Message</div>
-        <div class="field">
-          <div class="field-label">💬 Message:</div>
-          <div class="field-value">${formData.message || 'No message provided'}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <p>This email was sent from your website contact form</p>
-      <p>Received on: ${new Date().toLocaleString()}</p>
-    </div>
-  </div>
-</body>
-</html>`;
-};
-
-export const createQueryEmailTemplate = (formData: any): string => {
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Query Form Submission</title>
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin:0; }
-    .container { max-width:600px; margin:20px auto; background:#fff; border-radius:8px; padding:20px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
-    h1 { font-size:20px; margin:0 0 12px; }
-    .row { margin-bottom:12px; }
-    .label { font-weight:600; color:#333; margin-bottom:4px; }
-    .value { background:#f8f9fa; padding:8px 10px; border-radius:4px; border:1px solid #ececec; color:#222; }
-    .footer { font-size:13px; color:#666; margin-top:18px; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>❓ New Query Form Submission</h1>
-
-    <div class="row">
-      <div class="label">👤 Name</div>
-      <div class="value">${formData.name || 'Not provided'}</div>
-    </div>
-
-    <div class="row">
-      <div class="label">📧 Email</div>
-      <div class="value">${formData.email || 'Not provided'}</div>
-    </div>
-
-    <div class="row">
-      <div class="label">💼 Service</div>
-      <div class="value">${formData.serviceType || formData.service || 'Not specified'}</div>
-    </div>
-
-    <div class="row">
-      <div class="label">📝 Subject</div>
-      <div class="value">${formData.subjectOfQuery || formData.subject || 'No subject'}</div>
-    </div>
-
-    <div class="row">
-      <div class="label">💭 Query Details</div>
-      <div class="value">${formData.query || 'No query details provided'}</div>
-    </div>
-
-    <div class="footer">This email was sent from your website query form — Received on: ${new Date().toLocaleString()}</div>
-  </div>
-</body>
-</html>`;
-};
-
-// Specialized Query email template for Template-4 (only includes fields used by Template-4 form)
 export const createQueryEmailTemplateTemplate4 = (formData: any): string => {
   return `<!DOCTYPE html>
 <html>
@@ -292,146 +178,6 @@ export const createQueryEmailTemplateTemplate4 = (formData: any): string => {
 </html>`;
 };
 
-export const createCareerEmailTemplate = (formData: any): string => {
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Career Application</title>
-  <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      line-height: 1.6; 
-      margin: 0; 
-      padding: 0; 
-      background-color: #f4f4f4; 
-    }
-    .email-container { 
-      max-width: 600px; 
-      margin: 0 auto; 
-      background: white; 
-      border-radius: 10px; 
-      overflow: hidden; 
-      box-shadow: 0 0 20px rgba(0,0,0,0.1); 
-    }
-    .header { 
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-      color: white; 
-      padding: 30px; 
-      text-align: center; 
-    }
-    .header h1 { 
-      margin: 0; 
-      font-size: 24px; 
-      font-weight: 600; 
-    }
-    .content { 
-      padding: 30px; 
-    }
-    .section { 
-      margin-bottom: 25px; 
-      border-left: 4px solid #667eea; 
-      padding-left: 20px; 
-    }
-    .section-title { 
-      font-size: 18px; 
-      font-weight: 600; 
-      margin-bottom: 15px; 
-      color: #333; 
-    }
-    .field { 
-      margin-bottom: 12px; 
-    }
-    .field-label { 
-      font-weight: 600; 
-      color: #555; 
-      margin-bottom: 5px; 
-    }
-    .field-value { 
-      color: #333; 
-      background: #f8f9fa; 
-      padding: 8px 12px; 
-      border-radius: 4px; 
-      border: 1px solid #e9ecef; 
-    }
-    .footer { 
-      background: #f8f9fa; 
-      padding: 20px 30px; 
-      border-top: 1px solid #e9ecef; 
-      color: #6c757d; 
-      font-size: 14px; 
-    }
-  </style>
-</head>
-<body>
-  <div class="email-container">
-    <div class="header">
-      <h1>💼 New Career Application</h1>
-    </div>
-    
-    <div class="content">
-      <div class="section">
-        <div class="section-title">Personal Information</div>
-        <div class="field">
-          <div class="field-label">👤 Full Name:</div>
-          <div class="field-value">${formData.fullName || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">📧 Email:</div>
-          <div class="field-value">${formData.email || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">📱 Phone:</div>
-          <div class="field-value">${formData.phone || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">📍 Address:</div>
-          <div class="field-value">${formData.address || 'Not provided'}</div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Professional Information</div>
-        <div class="field">
-          <div class="field-label">💼 Position Applied For:</div>
-          <div class="field-value">${formData.position || 'Not specified'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">🎓 Education:</div>
-          <div class="field-value">${formData.education || 'Not provided'}</div>
-        </div>
-        <div class="field">
-          <div class="field-label">⏰ Experience:</div>
-          <div class="field-value">${formData.yearsOfExperience || 0} Year(s) ${formData.monthsOfExperience || 0} Month(s)</div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Additional Information</div>
-        <div class="field">
-          <div class="field-label">💭 Comments/Questions:</div>
-          <div class="field-value">${formData.comments || 'No additional comments'}</div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Resume</div>
-        <div class="field">
-          <div class="field-label">📎 Resume:</div>
-          <div class="field-value">${formData.resume ? 'Resume uploaded (check attachments)' : 'No resume uploaded'}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <p>This email was sent from your website career form</p>
-      <p>Received on: ${new Date().toLocaleString()}</p>
-    </div>
-  </div>
-</body>
-</html>`;
-};
 
 export const createShowcaseContactEmailTemplate = (formData: any): string => {
   return `<!DOCTYPE html>

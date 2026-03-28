@@ -40,10 +40,17 @@ const Career = () => {
   const onSubmit = async (data: CareerForm) => {
     setSubmitError('');
     try {
-      const res = await fetch(`${API_URL}/forms/submit`, {
+      // Need FormData since career endpoint expects upload.single('resume')
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value) formData.append(key, value as string);
+      });
+      formData.append('website', WEBSITE_SLUG);
+
+      const res = await fetch(`${API_URL}/forms/career`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, websiteSlug: WEBSITE_SLUG, formType: 'career' }),
+        // Omit Content-Type so browser sets it with boundary
+        body: formData,
       });
       if (!res.ok) throw new Error('Submission failed');
       setSubmitted(true);
@@ -100,36 +107,7 @@ const Career = () => {
         </section>
       )}
 
-      {/* Open Positions */}
-      {positions.length > 0 && (
-        <section className="section-padding gradient-subtle">
-          <div className="container-max mx-auto">
-            <ScrollReveal>
-              <h2 className="heading-lg text-foreground text-center mb-12">{careerSection?.textContent?.positionsHeading || 'Open Positions'}</h2>
-            </ScrollReveal>
-            <div className="max-w-4xl mx-auto space-y-4">
-              {positions.map((p: any, i: number) => (
-                <ScrollReveal key={p.title} delay={i * 0.08}>
-                  <div className="card-premium p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                      <h4 className="font-semibold text-foreground font-sans">{p.title}</h4>
-                      <div className="flex flex-wrap gap-3 mt-2">
-                        <span className="text-xs text-muted-foreground flex items-center gap-1"><Briefcase className="w-3 h-3" /> {p.department || p.dept}</span>
-                        <span className="text-xs text-muted-foreground flex items-center gap-1"><MapPin className="w-3 h-3" /> {p.location}</span>
-                        <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="w-3 h-3" /> {p.type}</span>
-                      </div>
-                      <span className="text-xs text-accent font-medium mt-1 inline-block">{p.experience || p.exp}</span>
-                    </div>
-                    <Button variant="navy" size="sm" onClick={() => formRef.current?.scrollIntoView({ behavior: 'smooth' })}>
-                      Apply Now
-                    </Button>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+     
 
       {/* Application Form */}
       {careerSection && (

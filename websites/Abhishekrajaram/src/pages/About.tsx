@@ -105,36 +105,34 @@ const About = () => {
       )}
 
       {/* Timeline */}
-      {timelineSection && timeline.length > 0 && (
-        <section className="section-padding">
-          <div className="container-max mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <span className="text-xs font-medium uppercase tracking-wider text-accent">{timelineSection.textContent?.label || 'Our Journey'}</span>
-                <h2 className="heading-lg text-foreground mt-2">{timelineSection.textContent?.heading}</h2>
-              </div>
-            </ScrollReveal>
-            <div className="max-w-3xl mx-auto space-y-0">
-              {timeline.map((item: any, i: number) => (
-                <ScrollReveal key={item.year || i} delay={i * 0.1}>
-                  <div className="flex gap-6 pb-10 relative">
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 rounded-full gradient-navy flex items-center justify-center text-primary-foreground font-bold text-xs shrink-0 z-10">
-                        {item.year}
-                      </div>
-                      {i < timeline.length - 1 && <div className="w-px flex-1 bg-border mt-2" />}
-                    </div>
-                    <div className="pt-2">
-                      <h4 className="font-semibold text-foreground font-sans">{item.title}</h4>
-                      <p className="text-sm text-muted-foreground mt-1">{item.description || item.desc}</p>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
+      <section className="section-padding">
+        <div className="container-max mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <span className="text-xs font-medium uppercase tracking-wider text-accent">Our Journey</span>
+              <h2 className="heading-lg text-foreground mt-2">{timelineSection?.textContent?.heading || 'Milestones'}</h2>
             </div>
+          </ScrollReveal>
+          <div className="max-w-3xl mx-auto space-y-0">
+            {timeline.map((item: any, i: number) => (
+              <ScrollReveal key={item.year || i} delay={i * 0.1}>
+                <div className="flex gap-6 pb-10 relative">
+                  <div className="flex flex-col items-center">
+                    <div className="w-12 h-12 rounded-full gradient-navy flex items-center justify-center text-primary-foreground font-bold text-xs shrink-0 z-10">
+                      {item.year}
+                    </div>
+                    {i < timeline.length - 1 && <div className="w-px flex-1 bg-border mt-2" />}
+                  </div>
+                  <div className="pt-2">
+                    <h4 className="font-semibold text-foreground font-sans">{item.title}</h4>
+                    <p className="text-sm text-muted-foreground mt-1">{item.description || item.desc}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Why Choose Us */}
       {whyChooseSection && whyChooseItems.length > 0 && (

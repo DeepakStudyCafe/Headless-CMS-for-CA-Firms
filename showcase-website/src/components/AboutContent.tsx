@@ -24,11 +24,16 @@ export default function AboutContent() {
   ]
 
   const team = [
-    { name: 'Deepak Gupta', role: 'Founder & CEO', image: '/DeepakGupta.webp' },
+    { name: 'Deepak Gupta', role: 'Founder & CEO', image: '/Deepak-gupta.jpeg' },
     { name: 'Raja Mehta', role: 'Manager', image: '/Raja.jpeg' },
     { name: 'Deepak Sharma', role: 'Software Developer', image: '/Deepak.webp' },
     { name: 'Sagar Gupta', role: 'Software Developer', image: '/sagar.jpeg' },
     { name: 'Rohit', role: 'Software Developer', image: '/Rohit.jpeg' },
+    { name: 'Kirtika', role: 'Digital Marketing Executive', image: '/Kirtika.jpeg' },
+    { name: 'Mahima Gupta', role: 'Sales operations manager', image: '/Mahima.png' },
+    { name: 'Chanchal', role: 'Client Relations Specialist', image: '/Chanchal.jpeg' },
+    
+    
   ]
 
   const stats = [

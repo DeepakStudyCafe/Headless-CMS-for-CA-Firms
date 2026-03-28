@@ -42,10 +42,10 @@ const Query = () => {
   const onSubmit = async (data: QueryForm) => {
     setSubmitError('');
     try {
-      const res = await fetch(`${API_URL}/forms/submit`, {
+      const res = await fetch(`${API_URL}/forms/query`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, websiteSlug: WEBSITE_SLUG, formType: 'query' }),
+        body: JSON.stringify({ ...data, website: WEBSITE_SLUG }),
       });
       if (!res.ok) throw new Error('Submission failed');
       setSubmitted(true);
