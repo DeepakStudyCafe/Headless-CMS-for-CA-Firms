@@ -153,7 +153,7 @@ export const TEAM_MEMBERS = [
 ];
 
 export const COMPANY_TIMELINE = [
-  { year: "1995", title: "Founded", description: "Abhishek Raja Ram & Co. established in Mumbai as a boutique CA practice." },
+  { year: "1995", title: "Founded", description: "Abhishek Raja Ram & Co. established in Mumbai as a boutique practice." },
   { year: "2002", title: "100 Clients", description: "Crossed 100 active clients milestone and expanded the team." },
   { year: "2008", title: "Full Service Firm", description: "Expanded into financial advisory, company formation, and compliance." },
   { year: "2014", title: "Technology Adoption", description: "Introduced cloud-based accounting and digital filing systems." },

@@ -41,10 +41,17 @@ const Career = () => {
   const onSubmit = async (data: CareerForm) => {
     setSubmitError('');
     try {
-      const res = await fetch(`${API_URL}/forms/submit`, {
+      // Need FormData since career endpoint expects upload.single('resume')
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value) formData.append(key, value as string);
+      });
+      formData.append('website', WEBSITE_SLUG);
+
+      const res = await fetch(`${API_URL}/forms/career`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, websiteSlug: WEBSITE_SLUG, formType: 'career' }),
+        // Omit Content-Type so browser sets it with boundary
+        body: formData,
       });
       if (!res.ok) throw new Error('Submission failed');
       setSubmitted(true);
@@ -110,7 +117,7 @@ const Career = () => {
       </section>
 
       {/* Open Positions */}
-      <section className="section-padding gradient-subtle">
+      {/* <section className="section-padding gradient-subtle">
         <div className="container-max mx-auto">
           <ScrollReveal>
             <h2 className="heading-lg text-foreground text-center mb-12">{careerSection?.textContent?.positionsHeading || 'Open Positions'}</h2>
@@ -136,7 +143,7 @@ const Career = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Application Form */}
       <section className="section-padding" ref={formRef}>

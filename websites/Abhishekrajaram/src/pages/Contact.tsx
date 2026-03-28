@@ -42,10 +42,10 @@ const Contact = () => {
   const onSubmit = async (data: ContactForm) => {
     setSubmitError('');
     try {
-      const res = await fetch(`${API_URL}/forms/submit`, {
+      const res = await fetch(`${API_URL}/forms/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, websiteSlug: WEBSITE_SLUG, formType: 'contact' }),
+        body: JSON.stringify({ ...data, website: WEBSITE_SLUG }),
       });
       if (!res.ok) throw new Error('Submission failed');
       setSubmitted(true);
@@ -138,20 +138,20 @@ const Contact = () => {
                       <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       <div>
                         <p className="text-sm font-medium text-foreground">Head Office</p>
-                        <p className="text-xs text-muted-foreground mt-1">{info.address || websiteData?.address || '42, Sterling Tower, Business Park, Andheri East, Mumbai 400001'}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{info.address || websiteData?.address || 'R-2, 2nd Floor, Main Market, Shakarpur, Delhi - 110092'}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <Phone className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       <div>
-                        <a href={`tel:${(info.phone || websiteData?.phone || '+91 123 456 7890').replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.phone || websiteData?.phone || '+91 123 456 7890'}</a>
+                        <a href={`tel:${(info.phone || websiteData?.phone || '+91 9810638155').replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.phone || websiteData?.phone || '+91 123 456 7890'}</a>
                         {(info.phone2) && <a href={`tel:${info.phone2.replace(/\s/g, '')}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.phone2}</a>}
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <Mail className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                       <div>
-                        <a href={`mailto:${info.email || websiteData?.email || 'info@sterlingco.in'}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.email || websiteData?.email || 'info@sterlingco.in'}</a>
+                        <a href={`mailto:${info.email || websiteData?.email || 'support@abhishekrajaram.com'}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.email || websiteData?.email || 'info@sterlingco.in'}</a>
                         {(info.email2) && <a href={`mailto:${info.email2}`} className="text-sm text-muted-foreground hover:text-foreground transition-colors block">{info.email2}</a>}
                       </div>
                     </div>
@@ -160,7 +160,7 @@ const Contact = () => {
                       <div>
                         {typeof info.workingHours === 'object'
                           ? Object.values(info.workingHours).filter(Boolean).map((h: any, i: number) => <p key={i} className="text-sm text-muted-foreground">{h}</p>)
-                          : <p className="text-sm text-muted-foreground">{info.workingHours || websiteData?.workingHours || 'Mon - Fri: 9:30 AM - 6:30 PM'}</p>
+                          : <p className="text-sm text-muted-foreground">{info.workingHours || websiteData?.workingHours || 'Mon - Sat : 9:00 AM - 9:00 PM'}</p>
                         }
                       </div>
                     </div>
@@ -171,7 +171,7 @@ const Contact = () => {
               <ScrollReveal delay={0.2}>
                 <div className="card-premium overflow-hidden">
                   <iframe
-                    src={cc.mapUrl || info.mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.006!2d72.8544!3d19.1136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA2JzQ5LjAiTiA3MsKwNTEnMTUuOCJF!5e0!3m2!1sen!2sin!4v1234567890"}
+                    src={cc.mapUrl || info.mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7004.099037652451!2d77.27015419259529!3d28.628277939798778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3c43046bc03%3A0x9b1570fa0060328f!2sShakarpur%20main%20market!5e0!3m2!1sen!2sin!4v1774616913910!5m2!1sen!2sin"}
                     width="100%"
                     height="250"
                     style={{ border: 0 }}

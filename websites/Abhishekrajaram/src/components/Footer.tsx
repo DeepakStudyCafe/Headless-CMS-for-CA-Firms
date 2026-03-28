@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, Youtube, X } from 'lucide-react';
 import { getWebsiteData } from '@/lib/api';
 
 const Footer = () => {
@@ -21,12 +21,13 @@ const Footer = () => {
   const firmName = data?.name || 'Sterling & Co.';
 
   const socials = [
-    { key: 'facebook', icon: Facebook, url: fc.facebook },
-    { key: 'twitter', icon: Twitter, url: fc.twitter },
-    { key: 'linkedin', icon: Linkedin, url: fc.linkedin },
-    { key: 'instagram', icon: Instagram, url: fc.instagram },
-    { key: 'youtube', icon: Youtube, url: fc.youtube },
-  ].filter(s => s.url);
+    { key: 'linkedin', icon: Linkedin, url: fc.linkedin || '#' },
+    { key: 'twitter', icon: X, url: fc.twitter || '#' },
+    { key: 'facebook', icon: Facebook, url: fc.facebook || '#' },
+    { key: 'instagram', icon: Instagram, url: fc.instagram || '#' },
+    { key: 'youtube', icon: Youtube, url: fc.youtube || '#' },
+    
+  ];
 
   return (
     <footer className="gradient-navy text-primary-foreground mt-[0.1rem]">
@@ -87,28 +88,27 @@ const Footer = () => {
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0" /> {address}
               </p>
             </div>
-            {socials.length > 0 && (
-              <div className="flex gap-3 mt-6">
-                {socials.map(({ key, icon: Icon, url }) => (
-                  <a key={key} href={url} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors">
-                    <Icon className="w-4 h-4" />
-                  </a>
-                ))}
-              </div>
-            )}
-            {socials.length === 0 && (
-              <div className="flex gap-3 mt-6">
-                <a href="#" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"><Linkedin className="w-4 h-4" /></a>
-                <a href="#" className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"><Twitter className="w-4 h-4" /></a>
-              </div>
-            )}
+            <div className="flex gap-3 mt-6">
+              {socials.map(({ key, icon: Icon, url }) => (
+                <a
+                  key={key}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={key}
+                  className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
         <div className="border-t border-primary-foreground/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-primary-foreground/40">{copyright}</p>
-          <div>
+          <p className="text-xs ">{copyright}</p>
+          <div className='text-xs'>
             Powered By{' '}
-            <a href="https://webcafe.co.in/" target="_blank" rel="noopener" className="hover:text-primary-foreground/60 hover:underline no-underline">Webcafe Pvt. Ltd.</a>
+            <a href="https://webcafe.co.in/" target="_blank" rel="noopener" className="hover:text-primary-foreground/60 hover:underline no-underline ">Webcafe a Product of Studycafe Pvt Ltd.</a>
           </div>
         </div>
       </div>

@@ -156,7 +156,29 @@ async function main() {
             order: 5,
             textContent: {
               heading: 'What Our Clients Say',
-              items: TESTIMONIALS,
+              items: TESTIMONIALS.concat([
+                {
+                  name: 'Rohit Sharma',
+                  designation: 'Founder, Sharma Traders',
+                  review: 'Abhishek Raja Ram & Co. ne hamare GST aur tax filings ko simplify kar diya — professional, time-bound aur bahut supportive team.',
+                  rating: 5,
+                  image: ''
+                },
+                {
+                  name: 'Priya Menon',
+                  designation: 'CFO, BrightTech Solutions',
+                  review: 'Their advisory helped us reduce compliance overhead and improve cashflows. Highly recommended for growing businesses.',
+                  rating: 5,
+                  image: ''
+                },
+                {
+                  name: 'Sanjay Kapoor',
+                  designation: 'Owner, Kapoor Enterprises',
+                  review: 'Responsive, knowledgeable and practical — the partners at Abhishek Raja Ram provided clear, actionable guidance.',
+                  rating: 5,
+                  image: ''
+                },
+              ]),
             },
           },
           {

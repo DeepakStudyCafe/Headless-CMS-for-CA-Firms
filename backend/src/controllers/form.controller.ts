@@ -29,7 +29,7 @@ export const submitContactForm = async (req: Request, res: Response): Promise<vo
     // Send email
     const html = website === 'showcase-website'
       ? createShowcaseContactEmailTemplate({ name, email, phone, company, subject: subjectLabel, message })
-      : createContactEmailTemplate({ name, email, phone, company, message });
+      : createContactEmailTemplate(req.body);
     
     // Send email
     await sendEmail(
@@ -66,11 +66,14 @@ export const submitQueryForm = async (req: Request, res: Response): Promise<void
       serviceType,
       subjectOfQuery,
       query,
+      message,
       website
     } = req.body;
 
+    const actualQuery = query || message;
+
     // Validate required fields
-    if (!name || !email || !query) {
+    if (!name || !email || !actualQuery) {
       res.status(400).json({
         success: false,
         message: 'Please provide name, email, and query details'
@@ -98,22 +101,8 @@ export const submitQueryForm = async (req: Request, res: Response): Promise<void
 
     // Send email (use Template-4 specialized template when website is 'template-4')
     const html = website === 'template-4'
-      ? createQueryEmailTemplateTemplate4({
-          name,
-          email,
-          serviceType: serviceLabel,
-          subjectOfQuery,
-          query
-        })
-      : createQueryEmailTemplate({
-          name,
-          company,
-          city,
-          email,
-          phone: telephone || mobile,
-          serviceType: serviceLabel,
-          query
-        });
+      ? createQueryEmailTemplateTemplate4(req.body)
+      : createQueryEmailTemplate(req.body);
 
     await sendEmail(website, `New Query Form Submission - ${name}`, html);
 
@@ -150,11 +139,14 @@ export const submitCareerForm = async (req: Request, res: Response): Promise<voi
       website
     } = req.body;
 
+    const actualFirstName = firstName || req.body.name;
+    const actualMobile = mobile || req.body.phone;
+
     // Validate required fields
-    if (!firstName || !email || !mobile) {
+    if (!actualFirstName || !email || !actualMobile) {
       res.status(400).json({
         success: false,
-        message: 'Please provide first name, email, and mobile number'
+        message: 'Please provide first name (or name), email, and mobile number'
       });
       return;
     }
@@ -171,17 +163,9 @@ export const submitCareerForm = async (req: Request, res: Response): Promise<voi
     // Send email
     await sendEmail(
       website,
-      `New Career Application - ${firstName} ${lastName}`,
+      `New Career Application - ${firstName || req.body.name} ${lastName || ''}`.trim(),
       createCareerEmailTemplate({
-        fullName: `${firstName} ${lastName}`,
-        email,
-        phone: mobile,
-        address: `${dateOfBirth || ''} - ${gender || ''}`.trim(),
-        position,
-        education: qualification,
-        yearsOfExperience,
-        monthsOfExperience,
-        comments,
+        ...req.body,
         resume: req.file ? req.file.filename : null
       }),
       attachments
@@ -231,3 +215,5 @@ export const submitScheduleForm = async (req: Request, res: Response): Promise<v
     });
   }
 };
+
+

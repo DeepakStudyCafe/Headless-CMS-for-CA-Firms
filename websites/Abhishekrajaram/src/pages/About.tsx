@@ -133,23 +133,41 @@ const About = () => {
               <h2 className="heading-lg text-foreground mt-2">{timelineSection?.textContent?.heading || 'Milestones'}</h2>
             </div>
           </ScrollReveal>
-          <div className="max-w-3xl mx-auto space-y-0">
-            {timeline.map((item: any, i: number) => (
-              <ScrollReveal key={item.year || i} delay={i * 0.1}>
-                <div className="flex gap-6 pb-10 relative">
-                  <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 rounded-full gradient-navy flex items-center justify-center text-primary-foreground font-bold text-xs shrink-0 z-10">
-                      {item.year}
+          <div className="max-w-3xl mx-auto">
+            <div className="relative px-4">
+              <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border transform -translate-x-1/2" aria-hidden="true" />
+              <div className="space-y-12">
+                {timeline.map((item: any, i: number) => (
+                  <ScrollReveal key={item.year || i} delay={i * 0.1}>
+                    <div className="grid grid-cols-9 items-start gap-4">
+                      <div className="col-span-4 flex justify-end">
+                        {i % 2 === 0 ? (
+                          <div className="bg-white p-6 rounded-lg shadow-sm w-auto inline-block min-w-[520px] whitespace-nowrap">
+                            <h4 className="font-semibold text-foreground font-sans">{item.title}</h4>
+                            <p className="text-sm text-muted-foreground mt-2">{item.description || item.desc}</p>
+                          </div>
+                        ) : <div className="w-full" />}
+                      </div>
+
+                      <div className="col-span-1 flex justify-center">
+                        <div className="w-12 h-12 rounded-full gradient-navy flex items-center justify-center text-primary-foreground font-bold text-xs shrink-0 z-10">
+                          {item.year}
+                        </div>
+                      </div>
+
+                      <div className="col-span-4">
+                        {i % 2 === 1 ? (
+                          <div className="bg-white p-6 rounded-lg shadow-sm w-auto inline-block min-w-[360px] whitespace-nowrap">
+                            <h4 className="font-semibold text-foreground font-sans">{item.title}</h4>
+                            <p className="text-sm text-muted-foreground mt-2">{item.description || item.desc}</p>
+                          </div>
+                        ) : <div className="w-full" />}
+                      </div>
                     </div>
-                    {i < timeline.length - 1 && <div className="w-px flex-1 bg-border mt-2" />}
-                  </div>
-                  <div className="pt-2">
-                    <h4 className="font-semibold text-foreground font-sans">{item.title}</h4>
-                    <p className="text-sm text-muted-foreground mt-1">{item.description || item.desc}</p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

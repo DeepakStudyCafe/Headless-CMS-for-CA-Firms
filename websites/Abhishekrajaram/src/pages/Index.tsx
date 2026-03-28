@@ -31,6 +31,17 @@ const Index = () => {
   const stats = statsSection?.textContent?.stats || [];
   const industries = industriesSection?.textContent?.items || [];
   const testimonials = testimonialsSection?.textContent?.items || [];
+  const [testIndex, setTestIndex] = useState(0);
+
+  useEffect(() => {
+    if (!testimonials || testimonials.length <= 3) return;
+    const id = setInterval(() => setTestIndex((i) => (i + 3) % testimonials.length), 4000);
+    return () => clearInterval(id);
+  }, [testimonials]);
+
+  const visibleTestimonials = (testimonials && testimonials.length > 0)
+    ? (testimonials.length <= 3 ? testimonials : Array.from({ length: 3 }, (_, k) => testimonials[(testIndex + k) % testimonials.length]))
+    : [];
 
   return (
     <Layout>
@@ -137,8 +148,8 @@ const Index = () => {
               </div>
             </ScrollReveal>
             <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((t: any, i: number) => (
-                <ScrollReveal key={t.name || i} delay={i * 0.15}>
+              {visibleTestimonials.map((t: any, i: number) => (
+                <ScrollReveal key={(t.name || '') + i} delay={i * 0.15}>
                   <div className="card-premium p-8 h-full flex flex-col">
                     <Quote className="w-8 h-8 text-accent/30 mb-4" />
                     <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">{t.review || t.quote}</p>
@@ -155,6 +166,25 @@ const Index = () => {
                 </ScrollReveal>
               ))}
             </div>
+
+            {testimonials.length > 3 && (
+              (() => {
+                const pages = Math.ceil(testimonials.length / 3);
+                const currentPage = Math.floor(testIndex / 3);
+                return (
+                  <div className="flex justify-center gap-2 mt-6">
+                    {Array.from({ length: pages }).map((_, p) => (
+                      <button
+                        key={p}
+                        onClick={() => setTestIndex(p * 3)}
+                        aria-label={`Show testimonials page ${p + 1}`}
+                        className={`w-2 h-2 rounded-full transition-colors ${p === currentPage ? 'bg-accent' : 'bg-border'}`}
+                      />
+                    ))}
+                  </div>
+                );
+              })()
+            )}
           </div>
         </section>
       )}
