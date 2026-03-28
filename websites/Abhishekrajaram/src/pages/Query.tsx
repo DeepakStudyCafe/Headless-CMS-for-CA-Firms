@@ -7,8 +7,7 @@ import PageHero from '@/components/PageHero';
 import ScrollReveal from '@/components/ScrollReveal';
 import { Button } from '@/components/ui/button';
 import { Send, Phone, Mail, MapPin, ChevronDown, CheckCircle } from 'lucide-react';
-import heroContact from '@/assets/hero-contact.jpg';
-import { API_URL, WEBSITE_SLUG, getWebsiteData, getPageData } from '@/lib/api';
+import { API_URL, WEBSITE_SLUG, getWebsiteData, getPageData, getImageUrl } from '@/lib/api';
 
 const querySchema = z.object({
   name: z.string().min(2, 'Name is required'),
@@ -61,112 +60,116 @@ const Query = () => {
   const formSection = pageData?.sections?.find((s: any) => s.type === 'query-form');
   const faqSection = pageData?.sections?.find((s: any) => s.type === 'faqs');
   const services = websiteData?.themeConfig?.services || [];
-  const queryTypes = formSection?.textContent?.queryTypes || [
-    { value: 'general', label: 'General Inquiry' },
-    { value: 'pricing', label: 'Pricing & Packages' },
-    { value: 'compliance', label: 'Compliance Issue' },
-    { value: 'tax', label: 'Tax Planning' },
-    { value: 'other', label: 'Other' },
-  ];
+  const queryTypes = formSection?.textContent?.queryTypes || [];
   const faqs = faqSection?.textContent?.items || [];
 
   return (
     <Layout>
-      <PageHero
-        title={heroSection?.textContent?.heading?.replace(/\s\S+$/, '') || "Submit a"}
-        highlight={heroSection?.textContent?.heading?.split(' ').pop() || "Query"}
-        subtitle={heroSection?.textContent?.subheading || "We are here to help. Reach out with any questions about our services."}
-        image={heroContact}
-        breadcrumb={[{ label: 'Query' }]}
-      />
+      {heroSection && (
+        <PageHero
+          title={heroSection.textContent?.heading?.replace(/\\s\\S+$/, '') || ''}
+          highlight={heroSection.textContent?.heading?.split(' ').pop() || ''}
+          subtitle={heroSection.textContent?.subheading || ''}
+          image={heroSection.imageUrl ? getImageUrl(heroSection.imageUrl) : ''}
+          breadcrumb={[{ label: 'Query' }]}
+        />
+      )}
 
-      <section className="section-padding">
-        <div className="container-max mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
-              <ScrollReveal>
-                <h2 className="heading-md text-foreground mb-8 font-sans">{formSection?.textContent?.formHeading || 'Send Us a Query'}</h2>
+      {formSection && (
+        <section className="section-padding">
+          <div className="container-max mx-auto">
+            <div className="grid lg:grid-cols-5 gap-12">
+              <div className="lg:col-span-3">
+                <ScrollReveal>
+                  <h2 className="heading-md text-foreground mb-8 font-sans">{formSection.textContent?.formHeading || 'Send Us a Query'}</h2>
 
-                {submitted && (
-                  <div className="mb-6 p-4 rounded-lg bg-green-50 border border-green-200 flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
-                    <p className="text-sm text-green-800">Thank you for your query! We will get back to you within 24 hours.</p>
-                  </div>
-                )}
-
-                {submitError && (
-                  <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200">
-                    <p className="text-sm text-red-700">{submitError}</p>
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <div>
-                      <input {...register('name')} placeholder="Full Name *" className={inp} />
-                      {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
+                  {submitted && (
+                    <div className="mb-6 p-4 rounded-lg bg-green-50 border border-green-200 flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
+                      <p className="text-sm text-green-800">Thank you for your query! We will get back to you within 24 hours.</p>
                     </div>
-                    <div>
-                      <input {...register('email')} type="email" placeholder="Email Address *" className={inp} />
-                      {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
+                  )}
+
+                  {submitError && (
+                    <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200">
+                      <p className="text-sm text-red-700">{submitError}</p>
                     </div>
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <input {...register('phone')} type="tel" placeholder="Phone Number" className={inp} />
-                    <select {...register('queryType')} className={inp}>
-                      <option value="">Select Query Type</option>
-                      {queryTypes.map((qt: any) => <option key={qt.value} value={qt.value}>{qt.label}</option>)}
+                  )}
+
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <div>
+                        <input {...register('name')} placeholder="Full Name *" className={inp} />
+                        {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
+                      </div>
+                      <div>
+                        <input {...register('email')} type="email" placeholder="Email Address *" className={inp} />
+                        {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
+                      </div>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-5">
+                      <input {...register('phone')} type="tel" placeholder="Phone Number" className={inp} />
+                      <select {...register('queryType')} className={inp}>
+                        <option value="">Select Query Type</option>
+                        {queryTypes.map((qt: any) => <option key={qt.value} value={qt.value}>{qt.label}</option>)}
+                      </select>
+                    </div>
+                    <select {...register('service')} className={inp}>
+                      <option value="">Select Service</option>
+                      {services.map((s: any) => <option key={s.title} value={s.title}>{s.title}</option>)}
+                      <option value="other">Other</option>
                     </select>
+                    <div>
+                      <textarea {...register('message')} placeholder="Your Query *" rows={5} className={`${inp} resize-none`} />
+                      {errors.message && <p className="text-xs text-red-500 mt-1">{errors.message.message}</p>}
+                    </div>
+                    <Button variant="navy" size="lg" type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <span className="flex items-center gap-2"><span className="animate-spin rounded-full h-4 w-4 border-b-2 border-current" /> Submitting...</span>
+                      ) : (
+                        <><Send className="w-4 h-4 mr-2" /> Submit Query</>
+                      )}
+                    </Button>
+                  </form>
+                </ScrollReveal>
+              </div>
+              <div className="lg:col-span-2 space-y-8">
+                {(websiteData?.phone || websiteData?.email || websiteData?.address) && (
+                  <ScrollReveal delay={0.1}>
+                    <div className="card-premium p-8">
+                      <h3 className="font-semibold text-foreground font-sans mb-6">Quick Contact</h3>
+                      <div className="space-y-4">
+                        {websiteData?.phone && (
+                          <a href={`tel:${(websiteData.phone || '').replace(/\\s/g, '')}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                            <Phone className="w-5 h-5 text-accent" /> {websiteData.phone}
+                          </a>
+                        )}
+                        {websiteData?.email && (
+                          <a href={`mailto:${websiteData.email}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                            <Mail className="w-5 h-5 text-accent" /> {websiteData.email}
+                          </a>
+                        )}
+                        {websiteData?.address && (
+                          <p className="flex items-start gap-3 text-sm text-muted-foreground">
+                            <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" /> {websiteData.address}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </ScrollReveal>
+                )}
+                
+                <ScrollReveal delay={0.2}>
+                  <div className="card-premium p-8">
+                    <h3 className="font-semibold text-foreground font-sans mb-4">Response Time</h3>
+                    <p className="text-sm text-muted-foreground">We typically respond within <span className="font-semibold text-foreground">24 hours</span> on business days.</p>
                   </div>
-                  <select {...register('service')} className={inp}>
-                    <option value="">Select Service</option>
-                    {services.length > 0
-                      ? services.map((s: any) => <option key={s.title} value={s.title}>{s.title}</option>)
-                      : ['Bookkeeping', 'GST Filing', 'Payroll', 'Tax Planning', 'Company Formation', 'Compliance', 'Audit Services', 'Financial Advisory'].map(s => <option key={s}>{s}</option>)
-                    }
-                    <option value="other">Other</option>
-                  </select>
-                  <div>
-                    <textarea {...register('message')} placeholder="Your Query *" rows={5} className={`${inp} resize-none`} />
-                    {errors.message && <p className="text-xs text-red-500 mt-1">{errors.message.message}</p>}
-                  </div>
-                  <Button variant="navy" size="lg" type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2"><span className="animate-spin rounded-full h-4 w-4 border-b-2 border-current" /> Submitting...</span>
-                    ) : (
-                      <><Send className="w-4 h-4 mr-2" /> Submit Query</>
-                    )}
-                  </Button>
-                </form>
-              </ScrollReveal>
-            </div>
-            <div className="lg:col-span-2 space-y-8">
-              <ScrollReveal delay={0.1}>
-                <div className="card-premium p-8">
-                  <h3 className="font-semibold text-foreground font-sans mb-6">Quick Contact</h3>
-                  <div className="space-y-4">
-                    <a href={`tel:${(websiteData?.phone || '+911234567890').replace(/\s/g, '')}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                      <Phone className="w-5 h-5 text-accent" /> {websiteData?.phone || '+91 123 456 7890'}
-                    </a>
-                    <a href={`mailto:${websiteData?.email || 'info@sterlingco.in'}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                      <Mail className="w-5 h-5 text-accent" /> {websiteData?.email || 'info@sterlingco.in'}
-                    </a>
-                    <p className="flex items-start gap-3 text-sm text-muted-foreground">
-                      <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" /> {websiteData?.address || '42, Business Park, Andheri East, Mumbai 400001'}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-              <ScrollReveal delay={0.2}>
-                <div className="card-premium p-8">
-                  <h3 className="font-semibold text-foreground font-sans mb-4">Response Time</h3>
-                  <p className="text-sm text-muted-foreground">We typically respond within <span className="font-semibold text-foreground">24 hours</span> on business days.</p>
-                </div>
-              </ScrollReveal>
+                </ScrollReveal>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {faqs.length > 0 && (
         <section className="section-padding gradient-subtle">

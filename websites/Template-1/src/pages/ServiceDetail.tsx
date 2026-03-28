@@ -29,7 +29,7 @@ const ServiceDetail = () => {
   const pricingSection = pageData?.sections?.find((s: any) => s.type === 'pricing');
   const faqsSection = pageData?.sections?.find((s: any) => s.type === 'faqs');
 
-  const serviceTitle = heroSection?.textContent?.heading || slug?.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) || 'Service';
+  const serviceTitle = heroSection?.textContent?.heading || '';
   const serviceTagline = heroSection?.textContent?.subheading || '';
   const overview = textImageSection?.textContent?.description || '';
   const features = textImageSection?.textContent?.features || [];
@@ -53,29 +53,31 @@ const ServiceDetail = () => {
   return (
     <Layout>
       {/* Hero */}
-      <section className="gradient-navy pt-32 pb-20">
-        <div className="container-max mx-auto px-4 md:px-8">
-          <ScrollReveal>
-            <Link to="/services" className="text-sm text-primary-foreground/50 hover:text-primary-foreground transition-colors mb-4 inline-block">← All Services</Link>
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-xl bg-gold/20 flex items-center justify-center">
-                {(() => {
-                  const svc = websiteData?.themeConfig?.services?.find((s: any) => s.href === `/services/${slug}`);
-                  const Icon = iconMap[svc?.icon] || Briefcase;
-                  return <Icon className="w-7 h-7 text-gold" />;
-                })()}
+      {heroSection && (
+        <section className="gradient-navy pt-32 pb-20">
+          <div className="container-max mx-auto px-4 md:px-8">
+            <ScrollReveal>
+              <Link to="/services" className="text-sm text-primary-foreground/50 hover:text-primary-foreground transition-colors mb-4 inline-block">← All Services</Link>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 rounded-xl bg-gold/20 flex items-center justify-center">
+                  {(() => {
+                    const svc = websiteData?.themeConfig?.services?.find((s: any) => s.href === `/services/${slug}`);
+                    const Icon = iconMap[svc?.icon] || Briefcase;
+                    return <Icon className="w-7 h-7 text-gold" />;
+                  })()}
+                </div>
+                <div>
+                  <h1 className="heading-xl text-primary-foreground">{serviceTitle}</h1>
+                  {serviceTagline && <p className="text-primary-foreground/60 mt-1">{serviceTagline}</p>}
+                </div>
               </div>
-              <div>
-                <h1 className="heading-xl text-primary-foreground">{serviceTitle}</h1>
-                {serviceTagline && <p className="text-primary-foreground/60 mt-1">{serviceTagline}</p>}
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+            </ScrollReveal>
+          </div>
+        </section>
+      )}
 
       {/* Overview & Features */}
-      {(overview || features.length > 0) && (
+      {textImageSection && (overview || features.length > 0) && (
         <section className="section-padding">
           <div className="container-max mx-auto max-w-4xl">
             <ScrollReveal>
@@ -186,17 +188,19 @@ const ServiceDetail = () => {
       )}
 
       {/* CTA */}
-      <section className="section-padding gradient-navy text-center">
-        <div className="container-max mx-auto">
-          <ScrollReveal>
-            <h2 className="heading-lg text-primary-foreground mb-4">Need {serviceTitle} Services?</h2>
-            <p className="text-lg text-primary-foreground/50 mb-8">Let our experts help you with tailored solutions.</p>
-            <Button variant="gold" size="lg" asChild>
-              <Link to="/contact">Get a Free Consultation <ArrowRight className="w-4 h-4 ml-1" /></Link>
-            </Button>
-          </ScrollReveal>
-        </div>
-      </section>
+      {heroSection && serviceTitle && (
+        <section className="section-padding gradient-navy text-center">
+          <div className="container-max mx-auto">
+            <ScrollReveal>
+              <h2 className="heading-lg text-primary-foreground mb-4">Need {serviceTitle} Services?</h2>
+              <p className="text-lg text-primary-foreground/50 mb-8">Let our experts help you with tailored solutions.</p>
+              <Button variant="gold" size="lg" asChild>
+                <Link to="/contact">Get a Free Consultation <ArrowRight className="w-4 h-4 ml-1" /></Link>
+              </Button>
+            </ScrollReveal>
+          </div>
+        </section>
+      )}
     </Layout>
   );
 };

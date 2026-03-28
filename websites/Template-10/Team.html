@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-primary-fixed": "#001c37",
+                "tertiary-container": "#312100",
+                "primary-container": "#0a2540",
+                "outline": "#74777e",
+                "on-primary-container": "#768dad",
+                "surface": "#f8f9fa",
+                "secondary-fixed-dim": "#76d6d5",
+                "surface-bright": "#f8f9fa",
+                "outline-variant": "#c4c6ce",
+                "on-primary": "#ffffff",
+                "on-surface-variant": "#43474d",
+                "secondary": "#006a6a",
+                "primary-fixed": "#d2e4ff",
+                "error": "#ba1a1a",
+                "on-primary-fixed-variant": "#314865",
+                "tertiary-fixed-dim": "#e9c176",
+                "on-secondary": "#ffffff",
+                "primary-fixed-dim": "#b0c8eb",
+                "on-tertiary-fixed": "#261900",
+                "inverse-primary": "#b0c8eb",
+                "on-error-container": "#93000a",
+                "tertiary": "#160d00",
+                "error-container": "#ffdad6",
+                "surface-container": "#edeeef",
+                "on-tertiary-fixed-variant": "#5d4201",
+                "on-tertiary-container": "#a88642",
+                "surface-variant": "#e1e3e4",
+                "background": "#f8f9fa",
+                "on-secondary-fixed": "#002020",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#f3f4f5",
+                "secondary-fixed": "#93f2f2",
+                "on-error": "#ffffff",
+                "secondary-container": "#90efef",
+                "surface-tint": "#49607e",
+                "on-secondary-fixed-variant": "#004f4f",
+                "on-secondary-container": "#006e6e",
+                "inverse-surface": "#2e3132",
+                "primary": "#000f22",
+                "surface-container-highest": "#e1e3e4",
+                "on-background": "#191c1d",
+                "inverse-on-surface": "#f0f1f2",
+                "surface-dim": "#d9dadb",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-high": "#e7e8e9",
+                "tertiary-fixed": "#ffdea5",
+                "on-surface": "#191c1d"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-slate-900 dark:text-slate-50 font-headline">
+                Arvind Gupta &amp; Associates
+            </div>
+<!-- Desktop Links -->
+<div class="hidden md:flex items-center gap-8">
+<a class="font-manrope font-semibold tracking-tight text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Home</a>
+<a class="font-manrope font-semibold tracking-tight text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">About</a>
+<a class="font-manrope font-semibold tracking-tight text-sm text-teal-600 dark:text-teal-400 border-b-2 border-teal-600 dark:border-teal-400 pb-1" href="#">Team</a>
+<a class="font-manrope font-semibold tracking-tight text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Gallery</a>
+<a class="font-manrope font-semibold tracking-tight text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Services</a>
+<a class="font-manrope font-semibold tracking-tight text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Query</a>
+<a class="font-manrope font-semibold tracking-tight text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Career</a>
+<a class="font-manrope font-semibold tracking-tight text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-headline font-semibold text-sm hover:translate-y-[-2px] transition-all active:scale-95">
+                Get a Quote
+            </button>
+</div>
+<div class="bg-slate-100/50 dark:bg-slate-800/50 h-[1px] w-full absolute bottom-0"></div>
+</nav>
+<main class="pt-32 pb-24">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-8 mb-24">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+<div class="lg:col-span-8">
+<span class="inline-block bg-secondary-container text-on-secondary-container px-4 py-1 rounded-full text-xs font-bold tracking-widest mb-6">OUR LEADERSHIP</span>
+<h1 class="text-6xl md:text-7xl font-headline font-extrabold tracking-tighter text-primary leading-none mb-8">
+                        The Architects of <span class="text-secondary">Financial Integrity.</span>
+</h1>
+<p class="text-xl text-on-surface-variant max-w-2xl leading-relaxed">
+                        Meet the multidisciplinary team driving precision, transparency, and strategic growth for India's leading enterprises.
+                    </p>
+</div>
+<div class="lg:col-span-4 hidden lg:block">
+<div class="p-8 bg-surface-container-low rounded-xl border-l-4 border-secondary">
+<p class="italic text-on-surface-variant font-medium">"Our strength lies not just in numbers, but in the collective expertise of dedicated professionals who treat your business as their own."</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Leadership Bento Grid -->
+<section class="max-w-7xl mx-auto px-8 mb-32">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Principal Partner -->
+<div class="lg:col-span-2 group relative overflow-hidden rounded-xl bg-surface-container-lowest transition-transform duration-300 hover:-translate-y-2">
+<div class="grid grid-cols-1 md:grid-cols-2 h-full">
+<div class="relative h-96 md:h-full overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Distinguished mature Indian professional man in a dark suit standing in a modern glass office with city views" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyK3mQ0rtE3mnxqmFrMrmTee10B70J3JojI-IQhPRSDh2wrI5OO1qivqUSeHSpvOBsfFm_dG1dPOE6jAhoYFZfvGJT272gQyYkxgXCm1Iwmjd4aabfY9Lj4Ox3aMtSO2lVGF1aFsLgQD09k8V2u07Qso8wVjdUpMTP1wvlzQ83aymy1MJq0N3u9b5OLp2BHKdvOqOPzOzkjyG2nQFW-AwebquCvE7qbnOt2qNUeLzCKzZlyzLFFv87tL50SBus88LaoqEZfkhdjX0"/>
+</div>
+<div class="p-10 flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-secondary font-bold tracking-widest text-xs uppercase">Founder &amp; Managing Partner</span>
+</div>
+<h2 class="text-4xl font-headline font-bold text-primary mb-2">CA. Arvind Gupta</h2>
+<p class="text-on-surface-variant mb-6 leading-relaxed">Over 25 years of experience in Tax Planning, Corporate Restructuring, and Strategic Advisory. A visionary leader steering the firm towards global standards of compliance.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container px-3 py-1 rounded-lg text-xs font-semibold text-primary">FCA</span>
+<span class="bg-surface-container px-3 py-1 rounded-lg text-xs font-semibold text-primary">DISA (ICAI)</span>
+<span class="bg-surface-container px-3 py-1 rounded-lg text-xs font-semibold text-primary">ID - IICA</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Partner 2 -->
+<div class="group relative overflow-hidden rounded-xl bg-surface-container-lowest transition-transform duration-300 hover:-translate-y-2">
+<div class="relative h-80 overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Professional Indian woman executive in business attire leaning against a wooden desk in a bright office space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQJtP0OS2POq_QCEUaptqx6qTVhPzrkXdyzZbwEED_I3DC8MPBTYFKhPOfqC9YsF3s5UFnrBZ2v-BoUy-KNjhJdb_tGUrP-f2W_wby63QdKrrHI8kQX3ERDoeLIWgJUCr4a0sG2pz0UCWCUc2SRSq_DY2BzItsJlGRfKGToUjmBab8a3KwVeuczdfaMN8gi-POdXwBF_7mf6dSAdhrLtKtqrK_A8KAQpkIONMbVheCuBUX-ULLFHql7hWQ1nr83ezEvLHLPXMGZpU"/>
+</div>
+<div class="p-8">
+<span class="text-secondary font-bold tracking-widest text-[10px] uppercase mb-2 block">Direct Tax Specialist</span>
+<h3 class="text-2xl font-headline font-bold text-primary mb-2">CA. Meera Sharma</h3>
+<p class="text-sm text-on-surface-variant mb-6">Expert in International Taxation and GST Litigation. Meera leads the compliance vertical with unmatched precision.</p>
+<div class="pt-6 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="text-xs font-bold text-primary">Partner | FCA</span>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">mail</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">share</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Partner 3 -->
+<div class="group relative overflow-hidden rounded-xl bg-surface-container-lowest transition-transform duration-300 hover:-translate-y-2">
+<div class="relative h-80 overflow-hidden">
+<img class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Confident professional man in professional business attire, looking directly at camera, soft architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNHbLkPp_0WIx2BkQxgGWKsY3H041xC0l9mMQsOmT8ZymH71fRgbhvJoXk8OoMNpX3Ufoue99z3IpHKZuR63zAUSlXD-1vSRBqLcwEZVEg0FbTOPVWKG2X_Gy337WddRSCz9sadUDlI0bE_P3hjlcLmccNeSo31Ry-c5IYG8ieOl_mIyBQrtIJT6I1HZdpQKESXEJ3PW7bf9_Ui_RIY3XY1RSKETJYMLUpwwhhms6SRi9wdQfsMLkDhOQvMcEGYsCncB6LR2W2w5Y"/>
+</div>
+<div class="p-8">
+<span class="text-secondary font-bold tracking-widest text-[10px] uppercase mb-2 block">Audit &amp; Assurance</span>
+<h3 class="text-2xl font-headline font-bold text-primary mb-2">CA. Rajesh Verma</h3>
+<p class="text-sm text-on-surface-variant mb-6">Specializing in Statutory Audits for BFSI and Manufacturing sectors. Known for rigorous risk assessment methodologies.</p>
+<div class="pt-6 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="text-xs font-bold text-primary">Partner | ACA</span>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">mail</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">share</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Partner 4 -->
+<div class="lg:col-span-2 group relative overflow-hidden rounded-xl bg-surface-container-lowest transition-transform duration-300 hover:-translate-y-2">
+<div class="grid grid-cols-1 md:grid-cols-2 h-full">
+<div class="p-10 flex flex-col justify-center order-2 md:order-1">
+<span class="text-secondary font-bold tracking-widest text-xs uppercase mb-4 block">Corporate Law &amp; Compliance</span>
+<h2 class="text-4xl font-headline font-bold text-primary mb-2">CS. Ananya Iyer</h2>
+<p class="text-on-surface-variant mb-6 leading-relaxed">Head of Secretarial Services. Expert in ROC compliances, SEBI regulations, and Mergers &amp; Acquisitions support.</p>
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-2xl font-bold text-primary">12+</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Years Exp</span>
+</div>
+<div class="w-[1px] bg-outline-variant/30 h-10 self-center"></div>
+<div class="flex flex-col">
+<span class="text-2xl font-bold text-primary">500+</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Compliances</span>
+</div>
+</div>
+</div>
+<div class="relative h-96 md:h-full overflow-hidden order-1 md:order-2">
+<img class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="Professional woman in business casual attire smiling in a collaborative workspace with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuQr8MGDu6Z-cOkbrFw5GPzEZcIUu3Tq3IlXHC_bW6G-ktrpif8t82ZCwkvPIvt-hdoabTJqcdUtl3f5M5I9D_DZ0X8KuLx_HEA289SL8ffsXMggVyugIJna3FIN6TrWVULb8yzorwIycl3_9vf9V5GlGYoJtMG4ardOXYXRQLLN1ADya2z3cg-vsxT_jttJxKUXu4m3Rys4_GsFNCGkD3rauGsk2jtbYD9g6QU9VUAfmTtik1mbOydkK9iWJNS1KTFLEiNAZ6nOU"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Professional Staff - Editorial Grid -->
+<section class="bg-surface-container-low py-24">
+<div class="max-w-7xl mx-auto px-8">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div>
+<h2 class="text-4xl font-headline font-extrabold text-primary mb-4 tracking-tight">The Core Excellence Team</h2>
+<p class="text-on-surface-variant max-w-xl">Our associate professionals bring specialized knowledge across various financial domains to ensure comprehensive service delivery.</p>
+</div>
+<div class="flex gap-4">
+<div class="h-12 w-12 rounded-full border border-outline-variant flex items-center justify-center cursor-pointer hover:bg-white transition-all">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</div>
+<div class="h-12 w-12 rounded-full border border-outline-variant flex items-center justify-center cursor-pointer hover:bg-white transition-all">
+<span class="material-symbols-outlined text-primary">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Staff 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl hover:shadow-xl transition-all duration-300">
+<div class="w-20 h-20 rounded-full overflow-hidden mb-6 border-2 border-surface-container">
+<img class="w-full h-full object-cover" data-alt="Headshot of a professional man with glasses in a light grey shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCisfJ1PK5r1OCpg6jEcZYD5eFsxWgMpP_Mw_VpImZl0P_-4vXuK4KqlElwV2XDVn5EjPSdpSkI_l9pCzCA85VhALuTQWR4TDtDnTYcrmErTpIgYSM_D2LOS8dIxD--ZMA1a6MLDS0IMRNsmalfboNsZAMxzp8ql22FXg5A3cH76QVEeuT8XknbxFgP6Hsz5qri0GlTfc14ImkdK3mBA9G15wbfx9Dr-t8Yyzzj0vIp28E7IiAPjPr0TQrEjxFskcKLjrHh2_AvU2s"/>
+</div>
+<h4 class="text-lg font-headline font-bold text-primary">Siddharth K.</h4>
+<p class="text-xs font-bold text-secondary mb-4">Senior Audit Manager</p>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-6">Leads industrial audit teams with focus on manufacturing and retail sectors.</p>
+<span class="text-[10px] font-bold bg-secondary/5 text-secondary px-2 py-1 rounded">CA INTER</span>
+</div>
+<!-- Staff 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl hover:shadow-xl transition-all duration-300">
+<div class="w-20 h-20 rounded-full overflow-hidden mb-6 border-2 border-surface-container">
+<img class="w-full h-full object-cover" data-alt="Headshot of a professional woman with a warm smile in a corporate setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCn9EBnKDKizPm732xBRGkyefszrcSGhv2m_lwAtGMlpLS4oOfhONtD6M7WCG7OvPcJZk3x6bO7WAQXq6oX6nm1PKryltLO1jRXwW4utG8Rgge7o0NBhdhOcPbYX0yXp4ZVkmKLY_oySaLtG_lKb_CsV9r1zOyjzCCkpIkC9fsqSE_IP8nUuhWEXbHUxF74BLDuzvn5q2cUvdQ1AXCVzIqF-csAdqAIFOAdNVKIkt_EWI4I8Jku0_iFq0dUTG5DIlOhy9gk8u1hQM"/>
+</div>
+<h4 class="text-lg font-headline font-bold text-primary">Pooja Deshmukh</h4>
+<p class="text-xs font-bold text-secondary mb-4">GST Consultant</p>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-6">Expert in GST reconciliation and annual return filings for mid-market clients.</p>
+<span class="text-[10px] font-bold bg-secondary/5 text-secondary px-2 py-1 rounded">M.COM, CA INTER</span>
+</div>
+<!-- Staff 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl hover:shadow-xl transition-all duration-300">
+<div class="w-20 h-20 rounded-full overflow-hidden mb-6 border-2 border-surface-container">
+<img class="w-full h-full object-cover" data-alt="Headshot of a young professional man in a white collared shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw4yTHalNljnipo9PImYwMelDkThgR44ZzyopBgRs5aO9KDWeHtGliAmtW8OpAZGlooiCv9IdJgizJugCuzgxRU8Q8vL9vOJSH1Ut1hTYo3hOlEHMpsyELI42tVKMCssrt9D1JAWr72lMzQoo3vppJ_OxvCOkBbZNGYlxGU_dzblyXG6Z6T09cjn6tncifmRzPzN3deTQRbW0Q3Sbl99pWbNhuihMW_bzG4ZBrpEneDUe_tiUdQcXrRwAhglQnCkzv58hEcOuyswQ"/>
+</div>
+<h4 class="text-lg font-headline font-bold text-primary">Arjun Mehta</h4>
+<p class="text-xs font-bold text-secondary mb-4">Payroll Specialist</p>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-6">Manages end-to-end payroll compliance and statutory dues for large workforces.</p>
+<span class="text-[10px] font-bold bg-secondary/5 text-secondary px-2 py-1 rounded">MBA (FINANCE)</span>
+</div>
+<!-- Staff 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl hover:shadow-xl transition-all duration-300">
+<div class="w-20 h-20 rounded-full overflow-hidden mb-6 border-2 border-surface-container">
+<img class="w-full h-full object-cover" data-alt="Headshot of a professional woman with glasses and dark hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGs-RNDL9kLPYJlgCz2_VW0QZRYA6vBZnufPdLN1-fLw9uQUJ9GP9UCmAICnR8L3BF9F3x5AFl4FXRCr9UnKHIqFnoL18UGxwMAZx0GLEbnEJ18ARPIgxyi4ZlTwts_iW9N8xvCo9lTIEUjpJBQhFspEZYBt6jUXPsGtnQlxPfu6JcS61myZX1KoM8RINnW-MoMsY4w7vFADf8-TisYDAHwui16SdN7GdWVid2f5rj9dLlUsvYMdQENQh6W4oES3KHZb2vI6R7cF4"/>
+</div>
+<h4 class="text-lg font-headline font-bold text-primary">Sanya Goyal</h4>
+<p class="text-xs font-bold text-secondary mb-4">Tax Associate</p>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-6">Focuses on individual income tax planning and NRI taxation advisory.</p>
+<span class="text-[10px] font-bold bg-secondary/5 text-secondary px-2 py-1 rounded">CA</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Recruitment CTA -->
+<section class="max-w-7xl mx-auto px-8 py-24">
+<div class="bg-primary-container rounded-xl p-12 relative overflow-hidden">
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 items-center gap-12">
+<div>
+<h2 class="text-3xl md:text-5xl font-headline font-extrabold text-white mb-6">Shape the future of <span class="text-secondary-fixed">Global Finance.</span></h2>
+<p class="text-on-primary-container text-lg mb-8">We are always looking for ambitious CAs, Articled Assistants, and Financial Analysts to join our evolving team.</p>
+<button class="bg-secondary text-white px-8 py-4 rounded-xl font-headline font-bold hover:translate-y-[-2px] transition-all">Explore Career Opportunities</button>
+</div>
+<div class="hidden md:grid grid-cols-2 gap-4 opacity-20">
+<div class="h-32 bg-white/10 rounded-lg"></div>
+<div class="h-32 bg-white/10 rounded-lg translate-y-8"></div>
+<div class="h-32 bg-white/10 rounded-lg"></div>
+<div class="h-32 bg-white/10 rounded-lg translate-y-8"></div>
+</div>
+</div>
+<!-- Abstract decorative element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12 max-w-7xl mx-auto px-8">
+<div class="col-span-2 md:col-span-1">
+<span class="text-xl font-bold text-slate-900 dark:text-slate-50 mb-4 block font-headline">Arvind Gupta &amp; Associates</span>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed max-w-xs mb-6">
+                    Committed to professional excellence and ethical financial advisory since 1999.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-teal-600">public</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-teal-600">group</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-teal-600">business_center</span>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-50 mb-6 text-sm uppercase tracking-widest">Services</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 text-sm font-manrope transition-colors underline-offset-4 hover:underline" href="#">Bookkeeping</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 text-sm font-manrope transition-colors underline-offset-4 hover:underline" href="#">GST Filing</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 text-sm font-manrope transition-colors underline-offset-4 hover:underline" href="#">Payroll</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 text-sm font-manrope transition-colors underline-offset-4 hover:underline" href="#">Tax Planning</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-50 mb-6 text-sm uppercase tracking-widest">Expertise</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 text-sm font-manrope transition-colors underline-offset-4 hover:underline" href="#">Company Formation</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 text-sm font-manrope transition-colors underline-offset-4 hover:underline" href="#">Compliance</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 text-sm font-manrope transition-colors underline-offset-4 hover:underline" href="#">Audit Services</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 text-sm font-manrope transition-colors underline-offset-4 hover:underline" href="#">Financial Advisory</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-slate-50 mb-6 text-sm uppercase tracking-widest">Contact</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">
+                    123 Financial Plaza, Central District<br/>
+                    New Delhi, 110001
+                </p>
+<p class="text-slate-900 dark:text-slate-50 font-bold text-sm">
+                    +91 11 2345 6789<br/>
+                    contact@aga.com
+                </p>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-slate-500 dark:text-slate-400 text-sm font-manrope">© 2024 Arvind Gupta &amp; Associates. All rights reserved.</span>
+<div class="flex gap-8">
+<a class="text-slate-400 text-xs hover:text-slate-900 transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-400 text-xs hover:text-slate-900 transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>
