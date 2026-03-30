@@ -63,9 +63,14 @@ export function Header() {
               className="object-contain"
               unoptimized
             />
-            <span className="text-2xl font-bold text-blue-900">
-              {websiteData?.name || 'I S K & Co'}
-            </span>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-blue-900 leading-tight">
+                {websiteData?.name || 'I S K & Co'}
+              </span>
+              <span className="text-xs font-medium text-gray-600 tracking-wider uppercase">
+                Chartered Accountants
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
