@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8090,
-    allowedHosts: ["monikas.in", "www.monikas.in"],
+    allowedHosts: ["monikasassociates.in", "www.monikasassociates.in", "localhost"],
     hmr: {
       overlay: false,
     },
@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
   preview: {
     host: "::",
     port: 8090,
-    allowedHosts: ["monikas.in", "www.monikas.in"],
+    allowedHosts: ["monikasassociates.in", "www.monikasassociates.in", "localhost"],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
