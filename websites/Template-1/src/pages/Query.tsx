@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -62,6 +63,8 @@ const Query = () => {
   const services = websiteData?.themeConfig?.services || [];
   const queryTypes = formSection?.textContent?.queryTypes || [];
   const faqs = faqSection?.textContent?.items || [];
+
+    if (!pageData || !websiteData) return <FullPageLoader />;
 
   return (
     <Layout>

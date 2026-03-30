@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
@@ -38,8 +39,10 @@ const ServiceDetail = () => {
   const faqs = faqsSection?.textContent?.items || [];
 
   if (!pageData) {
-    return (
-      <Layout>
+      if (!pageData || !websiteData) return <FullPageLoader />;
+
+  return (
+    <Layout>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent mx-auto mb-4" />

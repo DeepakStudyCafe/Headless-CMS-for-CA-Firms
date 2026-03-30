@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
@@ -32,6 +33,8 @@ const About = () => {
   const values = valuesSection?.textContent?.items || [];
   const timeline = timelineSection?.textContent?.items || [];
   const whyChooseItems = whyChooseSection?.textContent?.items || [];
+
+    if (!pageData || !websiteData) return <FullPageLoader />;
 
   return (
     <Layout>

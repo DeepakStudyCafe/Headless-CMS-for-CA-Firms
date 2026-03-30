@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -60,6 +61,8 @@ const Contact = () => {
   const heroSection = pageData?.sections?.find((s: any) => s.type === 'hero');
   const contactSection = pageData?.sections?.find((s: any) => s.type === 'contact');
   const info = contactSection?.textContent?.info || {};
+
+    if (!pageData || !websiteData) return <FullPageLoader />;
 
   return (
     <Layout>

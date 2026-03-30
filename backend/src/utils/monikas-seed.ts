@@ -29,7 +29,7 @@ async function main() {
     where: { slug: 'MonikaS' },
     update: {
       name: 'Monika S & Co.',
-      domain: 'https://MonikaS.in',
+      domain: 'https://monikasassociates.in/',
       logo: 'https://api.digitechai.in/uploads/logo.png',
       phone: '+91 123 456 7890',
       email: 't.sharma1991@mail.ca.in',
@@ -62,7 +62,7 @@ async function main() {
     create: {
       name: 'Monika S & Co.',
       slug: 'MonikaS',
-      domain: 'https://MonikaS.in',
+      domain: 'https://monikasassociates.in/',
       logo: 'https://api.digitechai.in/uploads/logo.png',
       phone: '+91 123 456 7890',
       email: 't.sharma1991@mail.ca.in',

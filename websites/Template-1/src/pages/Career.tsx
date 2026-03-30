@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -59,6 +60,8 @@ const Career = () => {
 
   const benefits = careerSection?.textContent?.benefits || [];
   const positions = careerSection?.textContent?.positions || [];
+
+    if (!pageData) return <FullPageLoader />;
 
   return (
     <Layout>

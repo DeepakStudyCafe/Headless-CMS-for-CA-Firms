@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import PageHero from '@/components/PageHero';
@@ -19,6 +20,8 @@ const Gallery = () => {
   const images: any[] = gallerySection?.textContent?.items || [];
 
   const filtered = active === 'All' ? images : images.filter(img => (img.category || img.cat) === active);
+
+    if (!pageData) return <FullPageLoader />;
 
   return (
     <Layout>

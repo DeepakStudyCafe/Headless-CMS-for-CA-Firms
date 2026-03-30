@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, FileText, Users, Calculator, Building2, Shield, Search, Briefcase, TrendingUp, Award, Globe, ChevronRight, Quote } from 'lucide-react';
@@ -32,6 +33,8 @@ const Index = () => {
   const stats = statsSection?.textContent?.stats || [];
   const industries = industriesSection?.textContent?.items || [];
   const testimonials = testimonialsSection?.textContent?.items || [];
+
+    if (!pageData || !websiteData) return <FullPageLoader />;
 
   return (
     <Layout>

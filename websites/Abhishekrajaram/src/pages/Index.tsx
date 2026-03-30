@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, FileText, Users, Calculator, Building2, Shield, Search, Briefcase, TrendingUp, Award, Globe, ChevronRight, Quote } from 'lucide-react';
@@ -43,6 +44,8 @@ const Index = () => {
   const visibleTestimonials = (testimonials && testimonials.length > 0)
     ? (testimonials.length <= 3 ? testimonials : Array.from({ length: 3 }, (_, k) => testimonials[(testIndex + k) % testimonials.length]))
     : [];
+
+    if (!pageData || !websiteData) return <FullPageLoader />;
 
   return (
     <Layout>

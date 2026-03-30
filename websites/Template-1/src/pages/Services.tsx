@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
@@ -27,6 +28,8 @@ const Services = () => {
 
   const services = servicesSection?.textContent?.items || websiteData?.themeConfig?.services || [];
   const processSteps = processSection?.textContent?.items || [];
+
+    if (!pageData || !websiteData) return <FullPageLoader />;
 
   return (
     <Layout>

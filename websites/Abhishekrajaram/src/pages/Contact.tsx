@@ -1,3 +1,4 @@
+import { FullPageLoader } from '@/components/Loader';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -70,6 +71,8 @@ const Contact = () => {
   const formHeading = contactSection?.textContent?.formHeading || 'Send Us a Message';
   const ctaHeading = contactSection?.textContent?.ctaHeading || cc.ctaHeading || 'Prefer to Talk?';
   const ctaSubheading = contactSection?.textContent?.ctaSubheading || cc.ctaSubheading || 'Schedule a free 30-minute consultation with our experts.';
+
+    if (!pageData || !websiteData) return <FullPageLoader />;
 
   return (
     <Layout>
