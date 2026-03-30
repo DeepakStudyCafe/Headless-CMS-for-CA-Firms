@@ -151,7 +151,7 @@ const Contact = () => {
                         <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
                         <div>
                           <p className="text-sm font-medium text-foreground">Head Office</p>
-                          <p className="text-xs text-muted-foreground mt-1">{address}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{address}</p>
                         </div>
                       </div>
                     )}

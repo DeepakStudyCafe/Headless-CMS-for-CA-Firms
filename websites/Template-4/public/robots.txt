@@ -13,4 +13,20 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: Bingbot
+Allow: /
+Allow: /admin
+
+User-agent: Twitterbot
+Allow: /
+Allow: /admin
+
+User-agent: facebookexternalhit
+Allow: /
+Allow: /admin
+
+User-agent: *
+Allow: /
+Allow: /admin
+
 Sitemap: https://caasgupta.in/sitemap.xml

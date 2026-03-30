@@ -19,7 +19,7 @@ const WEBSITE_EMAILS = {
   'firm6-patel': process.env.FIRM6_EMAIL || 'patel.contact@gmail.com',
   'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com',
   'showcase-website': process.env.SHOWCASE_EMAIL || 'info@studycafe.in',
-  'abhishekrajaram': 'sdeepakncy@gmail.com',
+  'abhishekrajaram': 'support@abhishekrajaram.com',
   'monikas': 'admin@monikas.in',
 };
 
