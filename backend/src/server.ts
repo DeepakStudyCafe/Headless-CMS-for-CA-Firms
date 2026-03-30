@@ -47,6 +47,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3004',
   'http://localhost:3005',
   'http://localhost:3006',
+  'http://localhost:3008',
   'http://localhost:8080',
   'http://localhost:8081',
   'http://localhost:8083',

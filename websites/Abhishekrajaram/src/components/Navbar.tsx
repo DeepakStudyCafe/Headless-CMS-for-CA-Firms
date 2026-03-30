@@ -83,9 +83,10 @@ const Navbar = () => {
   };
 
   const logoUrl = websiteData?.logo || 'https://api.digitechai.in/uploads/logo.png';
-  const firmName = websiteData?.name || 'Sterling & Co.';
+  
 
   return (
+    <>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? 'bg-card/95 backdrop-blur-md shadow-sm border-b border-border/50'
@@ -96,10 +97,10 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link to="/" className="flex items-center gap-1">
             <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg overflow-hidden bg-transparent flex items-center justify-center p-1">
-              <img src={logoUrl} alt={`${firmName} logo`} className="w-full h-full object-contain" />
+              <img src={logoUrl} alt={`Abhishek Raja Ram & Co. logo`} className="w-full h-full object-contain" />
             </div>
             <div className="leading-tight">
-              <span className={`font-serif font-bold text-lg ${!isScrolled ? 'text-white' : 'text-foreground'}`}>{firmName}</span>
+              <span className={`font-serif font-bold text-lg ${!isScrolled ? 'text-white' : 'text-foreground'}`}>Abhishek Raja Ram & Co.</span>
               <span className={`block text-[10px] uppercase tracking-[0.2em] ${!isScrolled ? 'text-white/90' : 'text-muted-foreground'}`}>Chartered Accountants</span>
             </div>
           </Link>
@@ -183,15 +184,16 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+    </header>
 
       
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div className="md:hidden fixed inset-0 z-50">
+          <motion.div className="md:hidden fixed inset-0 z-[9999]">
             {/* backdrop */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black" onClick={() => setMobileOpen(false)} />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/60" onClick={() => setMobileOpen(false)} />
 
             {/* drawer */}
             <motion.aside
@@ -199,14 +201,14 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'tween', duration: 0.18 }}
-              className="absolute right-0 top-0 h-full w-full sm:w-80 bg-card p-6 overflow-auto shadow-2xl"
+              className="absolute right-0 top-0 h-full w-full sm:w-80 bg-card p-6 overflow-y-auto shadow-2xl z-[10000] pt-16 md:pt-20"
             >
               <div className="flex items-center justify-between mb-4">
                 <Link to="/" className="flex items-center gap-2" onClick={() => setMobileOpen(false)}>
                   <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent flex items-center justify-center p-1">
-                    <img src={logoUrl} alt={`${firmName} logo`} className="w-full h-full object-contain" />
+                    <img src={logoUrl} alt={`Abhishek Raja Ram & Co. logo`} className="w-full h-full object-contain" />
                   </div>
-                  <span className="font-semibold text-sm text-foreground">{firmName}</span>
+                  <span className="font-semibold text-sm text-foreground">Abhishek Raja Ram & Co.</span>
                 </Link>
 
                 <button onClick={() => setMobileOpen(false)} className="p-2 rounded-md text-foreground hover:bg-muted">
@@ -247,7 +249,7 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 };
 

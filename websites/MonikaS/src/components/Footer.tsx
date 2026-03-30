@@ -16,9 +16,9 @@ const Footer = () => {
   const email = data?.email || 'info@sterlingco.in';
   const address = data?.address || '42, Business Park, Mumbai, India 400001';
   const description = fc.description || 'Trusted financial advisors delivering excellence in accounting, taxation, and business advisory services since 1995.';
-  const copyright = fc.copyright || '© 2026 Sterling & Co. Chartered Accountants. All rights reserved.';
+  const copyright = fc.copyright || '© 2026 Monika S & Co. Chartered Accountants. All rights reserved.';
   const logoUrl = data?.logo || 'https://api.digitechai.in/uploads/footerlogo.png';
-  const firmName = data?.name || 'Sterling & Co.';
+  // const firmName = data?.name || 'Monika S & Co.';
 
   const socials = [
     { key: 'linkedin', icon: Linkedin, url: fc.linkedin || '#' },
@@ -30,22 +30,22 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="gradient-navy text-primary-foreground mt-[0.1rem]">
-      <div className="container-max mx-auto pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <div>
+    <footer className="gradient-navy text-primary-foreground mt-[0.1rem] overflow-hidden">
+      <div className="container-max mx-auto pt-16 pb-8 px-4 sm:px-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12">
+          <div className="col-span-2 lg:col-span-1 order-1 lg:order-none">
             <div className="flex items-center gap-1 mb-4">
               <div className="w-12 h-12 rounded-lg overflow-hidden bg-transparent flex items-center justify-center p-1">
-                <img src={logoUrl} alt={`${firmName} logo`} className="w-full h-full object-contain" />
+                <img src={logoUrl} alt="Monika S & Co. logo" className="w-full h-full object-contain" />
               </div>
               <div className="leading-tight">
-                <span className="font-serif font-bold text-lg">{firmName}</span>
+                <span className="font-serif font-bold text-lg">Monika S & Co.</span>
                 <span className="block text-[10px] uppercase tracking-[0.2em] text-primary-foreground/60">Chartered Accountants</span>
               </div>
             </div>
             <p className="text-sm text-primary-foreground/60 leading-relaxed">{description}</p>
           </div>
-          <div>
+          <div className="col-span-1 lg:col-span-1 order-2 lg:order-none">
             <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-gold">Services</h4>
             <ul className="space-y-2">
               {(services.length > 0 ? services.slice(0, 5) : [
@@ -63,7 +63,7 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="col-span-1 lg:col-span-1 order-3 lg:order-none">
             <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-gold">Company</h4>
             <ul className="space-y-2">
               {[['About', '/about'], ['Team', '/team'], ['Career', '/career'], ['Gallery', '/gallery'], ['Contact', '/contact']].map(([name, href]) => (
@@ -75,7 +75,7 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="col-span-2 lg:col-span-1 order-4 lg:order-none">
             <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-gold">Contact</h4>
             <div className="space-y-3">
               <a href={`tel:${phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">

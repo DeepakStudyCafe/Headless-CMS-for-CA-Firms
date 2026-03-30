@@ -20,7 +20,7 @@ const WEBSITE_EMAILS = {
   'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com',
   'showcase-website': process.env.SHOWCASE_EMAIL || 'info@studycafe.in',
   'abhishekrajaram': 'support@abhishekrajaram.com',
-  'monikas': 'admin@monikas.in',
+  'monikas': 'sdeepakncy@gmail.com',
 };
 
 // Website names mapping
@@ -45,11 +45,13 @@ export const sendEmail = async (
   attachments?: any[]
 ): Promise<void> => {
   try {
-    const recipientEmail = WEBSITE_EMAILS[website as keyof typeof WEBSITE_EMAILS];
-    const websiteName = WEBSITE_NAMES[website as keyof typeof WEBSITE_NAMES];
+    // Normalize website key (accepts e.g. 'MonikaS' or 'monikas') and provide a sensible default
+    const websiteKey = (website || 'showcase-website').toString().toLowerCase();
+    const recipientEmail = WEBSITE_EMAILS[websiteKey as keyof typeof WEBSITE_EMAILS];
+    const websiteName = WEBSITE_NAMES[websiteKey as keyof typeof WEBSITE_NAMES] || websiteKey;
 
     if (!recipientEmail) {
-      throw new Error(`No email configured for website: ${website}`);
+      throw new Error(`No email configured for website: ${websiteKey}`);
     }
 
     const fromName = process.env.EMAIL_FROM_NAME || 'Professional Services Contact Form';

@@ -23,18 +23,18 @@ import {
 const prisma = new PrismaClient()
 
 async function main() {
-  console.log('Seeding MonikaS (Monika S) website data...')
+  console.log('Seeding MonikaS (Monika S & Co.) website data...')
 
   const website = await prisma.website.upsert({
     where: { slug: 'MonikaS' },
     update: {
-      name: 'Monika S',
+      name: 'Monika S & Co.',
       domain: 'https://MonikaS.in',
       logo: 'https://api.digitechai.in/uploads/logo.png',
       phone: '+91 123 456 7890',
-      email: 'info@sterlingco.in',
-      address: '42, Sterling Tower, Business Park, Andheri East, Mumbai 400001',
-      workingHours: 'Mon - Fri: 9:30 AM - 6:30 PM, Sat: 10:00 AM - 2:00 PM',
+      email: 't.sharma1991@mail.ca.in',
+      address: 'WZ-5E, Dayal Sar Road, Uttam Nagar, New Delhi-110059',
+      workingHours: '10.00 AM to 07.00 PM',
       isActive: true,
       isAdminEnabled: true,
       themeConfig: {
@@ -60,14 +60,14 @@ async function main() {
       },
     },
     create: {
-      name: 'Monika S',
+      name: 'Monika S & Co.',
       slug: 'MonikaS',
       domain: 'https://MonikaS.in',
       logo: 'https://api.digitechai.in/uploads/logo.png',
       phone: '+91 123 456 7890',
-      email: 'info@sterlingco.in',
-      address: '42, Sterling Tower, Business Park, Andheri East, Mumbai 400001',
-      workingHours: 'Mon - Fri: 9:30 AM - 6:30 PM, Sat: 10:00 AM - 2:00 PM',
+      email: 't.sharma1991@mail.ca.in',
+      address: 'WZ-5E, Dayal Sar Road, Uttam Nagar, New Delhi-110059',
+      workingHours: '10.00 AM to 07.00 PM',
       isActive: true,
       isAdminEnabled: true,
       themeConfig: {
@@ -107,7 +107,7 @@ async function main() {
     data: {
       websiteId: website.id,
       slug: 'home',
-      title: 'Home - Monika S',
+      title: 'Home - Monika S & Co.',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -201,7 +201,7 @@ async function main() {
     data: {
       websiteId: website.id,
       slug: 'about',
-      title: 'About Us - Monika S',
+      title: 'About Us - Monika S & Co.',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -269,7 +269,7 @@ async function main() {
     data: {
       websiteId: website.id,
       slug: 'services',
-      title: 'Services - Monika S',
+      title: 'Services - Monika S & Co.',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -339,7 +339,7 @@ async function main() {
       data: {
         websiteId: website.id,
         slug: svc.slug,
-        title: `${svc.title} - Monika S`,
+        title: `${svc.title} - Monika S & Co.`,
         status: 'PUBLISHED',
         publishedAt: new Date(),
         sections: {
@@ -397,7 +397,7 @@ async function main() {
     data: {
       websiteId: website.id,
       slug: 'team',
-      title: 'Our Team - Monika S',
+      title: 'Our Team - Monika S & Co.',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -446,7 +446,7 @@ async function main() {
     data: {
       websiteId: website.id,
       slug: 'gallery',
-      title: 'Gallery - Monika S',
+      title: 'Gallery - Monika S & Co.',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -479,7 +479,7 @@ async function main() {
     data: {
       websiteId: website.id,
       slug: 'contact',
-      title: 'Contact Us - Monika S',
+      title: 'Contact Us - Monika S & Co.',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -521,7 +521,7 @@ async function main() {
     data: {
       websiteId: website.id,
       slug: 'career',
-      title: 'Careers - Monika S',
+      title: 'Careers - Monika S & Co.',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -565,7 +565,7 @@ async function main() {
     data: {
       websiteId: website.id,
       slug: 'query',
-      title: 'Submit a Query - Monika S',
+      title: 'Submit a Query - Monika S & Co.',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
