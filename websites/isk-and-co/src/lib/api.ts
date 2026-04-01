@@ -5,7 +5,7 @@ const WEBSITE_SLUG = 'isk-and-co'
 export async function getWebsiteData() {
   try {
     const res = await fetch(`${API_URL}/public/website/${WEBSITE_SLUG}`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     })
     
     if (!res.ok) {
@@ -25,7 +25,7 @@ export async function getPageData(slug: string) {
   try {
     // Use public API endpoint directly
     const res = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${slug}`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     })
     
     if (!res.ok) {
@@ -33,7 +33,7 @@ export async function getPageData(slug: string) {
       const altSlug = slug === 'services' ? 'service' : slug === 'service' ? 'services' : null
       if (altSlug) {
         const altRes = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${altSlug}`, {
-          next: { revalidate: 3600 },
+          next: { revalidate: 60 },
         })
         if (altRes.ok) {
           const altData = await altRes.json()
@@ -99,7 +99,7 @@ export function getImageUrl(path: string) {
 export async function trackPageView(pageSlug: string) {
   try {
     const websitesRes = await fetch(`${API_URL}/public/websites`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     })
     
     if (!websitesRes.ok) return
@@ -122,7 +122,7 @@ export async function trackPageView(pageSlug: string) {
           websiteId: website.id,
           pageSlug,
         }),
-        next: { revalidate: 3600 },
+        next: { revalidate: 60 },
       })
     }
   } catch (error) {
@@ -251,7 +251,7 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
 export async function searchPosts(q: string, perPage = 10): Promise<WPPost[]> {
   try {
     const res = await fetch(`${API_URL}/public/whats-new/search?q=${encodeURIComponent(q)}&per_page=${perPage}`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
     })
     if (!res.ok) return []
     const json = await res.json()

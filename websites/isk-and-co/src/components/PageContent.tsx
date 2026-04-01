@@ -291,13 +291,13 @@ export function PageContent({ page, tickerPosts = [] }: { page: Page; tickerPost
                       whileHover={{ scale: 1.05 }}
                       className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all"
                     >
-                      <div className="relative h-48">
+                      <div className="relative h-72 bg-gray-50">
                         {item.image ? (
                           <Image
                             src={getImageUrl(item.image)}
                             alt={item.name || item.title}
                             fill
-                            className="object-cover"
+                            className="object-contain p-2"
                           />
                         ) : (
                           <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
