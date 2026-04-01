@@ -91,8 +91,8 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Body parser
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
 
 // Static files for uploads (serve from backend/uploads) with CORS
