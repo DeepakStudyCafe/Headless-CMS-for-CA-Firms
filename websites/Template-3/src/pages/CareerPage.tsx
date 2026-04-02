@@ -1,35 +1,35 @@
+import { mapData } from '../lib/mapper';
+import { useState, useEffect } from 'react';
+import { getPageData } from '../lib/api';
+import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { Heart, Users, TrendingUp, Award, MapPin, Clock, Briefcase } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import SectionWrapper from '../components/SectionWrapper';
 import heroTeam from '@/assets/hero-team.jpg';
 
-const jobs = [
-  { title: 'Senior Audit Associate', location: 'Mumbai', type: 'Full-time', experience: '3-5 years' },
-  { title: 'GST Compliance Manager', location: 'Delhi', type: 'Full-time', experience: '5+ years' },
-  { title: 'Junior Accountant', location: 'Bangalore', type: 'Full-time', experience: '0-2 years' },
-  { title: 'Financial Analyst', location: 'Mumbai', type: 'Full-time', experience: '2-4 years' },
-];
 
-const benefits = [
-  { icon: TrendingUp, title: 'Career Growth', desc: 'Clear progression paths and mentorship.' },
-  { icon: Heart, title: 'Health Benefits', desc: 'Comprehensive medical insurance coverage.' },
-  { icon: Users, title: 'Team Culture', desc: 'Collaborative and inclusive work environment.' },
-  { icon: Award, title: 'Learning', desc: 'Sponsored certifications and training programs.' },
-];
+
+
 
 const CareerPage = () => {
+  const [pageData, setPageData] = useState<any>(null);
+  useEffect(() => {
+    getPageData('careers').then((res) => setPageData(mapData(res))).catch(console.error);
+  }, []);
+  if (!pageData) return <FullPageLoader />;
+
   return (
     <div>
       <PageHero title="Careers" breadcrumb="Career" image={heroTeam} />
 
       <SectionWrapper>
         <div className="text-center mb-12">
-          <h2 className="section-title">Join Our Team</h2>
-          <p className="section-subtitle">Build your career with a firm that values growth, innovation, and excellence.</p>
+          <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'career-header')?.textContent?.heading}</h2>
+          <p className="section-subtitle">{pageData?.sections?.find((s: any) => s.type === 'career-header')?.textContent?.subheading}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((b, i) => (
+          {(pageData?.sections?.find((s: any) => s.type === 'benefits')?.textContent?.items || []).map((b, i) => (
             <motion.div key={b.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="card-premium p-6 text-center">
               <div className="w-12 h-12 rounded-full gradient-primary mx-auto mb-4 flex items-center justify-center">
                 <b.icon size={22} style={{ color: 'hsl(var(--primary-foreground))' }} />
@@ -43,10 +43,10 @@ const CareerPage = () => {
 
       <SectionWrapper className="bg-muted">
         <div className="text-center mb-12">
-          <h2 className="section-title">Open Positions</h2>
+          <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'jobs')?.textContent?.heading || 'Open Positions'}</h2>
         </div>
         <div className="space-y-4 max-w-3xl mx-auto">
-          {jobs.map((job, i) => (
+          {(pageData?.sections?.find((s: any) => s.type === 'jobs')?.textContent?.items || []).map((job, i) => (
             <motion.div key={job.title} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="card-premium p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="font-heading font-semibold text-foreground">{job.title}</h3>

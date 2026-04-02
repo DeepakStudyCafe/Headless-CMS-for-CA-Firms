@@ -26,6 +26,11 @@ export function formatDateTime(date: string | Date) {
 export function getImageUrl(path: string) {
   if (!path) return "";
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  
+  if (!path.includes('.') && !path.startsWith('/')) {
+    return `https://picsum.photos/seed/${path}/800/600`;
+  }
+
   let imagePath = path;
   if (!imagePath.startsWith('/uploads/') && !imagePath.startsWith('/assets/')) {
     imagePath = imagePath.replace(/^\/+/, "").replace(/^uploads\//, "");

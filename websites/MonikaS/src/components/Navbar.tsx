@@ -97,10 +97,10 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link to="/" className="flex items-center gap-1">
             <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg overflow-hidden bg-transparent flex items-center justify-center p-1">
-              <img src={logoUrl} alt="Monika S & Co. logo" className="w-full h-full object-contain" />
+              <img src={logoUrl} alt="Monika S & Associates logo" className="w-full h-full object-contain" />
             </div>
             <div className="leading-tight">
-              <span className={`font-serif font-bold text-lg ${!isScrolled ? 'text-white' : 'text-foreground'}`}>Monika S & Co.</span>
+              <span className={`font-serif font-bold text-lg ${!isScrolled ? 'text-white' : 'text-foreground'}`}>Monika S & Associates</span>
               <span className={`block text-[10px] uppercase tracking-[0.2em] ${!isScrolled ? 'text-white/90' : 'text-muted-foreground'}`}>Chartered Accountants</span>
             </div>
           </Link>
@@ -206,9 +206,9 @@ const Navbar = () => {
               <div className="flex items-center justify-between mb-4">
                 <Link to="/" className="flex items-center gap-2" onClick={() => setMobileOpen(false)}>
                   <div className="w-9 h-9 rounded-md overflow-hidden bg-transparent flex items-center justify-center p-1">
-                    <img src={logoUrl} alt="Monika S & Co. logo" className="w-full h-full object-contain" />
+                    <img src={logoUrl} alt="Monika S & Associates logo" className="w-full h-full object-contain" />
                   </div>
-                  <span className="font-semibold text-sm text-foreground">Monika S & Co.</span>
+                  <span className="font-semibold text-sm text-foreground">Monika S & Associates</span>
                 </Link>
 
                 <button onClick={() => setMobileOpen(false)} className="p-2 rounded-md text-foreground hover:bg-muted">

@@ -1,3 +1,7 @@
+import { mapData } from '../lib/mapper';
+import { useState, useEffect } from 'react';
+import { getPageData } from '../lib/api';
+import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import PageHero from '../components/PageHero';
@@ -5,6 +9,12 @@ import SectionWrapper from '../components/SectionWrapper';
 import heroContact from '@/assets/hero-contact.jpg';
 
 const ContactPage = () => {
+  const [pageData, setPageData] = useState<any>(null);
+  useEffect(() => {
+    getPageData('contact').then((res) => setPageData(mapData(res))).catch(console.error);
+  }, []);
+  if (!pageData) return <FullPageLoader />;
+
   return (
     <div>
       <PageHero title="Contact Us" breadcrumb="Contact" image={heroContact} />
@@ -12,8 +22,8 @@ const ContactPage = () => {
       <SectionWrapper>
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
-            <h2 className="section-title">Get In Touch</h2>
-            <p className="text-muted-foreground mb-8">Have a question or want to discuss how we can help your business? Fill out the form and our team will get back to you within 24 hours.</p>
+            <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'contact-header')?.textContent?.heading}</h2>
+            <p className="text-muted-foreground mb-8">{pageData?.sections?.find((s: any) => s.type === 'contact-header')?.textContent?.subheading}</p>
 
             <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
               <div className="grid sm:grid-cols-2 gap-4">
@@ -33,12 +43,12 @@ const ContactPage = () => {
             <div className="card-premium p-6">
               <h3 className="font-heading font-semibold text-lg mb-4 text-foreground">Contact Information</h3>
               <div className="space-y-4">
-                {[
+                {(pageData?.sections?.find((s: any) => s.type === 'contactInfo')?.textContent?.items || [
                   { icon: MapPin, label: 'Address', value: '123 Financial District, Mumbai, Maharashtra 400001' },
                   { icon: Phone, label: 'Phone', value: '+91 123 456 7890' },
                   { icon: Mail, label: 'Email', value: 'info@apexca.com' },
                   { icon: Clock, label: 'Hours', value: 'Mon – Sat: 9:00 AM – 6:00 PM' },
-                ].map(({ icon: Icon, label, value }) => (
+                ]).map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex items-start gap-3">
                     <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center flex-shrink-0">
                       <Icon size={18} style={{ color: 'hsl(var(--primary-foreground))' }} />

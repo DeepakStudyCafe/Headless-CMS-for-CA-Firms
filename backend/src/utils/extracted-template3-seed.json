@@ -1,0 +1,71 @@
+{
+  "about": [
+    {
+      "name": "values",
+      "body": "[\n\r\n  { icon: Shield, title: 'Integrity', desc: 'We uphold the highest ethical standards in every engagement.' },\r\n  { icon: Award, title: 'Excellence', desc: 'We strive for perfection in all our services and deliverables.' },\r\n  { icon: Users, title: 'Client Focus', desc: 'Your success is our primary mission and motivation.' },\r\n  { icon: Heart, title: 'Trust', desc: 'We build lasting relationships founded on mutual trust.' },\r\n\n]"
+    },
+    {
+      "name": "timeline",
+      "body": "[\n\r\n  { year: '2005', title: 'Founded', desc: 'Apex & Associates established in Mumbai.' },\r\n  { year: '2010', title: 'Expansion', desc: 'Opened offices in Delhi and Bangalore.' },\r\n  { year: '2015', title: '500+ Clients', desc: 'Crossed 500 active clients milestone.' },\r\n  { year: '2020', title: 'Digital First', desc: 'Launched cloud-based accounting solutions.' },\r\n  { year: '2024', title: 'International', desc: 'Expanded advisory services to international markets.' },\r\n\n]"
+    }
+  ],
+  "career": [
+    {
+      "name": "jobs",
+      "body": "[\n\r\n  { title: 'Senior Audit Associate', location: 'Mumbai', type: 'Full-time', experience: '3-5 years' },\r\n  { title: 'GST Compliance Manager', location: 'Delhi', type: 'Full-time', experience: '5+ years' },\r\n  { title: 'Junior Accountant', location: 'Bangalore', type: 'Full-time', experience: '0-2 years' },\r\n  { title: 'Financial Analyst', location: 'Mumbai', type: 'Full-time', experience: '2-4 years' },\r\n\n]"
+    },
+    {
+      "name": "benefits",
+      "body": "[\n\r\n  { icon: TrendingUp, title: 'Career Growth', desc: 'Clear progression paths and mentorship.' },\r\n  { icon: Heart, title: 'Health Benefits', desc: 'Comprehensive medical insurance coverage.' },\r\n  { icon: Users, title: 'Team Culture', desc: 'Collaborative and inclusive work environment.' },\r\n  { icon: Award, title: 'Learning', desc: 'Sponsored certifications and training programs.' },\r\n\n]"
+    }
+  ],
+  "contact": [],
+  "gallery": [
+    {
+      "name": "images",
+      "body": "[\n\r\n  { src: hero1, category: 'Office', title: 'Board Room' },\r\n  { src: hero2, category: 'Events', title: 'Finance Consultation' },\r\n  { src: hero3, category: 'Events', title: 'Strategy Meeting' },\r\n  { src: heroAbout, category: 'Office', title: 'Our Building' },\r\n  { src: heroContact, category: 'Office', title: 'Reception Area' },\r\n  { src: heroServices, category: 'Events', title: 'Client Workshop' },\r\n\n]"
+    }
+  ],
+  "home": [
+    {
+      "name": "slides",
+      "body": "[\n\r\n  { image: hero1, title: 'Trusted Financial Partners', subtitle: 'Empowering businesses with strategic accounting and advisory services since 2005.' },\r\n  { image: hero2, title: 'Data-Driven Insights', subtitle: 'Leveraging advanced analytics to drive your business growth and profitability.' },\r\n  { image: hero3, title: 'Strategic Advisory', subtitle: 'Comprehensive consulting solutions tailored to your unique business needs.' },\r\n\n]"
+    },
+    {
+      "name": "services",
+      "body": "[\n\r\n  { name: 'Bookkeeping', icon: BookOpen, desc: 'Accurate financial record-keeping and reporting.' },\r\n  { name: 'GST Filing', icon: FileText, desc: 'Timely and compliant GST return filing.' },\r\n  { name: 'Payroll', icon: Users, desc: 'End-to-end payroll management solutions.' },\r\n  { name: 'Tax Planning', icon: Calculator, desc: 'Strategic tax optimization and planning.' },\r\n  { name: 'Company Formation', icon: Building2, desc: 'Seamless business incorporation services.' },\r\n  { name: 'Compliance', icon: Shield, desc: 'Regulatory compliance and governance.' },\r\n  { name: 'Audit Services', icon: Search, desc: 'Thorough and independent audit assurance.' },\r\n  { name: 'Financial Advisory', icon: TrendingUp, desc: 'Expert guidance for financial growth.' },\r\n\n]"
+    },
+    {
+      "name": "industries",
+      "body": "[\n\r\n  { name: 'Startups', icon: Rocket, desc: 'Scaling from zero to success' },\r\n  { name: 'SMEs', icon: Briefcase, desc: 'Growth-focused financial solutions' },\r\n  { name: 'Manufacturing', icon: Factory, desc: 'Cost optimization and compliance' },\r\n  { name: 'IT & Technology', icon: Monitor, desc: 'Tech-enabled financial services' },\r\n\n]"
+    },
+    {
+      "name": "testimonials",
+      "body": "[\n\r\n  { name: 'Rajesh Sharma', role: 'CEO, TechVentures', text: 'Apex & Associates transformed our financial operations. Their expertise in tax planning saved us significantly.' },\r\n  { name: 'Priya Mehta', role: 'Founder, GreenLeaf Organics', text: 'Professional, responsive, and incredibly knowledgeable. They made compliance feel effortless.' },\r\n  { name: 'Amit Patel', role: 'Director, BuildRight Constructions', text: 'Their audit services gave us complete confidence in our financial reporting. Highly recommended.' },\r\n\n]"
+    }
+  ],
+  "notfound": [],
+  "query": [
+    {
+      "name": "faqs",
+      "body": "[\n\r\n  { q: 'What services does your firm offer?', a: 'We offer bookkeeping, GST filing, payroll, tax planning, company formation, compliance, audit, and financial advisory services.' },\r\n  { q: 'How can I schedule a consultation?', a: 'You can fill out the query form below or contact us via phone/email to schedule a free consultation.' },\r\n  { q: 'Do you serve clients outside India?', a: 'Yes, we have experience serving international clients and handling cross-border financial matters.' },\r\n  { q: 'What industries do you specialize in?', a: 'We serve startups, SMEs, manufacturing, IT, real estate, healthcare, and more.' },\r\n\n]"
+    }
+  ],
+  "servicedetail": [],
+  "services": [
+    {
+      "name": "services",
+      "body": "[\n\r\n  { name: 'Bookkeeping', href: '/services/bookkeeping', icon: BookOpen, desc: 'Accurate financial record-keeping, bank reconciliations, and periodic reporting for complete financial visibility.' },\r\n  { name: 'GST Filing', href: '/services/gst-filing', icon: FileText, desc: 'Timely and accurate GST return filing with compliance monitoring and advisory on GST regulations.' },\r\n  { name: 'Payroll', href: '/services/payroll', icon: Users, desc: 'End-to-end payroll management including salary processing, TDS, PF/ESI compliance, and reporting.' },\r\n  { name: 'Tax Planning', href: '/services/tax-planning', icon: Calculator, desc: 'Strategic tax planning and optimization services to minimize liabilities while ensuring compliance.' },\r\n  { name: 'Company Formation', href: '/services/company-formation', icon: Building2, desc: 'Seamless company registration, LLP formation, and incorporation services with complete documentation.' },\r\n  { name: 'Compliance', href: '/services/compliance', icon: Shield, desc: 'Comprehensive regulatory compliance services including ROC filings, annual returns, and statutory audits.' },\r\n  { name: 'Audit Services', href: '/services/audit-services', icon: Search, desc: 'Independent audit and assurance services ensuring transparency and accuracy in financial reporting.' },\r\n  { name: 'Financial Advisory', href: '/services/financial-advisory', icon: TrendingUp, desc: 'Expert financial advisory covering valuations, due diligence, mergers, and strategic planning.' },\r\n\n]"
+    }
+  ],
+  "team": [
+    {
+      "name": "partners",
+      "body": "[\n\r\n  { name: 'CA Vikram Desai', role: 'Managing Partner', speciality: 'Audit & Assurance' },\r\n  { name: 'CA Anita Krishnan', role: 'Senior Partner', speciality: 'Tax Advisory' },\r\n  { name: 'CA Rahul Gupta', role: 'Partner', speciality: 'Financial Advisory' },\r\n\n]"
+    },
+    {
+      "name": "team",
+      "body": "[\n\r\n  { name: 'Neha Sharma', role: 'Senior Manager – Audit' },\r\n  { name: 'Arun Mehta', role: 'Manager – Tax Compliance' },\r\n  { name: 'Sneha Patel', role: 'Manager – GST Services' },\r\n  { name: 'Rohan Das', role: 'Manager – Payroll' },\r\n  { name: 'Kavita Iyer', role: 'Senior Associate – Bookkeeping' },\r\n  { name: 'Suresh Nair', role: 'Associate – Company Formation' },\r\n\n]"
+    }
+  ]
+}

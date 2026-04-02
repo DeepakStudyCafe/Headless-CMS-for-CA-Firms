@@ -1,4 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { mapData } from '../lib/mapper';
+import { useState, useEffect } from 'react';
+import { getPageData } from '../lib/api';
+import { FullPageLoader } from '../components/Loader';
+import { useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BookOpen, FileText, Users, Calculator, Building2, Shield, Search, TrendingUp, Star, ArrowRight, Rocket, Factory, Monitor, Briefcase } from 'lucide-react';
@@ -9,46 +13,34 @@ import hero1 from '@/assets/hero-1.jpg';
 import hero2 from '@/assets/hero-2.jpg';
 import hero3 from '@/assets/hero-3.jpg';
 
-const slides = [
-  { image: hero1, title: 'Trusted Financial Partners', subtitle: 'Empowering businesses with strategic accounting and advisory services since 2005.' },
-  { image: hero2, title: 'Data-Driven Insights', subtitle: 'Leveraging advanced analytics to drive your business growth and profitability.' },
-  { image: hero3, title: 'Strategic Advisory', subtitle: 'Comprehensive consulting solutions tailored to your unique business needs.' },
-];
 
-const services = [
-  { name: 'Bookkeeping', icon: BookOpen, desc: 'Accurate financial record-keeping and reporting.' },
-  { name: 'GST Filing', icon: FileText, desc: 'Timely and compliant GST return filing.' },
-  { name: 'Payroll', icon: Users, desc: 'End-to-end payroll management solutions.' },
-  { name: 'Tax Planning', icon: Calculator, desc: 'Strategic tax optimization and planning.' },
-  { name: 'Company Formation', icon: Building2, desc: 'Seamless business incorporation services.' },
-  { name: 'Compliance', icon: Shield, desc: 'Regulatory compliance and governance.' },
-  { name: 'Audit Services', icon: Search, desc: 'Thorough and independent audit assurance.' },
-  { name: 'Financial Advisory', icon: TrendingUp, desc: 'Expert guidance for financial growth.' },
-];
 
-const industries = [
-  { name: 'Startups', icon: Rocket, desc: 'Scaling from zero to success' },
-  { name: 'SMEs', icon: Briefcase, desc: 'Growth-focused financial solutions' },
-  { name: 'Manufacturing', icon: Factory, desc: 'Cost optimization and compliance' },
-  { name: 'IT & Technology', icon: Monitor, desc: 'Tech-enabled financial services' },
-];
 
-const testimonials = [
-  { name: 'Rajesh Sharma', role: 'CEO, TechVentures', text: 'Apex & Associates transformed our financial operations. Their expertise in tax planning saved us significantly.' },
-  { name: 'Priya Mehta', role: 'Founder, GreenLeaf Organics', text: 'Professional, responsive, and incredibly knowledgeable. They made compliance feel effortless.' },
-  { name: 'Amit Patel', role: 'Director, BuildRight Constructions', text: 'Their audit services gave us complete confidence in our financial reporting. Highly recommended.' },
-];
+
+
+
+
 
 const Index = () => {
+  const [pageData, setPageData] = useState<any>(null);
   const [current, setCurrent] = useState(0);
 
-  const nextSlide = useCallback(() => setCurrent((p) => (p + 1) % slides.length), []);
-  const prevSlide = () => setCurrent((p) => (p - 1 + slides.length) % slides.length);
+  useEffect(() => {
+    getPageData('home').then((res) => setPageData(mapData(res))).catch(console.error);
+  }, []);
+
+  const currentSlides = pageData?.sections?.find((s: any) => s.type === 'hero')?.textContent?.slides || [];
+
+  const nextSlide = useCallback(() => setCurrent((p) => (p + 1) % (currentSlides.length || 1)), [currentSlides.length]);
+  const prevSlide = () => setCurrent((p) => (p - 1 + currentSlides.length) % (currentSlides.length || 1));
 
   useEffect(() => {
+    if (!currentSlides.length) return;
     const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
-  }, [nextSlide]);
+  }, [nextSlide, currentSlides.length]);
+
+  if (!pageData || currentSlides.length === 0) return <FullPageLoader />;
 
   return (
     <div>
@@ -63,7 +55,7 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             className="absolute inset-0"
           >
-            <img src={slides[current].image} alt={slides[current].title} className="w-full h-full object-cover" />
+            <img src={currentSlides[current].image} alt={currentSlides[current].title} className="w-full h-full object-cover" />
             <div className="absolute inset-0 hero-overlay" />
           </motion.div>
         </AnimatePresence>
@@ -86,14 +78,14 @@ const Index = () => {
                   className="h-1 gradient-accent mb-6 rounded-full"
                 />
                 <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4 leading-tight" style={{ color: 'hsl(var(--primary-foreground))' }}>
-                  {slides[current].title}
+                  {currentSlides[current].title}
                 </h1>
                 <p className="text-lg md:text-xl mb-8 leading-relaxed" style={{ color: 'hsl(var(--primary-foreground) / 0.85)' }}>
-                  {slides[current].subtitle}
+                  {currentSlides[current].subtitle}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link to="/contact" className="btn-primary-gradient">Contact Us</Link>
-                  <Link to="/services" className="btn-outline-light">Our Services</Link>
+                  <Link to="/services" className="btn-outline-light">{pageData?.sections?.find((s: any) => s.type === 'services-section')?.textContent?.heading || 'Our Services'}</Link>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -105,7 +97,7 @@ const Index = () => {
 
         {/* Indicators */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-          {slides.map((_, i) => (
+          {(pageData?.sections?.find((s: any) => s.type === 'hero')?.textContent?.slides || []).map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
@@ -118,11 +110,11 @@ const Index = () => {
       {/* Services */}
       <SectionWrapper className="bg-background">
         <div className="text-center mb-12">
-          <h2 className="section-title">Our Services</h2>
-          <p className="section-subtitle">Comprehensive financial solutions tailored to drive your business forward.</p>
+          <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'services-section')?.textContent?.heading || 'Our Services'}</h2>
+          <p className="section-subtitle">{pageData?.sections?.find((s: any) => s.type === 'services-section')?.textContent?.subheading}</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((s, i) => (
+          {(pageData?.sections?.find((s: any) => s.type === 'services-section')?.textContent?.items || []).map((s, i) => (
             <motion.div
               key={s.name}
               initial={{ opacity: 0, y: 30 }}
@@ -146,7 +138,7 @@ const Index = () => {
       <SectionWrapper className="bg-muted">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="section-title">Why Choose Apex & Associates?</h2>
+            <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.heading || 'Why Choose Us?'}</h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               With over 18 years of experience, we combine deep industry knowledge with innovative solutions to deliver exceptional financial services. Our team of certified professionals is committed to your success.
             </p>
@@ -166,11 +158,11 @@ const Index = () => {
       {/* Industries */}
       <SectionWrapper className="bg-background">
         <div className="text-center mb-12">
-          <h2 className="section-title">Industries We Serve</h2>
-          <p className="section-subtitle">Specialized expertise across diverse industry verticals.</p>
+          <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'industries')?.textContent?.heading || 'Industries We Serve'}</h2>
+          <p className="section-subtitle">{pageData?.sections?.find((s: any) => s.type === 'industries')?.textContent?.subheading}</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {industries.map((ind, i) => (
+          {(pageData?.sections?.find((s: any) => s.type === 'industries')?.textContent?.items || []).map((ind, i) => (
             <motion.div
               key={ind.name}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -192,11 +184,11 @@ const Index = () => {
       {/* Testimonials */}
       <SectionWrapper className="bg-muted">
         <div className="text-center mb-12">
-          <h2 className="section-title">What Our Clients Say</h2>
-          <p className="section-subtitle">Trusted by businesses across industries.</p>
+          <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'testimonials')?.textContent?.heading}</h2>
+          <p className="section-subtitle">{pageData?.sections?.find((s: any) => s.type === 'testimonials')?.textContent?.subheading}</p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
+          {(pageData?.sections?.find((s: any) => s.type === 'testimonials')?.textContent?.items || []).map((t, i) => (
             <motion.div
               key={t.name}
               initial={{ opacity: 0, y: 30 }}

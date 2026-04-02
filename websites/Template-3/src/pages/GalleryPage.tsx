@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { mapData } from '../lib/mapper';
+import { useState, useEffect } from 'react';
+import { getPageData } from '../lib/api';
+import { FullPageLoader } from '../components/Loader';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import PageHero from '../components/PageHero';
@@ -11,20 +15,22 @@ import heroAbout from '@/assets/hero-about.jpg';
 import heroContact from '@/assets/hero-contact.jpg';
 import heroServices from '@/assets/hero-services.jpg';
 
-const images = [
-  { src: hero1, category: 'Office', title: 'Board Room' },
-  { src: hero2, category: 'Events', title: 'Finance Consultation' },
-  { src: hero3, category: 'Events', title: 'Strategy Meeting' },
-  { src: heroAbout, category: 'Office', title: 'Our Building' },
-  { src: heroContact, category: 'Office', title: 'Reception Area' },
-  { src: heroServices, category: 'Events', title: 'Client Workshop' },
-];
+
 
 const GalleryPage = () => {
+  const [pageData, setPageData] = useState<any>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const [filter, setFilter] = useState('All');
 
-  const filtered = filter === 'All' ? images : images.filter((i) => i.category === filter);
+  useEffect(() => {
+    getPageData('gallery').then((res) => setPageData(mapData(res))).catch(console.error);      
+  }, []);
+
+  // Wait for data and define `images` (from mapData etc., or whatever `images` resolves to)
+  const images = pageData?.sections?.find((s: any) => s.type === 'galleryImages')?.textContent?.items || [];
+  const filtered = filter === 'All' ? images : images.filter((i: any) => i.category === filter);
+
+  if (!pageData) return <FullPageLoader />;
 
   return (
     <div>
@@ -32,7 +38,7 @@ const GalleryPage = () => {
 
       <SectionWrapper>
         <div className="text-center mb-8">
-          <h2 className="section-title">Our Gallery</h2>
+          <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'gallery-header')?.textContent?.heading}</h2>
           <div className="flex justify-center gap-3 mt-6">
             {['All', 'Office', 'Events'].map((cat) => (
               <button key={cat} onClick={() => setFilter(cat)} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${filter === cat ? 'gradient-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:bg-border'}`}>

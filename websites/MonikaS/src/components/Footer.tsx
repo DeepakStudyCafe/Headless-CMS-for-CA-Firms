@@ -12,13 +12,13 @@ const Footer = () => {
 
   const fc = data?.themeConfig?.footerContent || {};
   const services = data?.themeConfig?.services || [];
-  const phone = data?.phone || '+91 123 456 7890';
-  const email = data?.email || 'info@sterlingco.in';
+  const phone = data?.phone || '+91 9910109612';
+  const email = data?.email || 't.sharma1991@mail.ca.in';
   const address = data?.address || '42, Business Park, Mumbai, India 400001';
   const description = fc.description || 'Trusted financial advisors delivering excellence in accounting, taxation, and business advisory services since 1995.';
-  const copyright = fc.copyright || '© 2026 Monika S & Co. Chartered Accountants. All rights reserved.';
+  const copyright = fc.copyright || '© 2026 Monika S & Associates Chartered Accountants. All rights reserved.';
   const logoUrl = data?.logo || 'https://api.digitechai.in/uploads/footerlogo.png';
-  // const firmName = data?.name || 'Monika S & Co.';
+  // const firmName = data?.name || 'Monika S & Associates';
 
   const socials = [
     { key: 'linkedin', icon: Linkedin, url: fc.linkedin || '#' },
@@ -36,10 +36,10 @@ const Footer = () => {
           <div className="col-span-2 lg:col-span-1 order-1 lg:order-none">
             <div className="flex items-center gap-1 mb-4">
               <div className="w-12 h-12 rounded-lg overflow-hidden bg-transparent flex items-center justify-center p-1">
-                <img src={logoUrl} alt="Monika S & Co. logo" className="w-full h-full object-contain" />
+                <img src={logoUrl} alt="Monika S & Associates logo" className="w-full h-full object-contain" />
               </div>
               <div className="leading-tight">
-                <span className="font-serif font-bold text-lg">Monika S & Co.</span>
+                <span className="font-serif font-bold text-lg">Monika S & Associates</span>
                 <span className="block text-[10px] uppercase tracking-[0.2em] text-primary-foreground/60">Chartered Accountants</span>
               </div>
             </div>

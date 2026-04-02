@@ -17,6 +17,10 @@ import ContactPage from "./pages/ContactPage";
 import QueryPage from "./pages/QueryPage";
 import CareerPage from "./pages/CareerPage";
 import NotFound from "./pages/NotFound";
+import AdminRoot from "./pages/admin/AdminRoot";
+import Login from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
+import PageEditor from "./pages/admin/pages/PageEditor";
 
 const queryClient = new QueryClient();
 
@@ -47,10 +51,30 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/query" element={<QueryPage />} />
           <Route path="/career" element={<CareerPage />} />
+          <Route path="/admin" element={<AdminRoot />} />
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/pages/:slug" element={<PageEditor />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
+  );
+};
+
+const AppLayout = () => {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
+
+  return (
+    <>
+      <ScrollToTop />
+      {!isAdmin && <Header />}
+      <main className="min-h-screen">
+        <AnimatedRoutes />
+      </main>
+      {!isAdmin && <Footer />}
+    </>
   );
 };
 
@@ -60,12 +84,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollToTop />
-        <Header />
-        <main className="min-h-screen">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
+        <AppLayout />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

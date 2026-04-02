@@ -1,742 +1,903 @@
-import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Starting template-3 database seed...')
-
-  // Create template-3 Website
-  const template3 = await prisma.website.upsert({
-    where: { slug: 'template-3' },
-    update: {
-      name: 'Template 3 Demo',
-      domain: 'http://localhost:5177',
-      phone: '+91 22 1234 5678',
-      email: 'info@sharmaco.com',
-      address: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
-      workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
-      themeConfig: {
-        primaryColor: '#06142b',
-        secondaryColor: '#f3f4f6',
-        fontFamily: 'Inter',
-        theme: 'modern',
-        footerContent: {
-          description: 'A structural financial consulting firm dedicated to bringing robust growth and stability.',
-          copyright: '© 2026 template-3. All rights reserved.'
-        }
-      },
-    },
-    create: {
-      name: 'Template 3 Demo',
-      slug: 'template-3',
-      domain: 'http://localhost:5177',
-      phone: '+91 22 1234 5678',
-      email: 'info@sharmaco.com',
-      address: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
-      workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
-      themeConfig: {
-        primaryColor: '#06142b',
-        secondaryColor: '#f3f4f6',
-        fontFamily: 'Inter',
-        theme: 'modern',
-        footerContent: {
-          description: 'A structural financial consulting firm dedicated to bringing robust growth and stability.',
-          copyright: '© 2026 template-3. All rights reserved.'
-        }
-      },
-    },
-  })
-  console.log('✅ Template 3 website created')
-
-  // Helper to safely delete existing old pages to re-seed fresh
-  await prisma.section.deleteMany({
-    where: { page: { websiteId: template3.id } }
-  })
-  await prisma.page.deleteMany({
-    where: { websiteId: template3.id }
-  })
-
-  // Home Page
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      slug: 'home',
-      title: 'Home',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          {
-            type: 'hero-slider',
-            order: 1,
-            textContent: {
-              slides: [
-                { image: '/uploads/hero-1.jpg', title: 'Strategic Financial\nConsultation', subtitle: 'Empowering businesses with expert advisory and precision-driven financial solutions for sustainable growth.', badge: 'Trusted by 500+ Businesses' },
-                { image: '/uploads/hero-2.jpg', title: 'Expert Tax &\nAdvisory Services', subtitle: 'Navigate complex tax landscapes with our seasoned chartered accountants and industry specialists.', badge: '20+ Years of Excellence' },
-                { image: '/uploads/hero-3.jpg', title: 'Building Financial\nConfidence', subtitle: 'From compliance to strategic planning — we deliver results that drive your business forward.', badge: 'Award-Winning Firm' },
-              ]
-            }
-          },
-          {
-            type: 'services-grid',
-            order: 2,
-            textContent: {
-              label: 'Our Expertise',
-              title: 'Services That Drive Results',
-              description: 'Comprehensive financial solutions tailored to your business, delivered with precision and deep industry expertise.',
-              items: [
-                { name: 'Bookkeeping', icon: 'BookOpen', desc: 'Precise financial record keeping for informed decision-making.', href: '/services/bookkeeping' },
-                { name: 'GST Filing', icon: 'FileText', desc: 'Seamless GST compliance and return filing advisory.', href: '/services/gst-filing' },
-                { name: 'Payroll', icon: 'Users', desc: 'Complete payroll processing and statutory compliance.', href: '/services/payroll' },
-                { name: 'Tax Planning', icon: 'Calculator', desc: 'Strategic tax optimization to maximize your savings.', href: '/services/tax-planning' },
-                { name: 'Company Formation', icon: 'Building2', desc: 'End-to-end business incorporation services.', href: '/services/company-formation' },
-                { name: 'Compliance', icon: 'Shield', desc: 'Proactive regulatory compliance management.', href: '/services/compliance' },
-                { name: 'Audit Services', icon: 'Search', desc: 'Comprehensive statutory and internal audits.', href: '/services/audit-services' },
-                { name: 'Financial Advisory', icon: 'TrendingUp', desc: 'Expert guidance for financial growth.', href: '/services/financial-advisory' }
-              ]
-            }
-          },
-          {
-            type: 'about-overview',
-            order: 3,
-            textContent: {
-              badge: 'About Our Firm',
-              heading: 'Trusted Financial Partners Since 2005',
-              description1: 'Sharma & Co. is a premier Chartered Accountancy firm committed to delivering exceptional financial services. With nearly two decades of experience, we serve a diverse clientele from ambitious startups to established corporations.',
-              description2: 'Our team brings deep industry expertise ensuring compliance, efficiency, and strategic financial growth for every client we serve.',
-              tags: ['ICAI Registered', 'ISO Certified', 'Award Winning'],
-              stats: [
-                { end: 18, suffix: '+', label: 'Years Experience' },
-                { end: 500, suffix: '+', label: 'Clients Served' },
-                { end: 50, suffix: '+', label: 'Team Members' },
-                { end: 98, suffix: '%', label: 'Client Satisfaction' }
-              ]
-            }
-          },
-          {
-            type: 'industries',
-            order: 4,
-            textContent: {
-              label: 'Industries We Serve',
-              title: 'Expertise Across Sectors',
-              description: 'Deep domain knowledge across key industries ensures tailored solutions for your unique challenges.',
-              items: [
-                { name: 'Startups', icon: 'Rocket', desc: 'Scaling with confidence' },
-                { name: 'SMEs', icon: 'Store', desc: 'Streamlined operations' },
-                { name: 'Manufacturing', icon: 'Factory', desc: 'Cost optimization' },
-                { name: 'IT & Tech', icon: 'Laptop', desc: 'Tax-efficient structures' },
-                { name: 'Real Estate', icon: 'Building', desc: 'Project financing' },
-                { name: 'Consulting', icon: 'Briefcase', desc: 'Strategic advisory' }
-              ]
-            }
-          },
-          {
-            type: 'testimonials',
-            order: 5,
-            textContent: {
-              label: 'Testimonials',
-              title: 'What Our Clients Say',
-              description: 'Hear from the businesses we\'ve helped grow and succeed.',
-              items: [
-                { name: 'Rajesh Kumar', role: 'CEO, TechStartup India', text: 'Sharma & Co. transformed our financial operations. Their expertise in tax planning saved us significantly and their team\'s responsiveness is unmatched.' },
-                { name: 'Priya Mehta', role: 'Director, GreenLeaf Mfg.', text: 'Exceptional audit services and compliance support. They truly understand the manufacturing sector and deliver beyond expectations.' },
-                { name: 'Amit Patel', role: 'Founder, Digital Solutions', text: 'Professional, responsive, and deeply knowledgeable. The best CA firm we\'ve worked with — they feel like an extension of our team.' }
-              ]
-            }
-          },
-          {
-            type: 'cta',
-            order: 6,
-            textContent: {
-              badge: 'Let\'s Work Together',
-              heading: 'Ready to Transform\nYour Business?',
-              description: 'Let our team of expert Chartered Accountants help you navigate your financial journey. Schedule a complimentary consultation today.',
-              buttonText: 'Schedule Free Consultation'
-            }
-          }
-        ]
-      }
-    }
-  })
+  console.log('Starting seed process for Template-3...');
   
-  // About Page
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      slug: 'about',
-      title: 'About Us',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          {
-            type: 'page-hero',
-            order: 1,
-            imageUrl: '/uploads/about-hero.jpg',
-            textContent: {
-              title: 'About Us',
-              subtitle: 'Building trust through financial excellence',
+  try {
+    await prisma.$transaction(async (tx) => {
+        // Find existing website or create
+        let website = await tx.website.findUnique({
+          where: { slug: 'template-3' }
+        });
+        
+        if (!website) {
+          website = await tx.website.create({
+            data: {
+              name: 'Template 3 - CA Firm',
+              slug: 'template-3',
+              description: 'Professional CA Firm template with modern UI',
+              status: "PUBLISHED", publishedAt: new Date(),
             }
-          },
-          {
-            type: 'about-intro',
-            order: 2,
-            textContent: {
-              badge: 'Who We Are',
-              heading: 'A Legacy of Financial Excellence',
-              description1: 'Sharma & Co. is one of India\'s leading Chartered Accountancy firms, established in 2005. We provide comprehensive financial services including auditing, taxation, advisory, and compliance solutions.',
-              description2: 'Our team combines deep technical expertise with industry knowledge to deliver customized solutions that drive business growth and ensure regulatory compliance.',
-              stats: [
-                { end: 18, suffix: '+', label: 'Years Experience' },
-                { end: 500, suffix: '+', label: 'Clients Served' },
-                { end: 50, suffix: '+', label: 'Team Members' },
-                { end: 15, suffix: '', label: 'Industry Awards' }
-              ]
-            }
-          },
-          {
-            type: 'mission-vision',
-            order: 3,
-            textContent: {
-              missionIcon: 'Target',
-              visionIcon: 'Eye',
-              missionTitle: 'Our Mission',
-              missionDesc: 'To empower businesses with accurate, timely, and insightful financial services that enable informed decision-making and sustainable growth, while maintaining the highest standards of professional ethics.',
-              visionTitle: 'Our Vision',
-              visionDesc: 'To be the most trusted and innovative Chartered Accountancy firm in India, recognized for transforming businesses through strategic financial guidance and technology-driven solutions.',
-            }
-          },
-          {
-            type: 'core-values',
-            order: 4,
-            textContent: {
-              label: 'Our Values',
-              heading: 'What Drives Us',
-              description: 'The principles that guide every decision and relationship.',
-              items: [
-                { icon: 'Shield', title: 'Integrity', desc: 'Upholding the highest ethical standards in every engagement.' },
-                { icon: 'Award', title: 'Excellence', desc: 'Delivering exceptional quality and precision in all services.' },
-                { icon: 'Users', title: 'Client-Centric', desc: 'Placing our clients\' success at the heart of everything.' },
-                { icon: 'Heart', title: 'Commitment', desc: 'Going beyond expectations to deliver lasting value.' }
-              ]
-            }
-          },
-          {
-            type: 'timeline',
-            order: 5,
-            textContent: {
-              label: 'Our Journey',
-              heading: 'Company Timeline',
-              items: [
-                { year: '2005', title: 'Founded', desc: 'Sharma & Co. established with a vision to redefine financial advisory.' },
-                { year: '2010', title: '100 Clients', desc: 'Crossed the milestone of serving 100 businesses across India.' },
-                { year: '2015', title: 'Team of 30', desc: 'Expanded our team with top chartered accountants and experts.' },
-                { year: '2020', title: 'Digital Transformation', desc: 'Embraced technology for seamless cloud-based financial services.' },
-                { year: '2024', title: '500+ Clients', desc: 'Serving over 500 businesses with 50+ dedicated professionals.' }
-              ]
-            }
-          },
-          {
-            type: 'why-choose-us',
-            order: 6,
-            textContent: {
-              badge: 'Why Choose Us',
-              heading: 'The Sharma & Co. Advantage',
-              description: 'We combine decades of expertise with modern technology to deliver unparalleled financial services.',
-              items: [
-                '20+ years of industry experience',
-                'Team of 50+ qualified professionals',
-                'Technology-driven processes',
-                'Personalized service approach',
-                '99% compliance track record',
-                'Pan-India service coverage'
-              ]
+          });
+          console.log('Created website: Template 3');
+        } else {
+          console.log('Website Template 3 already exists');
+        }
+
+        
+
+    // ============================================
+    // ABOUT PAGE
+    // ============================================
+    
+    // Check if the page exists
+    let aboutPage = await tx.page.findFirst({
+      where: { slug: 'about', websiteId: website.id }
+    });
+
+    if (!aboutPage) {
+      aboutPage = await tx.page.create({
+        data: {
+          title: 'ABOUT',
+          slug: 'about',
+          websiteId: website.id,
+          status: 'PUBLISHED'
+        }
+      });
+      console.log('Created about page');
+    } else {
+      await tx.page.update({ where: { id: aboutPage.id }, data: { status: 'PUBLISHED' } });
+      console.log('about page already exists');
+    }
+
+    // Prepare sections for about
+    const aboutSections = [
+
+      {
+        pageId: aboutPage.id,
+        type: 'values',
+        order: 10,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "icon": "Shield",
+                        "title": "Integrity",
+                        "desc": "We uphold the highest ethical standards in every engagement."
+                },
+                {
+                        "icon": "Award",
+                        "title": "Excellence",
+                        "desc": "We strive for perfection in all our services and deliverables."
+                },
+                {
+                        "icon": "Users",
+                        "title": "Client Focus",
+                        "desc": "Your success is our primary mission and motivation."
+                },
+                {
+                        "icon": "Heart",
+                        "title": "Trust",
+                        "desc": "We build lasting relationships founded on mutual trust."
+                }
+        ]
+}
+      },
+
+      {
+        pageId: aboutPage.id,
+        type: 'timeline',
+        order: 20,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "year": "2005",
+                        "title": "Founded",
+                        "desc": "Apex & Associates established in Mumbai."
+                },
+                {
+                        "year": "2010",
+                        "title": "Expansion",
+                        "desc": "Opened offices in Delhi and Bangalore."
+                },
+                {
+                        "year": "2015",
+                        "title": "500+ Clients",
+                        "desc": "Crossed 500 active clients milestone."
+                },
+                {
+                        "year": "2020",
+                        "title": "Digital First",
+                        "desc": "Launched cloud-based accounting solutions."
+                },
+                {
+                        "year": "2024",
+                        "title": "International",
+                        "desc": "Expanded advisory services to international markets."
+                }
+        ]
+}
+      },
+    ];
+
+    // Seed sections for about
+    for (const section of aboutSections) {
+      const existingSection = await tx.section.findFirst({
+        where: { pageId: section.pageId, type: section.type }
+      });
+      if (!existingSection) {
+        await tx.section.create({ data: section });
+      } else {
+        // Upgrade existing section with new schema
+        await tx.section.update({
+          where: { id: existingSection.id },
+          data: { textContent: section.textContent }
+        });
+      }
+    }
+
+
+    // ============================================
+    // CAREER PAGE
+    // ============================================
+    
+    // Check if the page exists
+    let careerPage = await tx.page.findFirst({
+      where: { slug: 'career', websiteId: website.id }
+    });
+
+    if (!careerPage) {
+      careerPage = await tx.page.create({
+        data: {
+          title: 'CAREER',
+          slug: 'career',
+          websiteId: website.id,
+          status: "PUBLISHED", publishedAt: new Date()
+        }
+      });
+      console.log('Created about page');
+    } else {
+      await tx.page.update({ where: { id: aboutPage.id }, data: { status: 'PUBLISHED', publishedAt: new Date() } });
+      console.log('about page already exists');
+    }
+
+    // Prepare sections for career
+    const careerSections = [
+
+      {
+        pageId: careerPage.id,
+        type: 'jobs',
+        order: 10,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "title": "Senior Audit Associate",
+                        "location": "Mumbai",
+                        "type": "Full-time",
+                        "experience": "3-5 years"
+                },
+                {
+                        "title": "GST Compliance Manager",
+                        "location": "Delhi",
+                        "type": "Full-time",
+                        "experience": "5+ years"
+                },
+                {
+                        "title": "Junior Accountant",
+                        "location": "Bangalore",
+                        "type": "Full-time",
+                        "experience": "0-2 years"
+                },
+                {
+                        "title": "Financial Analyst",
+                        "location": "Mumbai",
+                        "type": "Full-time",
+                        "experience": "2-4 years"
+                }
+        ]
+}
+      },
+
+      {
+        pageId: careerPage.id,
+        type: 'benefits',
+        order: 20,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "icon": "TrendingUp",
+                        "title": "Career Growth",
+                        "desc": "Clear progression paths and mentorship."
+                },
+                {
+                        "icon": "Heart",
+                        "title": "Health Benefits",
+                        "desc": "Comprehensive medical insurance coverage."
+                },
+                {
+                        "icon": "Users",
+                        "title": "Team Culture",
+                        "desc": "Collaborative and inclusive work environment."
+                },
+                {
+                        "icon": "Award",
+                        "title": "Learning",
+                        "desc": "Sponsored certifications and training programs."
+                }
+        ]
+}
+      },
+    ];
+
+    // Seed sections for career
+    for (const section of careerSections) {
+      const existingSection = await tx.section.findFirst({
+        where: { pageId: section.pageId, type: section.type }
+      });
+      if (!existingSection) {
+        await tx.section.create({ data: section });
+      } else {
+        // Upgrade existing section with new schema
+        await tx.section.update({
+          where: { id: existingSection.id },
+          data: { textContent: section.textContent }
+        });
+      }
+    }
+
+
+    // ============================================
+    // CONTACT PAGE
+    // ============================================
+    
+    // Check if the page exists
+    let contactPage = await tx.page.findFirst({
+      where: { slug: 'contact', websiteId: website.id }
+    });
+
+    if (!contactPage) {
+      contactPage = await tx.page.create({
+        data: {
+          title: 'CONTACT',
+          slug: 'contact',
+          websiteId: website.id,
+          status: "PUBLISHED", publishedAt: new Date()
+        }
+      });
+      console.log('Created contact page');
+    } else {
+      await tx.page.update({ where: { id: contactPage.id }, data: { status: 'PUBLISHED', publishedAt: new Date() } });
+      console.log('contact page already exists');
+    }
+
+    // Prepare sections for contact
+    const contactSections = [
+    ];
+
+    // Seed sections for contact
+    for (const section of contactSections) {
+      const existingSection = await tx.section.findFirst({
+        where: { pageId: section.pageId, type: section.type }
+      });
+      if (!existingSection) {
+        await tx.section.create({ data: section });
+      } else {
+        // Upgrade existing section with new schema
+        await tx.section.update({
+          where: { id: existingSection.id },
+          data: { textContent: section.textContent }
+        });
+      }
+    }
+
+
+    // ============================================
+    // GALLERY PAGE
+    // ============================================
+    
+    // Check if the page exists
+    let galleryPage = await tx.page.findFirst({
+      where: { slug: 'gallery', websiteId: website.id }
+    });
+
+    if (!galleryPage) {
+      galleryPage = await tx.page.create({
+        data: {
+          title: 'GALLERY',
+          slug: 'gallery',
+          websiteId: website.id,
+          status: "PUBLISHED", publishedAt: new Date()
+        }
+      });
+      console.log('Created gallery page');
+    } else {
+      await tx.page.update({ where: { id: galleryPage.id }, data: { status: 'PUBLISHED', publishedAt: new Date() } });
+      console.log('gallery page already exists');
+    }
+
+    // Prepare sections for gallery
+    const gallerySections = [
+
+      {
+        pageId: galleryPage.id,
+        type: 'galleryImages',
+        order: 10,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "src": "hero1",
+                        "category": "Office",
+                        "title": "Board Room"
+                },
+                {
+                        "src": "hero2",
+                        "category": "Events",
+                        "title": "Finance Consultation"
+                },
+                {
+                        "src": "hero3",
+                        "category": "Events",
+                        "title": "Strategy Meeting"
+                },
+                {
+                        "src": "heroAbout",
+                        "category": "Office",
+                        "title": "Our Building"
+                },
+                {
+                        "src": "heroContact",
+                        "category": "Office",
+                        "title": "Reception Area"
+                },
+                {
+                        "src": "heroServices",
+                        "category": "Events",
+                        "title": "Client Workshop"
+                }
+        ]
+}
+      },
+    ];
+
+    // Seed sections for gallery
+    for (const section of gallerySections) {
+      const existingSection = await tx.section.findFirst({
+        where: { pageId: section.pageId, type: section.type }
+      });
+      if (!existingSection) {
+        await tx.section.create({ data: section });
+      } else {
+        // Upgrade existing section with new schema
+        await tx.section.update({
+          where: { id: existingSection.id },
+          data: { textContent: section.textContent }
+        });
+      }
+    }
+
+
+    // ============================================
+    // HOME PAGE
+    // ============================================
+    
+    // Check if the page exists
+    let homePage = await tx.page.findFirst({
+      where: { slug: 'home', websiteId: website.id }
+    });
+
+    if (!homePage) {
+      homePage = await tx.page.create({
+        data: {
+          title: 'HOME',
+          slug: 'home',
+          websiteId: website.id,
+          status: "PUBLISHED", publishedAt: new Date()
+        }
+      });
+      console.log('Created home page');
+    } else {
+      await tx.page.update({ where: { id: homePage.id }, data: { status: 'PUBLISHED', publishedAt: new Date() } });
+      console.log('home page already exists');
+    }
+
+    // Prepare sections for home
+    const homeSections = [
+
+      {
+        pageId: homePage.id,
+        type: 'hero',
+        order: 10,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "slides": [
+                {
+                        "image": "hero1",
+                        "title": "Trusted Financial Partners",
+                        "subtitle": "Empowering businesses with strategic accounting and advisory services since 2005."
+                },
+                {
+                        "image": "hero2",
+                        "title": "Data-Driven Insights",
+                        "subtitle": "Leveraging advanced analytics to drive your business growth and profitability."
+                },
+                {
+                        "image": "hero3",
+                        "title": "Strategic Advisory",
+                        "subtitle": "Comprehensive consulting solutions tailored to your unique business needs."
+                }
+        ]
+}
+      },
+
+      {
+        pageId: homePage.id,
+        type: 'services-section',
+        order: 20,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "name": "Bookkeeping",
+                        "icon": "BookOpen",
+                        "desc": "Accurate financial record-keeping and reporting."
+                },
+                {
+                        "name": "GST Filing",
+                        "icon": "FileText",
+                        "desc": "Timely and compliant GST return filing."
+                },
+                {
+                        "name": "Payroll",
+                        "icon": "Users",
+                        "desc": "End-to-end payroll management solutions."
+                },
+                {
+                        "name": "Tax Planning",
+                        "icon": "Calculator",
+                        "desc": "Strategic tax optimization and planning."
+                },
+                {
+                        "name": "Company Formation",
+                        "icon": "Building2",
+                        "desc": "Seamless business incorporation services."
+                },
+                {
+                        "name": "Compliance",
+                        "icon": "Shield",
+                        "desc": "Regulatory compliance and governance."
+                },
+                {
+                        "name": "Audit Services",
+                        "icon": "Search",
+                        "desc": "Thorough and independent audit assurance."
+                },
+                {
+                        "name": "Financial Advisory",
+                        "icon": "TrendingUp",
+                        "desc": "Expert guidance for financial growth."
+                }
+        ]
+}
+      },
+
+      {
+        pageId: homePage.id,
+        type: 'industries',
+        order: 30,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "name": "Startups",
+                        "icon": "Rocket",
+                        "desc": "Scaling from zero to success"
+                },
+                {
+                        "name": "SMEs",
+                        "icon": "Briefcase",
+                        "desc": "Growth-focused financial solutions"
+                },
+                {
+                        "name": "Manufacturing",
+                        "icon": "Factory",
+                        "desc": "Cost optimization and compliance"
+                },
+                {
+                        "name": "IT & Technology",
+                        "icon": "Monitor",
+                        "desc": "Tech-enabled financial services"
+                }
+        ]
+}
+      },
+
+      {
+        pageId: homePage.id,
+        type: 'testimonials',
+        order: 40,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "name": "Rajesh Sharma",
+                        "role": "CEO, TechVentures",
+                        "text": "Apex & Associates transformed our financial operations. Their expertise in tax planning saved us significantly."
+                },
+                {
+                        "name": "Priya Mehta",
+                        "role": "Founder, GreenLeaf Organics",
+                        "text": "Professional, responsive, and incredibly knowledgeable. They made compliance feel effortless."
+                },
+                {
+                        "name": "Amit Patel",
+                        "role": "Director, BuildRight Constructions",
+                        "text": "Their audit services gave us complete confidence in our financial reporting. Highly recommended."
+                }
+        ]
+}
+      },
+    ];
+
+    // Seed sections for home
+    for (const section of homeSections) {
+      const existingSection = await tx.section.findFirst({
+        where: { pageId: section.pageId, type: section.type }
+      });
+      if (!existingSection) {
+        await tx.section.create({ data: section });
+      } else {
+        // Upgrade existing section with new schema
+        await tx.section.update({
+          where: { id: existingSection.id },
+          data: { textContent: section.textContent }
+        });
+      }
+    }
+
+
+    // ============================================
+    // QUERY PAGE
+    // ============================================
+    
+    // Check if the page exists
+    let queryPage = await tx.page.findFirst({
+      where: { slug: 'query', websiteId: website.id }
+    });
+
+    if (!queryPage) {
+      queryPage = await tx.page.create({
+        data: {
+          title: 'QUERY',
+          slug: 'query',
+          websiteId: website.id,
+          status: "PUBLISHED", publishedAt: new Date()
+        }
+      });
+      console.log('Created query page');
+    } else {
+      await tx.page.update({ where: { id: queryPage.id }, data: { status: 'PUBLISHED', publishedAt: new Date() } });
+      console.log('query page already exists');
+    }
+
+    // Prepare sections for query
+    const querySections = [
+
+      {
+        pageId: queryPage.id,
+        type: 'faqs',
+        order: 10,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "q": "What services does your firm offer?",
+                        "a": "We offer bookkeeping, GST filing, payroll, tax planning, company formation, compliance, audit, and financial advisory services."
+                },
+                {
+                        "q": "How can I schedule a consultation?",
+                        "a": "You can fill out the query form below or contact us via phone/email to schedule a free consultation."
+                },
+                {
+                        "q": "Do you serve clients outside India?",
+                        "a": "Yes, we have experience serving international clients and handling cross-border financial matters."
+                },
+                {
+                        "q": "What industries do you specialize in?",
+                        "a": "We serve startups, SMEs, manufacturing, IT, real estate, healthcare, and more."
+                }
+        ]
+}
+      },
+    ];
+
+    // Seed sections for query
+    for (const section of querySections) {
+      const existingSection = await tx.section.findFirst({
+        where: { pageId: section.pageId, type: section.type }
+      });
+      if (!existingSection) {
+        await tx.section.create({ data: section });
+      } else {
+        // Upgrade existing section with new schema
+        await tx.section.update({
+          where: { id: existingSection.id },
+          data: { textContent: section.textContent }
+        });
+      }
+    }
+
+
+    // ============================================
+    // SERVICES PAGE
+    // ============================================
+    
+    // Check if the page exists
+    let servicesPage = await tx.page.findFirst({
+      where: { slug: 'services', websiteId: website.id }
+    });
+
+    if (!servicesPage) {
+      servicesPage = await tx.page.create({
+        data: {
+          title: 'SERVICES',
+          slug: 'services',
+          websiteId: website.id,
+          status: "PUBLISHED", publishedAt: new Date()
+        }
+      });
+      console.log('Created services page');
+    } else {
+      await tx.page.update({ where: { id: servicesPage.id }, data: { status: 'PUBLISHED', publishedAt: new Date() } });
+      console.log('services page already exists');
+    }
+
+    // Prepare sections for services
+    const servicesSections = [
+
+      {
+        pageId: servicesPage.id,
+        type: 'services-section',
+        order: 10,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "name": "Bookkeeping",
+                        "href": "/services/bookkeeping",
+                        "icon": "BookOpen",
+                        "desc": "Accurate financial record-keeping, bank reconciliations, and periodic reporting for complete financial visibility."
+                },
+                {
+                        "name": "GST Filing",
+                        "href": "/services/gst-filing",
+                        "icon": "FileText",
+                        "desc": "Timely and accurate GST return filing with compliance monitoring and advisory on GST regulations."
+                },
+                {
+                        "name": "Payroll",
+                        "href": "/services/payroll",
+                        "icon": "Users",
+                        "desc": "End-to-end payroll management including salary processing, TDS, PF/ESI compliance, and reporting."
+                },
+                {
+                        "name": "Tax Planning",
+                        "href": "/services/tax-planning",
+                        "icon": "Calculator",
+                        "desc": "Strategic tax planning and optimization services to minimize liabilities while ensuring compliance."
+                },
+                {
+                        "name": "Company Formation",
+                        "href": "/services/company-formation",
+                        "icon": "Building2",
+                        "desc": "Seamless company registration, LLP formation, and incorporation services with complete documentation."
+                },
+                {
+                        "name": "Compliance",
+                        "href": "/services/compliance",
+                        "icon": "Shield",
+                        "desc": "Comprehensive regulatory compliance services including ROC filings, annual returns, and statutory audits."
+                },
+                {
+                        "name": "Audit Services",
+                        "href": "/services/audit-services",
+                        "icon": "Search",
+                        "desc": "Independent audit and assurance services ensuring transparency and accuracy in financial reporting."
+                },
+                {
+                        "name": "Financial Advisory",
+                        "href": "/services/financial-advisory",
+                        "icon": "TrendingUp",
+                        "desc": "Expert financial advisory covering valuations, due diligence, mergers, and strategic planning."
+                }
+        ]
+}
+      },
+    ];
+
+    // Seed sections for services
+    for (const section of servicesSections) {
+      const existingSection = await tx.section.findFirst({
+        where: { pageId: section.pageId, type: section.type }
+      });
+      if (!existingSection) {
+        await tx.section.create({ data: section });
+      } else {
+        // Upgrade existing section with new schema
+        await tx.section.update({
+          where: { id: existingSection.id },
+          data: { textContent: section.textContent }
+        });
+      }
+    }
+
+
+    // ============================================
+    // TEAM PAGE
+    // ============================================
+    
+    // Check if the page exists
+    let teamPage = await tx.page.findFirst({
+      where: { slug: 'team', websiteId: website.id }
+    });
+
+    if (!teamPage) {
+      teamPage = await tx.page.create({
+        data: {
+          title: 'TEAM',
+          slug: 'team',
+          websiteId: website.id,
+          status: "PUBLISHED", publishedAt: new Date()
+        }
+      });
+      console.log('Created team page');
+    } else {
+      await tx.page.update({ where: { id: teamPage.id }, data: { status: 'PUBLISHED', publishedAt: new Date() } });
+      console.log('team page already exists');
+    }
+
+    // Prepare sections for team
+    const teamSections = [
+
+      {
+        pageId: teamPage.id,
+        type: 'partners',
+        order: 10,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "name": "CA Vikram Desai",
+                        "role": "Managing Partner",
+                        "speciality": "Audit & Assurance"
+                },
+                {
+                        "name": "CA Anita Krishnan",
+                        "role": "Senior Partner",
+                        "speciality": "Tax Advisory"
+                },
+                {
+                        "name": "CA Rahul Gupta",
+                        "role": "Partner",
+                        "speciality": "Financial Advisory"
+                }
+        ]
+}
+      },
+
+      {
+        pageId: teamPage.id,
+        type: 'team',
+        order: 20,
+        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        textContent: {
+        "items": [
+                {
+                        "name": "Neha Sharma",
+                        "role": "Senior Manager – Audit"
+                },
+                {
+                        "name": "Arun Mehta",
+                        "role": "Manager – Tax Compliance"
+                },
+                {
+                        "name": "Sneha Patel",
+                        "role": "Manager – GST Services"
+                },
+                {
+                        "name": "Rohan Das",
+                        "role": "Manager – Payroll"
+                },
+                {
+                        "name": "Kavita Iyer",
+                        "role": "Senior Associate – Bookkeeping"
+                },
+                {
+                        "name": "Suresh Nair",
+                        "role": "Associate – Company Formation"
+                }
+        ]
+}
+      },
+    ];
+
+    // Seed sections for team
+    for (const section of teamSections) {
+      const existingSection = await tx.section.findFirst({
+        where: { pageId: section.pageId, type: section.type }
+      });
+      if (!existingSection) {
+        await tx.section.create({ data: section });
+      } else {
+        // Upgrade existing section with new schema
+        await tx.section.update({
+          where: { id: existingSection.id },
+          data: { textContent: section.textContent }
+        });
+      }
+    }
+
+
+
+        // --- NEW DYNAMIC HEADINGS ---
+        
+        const newSections = [
+          { pageSlug: 'about', type: 'about', textContent: { heading: 'Who We Are', description1: 'Founded in 2005, Apex & Associates has established itself as a premier chartered accountancy firm.', description2: 'We believe in building lasting relationships with our clients based on trust, integrity, and exceptional service quality.', missionHeading: 'Our Mission', missionText: 'To empower businesses with innovative financial solutions, ensuring compliance, growth, and long-term success through expert guidance and unwavering commitment.', visionHeading: 'Our Vision', visionText: 'To be the most trusted and innovative chartered accountancy firm globally, setting new benchmarks in financial services excellence.' } },
+          { pageSlug: 'career', type: 'career-header', textContent: { heading: 'Join Our Team', subheading: 'Build your career with a firm that values growth, innovation, and excellence.' } },
+          { pageSlug: 'contact', type: 'contact-header', textContent: { heading: 'Get In Touch', subheading: 'Have a question or want to discuss how we can help your business? Fill out the form and our team will get back to you within 24 hours.' } },
+          { pageSlug: 'gallery', type: 'gallery-header', textContent: { heading: 'Our Gallery' } },
+          { pageSlug: 'home', type: 'services-section', textContent: { heading: 'Our Services', subheading: 'Comprehensive financial solutions tailored to drive your business forward.' } },
+          { pageSlug: 'home', type: 'industries', textContent: { heading: 'Industries We Serve', subheading: 'Specialized expertise across diverse industry verticals.' } },
+          { pageSlug: 'home', type: 'testimonials', textContent: { heading: 'What Our Clients Say', subheading: 'Trusted by businesses across industries.' } },
+          { pageSlug: 'query', type: 'query-header', textContent: { heading: 'Have a Question?', subheading: 'Submit your query and our team will respond within 24 hours.' } },
+          { pageSlug: 'services', type: 'services-header', textContent: { heading: 'What We Offer', subheading: 'Comprehensive financial services to support every aspect of your business.' } },
+          { pageSlug: 'team', type: 'team-header', textContent: { heading: 'Leadership', subheading: "Meet the partners driving our firm's vision and excellence." } },
+          { pageSlug: 'team', type: 'team-core-header', textContent: { heading: 'Our Team', subheading: 'Dedicated professionals committed to delivering exceptional results.' } },
+          { pageSlug: 'team', type: 'team-certs-header', textContent: { heading: 'Certifications & Expertise' } }
+        ];
+
+        for (const sec of newSections) {
+          let page = await tx.page.findFirst({ where: { slug: sec.pageSlug, websiteId: website.id }});
+          if (page) {
+            let existing = await tx.section.findFirst({ where: { pageId: page.id, type: sec.type }});
+            await tx.page.update({ where: { id: page.id }, data: { status: 'PUBLISHED' } });
+            if (existing) {
+              await tx.section.update({
+                where: { id: existing.id },
+                data: {
+                  textContent: {
+                    ...(existing.textContent as object),
+                    ...sec.textContent
+                  }
+                }
+              });
+            } else {
+              await tx.section.create({
+                data: {
+                  pageId: page.id,
+                  type: sec.type,
+                  order: 999, // Append at end
+                  status: "PUBLISHED", publishedAt: new Date(),
+                  textContent: sec.textContent
+                }
+              });
             }
           }
-        ]
-      }
-    }
-  })
+        }
 
-  // Services Page
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      slug: 'services',
-      title: 'Our Services',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          {
-            type: 'page-hero',
-            order: 1,
-            imageUrl: '/uploads/services-hero.jpg',
-            textContent: {
-              title: 'Our Services',
-              subtitle: 'Comprehensive financial solutions for your business',
-            }
-          },
-          {
-            type: 'services-list',
-            order: 2,
-            textContent: {
-              label: 'What We Do',
-              heading: 'Comprehensive Financial Solutions',
-              description: 'From compliance to strategic advisory, we offer the full spectrum of financial services.',
-              items: [
-                { name: 'Bookkeeping', slug: 'bookkeeping', icon: 'BookOpen', desc: 'Comprehensive financial record keeping including ledger management, reconciliation, and financial reporting.' },
-                { name: 'GST Filing', slug: 'gst-filing', icon: 'FileText', desc: 'End-to-end GST compliance including registration, return filing, reconciliation, and input tax credit advisory.' },
-                { name: 'Payroll', slug: 'payroll', icon: 'Users', desc: 'Complete payroll processing including salary computation, statutory deductions, PF/ESI compliance.' },
-                { name: 'Tax Planning', slug: 'tax-planning', icon: 'Calculator', desc: 'Strategic tax planning and optimization for individuals and businesses to minimize tax liability.' },
-                { name: 'Company Formation', slug: 'company-formation', icon: 'Building2', desc: 'End-to-end company incorporation including private limited, LLP, OPC, and partnership firm.' },
-                { name: 'Compliance', slug: 'compliance', icon: 'Shield', desc: 'Comprehensive regulatory compliance including ROC filings, annual returns, and statutory audit.' },
-                { name: 'Audit Services', slug: 'audit-services', icon: 'Search', desc: 'Statutory, internal, tax, and special purpose audit services conducted with thoroughness.' },
-                { name: 'Financial Advisory', slug: 'financial-advisory', icon: 'TrendingUp', desc: 'Business valuation, due diligence, fundraising support, and strategic financial planning.' }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  })
+    });
+    console.log('Successfully completed full deep seeding for Template-3!');
 
-  // Team Page
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      slug: 'team',
-      title: 'Our Team',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          {
-            type: 'page-hero',
-            order: 1,
-            imageUrl: '/uploads/team-hero.jpg',
-            textContent: {
-              title: 'Our Team',
-              subtitle: 'Meet the experts behind your financial success',
-            }
-          },
-          {
-            type: 'partners',
-            order: 2,
-            textContent: {
-              label: 'Leadership',
-              heading: 'Meet Our Partners',
-              description: 'Experienced professionals leading the firm with vision and deep industry expertise.',
-              items: [
-                { name: 'CA Vikram Sharma', role: 'Managing Partner', expertise: 'Audit & Assurance, Tax Advisory', initials: 'VS' },
-                { name: 'CA Neha Kapoor', role: 'Senior Partner', expertise: 'Corporate Finance, M&A Advisory', initials: 'NK' },
-                { name: 'CA Rajat Singh', role: 'Partner - Tax', expertise: 'International Tax, Transfer Pricing', initials: 'RS' }
-              ]
-            }
-          },
-          {
-            type: 'team-members',
-            order: 3,
-            textContent: {
-              label: 'Our Professionals',
-              heading: 'Team Members',
-              items: [
-                { name: 'Anita Desai', role: 'Manager - Audit', dept: 'Audit' },
-                { name: 'Suresh Nair', role: 'Senior Associate - Tax', dept: 'Tax' },
-                { name: 'Meera Iyer', role: 'Manager - Compliance', dept: 'Compliance' },
-                { name: 'Arjun Reddy', role: 'Associate - Advisory', dept: 'Advisory' },
-                { name: 'Kavita Joshi', role: 'Senior Associate - GST', dept: 'Tax' },
-                { name: 'Rahul Verma', role: 'Associate - Payroll', dept: 'Payroll' }
-              ]
-            }
-          },
-          {
-            type: 'certifications',
-            order: 4,
-            textContent: {
-              label: 'Qualifications',
-              heading: 'Certifications & Expertise',
-              items: ['ICAI', 'ACCA', 'CPA', 'CFA', 'DISA', 'FAFD']
-            }
-          },
-          {
-            type: 'culture',
-            order: 5,
-            textContent: {
-              badge: 'Our Culture',
-              heading: 'A Place to Grow & Excel',
-              description: 'At Sharma & Co., we foster a culture of continuous learning, collaboration, and professional development. Our team members are empowered to innovate and excel in their careers.',
-              items: ['Continuous Learning', 'Work-Life Balance', 'Team Collaboration']
-            }
-          }
-        ]
-      }
-    }
-  })
-
-  // Gallery Page
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      slug: 'gallery',
-      title: 'Gallery',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          {
-            type: 'page-hero',
-            order: 1,
-            imageUrl: '/uploads/gallery-hero.jpg',
-            textContent: {
-              title: 'Gallery',
-              subtitle: 'A glimpse into our workspace and events',
-            }
-          },
-          {
-            type: 'gallery-grid',
-            order: 2,
-            textContent: {
-              items: [
-                { image: '/uploads/gallery-hero.jpg', title: 'Office View 1', category: 'Office' },
-                { image: '/uploads/about-hero.jpg', title: 'Office View 2', category: 'Office' },
-                { image: '/uploads/hero-1.jpg', title: 'Office View 3', category: 'Office' },
-                { image: '/uploads/hero-2.jpg', title: 'Corporate Event 1', category: 'Events' },
-                { image: '/uploads/hero-3.jpg', title: 'Corporate Event 2', category: 'Events' },
-                { image: '/uploads/team-hero.jpg', title: 'Team Outing', category: 'Events' },
-                { image: '/uploads/contact-hero.jpg', title: 'Client Meeting 1', category: 'Events' },
-                { image: '/uploads/services-hero.jpg', title: 'Client Meeting 2', category: 'Events' },
-                { image: '/uploads/career-hero.jpg', title: 'Career Seminar', category: 'Events' }
-              ],
-              labelOffice: 'Our Workspace',
-              titleOffice: 'Office Gallery',
-              descOffice: 'Step inside our modern, collaborative workspace.',
-              labelEvents: 'Moments',
-              titleEvents: 'Events & Meetings',
-              descEvents: 'Highlights from our corporate events and client engagements.'
-            }
-          }
-        ]
-      }
-    }
-  })
-
-  // Career Page
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      slug: 'career',
-      title: 'Careers',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          {
-            type: 'page-hero',
-            order: 1,
-            imageUrl: '/uploads/career-hero.jpg',
-            textContent: {
-              title: 'Careers',
-              subtitle: 'Build your future with a leading CA firm',
-            }
-          },
-          {
-            type: 'career-intro',
-            order: 2,
-            textContent: {
-              badge: 'Join Our Team',
-              heading: 'Build Your Career With Us',
-              description: 'At Sharma & Co., we nurture talent and provide an environment where professionals can thrive, learn, and grow into industry leaders.'
-            }
-          },
-          {
-            type: 'career-benefits',
-            order: 3,
-            textContent: {
-              label: 'Benefits',
-              heading: 'Why Work With Us',
-              items: [
-                { icon: 'TrendingUp', title: 'Growth Opportunities', desc: 'Clear career progression paths with mentorship programs.' },
-                { icon: 'GraduationCap', title: 'Learning & Development', desc: 'Continuous professional education and certification support.' },
-                { icon: 'Heart', title: 'Work-Life Balance', desc: 'Flexible work arrangements and wellness programs.' },
-                { icon: 'Briefcase', title: 'Competitive Package', desc: 'Industry-leading compensation with comprehensive benefits.' }
-              ]
-            }
-          },
-          {
-            type: 'job-openings',
-            order: 4,
-            textContent: {
-              label: 'Openings',
-              heading: 'Current Roles',
-              items: [
-                { title: 'Senior Audit Associate', dept: 'Audit & Assurance', type: 'Full-time', location: 'Mumbai' },
-                { title: 'Tax Consultant', dept: 'Direct Tax', type: 'Full-time', location: 'Mumbai' },
-                { title: 'GST Analyst', dept: 'Indirect Tax', type: 'Full-time', location: 'Pune' },
-                { title: 'Article Trainee', dept: 'General Practice', type: 'Articleship', location: 'Mumbai' }
-              ]
-            }
-          },
-          {
-            type: 'career-form',
-            order: 5,
-            textContent: {
-              label: 'Apply',
-              heading: 'Submit Your Application'
-            }
-          }
-        ]
-      }
-    }
-  })
-
-  // Contact Page
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      slug: 'contact',
-      title: 'Contact Us',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          {
-            type: 'page-hero',
-            order: 1,
-            imageUrl: '/uploads/contact-hero.jpg',
-            textContent: {
-              title: 'Contact Us',
-              subtitle: 'Let\'s start a conversation about your financial future',
-            }
-          },
-          {
-            type: 'contact-details',
-            order: 2,
-            textContent: {
-              badge: 'Reach Out',
-              heading: 'Get in Touch',
-              officeHeading: 'Office Details',
-              officeAddress: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
-              officePhone: '+91 22 1234 5678',
-              officeEmail: 'info@sharmaco.com',
-              officeHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
-              mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.5!2d72.86!3d19.06!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDAzJzM2LjAiTiA3MsKwNTEnMzYuMCJF!5e0!3m2!1sen!2sin!4v1'
-            }
-          },
-          {
-            type: 'contact-cta',
-            order: 3,
-            textContent: {
-              heading: 'Ready to Get Started?',
-              description: 'Schedule a free consultation with our expert team today.',
-              buttonText: 'Submit a Query',
-              buttonLink: '/query'
-            }
-          }
-        ]
-      }
-    }
-  })
-
-  // Query Page
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      slug: 'query',
-      title: 'Submit a Query',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          {
-            type: 'page-hero',
-            order: 1,
-            imageUrl: '/uploads/contact-hero.jpg',
-            textContent: {
-              title: 'Submit a Query',
-              subtitle: 'We\'re here to help with your financial needs',
-            }
-          },
-          {
-            type: 'query-details',
-            order: 2,
-            textContent: {
-              badge: 'Get in Touch',
-              heading: 'Have a Question?',
-              quickContactHeading: 'Quick Contact',
-              quickContacts: [
-                { icon: 'Phone', label: '+91 22 1234 5678', sub: 'Mon-Sat, 9am-6pm' },
-                { icon: 'Mail', label: 'info@sharmaco.com', sub: 'We reply within 24 hours' },
-                { icon: 'MessageCircle', label: 'Live Chat', sub: 'Available during business hours' }
-              ],
-              faqHeading: 'FAQs',
-              faqs: [
-                { q: 'How quickly will I receive a response?', a: 'We aim to respond to all queries within 24 business hours.' },
-                { q: 'Can I schedule a call instead?', a: 'Absolutely! Use our contact page or call us directly to schedule a consultation.' },
-                { q: 'Is the initial consultation free?', a: 'Yes, we offer a complimentary initial consultation to understand your needs.' },
-                { q: 'Do you serve clients outside India?', a: 'Yes, we have experience serving clients across multiple countries.' }
-              ]
-            }
-          }
-        ]
-      }
-    }
-  })
-
-  // Service Details Data (Internal mapping since ServiceDetail.tsx dynamic lookup)
-
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      title: 'Bookkeeping',
-      slug: 'service-bookkeeping',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          { type: 'hero', order: 0, textContent: { title: 'Bookkeeping', description: 'Accurate financial record keeping for informed business decisions.', image: '/uploads/services-hero.jpg' } },
-          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Bookkeeping Service', items: ["Daily transaction recording","Bank reconciliation","Accounts payable & receivable","Financial statement preparation","Cash flow management"] } },
-          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Initial Financial Review","Accounting Software Setup","Daily/Weekly Categorization","Month-end Close & Reporting"] } },
-          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"What software do you use?","a":"We work with Tally, QuickBooks, Zoho, and other major accounting platforms."},{"q":"How often do I get reports?","a":"We provide monthly MIS reports, but can offer weekly summaries upon request."}] } }
-        ]
-      }
-    }
-  })
-
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      title: 'GST Filing',
-      slug: 'service-gst-filing',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          { type: 'hero', order: 0, textContent: { title: 'GST Filing', description: 'Timely GST compliance & returns to keep your business running smoothly.', image: '/uploads/services-hero.jpg' } },
-          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our GST Filing Service', items: ["Monthly GSTR-1 & GSTR-3B filing","Quarterly GSTR-4 for composition dealers","Annual GST return filing","GST reconciliation","Input tax credit optimization"] } },
-          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Invoice Collection","Data Reconciliation & ITC Matching","Draft Return Preparation","Client Approval & Final Filing"] } },
-          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"Can you help with GST Registration?","a":"Yes, we provide end-to-end GST registration support."},{"q":"What if I missed a filing?","a":"We assist with late filings and minimize penalty impacts."}] } }
-        ]
-      }
-    }
-  })
-
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      title: 'Payroll',
-      slug: 'service-payroll',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          { type: 'hero', order: 0, textContent: { title: 'Payroll', description: 'End-to-end payroll management and statutory compliance.', image: '/uploads/services-hero.jpg' } },
-          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Payroll Service', items: ["Salary calculation & disbursement","PF & ESI compliance","TDS on salary computation","Leave & attendance management","Payslip generation"] } },
-          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Attendance Data Integration","Deduction & Tax Calculation","Approval & Salary Disbursement","PF/ESI Return Filings"] } },
-          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"Do you issue payslips?","a":"Yes, digital payslips are provided directly to employees."},{"q":"Are bonus and incentives handled?","a":"We structure performance pay and bonuses in a tax-efficient manner."}] } }
-        ]
-      }
-    }
-  })
-
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      title: 'Tax Planning',
-      slug: 'service-tax-planning',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          { type: 'hero', order: 0, textContent: { title: 'Tax Planning', description: 'Strategic tax optimization to maximize your savings legally.', image: '/uploads/services-hero.jpg' } },
-          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Tax Planning Service', items: ["Income tax planning","Investment advisory","Tax saving strategies","Advance tax computation","Tax return filing"] } },
-          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Historical Tax Review","Goal & Investment Assessment","Strategy Formulation","Implementation & Return Filing"] } },
-          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"When is the right time for tax planning?","a":"Tax planning should ideally begin at the start of the financial year."},{"q":"Do you assist with tax notices?","a":"Yes, we represent clients for scrutiny and notices from the IT department."}] } }
-        ]
-      }
-    }
-  })
-
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      title: 'Company Formation',
-      slug: 'service-company-formation',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          { type: 'hero', order: 0, textContent: { title: 'Company Formation', description: 'Business incorporation services ensuring a solid foundation.', image: '/uploads/services-hero.jpg' } },
-          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Company Formation Service', items: ["Private Limited Company registration","LLP formation","Partnership deed drafting","MSME registration","Startup India registration"] } },
-          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Name Approval & DIN Registration","Drafting MOA & AOA","Filing Incorporation Docs","PAN, TAN & Bank Account Setup"] } },
-          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"How long does incorporation take?","a":"Typically 10-15 working days subject to government approvals."},{"q":"What is the minimum capital required?","a":"There is no minimum paid-up capital requirement for a Private Limited Company now."}] } }
-        ]
-      }
-    }
-  })
-
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      title: 'Compliance Management',
-      slug: 'service-compliance',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          { type: 'hero', order: 0, textContent: { title: 'Compliance Management', description: 'Regulatory compliance support to avoid penalties and audits.', image: '/uploads/services-hero.jpg' } },
-          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Compliance Management Service', items: ["ROC filings & AOC-4/MGT-7","Annual return compliance","Director KYC updates","Statutory registers maintenance","FEMA / RBI guidelines checks"] } },
-          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Compliance Calendar Setup","Document Drafting & Resolution formulation","Board Meeting Minutes Preparation","Filing Forms with Authorities"] } },
-          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"What happens if we miss an ROC filing?","a":"Late filings attract daily penalties. We help regularize past defaults."},{"q":"Do you maintain statutory registers?","a":"Yes, we keep all required corporate records updated."}] } }
-        ]
-      }
-    }
-  })
-
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      title: 'Audit Services',
-      slug: 'service-audit-services',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          { type: 'hero', order: 0, textContent: { title: 'Audit Services', description: 'Comprehensive audit solutions providing true and fair views.', image: '/uploads/services-hero.jpg' } },
-          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Audit Services Service', items: ["Statutory audit under Companies Act","Internal financial controls review","Tax audit under Income Tax Act","Concurrent & Management audits","Due diligence for M&A"] } },
-          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Audit Planning & Scope Design","Fieldwork & Verification","Issue Identification & Discussion","Final Audit Report Issuance"] } },
-          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"Is statutory audit mandatory?","a":"Yes, for all registered companies regardless of turnover or profit."},{"q":"Do you do forensic audits?","a":"Yes, we have specialized personnel for investigative and forensic matters."}] } }
-        ]
-      }
-    }
-  })
-
-  await prisma.page.create({
-    data: {
-      websiteId: template3.id,
-      title: 'Financial Advisory',
-      slug: 'service-financial-advisory',
-      status: 'PUBLISHED',
-      publishedAt: new Date(),
-      sections: {
-        create: [
-          { type: 'hero', order: 0, textContent: { title: 'Financial Advisory', description: 'Expert financial guidance to navigate growth and restructuring.', image: '/uploads/services-hero.jpg' } },
-          { type: 'benefits', order: 1, textContent: { title: 'Why Choose Our Financial Advisory Service', items: ["Business valuation","Financial modelling & projections","Merger & acquisition support","Funding & loan assistance","CFO services on-demand"] } },
-          { type: 'steps', order: 2, textContent: { title: 'Our Process', items: ["Needs Analysis & Data Gathering","Market & Financial Modeling","Draft Presentation","Final Execution & Advisory Setup"] } },
-          { type: 'faqs', order: 3, textContent: { title: 'Frequently Asked Questions', items: [{"q":"Can you help raise funding?","a":"We assist with pitch decks, valuations, and connecting with financial institutions."},{"q":"What is an outsourced CFO?","a":"It gives you access to high-level strategic financial expertise without a full-time hire cost."}] } }
-        ]
-      }
-    }
-  })
-
-  console.log('✅ Template 3 seed complete')
+  } catch (err) {
+    console.error('Error seeding template 3:', err);
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
-main()
-  .catch(e => {
-    console.error(e)
-    process.exit(1)
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
+main();

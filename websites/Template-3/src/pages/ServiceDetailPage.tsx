@@ -1,3 +1,7 @@
+import { mapData } from '../lib/mapper';
+import { useState, useEffect } from 'react';
+import { getPageData } from '../lib/api';
+import { FullPageLoader } from '../components/Loader';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BookOpen, FileText, Users, Calculator, Building2, Shield, Search, TrendingUp, CheckCircle, ArrowRight } from 'lucide-react';
@@ -17,7 +21,15 @@ const serviceData: Record<string, { icon: any; title: string; desc: string; bene
 };
 
 const ServiceDetailPage = () => {
+  const [pageData, setPageData] = useState<any>(null);
   const { slug } = useParams();
+
+  useEffect(() => {
+    getPageData('services').then((res) => setPageData(mapData(res))).catch(console.error);     
+  }, []);
+
+  if (!pageData) return <FullPageLoader />;
+
   const service = serviceData[slug || ''];
 
   if (!service) {
