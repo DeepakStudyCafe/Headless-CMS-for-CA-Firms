@@ -17,6 +17,7 @@ export default function OurClientPage() {
         { name: 'PD Gupta & CO', url: 'https://pdgupta.com/', img: '/client-1.png', description: 'Full-service CA firm offering taxation, audit and advisory with modern client portal.' },
         { name: 'Arvind Gupta & Associates', url: 'https://caasgupta.in/', img: '/client-2.png', description: 'Specialized in SME tax planning and accounting; mobile-friendly site with contact forms.' },
         { name: 'I S K & Co', url: 'https://iskco.in/', img: '/isko-and-co.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
+        { name: 'Monika S & Associates', url: 'https://monikasassociates.in/', img: '/monikaS.png', description: 'Helping small businesses with tax strategy and financial services; modern website with convenient inquiry forms.' },
         
         // { name: 'Kapoor Advisors', url: 'https://kapoor.example', img: '/client-4.png' },
         // { name: 'Singh Partners', url: 'https://singh.example', img: '/client-5.png' },
