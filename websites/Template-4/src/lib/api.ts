@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Get API URL from env (no default fallback in code)
-const API_URL = import.meta.env.VITE_API_URL;
+export const API_URL = import.meta.env.VITE_API_URL || '/api';
 // Use the slug associated with the template based on env or default to template-4
 const WEBSITE_SLUG = import.meta.env.VITE_WEBSITE_SLUG || 'template-4';
 
@@ -57,5 +57,37 @@ export async function submitQueryForm(formData: any) {
   } catch (err: any) {
     console.error('submitQueryForm error', err?.message || err);
     return { success: false, message: 'An error occurred. Please try again.' };
+  }
+}
+
+export interface WPPost {
+  id: number;
+  date: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  link: string;
+  authorName?: string;
+  featuredImage?: string;
+}
+
+export async function getPosts(perPage = 20): Promise<WPPost[]> {
+  try {
+    const { data } = await api.get(`/public/whats-new/posts?per_page=${perPage}`);
+    return Array.isArray(data?.data?.posts) ? data.data.posts : [];
+  } catch (err) {
+    console.error('getPosts error', err);
+    return [];
+  }
+}
+
+export async function getPostBySlug(slug: string): Promise<WPPost | null> {
+  try {
+    const { data } = await api.get(`/public/whats-new/post/${encodeURIComponent(slug)}`);
+    return data?.success && data?.data?.post ? data.data.post : null;
+  } catch (err) {
+    console.error('getPostBySlug error', err);
+    return null;
   }
 }

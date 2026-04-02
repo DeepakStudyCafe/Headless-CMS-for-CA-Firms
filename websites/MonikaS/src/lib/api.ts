@@ -59,3 +59,37 @@ export function getImageUrl(path: string | undefined | null) {
   const baseUrl = API_URL.replace(/\/api$/, '');
   return `${baseUrl}${path}`;
 }
+
+export interface WPPost {
+  id: number;
+  date: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  link: string;
+  authorName?: string;
+  featuredImage?: string;
+}
+
+export async function getPosts(perPage = 20): Promise<WPPost[]> {
+  try {
+    const res = await fetch(`${API_URL}/public/whats-new/posts?per_page=${perPage}`);
+    if (!res.ok) return [];
+    const json = await res.json();
+    return Array.isArray(json.data?.posts) ? json.data.posts : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function getPostBySlug(slug: string): Promise<WPPost | null> {
+  try {
+    const res = await fetch(`${API_URL}/public/whats-new/post/${encodeURIComponent(slug)}`);
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json?.success && json?.data?.post ? json.data.post : null;
+  } catch (error) {
+    return null;
+  }
+}

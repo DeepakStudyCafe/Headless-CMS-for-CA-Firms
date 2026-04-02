@@ -113,7 +113,7 @@ export default function CareerPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Hero Section */}
       <section className="relative py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">

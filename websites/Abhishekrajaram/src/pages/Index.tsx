@@ -7,18 +7,21 @@ import AnimatedCounter from '@/components/AnimatedCounter';
 import Layout from '@/components/Layout';
 import HeroSlider from '@/components/HeroSlider';
 import { Button } from '@/components/ui/button';
-import { getPageData, getWebsiteData, getImageUrl } from '@/lib/api';
+import { getPageData, getWebsiteData, getImageUrl, getPosts } from '@/lib/api';
+import { UpdatesTicker } from '@/components/UpdatesTicker';
 
 const iconMap: Record<string, any> = { BookOpen, FileText, Users, Calculator, Building2, Shield, Search, Briefcase, TrendingUp, Award, Globe };
 
 const Index = () => {
   const [pageData, setPageData] = useState<any>(null);
   const [websiteData, setWebsiteData] = useState<any>(null);
+  const [tickerPosts, setTickerPosts] = useState<any[]>([]);
 
   useEffect(() => {
-    Promise.all([getPageData('home'), getWebsiteData()]).then(([p, w]) => {
+    Promise.all([getPageData('home'), getWebsiteData(), getPosts(20)]).then(([p, w, posts]) => {
       setPageData(p);
       setWebsiteData(w);
+      setTickerPosts(posts || []);
     });
   }, []);
 
@@ -62,24 +65,31 @@ const Index = () => {
                 <p className="text-body mt-4 max-w-2xl mx-auto">{servicesSection.textContent?.subheading}</p>
               </div>
             </ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service: any, i: number) => {
-                const Icon = iconMap[service.icon] || Briefcase;
-                return (
-                  <ScrollReveal key={service.title || i} delay={i * 0.1}>
-                    <Link to={service.href || `/services/${(service.title || '').toLowerCase().replace(/\\s+/g, '-')}`} className="card-premium p-8 block group h-full">
-                      <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors">
-                        <Icon className="w-6 h-6 text-accent" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-foreground mb-2 font-sans">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">{service.description}</p>
-                      <span className="inline-flex items-center text-sm font-medium text-accent group-hover:gap-2 transition-all gap-1">
-                        Learn More <ChevronRight className="w-4 h-4" />
-                      </span>
-                    </Link>
-                  </ScrollReveal>
-                );
-              })}
+            <div className="flex flex-col lg:flex-row gap-8 items-start">
+              <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                {services.map((service: any, i: number) => {
+                  const Icon = iconMap[service.icon] || Briefcase;
+                  return (
+                    <ScrollReveal key={service.title || i} delay={i * 0.1}>
+                      <Link to={service.href || `/services/${(service.title || '').toLowerCase().replace(/\\s+/g, '-')}`} className="card-premium p-8 block group h-full">
+                        <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors">
+                          <Icon className="w-6 h-6 text-accent" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-foreground mb-2 font-sans">{service.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{service.description}</p>
+                        <span className="inline-flex items-center text-sm font-medium text-accent group-hover:gap-2 transition-all gap-1">
+                          Learn More <ChevronRight className="w-4 h-4" />
+                        </span>
+                      </Link>
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
+              {tickerPosts.length > 0 && (
+                <aside className="w-full lg:w-80 flex-shrink-0 self-stretch" aria-label="Latest updates">
+                  <UpdatesTicker posts={tickerPosts} />
+                </aside>
+              )}
             </div>
           </div>
         </section>

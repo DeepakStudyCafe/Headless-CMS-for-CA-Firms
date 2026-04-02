@@ -7,7 +7,8 @@ import AnimatedCounter from '@/components/AnimatedCounter';
 import Layout from '@/components/Layout';
 import HeroSlider from '@/components/HeroSlider';
 import { Button } from '@/components/ui/button';
-import { getPageData, getWebsiteData, getImageUrl } from '@/lib/api';
+import { getPageData, getWebsiteData, getImageUrl, getPosts } from '@/lib/api';
+import { UpdatesTicker } from '@/components/UpdatesTicker';
 
 const iconMap: Record<string, any> = { BookOpen, FileText, Users, Calculator, Building2, Shield, Search, Briefcase, TrendingUp, Award, Globe };
 
@@ -34,12 +35,17 @@ const Index = () => {
   const industries = industriesSection?.textContent?.items || [];
   const testimonials = testimonialsSection?.textContent?.items || [];
   const [testIndex, setTestIndex] = useState(0);
+  const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
     if (!testimonials || testimonials.length <= 3) return;
     const id = setInterval(() => setTestIndex((i) => (i + 3) % testimonials.length), 4000);
     return () => clearInterval(id);
   }, [testimonials]);
+
+  useEffect(() => {
+    getPosts(6).then((p) => setPosts(p)).catch(() => setPosts([]));
+  }, []);
 
   const visibleTestimonials = (testimonials && testimonials.length > 0)
     ? (testimonials.length <= 3 ? testimonials : Array.from({ length: 3 }, (_, k) => testimonials[(testIndex + k) % testimonials.length]))
@@ -62,7 +68,8 @@ const Index = () => {
                 <p className="text-body mt-4 max-w-2xl mx-auto">{servicesSection.textContent?.subheading}</p>
               </div>
             </ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="flex flex-col lg:flex-row gap-6">
+                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {services.map((service: any, i: number) => {
                 const Icon = iconMap[service.icon] || Briefcase;
                 return (
@@ -81,11 +88,17 @@ const Index = () => {
                 );
               })}
             </div>
+            {posts && posts.length > 0 && (
+              <aside className="w-full lg:w-80 flex-shrink-0 self-stretch" aria-label="Latest updates">
+                <UpdatesTicker posts={posts} />
+              </aside>
+            )}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+    )}
 
-      {/* Stats */}
+    {/* Stats */}
       {statsSection && stats.length > 0 && (
         <section className="section-padding">
           <div className="container-max mx-auto">

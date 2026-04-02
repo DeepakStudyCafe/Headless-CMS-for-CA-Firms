@@ -14,6 +14,7 @@ import Query from "./pages/Query";
 import Career from "./pages/Career";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import PostDetail from "./pages/PostDetail";
 import AdminRoot from "./pages/admin/AdminRoot";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/query" element={<Query />} />
           <Route path="/career" element={<Career />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/post/:slug" element={<PostDetail />} />
                     {/* Admin Routes */}
           <Route path="/admin" element={<AdminRoot />} />
           <Route path="/admin/login" element={<AdminLogin />} />

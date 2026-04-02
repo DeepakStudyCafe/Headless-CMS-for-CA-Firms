@@ -14,6 +14,7 @@ import Query from "./pages/Query";
 import Career from "./pages/Career";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import PostDetail from "./pages/PostDetail";
 import AdminGuard from "./components/AdminGuard";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/query" element={<Query />} />
           <Route path="/career" element={<Career />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/post/:slug" element={<PostDetail />} />
           <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route

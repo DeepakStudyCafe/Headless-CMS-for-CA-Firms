@@ -7,12 +7,18 @@ import SectionHeading from "@/components/SectionHeading";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import Layout from "@/components/Layout";
 import { usePageData } from "@/hooks/useWebsiteData";
-import { getImageUrl } from "@/lib/api";
+import { getImageUrl, getPosts } from "@/lib/api";
 import { IconByName } from "@/components/IconByName";
+import { UpdatesTicker } from "@/components/UpdatesTicker";
 
 const Index = () => {
   const [current, setCurrent] = useState(0);
   const { getSection, isLoading } = usePageData('home');
+  const [posts, setPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    getPosts(15).then((p) => setPosts(p)).catch(() => setPosts([]));
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrent((p) => (p + 1) % (getSection('hero-slider')?.textContent?.slides?.length || 3)), 5000);
@@ -127,29 +133,38 @@ const Index = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/3 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="container relative">
           <SectionHeading label={servicesGrid?.label} title={servicesGrid?.title} description={servicesGrid?.description} />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {services.map((service: any, i: number) => (
-              <ScrollReveal key={i} delay={i * 0.08}>
-                <Link to={service.href || '#'} className="group block p-6 bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-500 hover:-translate-y-2 border border-transparent hover:border-primary/10">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-subtle flex items-center justify-center mb-5 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                    <IconByName name={service.icon} className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
-                  </div>
-                  <h3 className="font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{service.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{service.desc}</p>
-                  <span className="text-primary text-sm font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all">
-                    Learn More <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </Link>
-              </ScrollReveal>
-            ))}
+            
+            <div className="flex flex-col lg:flex-row gap-6 mt-12">
+              <div className="flex-1 grid sm:grid-cols-2 lg:grid-cols-3 gap-5 content-start">
+                {services.map((service: any, i: number) => (
+                  <ScrollReveal key={i} delay={i * 0.08}>
+                    <Link to={service.href || '#'} className="group block p-6 bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-500 hover:-translate-y-2 border border-transparent hover:border-primary/10 h-full">
+                      <div className="w-12 h-12 rounded-2xl bg-emerald-subtle flex items-center justify-center mb-5 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+                        <IconByName name={service.icon} className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+                      </div>
+                      <h3 className="font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{service.name}</h3>
+                      <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{service.desc}</p>
+                      <span className="text-primary text-sm font-semibold flex items-center gap-1.5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all">
+                        Learn More <ArrowRight className="w-3.5 h-3.5" />
+                      </span>
+                    </Link>
+                  </ScrollReveal>
+                ))}
+              </div>
+              
+              {posts && posts.length > 0 && (
+                <aside className="w-full lg:w-80 flex-shrink-0 self-stretch" aria-label="Latest updates">
+                  <UpdatesTicker posts={posts} />
+                </aside>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* About Overview */}
-      <section className="py-24 bg-muted/50">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        {/* About Overview */}
+        <section className="py-24 bg-muted/50">
+          <div className="container">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
             <ScrollReveal direction="left">
               <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em]">{aboutOverview?.badge}</span>
               <div className="section-divider mt-3 mb-5" />

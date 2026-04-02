@@ -55,7 +55,7 @@ export function Footer() {
                 unoptimized
               />
               <div className="flex flex-col">
-                <h3 className="text-xl font-bold p-0 leading-tight">{websiteData?.name || 'I S K & Co'}</h3>
+                <h3 className="text-xl font-bold p-0 leading-tight">I S K & Co.</h3>
                 <span className="text-xs font-medium text-gray-400 tracking-wider uppercase mt-1">
                   Chartered Accountants
                 </span>
