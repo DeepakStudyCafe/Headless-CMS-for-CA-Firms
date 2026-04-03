@@ -162,7 +162,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
           <div>
             <h1 className="text-2xl font-bold">{page.title}</h1>
             <p className="text-sm text-muted-foreground">
-              {page.website.name} • /{page.slug}
+              {page.website.name} - /{page.slug}
             </p>
           </div>
         </div>
@@ -288,11 +288,11 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                     />
                   </div>
                 )}
-                {section.textContent?.heading !== undefined && (
+                {(section.type === 'hero' || section.type === 'about' || section.type === 'service-details' || section.type === 'text-image' || section.type === 'cta' || section.type === 'stats' || section.type === 'contact-info' || section.textContent?.heading !== undefined) && (
                   <div>
                     <Label>Heading</Label>
                     <Input
-                      value={section.textContent.heading || ''}
+                      value={section.textContent?.heading || ''}
                       onChange={(e) =>
                         handleSectionUpdate(section.id, 'textContent', {
                           ...section.textContent,
@@ -304,11 +304,11 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                   </div>
                 )}
 
-                {section.textContent?.subheading !== undefined && (
+                {(section.type === 'hero' || section.type === 'about' || section.type === 'service-details' || section.type === 'text-image' || section.textContent?.subheading !== undefined) && (
                   <div>
                     <Label>Subheading</Label>
                     <Input
-                      value={section.textContent.subheading || ''}
+                      value={section.textContent?.subheading || ''}
                       onChange={(e) =>
                         handleSectionUpdate(section.id, 'textContent', {
                           ...section.textContent,
@@ -320,11 +320,11 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                   </div>
                 )}
 
-                {section.textContent?.description !== undefined && (
+                {(section.type === 'hero' || section.type === 'about' || section.type === 'service-details' || section.type === 'text-image' || section.textContent?.description !== undefined) && (
                   <div>
                     <Label>Description</Label>
                     <textarea
-                      value={section.textContent.description || ''}
+                      value={section.textContent?.description || ''}
                       onChange={(e) =>
                         handleSectionUpdate(section.id, 'textContent', {
                           ...section.textContent,
@@ -353,7 +353,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         placeholder="Enter address..."
                       />
                     </div>
-                    
+
                     <div>
                       <Label>Phone</Label>
                       <Input
@@ -367,7 +367,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         placeholder="Enter phone number..."
                       />
                     </div>
-                    
+
                     <div>
                       <Label>Email</Label>
                       <Input
@@ -381,7 +381,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         placeholder="Enter email address..."
                       />
                     </div>
-                    
+
                     <div>
                       <Label>Business Hours</Label>
                       <Input
@@ -415,7 +415,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         className="w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       />
                     </div>
-                    
+
                     <div>
                       <Label>Location Address</Label>
                       <Input
@@ -495,11 +495,11 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                 )}
 
                 {/* Features array editing for text-image sections */}
-                {section.textContent?.features !== undefined && Array.isArray(section.textContent.features) && (
+                {(['text-image', 'features'].includes(section.type) || (section.textContent?.features !== undefined && Array.isArray(section.textContent.features))) && (
                   <div>
                     <Label>Features</Label>
                     <div className="space-y-2 mt-2">
-                      {section.textContent.features.map((feature: string, featureIndex: number) => (
+                      {(section.textContent?.features || []).map((feature: string, featureIndex: number) => (
                         <div key={featureIndex} className="flex gap-2">
                           <Input
                             value={feature}
@@ -547,11 +547,11 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                 )}
 
                 {/* Items array editing for services sections */}
-                {section.textContent?.items !== undefined && Array.isArray(section.textContent.items) && (
+                {(['services', 'team', 'gallery', 'timeline', 'faqs', 'features'].includes(section.type) || (section.textContent?.items !== undefined && Array.isArray(section.textContent.items))) && (
                   <div>
                     <Label>{section.type === 'team' ? 'Team Members' : section.type === 'services' ? 'Service Items' : 'Items'}</Label>
                     <div className="space-y-4 mt-2">
-                      {section.textContent.items.map((item: any, itemIndex: number) => (
+                      {(section.textContent?.items || []).map((item: any, itemIndex: number) => (
                         <Card key={itemIndex} className="p-4">
                           <div className="space-y-3">
                             <div className="flex justify-between items-center">
@@ -570,7 +570,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                 <Trash2 className="w-4 h-4" />
                               </Button>
                             </div>
-                            
+
                             {typeof item === 'string' ? (
                               <div>
                                 <Label>Item Text</Label>
@@ -607,7 +607,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                     />
                                   </div>
                                 )}
-                                
+
                                 {item.title !== undefined && (
                                   <div>
                                     <Label>Title</Label>
@@ -752,7 +752,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                   </div>
                                 )}
                                 {/* Image field */}
-                                {item.image !== undefined && (
+                                {(item.image !== undefined || ['team', 'team-core-header', 'partners'].includes(section.type)) && (
                                   <div>
                                     <Label>Image</Label>
                                     <div className="relative w-full h-32 mt-2 mb-2 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 group hover:border-gray-400 transition-colors">
@@ -867,20 +867,33 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                   </div>
                                 )}
                                 {/* Gallery-specific: src field */}
-                                {item.src !== undefined && (
+
+                                {/* Image / Src Upload */}
+                                {((item.image !== undefined || item.src !== undefined) || ['team', 'team-core-header', 'partners', 'gallery'].includes(section.type)) && (
                                   <div>
-                                    <Label>Image Source URL</Label>
+                                    <Label>{(item.src !== undefined || section.type === 'gallery') ? 'Gallery Image' : 'Member Photo'}</Label>
+                                    {(item.image || item.src) && (
+                                      <div className="relative w-32 h-32 mb-2 rounded border border-gray-200 overflow-hidden group">
+
+                                        <Image src={getImageUrl(item.image || item.src)} alt="Item" fill className="object-cover" />
+
+                                      </div>
+                                    )}
                                     <Input
-                                      value={item.src || ''}
-                                      onChange={(e) => {
-                                        const updatedItems = [...section.textContent.items]
-                                        updatedItems[itemIndex] = { ...item, src: e.target.value }
-                                        handleSectionUpdate(section.id, 'textContent', {
-                                          ...section.textContent,
-                                          items: updatedItems,
-                                        })
+                                      type="file"
+                                      accept="image/*"
+                                      onChange={async (e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                          try {
+                                            const res = await mediaAPI.upload(file);
+                                            const url = res.data.data.imageUrl;
+                                            const updatedItems = [...section.textContent.items];
+                                            updatedItems[itemIndex] = { ...item, [(item.src !== undefined || section.type === 'gallery') ? 'src' : 'image']: url };
+                                            handleSectionUpdate(section.id, 'textContent', { ...section.textContent, items: updatedItems });
+                                          } catch (e) { }
+                                        }
                                       }}
-                                      placeholder="https://..."
                                     />
                                   </div>
                                 )}
@@ -957,7 +970,29 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                   </div>
                                 )}
 
-{Object.keys(item).map(k => {const handled = ['icon', 'title', 'description', 'name', 'role', 'designation', 'image', 'src', 'category', 'alt', 'q', 'a']; if (handled.includes(k)) return null; const val = item[k]; if (typeof val !== 'string' && typeof val !== 'number' && typeof val !== 'boolean') return null; const isLongText = typeof val === 'string' && (val.length > 50 || k.toLowerCase().includes('desc') || k.toLowerCase().includes('text') || k.toLowerCase().includes('bio') || k.toLowerCase().includes('qualifications') || k.toLowerCase() === 'a'); return (<div key={k} className="mt-2"><Label className="capitalize">{k.replace(/([A-Z])/g, ' $1').trim()}</Label>{isLongText ? (<textarea value={val || ''} onChange={(e) => {const updatedItems = [...section.textContent.items]; updatedItems[itemIndex] = { ...item, [k]: e.target.value }; handleSectionUpdate(section.id, 'textContent', {...section.textContent, items: updatedItems });}} className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 mt-1" />) : (<Input type={typeof val === 'boolean' ? 'checkbox' : 'text'} checked={typeof val === 'boolean' ? val : undefined} value={typeof val === 'boolean' ? undefined : (val || '')} onChange={(e) => {const updatedItems = [...section.textContent.items]; updatedItems[itemIndex] = { ...item, [k]: typeof val === 'boolean' ? e.target.checked : e.target.value }; handleSectionUpdate(section.id, 'textContent', {...section.textContent, items: updatedItems });}} className={typeof val === 'boolean' ? 'mt-1' : 'mt-1 w-full'} />)}</div>)})}
+                                {Object.keys(item).map(k => {
+                                  const handled = ['icon', 'title', 'description', 'name', 'role', 'designation', 'image', 'src', 'category', 'alt', 'q', 'a']; if (handled.includes(k)) return null;
+                                  const val = item[k];
+                                  if (k === 'socialLinks') {
+                                    return (
+                                      <div key={k} className="mt-2 space-y-2 border-t pt-2">
+                                        <Label>Social Links</Label>
+                                        {Object.keys(val || {}).map(sk => (
+                                          <div key={sk} className="flex gap-2 items-center">
+                                            <Label className="w-16 text-xs">{sk}</Label>
+                                            <Input value={val[sk] || ''} onChange={e => {
+                                              const newItems = [...section.textContent.items];
+                                              newItems[itemIndex] = { ...item, socialLinks: { ...val, [sk]: e.target.value } };
+                                              handleSectionUpdate(section.id, 'textContent', { ...section.textContent, items: newItems });
+                                            }} />
+                                          </div>
+                                        ))}
+                                      </div>
+                                    );
+                                  }
+                                  if (typeof val !== 'string' && typeof val !== 'number' && typeof val !== 'boolean') return null;
+                                  const isLongText = typeof val === 'string' && (val.length > 50 || k.toLowerCase().includes('desc') || k.toLowerCase().includes('text') || k.toLowerCase().includes('bio') || k.toLowerCase().includes('qualifications') || k.toLowerCase() === 'a'); return (<div key={k} className="mt-2"><Label className="capitalize">{k.replace(/([A-Z])/g, ' $1').trim()}</Label>{isLongText ? (<textarea value={val || ''} onChange={(e) => { const updatedItems = [...section.textContent.items]; updatedItems[itemIndex] = { ...item, [k]: e.target.value }; handleSectionUpdate(section.id, 'textContent', { ...section.textContent, items: updatedItems }); }} className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 mt-1" />) : (<Input type={typeof val === 'boolean' ? 'checkbox' : 'text'} checked={typeof val === 'boolean' ? val : undefined} value={typeof val === 'boolean' ? undefined : (val || '')} onChange={(e) => { const updatedItems = [...section.textContent.items]; updatedItems[itemIndex] = { ...item, [k]: typeof val === 'boolean' ? e.target.checked : e.target.value }; handleSectionUpdate(section.id, 'textContent', { ...section.textContent, items: updatedItems }); }} className={typeof val === 'boolean' ? 'mt-1' : 'mt-1 w-full'} />)}</div>)
+                                })}
                               </>
                             )}
 
@@ -972,12 +1007,12 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                           const newItem = section.type === 'team'
                             ? { name: '', designation: '', qualifications: '', bio: '', image: '', linkedin: '#', isLeadership: false }
                             : section.type === 'gallery'
-                            ? { src: '', alt: '', category: 'Office', title: '' }
-                            : section.type === 'faqs'
-                            ? { q: '', a: '' }
-                            : (section.type === 'benefits' || section.type === 'steps')
-                            ? ''
-                            : { icon: '', title: '', description: '' }
+                              ? { src: '', alt: '', category: 'Office', title: '' }
+                              : section.type === 'faqs'
+                                ? { q: '', a: '' }
+                                : (section.type === 'benefits' || section.type === 'steps')
+                                  ? ''
+                                  : { icon: '', title: '', description: '' }
 
                           const updatedItems = [...section.textContent.items, newItem]
                           handleSectionUpdate(section.id, 'textContent', {
@@ -993,12 +1028,84 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                   </div>
                 )}
 
+
+                {/* Benefits Array editing */}
+                {(section.type === 'service-details' || section.textContent?.benefits !== undefined) && Array.isArray(section.textContent?.benefits) && (
+                  <div className="space-y-4 pt-4 border-t border-gray-200">
+                    <Label className="text-base font-semibold">Benefits</Label>
+                    {(section.textContent.benefits || []).map((benefit: string, bIndex: number) => (
+                      <div key={bIndex} className="flex flex-col gap-2 p-4 border rounded-lg relative bg-gray-50">
+                        <div className="flex gap-2">
+                          <Input
+                            value={benefit}
+                            onChange={(e) => {
+                              const newArr = [...section.textContent.benefits];
+                              newArr[bIndex] = e.target.value;
+                              handleSectionUpdate(section.id, 'textContent', { benefits: newArr });
+                            }}
+                          />
+                          <Button variant="destructive" size="icon" onClick={() => {
+                            handleSectionUpdate(section.id, 'textContent', { benefits: section.textContent.benefits.filter((_: any, i: number) => i !== bIndex) });
+                          }}><Trash2 className="w-4 h-4" /></Button>
+                        </div>
+                      </div>
+                    ))}
+                    <Button variant="outline" onClick={() => handleSectionUpdate(section.id, 'textContent', { benefits: [...(section.textContent.benefits || []), 'New Benefit'] })}>Add Benefit</Button>
+                  </div>
+                )}
+                {/* Process Array editing */}
+                {(section.type === 'service-details' || section.textContent?.process !== undefined) && Array.isArray(section.textContent?.process) && (
+                  <div className="space-y-4 pt-4 border-t border-gray-200">
+                    <Label className="text-base font-semibold">Process Steps</Label>
+                    {(section.textContent.process || []).map((proc: string, pIndex: number) => (
+                      <div key={pIndex} className="flex gap-2">
+                        <Input
+                          value={proc}
+                          onChange={(e) => {
+                            const newArr = [...section.textContent.process];
+                            newArr[pIndex] = e.target.value;
+                            handleSectionUpdate(section.id, 'textContent', { process: newArr });
+                          }}
+                        />
+                        <Button variant="destructive" size="icon" onClick={() => {
+                          handleSectionUpdate(section.id, 'textContent', { process: section.textContent.process.filter((_: any, i: number) => i !== pIndex) });
+                        }}><Trash2 className="w-4 h-4" /></Button>
+                      </div>
+                    ))}
+                    <Button variant="outline" onClick={() => handleSectionUpdate(section.id, 'textContent', { process: [...(section.textContent.process || []), 'New Process'] })}>Add Process Step</Button>
+                  </div>
+                )}
+                {/* FAQs under Service-Details */}
+                {(section.type === 'service-details' || section.textContent?.faqs !== undefined) && Array.isArray(section.textContent?.faqs) && (
+                  <div className="space-y-4 pt-4 border-t border-gray-200">
+                    <Label className="text-base font-semibold">Service FAQs</Label>
+                    {(section.textContent.faqs || []).map((faq: any, fIndex: number) => (
+                      <div key={fIndex} className="p-4 border rounded-lg bg-gray-50 flex gap-2">
+                        <div className="flex-1 space-y-2">
+                          <Input placeholder="Question" value={faq.q || ''} onChange={e => {
+                            const newArr = [...section.textContent.faqs];
+                            newArr[fIndex] = { ...faq, q: e.target.value };
+                            handleSectionUpdate(section.id, 'textContent', { faqs: newArr });
+                          }} />
+                          <Input placeholder="Answer" value={faq.a || ''} onChange={e => {
+                            const newArr = [...section.textContent.faqs];
+                            newArr[fIndex] = { ...faq, a: e.target.value };
+                            handleSectionUpdate(section.id, 'textContent', { faqs: newArr });
+                          }} />
+                        </div>
+                        <Button variant="destructive" size="icon" onClick={() => handleSectionUpdate(section.id, 'textContent', { faqs: section.textContent.faqs.filter((_: any, i: number) => i !== fIndex) })}><Trash2 className="w-4 h-4" /></Button>
+                      </div>
+                    ))}
+                    <Button variant="outline" onClick={() => handleSectionUpdate(section.id, 'textContent', { faqs: [...(section.textContent.faqs || []), { q: 'New Question', a: 'New Answer' }] })}>Add FAQ</Button>
+                  </div>
+                )}
+
                 {/* Stats array editing for stats sections */}
-                {section.textContent?.stats !== undefined && Array.isArray(section.textContent.stats) && (
+                {(section.type === 'stats' || (section.textContent?.stats !== undefined && Array.isArray(section.textContent.stats))) && (
                   <div>
                     <Label>Statistics</Label>
                     <div className="space-y-3 mt-2">
-                      {section.textContent.stats.map((stat: any, statIndex: number) => (
+                      {(section.textContent?.stats || []).map((stat: any, statIndex: number) => (
                         <Card key={statIndex} className="p-3">
                           <div className="flex gap-3 items-center flex-wrap">
                             <div className="flex-1 min-w-[120px]">
@@ -1085,7 +1192,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                 {Object.keys(section.textContent || {}).map((key) => {
                   const val = section.textContent[key];
                   // List of keys already handled explicitly
-                  const handledKeys = ['title', 'subtitle', 'heading', 'subheading', 'description', 'cta', 'address', 'phone', 'email', 'hours', 'mapEmbed', 'features', 'items', 'stats'];
+                  const handledKeys = ['title', 'subtitle', 'heading', 'subheading', 'description', 'cta', 'address', 'phone', 'email', 'hours', 'mapEmbed', 'features', 'items', 'stats', 'benefits', 'process', 'faqs'];
                   if (handledKeys.includes(key)) return null;
 
                   if (typeof val === 'string' || typeof val === 'number') {
@@ -1117,8 +1224,8 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                     try {
                                       const response = await mediaAPI.upload(file);
                                       handleSectionUpdate(section.id, 'textContent', {
-                                          ...section.textContent,
-                                          [key]: response.data.data.imageUrl,
+                                        ...section.textContent,
+                                        [key]: response.data.data.imageUrl,
                                       });
                                     } catch (error) {
                                       console.error(error);
@@ -1128,9 +1235,9 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                               />
                             </div>
                             {typeof val === 'string' && val && (
-                               <div className="w-32 h-32 relative mt-2 border rounded overflow-hidden">
-                                  <Image src={getImageUrl(val)} alt={key} fill className="object-cover" />
-                               </div>
+                              <div className="w-32 h-32 relative mt-2 border rounded overflow-hidden">
+                                <Image src={getImageUrl(val)} alt={key} fill className="object-cover" />
+                              </div>
                             )}
                           </div>
                         ) : isLongText ? (
@@ -1158,7 +1265,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                       </div>
                     );
                   }
-                  
+
                   if (Array.isArray(val)) {
                     return (
                       <div key={key}>
@@ -1180,31 +1287,31 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                     }}
                                   />
                                   <Button variant="outline" size="sm" onClick={() => {
-                                      const updatedArr = val.filter((_: any, i: number) => i !== itemIndex);
-                                      handleSectionUpdate(section.id, 'textContent', {
-                                        ...section.textContent,
-                                        [key]: updatedArr,
-                                      })
+                                    const updatedArr = val.filter((_: any, i: number) => i !== itemIndex);
+                                    handleSectionUpdate(section.id, 'textContent', {
+                                      ...section.textContent,
+                                      [key]: updatedArr,
+                                    })
                                   }}><Trash2 className="w-4 h-4" /></Button>
                                 </div>
                               ) : typeof item === 'object' ? (
                                 <div className="space-y-2">
                                   <div className="flex justify-between items-center">
-                                      <h4 className="font-medium text-sm">Item {itemIndex + 1}</h4>
-                                      <Button variant="outline" size="sm" onClick={() => {
-                                          const updatedArr = val.filter((_: any, i: number) => i !== itemIndex);
-                                          handleSectionUpdate(section.id, 'textContent', {
-                                            ...section.textContent,
-                                            [key]: updatedArr,
-                                          })
-                                      }}><Trash2 className="w-4 h-4" /></Button>
+                                    <h4 className="font-medium text-sm">Item {itemIndex + 1}</h4>
+                                    <Button variant="outline" size="sm" onClick={() => {
+                                      const updatedArr = val.filter((_: any, i: number) => i !== itemIndex);
+                                      handleSectionUpdate(section.id, 'textContent', {
+                                        ...section.textContent,
+                                        [key]: updatedArr,
+                                      })
+                                    }}><Trash2 className="w-4 h-4" /></Button>
                                   </div>
                                   {Object.keys(item).map((itemKey) => {
                                     const isImage = itemKey.toLowerCase().includes('image') || itemKey.toLowerCase().includes('logo') || itemKey.toLowerCase().includes('avatar');
                                     return (
-                                    <div key={itemKey}>
-                                      <Label className="capitalize text-xs">{itemKey}</Label>
-                                      {isImage ? (
+                                      <div key={itemKey}>
+                                        <Label className="capitalize text-xs">{itemKey}</Label>
+                                        {isImage ? (
                                           <div className="space-y-2 mt-1">
                                             <Input
                                               value={item[itemKey] || ''}
@@ -1240,12 +1347,12 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                               />
                                             </div>
                                             {item[itemKey] && (
-                                                <div className="w-20 h-20 relative mt-1 border rounded overflow-hidden">
-                                                    <Image src={getImageUrl(item[itemKey])} alt={itemKey} fill className="object-cover" />
-                                                </div>
+                                              <div className="w-20 h-20 relative mt-1 border rounded overflow-hidden">
+                                                <Image src={getImageUrl(item[itemKey])} alt={itemKey} fill className="object-cover" />
+                                              </div>
                                             )}
                                           </div>
-                                      ) : (
+                                        ) : (
                                           itemKey.toLowerCase().includes('desc') || itemKey.toLowerCase().includes('content') ? (
                                             <textarea
                                               value={item[itemKey] || ''}
@@ -1272,9 +1379,10 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                               }}
                                             />
                                           )
-                                      )}
-                                    </div>
-                                  )})}
+                                        )}
+                                      </div>
+                                    )
+                                  })}
                                 </div>
                               ) : null}
                             </Card>
@@ -1299,7 +1407,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         {Object.keys(val).map((subKey) => {
                           const subVal = val[subKey];
                           const isImage = subKey.toLowerCase().includes('image') || subKey.toLowerCase().includes('logo');
-                          
+
                           if (typeof subVal === 'string' || typeof subVal === 'number') {
                             return (
                               <div key={subKey}>
@@ -1327,8 +1435,8 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                             try {
                                               const response = await mediaAPI.upload(file);
                                               handleSectionUpdate(section.id, 'textContent', {
-                                                  ...section.textContent,
-                                                  [key]: { ...section.textContent[key], [subKey]: response.data.data.imageUrl },
+                                                ...section.textContent,
+                                                [key]: { ...section.textContent[key], [subKey]: response.data.data.imageUrl },
                                               });
                                             } catch (error) {
                                               console.error(error);
@@ -1338,9 +1446,9 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                       />
                                     </div>
                                     {typeof subVal === 'string' && subVal && (
-                                       <div className="w-32 h-32 relative mt-2 border rounded overflow-hidden">
-                                          <Image src={getImageUrl(subVal)} alt={subKey} fill className="object-cover" />
-                                       </div>
+                                      <div className="w-32 h-32 relative mt-2 border rounded overflow-hidden">
+                                        <Image src={getImageUrl(subVal)} alt={subKey} fill className="object-cover" />
+                                      </div>
                                     )}
                                   </div>
                                 ) : (

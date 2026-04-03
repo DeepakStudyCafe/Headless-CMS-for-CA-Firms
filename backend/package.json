@@ -15,7 +15,7 @@
     "seed:template5": "ts-node src/utils/template-5-seed.ts",
     "seed:template6": "ts-node src/utils/template-6-seed.ts",
     "seed:template1": "ts-node src/utils/template-1-seed.ts",
-       "seed:template3": "ts-node src/utils/seed-template-3.ts",
+    "seed:template3": "ts-node src/utils/seed-template-3.ts",
     "seed:abhishekrajaram": "ts-node src/utils/abhishekrajaram-seed.ts",
     "seed:monikas": "ts-node src/utils/monikas-seed.ts",
     "seed:template9": "ts-node src/utils/template-9-seed.ts",
@@ -23,7 +23,8 @@
     "seed:template7": "ts-node src/utils/template-7-seed.ts",
     "seed:template8": "ts-node src/utils/template-8-seed.ts",
     "seed:isk-and-co": "ts-node src/utils/isk-and-co-seed.ts",
-    "setup:admins": "ts-node src/utils/setup-admins.ts"
+    "setup:admins": "ts-node src/utils/setup-admins.ts",
+    "seed:camohanc": "ts-node src/utils/camohan-seed.ts"
   },
   "keywords": [
     "cms",
@@ -67,4 +68,3 @@
     "typescript": "^5.3.3"
   }
 }
-

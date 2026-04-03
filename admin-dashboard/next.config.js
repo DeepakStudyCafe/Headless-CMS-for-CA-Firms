@@ -6,8 +6,12 @@ const nextConfig = {
     outputFileTracingRoot: undefined,
   },
   images: {
-    domains: ['localhost', 'images.unsplash.com', '72.62.243.99', 'digitechai.in', 'api.digitechai.in', 'backend.digitechai.in', 'picsum.photos'],
+    domains: ['localhost', 'images.unsplash.com', '72.62.243.99', 'digitechai.in', 'api.digitechai.in', 'backend.digitechai.in', 'picsum.photos', 'placehold.co'],
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
       {
         protocol: 'http',
         hostname: 'localhost',

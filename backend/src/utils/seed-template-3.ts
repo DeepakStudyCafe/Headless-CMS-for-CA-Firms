@@ -17,8 +17,7 @@ async function main() {
             data: {
               name: 'Template 3 - CA Firm',
               slug: 'template-3',
-              description: 'Professional CA Firm template with modern UI',
-              status: "PUBLISHED", publishedAt: new Date(),
+              isActive: true,
             }
           });
           console.log('Created website: Template 3');
@@ -54,12 +53,27 @@ async function main() {
 
     // Prepare sections for about
     const aboutSections = [
+      {
+        pageId: aboutPage.id,
+        type: 'stats',
+        order: 30,
+        
+        textContent: {
+          stats: [
+            { value: '500+', label: 'Clients Served' },
+            { value: '18+', label: 'Years Experience' },
+            { value: '50+', label: 'Team Members' },
+            { value: '12', label: 'Industry Awards' }
+          ]
+        }
+      },
+
 
       {
         pageId: aboutPage.id,
         type: 'values',
         order: 10,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -90,7 +104,7 @@ async function main() {
         pageId: aboutPage.id,
         type: 'timeline',
         order: 20,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -171,7 +185,7 @@ async function main() {
         pageId: careerPage.id,
         type: 'jobs',
         order: 10,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -206,7 +220,7 @@ async function main() {
         pageId: careerPage.id,
         type: 'benefits',
         order: 20,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -276,7 +290,7 @@ async function main() {
     }
 
     // Prepare sections for contact
-    const contactSections = [
+    const contactSections: any[] = [
     ];
 
     // Seed sections for contact
@@ -327,7 +341,7 @@ async function main() {
         pageId: galleryPage.id,
         type: 'galleryImages',
         order: 10,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -408,12 +422,49 @@ async function main() {
 
     // Prepare sections for home
     const homeSections = [
+      {
+        pageId: homePage.id,
+        type: 'why-choose-us',
+        order: 25,
+        
+        textContent: {
+          heading: 'Why Choose Us?',
+          description: 'With over 18 years of experience, we combine deep industry knowledge with innovative solutions to deliver exceptional financial services. Our team of certified professionals is committed to your success.',
+          cta: { text: 'Learn More', href: '/about' }
+        }
+      },
+      {
+        pageId: homePage.id,
+        type: 'stats',
+        order: 35,
+        
+        textContent: {
+          stats: [
+            { value: '500+', label: 'Clients Served' },
+            { value: '18+', label: 'Years Experience' },
+            { value: '50+', label: 'Team Members' },
+            { value: '98%', label: 'Client Satisfaction' }
+          ]
+        }
+      },
+      {
+        pageId: homePage.id,
+        type: 'cta',
+        order: 50,
+        
+        textContent: {
+          heading: 'Ready to Transform Your Financial Future?',
+          description: 'Let\'s discuss how our expertise can help your business grow and thrive.',
+          cta: { text: 'Schedule a Consultation', href: '/contact' }
+        }
+      },
+
 
       {
         pageId: homePage.id,
         type: 'hero',
         order: 10,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "slides": [
                 {
@@ -439,7 +490,7 @@ async function main() {
         pageId: homePage.id,
         type: 'services-section',
         order: 20,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -490,7 +541,7 @@ async function main() {
         pageId: homePage.id,
         type: 'industries',
         order: 30,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -521,7 +572,7 @@ async function main() {
         pageId: homePage.id,
         type: 'testimonials',
         order: 40,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -592,7 +643,7 @@ async function main() {
         pageId: queryPage.id,
         type: 'faqs',
         order: 10,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -657,6 +708,51 @@ async function main() {
       console.log('services page already exists');
     }
 
+    const serviceData = {
+      'bookkeeping': { title: 'Bookkeeping', desc: 'Our expert bookkeeping services ensure your financial records are accurate, up-to-date, and compliant. We handle everything from daily transaction recording to monthly reconciliations.', benefits: ['Accurate financial records', 'Timely bank reconciliations', 'Monthly financial statements', 'Real-time reporting access'], process: ['Initial assessment', 'System setup', 'Data migration', 'Ongoing management'], faqs: [{ q: 'What software do you use?', a: 'We work with Tally, QuickBooks, Zoho Books, and other leading platforms.' }, { q: 'How often will I get reports?', a: 'Monthly financial statements with real-time dashboard access.' }] },
+      'gst-filing': { title: 'GST Filing', desc: 'Ensure timely and accurate GST compliance with our expert filing services. We handle all GST return types and keep you updated on regulatory changes.', benefits: ['Timely return filing', 'Input tax credit optimization', 'Compliance monitoring', 'Advisory on GST regulations'], process: ['Data collection', 'Return preparation', 'Review & filing', 'Confirmation & reporting'], faqs: [{ q: 'Which GST returns do you handle?', a: 'GSTR-1, GSTR-3B, GSTR-9, and all applicable returns.' }, { q: 'Do you handle GST registration?', a: 'Yes, we provide end-to-end GST registration services.' }] },
+      'payroll': { title: 'Payroll', desc: 'Comprehensive payroll management ensuring accurate salary processing, statutory compliance, and timely disbursements.', benefits: ['Accurate salary processing', 'TDS computation & filing', 'PF/ESI compliance', 'Pay slip generation'], process: ['Payroll setup', 'Monthly processing', 'Compliance filing', 'Reporting'], faqs: [{ q: 'How many employees can you manage?', a: 'We handle payroll for organizations of all sizes.' }, { q: 'Do you handle contractor payments?', a: 'Yes, including TDS deductions on contractor payments.' }] },
+      'tax-planning': { title: 'Tax Planning', desc: 'Strategic tax planning services to optimize your tax position while ensuring full compliance with tax laws.', benefits: ['Tax liability optimization', 'Investment planning', 'Advance tax computation', 'Tax-efficient structuring'], process: ['Financial review', 'Strategy development', 'Implementation', 'Ongoing monitoring'], faqs: [{ q: 'When should I start tax planning?', a: 'Ideally at the beginning of the financial year for maximum benefit.' }, { q: 'Do you handle international taxation?', a: 'Yes, we have expertise in cross-border tax planning.' }] },
+      'company-formation': { title: 'Company Formation', desc: 'End-to-end company incorporation services including registration, documentation, and post-incorporation compliance.', benefits: ['Quick registration', 'Complete documentation', 'PAN & TAN registration', 'Bank account assistance'], process: ['Consultation', 'Name approval', 'Documentation', 'Registration'], faqs: [{ q: 'How long does incorporation take?', a: 'Typically 10-15 working days for Private Limited companies.' }, { q: 'Can you help with LLP registration?', a: 'Yes, we handle Pvt Ltd, LLP, OPC, and other entity types.' }] },
+      'compliance': { title: 'Compliance', desc: 'Comprehensive regulatory compliance services ensuring your business meets all statutory requirements.', benefits: ['ROC filings', 'Annual return filing', 'Board meeting compliance', 'Statutory audit support'], process: ['Compliance audit', 'Gap analysis', 'Filing & reporting', 'Ongoing monitoring'], faqs: [{ q: 'What penalties can non-compliance cause?', a: 'Penalties range from fines to director disqualification.' }, { q: 'Do you provide compliance calendars?', a: 'Yes, we maintain detailed compliance calendars for all clients.' }] },
+      'audit-services': { title: 'Audit Services', desc: 'Independent audit and assurance services that enhance the credibility and reliability of your financial information.', benefits: ['Statutory audits', 'Internal audits', 'Tax audits', 'Special purpose audits'], process: ['Planning', 'Fieldwork', 'Reporting', 'Follow-up'], faqs: [{ q: 'What types of audits do you conduct?', a: 'Statutory, internal, tax, stock, and forensic audits.' }, { q: 'How long does an audit take?', a: 'Duration depends on the size and complexity of the organization.' }] },
+      'financial-advisory': { title: 'Financial Advisory', desc: 'Expert financial advisory services covering valuations, due diligence, fundraising, and strategic financial planning.', benefits: ['Business valuations', 'Due diligence', 'M&A advisory', 'Financial restructuring'], process: ['Assessment', 'Analysis', 'Strategy formulation', 'Execution support'], faqs: [{ q: 'Do you assist with fundraising?', a: 'Yes, we help with investor presentations and financial modeling.' }, { q: 'Can you handle cross-border transactions?', a: 'Yes, we have experience with international M&A transactions.' }] },
+    };
+
+    for (const [key, d] of Object.entries(serviceData)) {
+      const pageSlug = `services/${key}`;
+      let spPage = await tx.page.findFirst({ where: { slug: pageSlug, websiteId: website.id } });
+      if (!spPage) {
+        spPage = await tx.page.create({
+          data: {
+            title: d.title,
+            slug: pageSlug,
+            websiteId: website.id,
+            status: "PUBLISHED", publishedAt: new Date()
+          }
+        });
+        console.log(`Created ${pageSlug} page`);
+      } else {
+        await tx.page.update({ where: { id: spPage.id }, data: { status: "PUBLISHED", publishedAt: new Date() } });
+      }
+      
+      await tx.section.deleteMany({ where: { pageId: spPage.id }});
+      await tx.section.create({
+        data: {
+          pageId: spPage.id,
+          type: "service-details",
+          order: 10,
+          textContent: {
+            heading: d.title,
+            description: d.desc,
+            benefits: d.benefits,
+            process: d.process,
+            faqs: d.faqs
+          }
+        }
+      });
+    }
+
     // Prepare sections for services
     const servicesSections = [
 
@@ -664,7 +760,7 @@ async function main() {
         pageId: servicesPage.id,
         type: 'services-section',
         order: 10,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -768,23 +864,29 @@ async function main() {
         pageId: teamPage.id,
         type: 'partners',
         order: 10,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+        
         textContent: {
         "items": [
                 {
                         "name": "CA Vikram Desai",
                         "role": "Managing Partner",
-                        "speciality": "Audit & Assurance"
+                        "speciality": "Audit & Assurance",
+                        "image": "hero1",
+                        "socialLinks": { "linkedin": "#", "twitter": "#" }
                 },
                 {
                         "name": "CA Anita Krishnan",
                         "role": "Senior Partner",
-                        "speciality": "Tax Advisory"
+                        "speciality": "Tax Advisory",
+                        "image": "hero2",
+                        "socialLinks": { "linkedin": "#", "twitter": "#" }
                 },
                 {
                         "name": "CA Rahul Gupta",
                         "role": "Partner",
-                        "speciality": "Financial Advisory"
+                        "speciality": "Financial Advisory",
+                        "image": "hero3",
+                        "socialLinks": { "linkedin": "#", "twitter": "#" }
                 }
         ]
 }
@@ -794,7 +896,7 @@ async function main() {
         pageId: teamPage.id,
         type: 'team',
         order: 20,
-        status: "PUBLISHED", publishedAt: new Date(), // MUST BE TRUE
+         // MUST BE TRUE
         textContent: {
         "items": [
                 {
@@ -858,7 +960,7 @@ async function main() {
           { pageSlug: 'services', type: 'services-header', textContent: { heading: 'What We Offer', subheading: 'Comprehensive financial services to support every aspect of your business.' } },
           { pageSlug: 'team', type: 'team-header', textContent: { heading: 'Leadership', subheading: "Meet the partners driving our firm's vision and excellence." } },
           { pageSlug: 'team', type: 'team-core-header', textContent: { heading: 'Our Team', subheading: 'Dedicated professionals committed to delivering exceptional results.' } },
-          { pageSlug: 'team', type: 'team-certs-header', textContent: { heading: 'Certifications & Expertise' } }
+          { pageSlug: 'team', type: 'team-certs-header', textContent: { heading: 'Certifications & Expertise', items: [{ title: 'ICAI Certified' }, { title: 'ISO 27001' }, { title: 'DISA Qualified' }, { title: 'GST Practitioner' }, { title: 'IFRS Expert' }, { title: 'Forensic Accounting' }] } }
         ];
 
         for (const sec of newSections) {
@@ -882,7 +984,6 @@ async function main() {
                   pageId: page.id,
                   type: sec.type,
                   order: 999, // Append at end
-                  status: "PUBLISHED", publishedAt: new Date(),
                   textContent: sec.textContent
                 }
               });
