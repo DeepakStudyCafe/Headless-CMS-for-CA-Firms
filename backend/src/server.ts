@@ -57,6 +57,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3007',
   'http://localhost:8088/',
   'http://localhost:8090/',
+  'http://localhost:8092/',
   'https://iskco.in/'
 ];
 

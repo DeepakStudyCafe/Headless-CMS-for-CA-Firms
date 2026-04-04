@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Navy-based color palette */
+    --background: 210 20% 98%;
+    --foreground: 215 20% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 20% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 20% 18%;
+
+    /* Primary: deeper blue */
+    --primary: 212 100% 30%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: slate/navy accent */
+    --secondary: 215 18% 12%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Accent: warm gold for highlights */
+    --accent: 45 90% 52%;
+    --accent-foreground: 220 20% 12%;
+
+    --muted: 210 14% 93%;
+    --muted-foreground: 215 14% 46%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 220 45% 18%;
+    --radius: 0.5rem;
+
+    /* Glow / accents (blue-only, deeper) */
+    --emerald-glow: 198 100% 30%;
+    --gold-light: 45 92% 60%;
+    --charcoal-light: 215 20% 30%;
+
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --shadow-card: 0 4px 20px -4px hsl(215 20% 18% / 0.08);
+    --shadow-card-hover: 0 12px 40px -8px hsl(220 45% 18% / 0.15);
+    --shadow-hero: 0 20px 60px -15px hsl(215 20% 18% / 0.25);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 220 10% 22%;
+    --sidebar-primary: 220 12% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 220 8% 95.9%;
+    --sidebar-accent-foreground: 220 10% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Navy shade tokens for utility classes */
+  :root {
+    --navy-100: 212 100% 88%;
+    --navy-500: 212 100% 28%;
+    --navy-600: 212 100% 22%;
+    --navy-700: 212 100% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+  }
+  .container-wide {
+    @apply max-w-7xl mx-auto;
+  }
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--emerald-glow)));
+  }
+  .gradient-dark {
+    background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--charcoal-light)));
+  }
+  .gradient-accent {
+    background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--gold-light)));
+  }
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--emerald-glow)));
+  }
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--gold-light)));
+  }
+  .card-premium {
+    @apply rounded-xl border border-border bg-card;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .card-premium:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-4px);
+  }
+
+  /* Navy utilities (used by admin UI) */
+  .bg-navy-100 { background-color: hsl(var(--navy-100)); }
+  .bg-navy-500 { background-color: hsl(var(--navy-500)); }
+  .bg-navy-600 { background-color: hsl(var(--navy-600)); }
+  .text-navy-700 { color: hsl(var(--navy-700)); }
+  .hero-overlay {
+    background: linear-gradient(135deg, hsl(var(--secondary) / 0.85), hsl(var(--primary) / 0.7));
+  }
+  .page-hero-overlay {
+    background: linear-gradient(135deg, hsl(var(--secondary) / 0.9), hsl(var(--primary) / 0.75));
+  }
+  .btn-primary-gradient {
+    @apply px-8 py-3 rounded-lg font-semibold transition-all duration-300;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--emerald-glow)));
+    color: hsl(var(--primary-foreground));
+  }
+  .btn-primary-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px hsl(var(--primary) / 0.4);
+  }
+  .btn-outline-light {
+    @apply px-8 py-3 rounded-lg font-semibold transition-all duration-300 border-2;
+    border-color: hsl(var(--primary-foreground) / 0.6);
+    color: hsl(var(--primary-foreground));
+  }
+  .btn-outline-light:hover {
+    background: hsl(var(--primary-foreground) / 0.1);
+    border-color: hsl(var(--primary-foreground));
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4;
+    font-family: var(--font-heading);
+    color: hsl(var(--secondary));
+  }
+  .section-subtitle {
+    @apply text-lg max-w-2xl mx-auto;
+    color: hsl(var(--muted-foreground));
+  }
+}

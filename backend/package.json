@@ -24,7 +24,8 @@
     "seed:template8": "ts-node src/utils/template-8-seed.ts",
     "seed:isk-and-co": "ts-node src/utils/isk-and-co-seed.ts",
     "setup:admins": "ts-node src/utils/setup-admins.ts",
-    "seed:camohanc": "ts-node src/utils/camohan-seed.ts"
+    "seed:camohanc": "ts-node src/utils/camohan-seed.ts",
+        "seed:vineet-taral": "ts-node src/utils/vineet-taral-seed.ts"
   },
   "keywords": [
     "cms",
