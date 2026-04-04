@@ -190,7 +190,7 @@ export default function PageEditor() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       {toast && (
-        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-sm text-white transition-all ${toast.type === 'ok' ? 'bg-green-600' : 'bg-red-600'}`}>
+        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-sm text-white transition-all ${toast.type === 'ok' ? 'bg-navy-600' : 'bg-red-600'}`}>
           {toast.msg}
         </div>
       )}
@@ -211,7 +211,7 @@ export default function PageEditor() {
             <span className="text-gray-300">|</span>
             <span className="font-semibold text-gray-800 text-sm">{page?.title || 'Page Editor'}</span>
             {page?.status && (
-              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${page.status === 'PUBLISHED' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${page.status === 'PUBLISHED' ? 'bg-navy-100 text-navy-700' : 'bg-yellow-100 text-yellow-700'}`}>
                 {page.status}
               </span>
             )}

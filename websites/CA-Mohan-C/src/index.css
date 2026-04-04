@@ -6,46 +6,63 @@
 
 @layer base {
   :root {
+    /* Navy-based color palette */
     --background: 210 20% 98%;
-    --foreground: 215 25% 15%;
+    --foreground: 215 20% 18%;
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 15%;
+    --card-foreground: 215 20% 18%;
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
-    --primary: 174 78% 26%;
+    --popover-foreground: 215 20% 18%;
+
+    /* Primary: deep navy */
+    --primary: 220 45% 18%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 215 28% 17%;
+
+    /* Secondary: slate/navy accent */
+    --secondary: 215 18% 12%;
     --secondary-foreground: 0 0% 100%;
-    --accent: 38 92% 50%;
-    --accent-foreground: 215 25% 15%;
+
+    /* Accent: warm gold for highlights */
+    --accent: 45 90% 52%;
+    --accent-foreground: 220 20% 12%;
+
     --muted: 210 14% 93%;
     --muted-foreground: 215 14% 46%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 214 20% 90%;
     --input: 214 20% 90%;
-    --ring: 174 78% 26%;
+    --ring: 220 45% 18%;
     --radius: 0.5rem;
 
-    --emerald-glow: 174 78% 36%;
-    --gold-light: 38 92% 60%;
+    /* Glow / accents */
+    --emerald-glow: 220 45% 28%;
+    --gold-light: 45 92% 60%;
     --charcoal-light: 215 20% 30%;
 
     --font-heading: 'Poppins', sans-serif;
     --font-body: 'Inter', sans-serif;
 
-    --shadow-card: 0 4px 20px -4px hsl(215 25% 15% / 0.08);
-    --shadow-card-hover: 0 12px 40px -8px hsl(174 78% 26% / 0.15);
-    --shadow-hero: 0 20px 60px -15px hsl(215 25% 15% / 0.25);
+    --shadow-card: 0 4px 20px -4px hsl(215 20% 18% / 0.08);
+    --shadow-card-hover: 0 12px 40px -8px hsl(220 45% 18% / 0.15);
+    --shadow-hero: 0 20px 60px -15px hsl(215 20% 18% / 0.25);
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-foreground: 220 10% 22%;
+    --sidebar-primary: 220 12% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-accent: 220 8% 95.9%;
+    --sidebar-accent-foreground: 220 10% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Navy shade tokens for utility classes */
+  :root {
+    --navy-100: 220 45% 94%;
+    --navy-500: 220 45% 18%;
+    --navy-600: 220 45% 14%;
+    --navy-700: 220 45% 10%;
   }
 }
 
@@ -95,6 +112,12 @@
     box-shadow: var(--shadow-card-hover);
     transform: translateY(-4px);
   }
+
+  /* Navy utilities (used by admin UI) */
+  .bg-navy-100 { background-color: hsl(var(--navy-100)); }
+  .bg-navy-500 { background-color: hsl(var(--navy-500)); }
+  .bg-navy-600 { background-color: hsl(var(--navy-600)); }
+  .text-navy-700 { color: hsl(var(--navy-700)); }
   .hero-overlay {
     background: linear-gradient(135deg, hsl(var(--secondary) / 0.85), hsl(var(--primary) / 0.7));
   }

@@ -213,15 +213,15 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       {toast && (
-        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-sm text-white transition-all ${toast.type === 'ok' ? 'bg-green-600' : 'bg-red-600'}`}>
+        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-sm text-white transition-all ${toast.type === 'ok' ? 'bg-navy-600' : 'bg-red-600'}`}>
           {toast.msg}
         </div>
       )}
 
       <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500" />
+            <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-navy-500" />
             <span className="font-semibold text-gray-800 text-sm">Admin Panel</span>
           </div>
           <div className="flex items-center gap-2">
@@ -286,7 +286,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${page.status === 'PUBLISHED' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${page.status === 'PUBLISHED' ? 'bg-navy-100 text-navy-700' : 'bg-yellow-100 text-yellow-700'}`}>
                     {page.status}
                   </span>
                   <svg className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="gradient-dark">
+    <footer className="bg-navy-600 mt-[0.5px]">
       <div className="container-wide mx-auto section-padding !pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
