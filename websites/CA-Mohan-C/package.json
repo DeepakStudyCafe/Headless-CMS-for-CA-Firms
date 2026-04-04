@@ -8,8 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview --port 8088",
-    "start": "vite preview --port 8088",
+    "preview": "vite preview --port 8091",
+    "start": "vite preview --port 8091",
     "test": "vitest run",
     "test:watch": "vitest"
   },
