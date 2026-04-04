@@ -1,5 +1,5 @@
 export const API_URL = import.meta.env.VITE_API_URL || '/api';
-export const WEBSITE_SLUG = 'template-3';
+export const WEBSITE_SLUG = import.meta.env.VITE_WEBSITE_SLUG || 'ca-mohan-c';
 
 export interface SectionContent {
   heading?: string;

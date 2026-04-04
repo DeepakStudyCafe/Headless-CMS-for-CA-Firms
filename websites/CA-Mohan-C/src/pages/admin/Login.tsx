@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const WEBSITE_SLUG = import.meta.env.VITE_WEBSITE_SLUG || 'template-3'
+const WEBSITE_SLUG = import.meta.env.VITE_WEBSITE_SLUG || 'ca-mohan-c'
 const API_URL = (import.meta.env.VITE_API_URL || '/api') || ''
 
 export default function AdminLogin() {
