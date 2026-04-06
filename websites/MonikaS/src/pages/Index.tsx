@@ -44,7 +44,7 @@ const Index = () => {
   }, [testimonials]);
 
   useEffect(() => {
-    getPosts(6).then((p) => setPosts(p)).catch(() => setPosts([]));
+    getPosts(30).then((p) => setPosts(p)).catch(() => setPosts([]));
   }, []);
 
   const visibleTestimonials = (testimonials && testimonials.length > 0)

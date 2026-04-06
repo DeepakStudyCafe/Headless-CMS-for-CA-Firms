@@ -27,7 +27,8 @@ export interface PageData {
 
 export async function getWebsiteData() {
   try {
-    const res = await fetch(`${API_URL}/public/website/${WEBSITE_SLUG}`);
+    const url = `${API_URL}/public/website/${WEBSITE_SLUG}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) return null;
     const data = await res.json();
     return data?.data?.website || null;
@@ -43,7 +44,8 @@ export async function getPageData(slug: string): Promise<PageData | null> {
     if (slug === '/' || slug === 'index' || slug === '') fetchSlug = 'home';
     fetchSlug = fetchSlug.replace(/^\//, '');
 
-    const res = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${fetchSlug}`);
+    const url = `${API_URL}/public/pages/${WEBSITE_SLUG}/${fetchSlug}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) return null;
     const data = await res.json();
     return data?.data?.page || null;
@@ -74,7 +76,8 @@ export interface WPPost {
 
 export async function getPosts(perPage = 20): Promise<WPPost[]> {
   try {
-    const res = await fetch(`${API_URL}/public/whats-new/posts?per_page=${perPage}`);
+    const url = `${API_URL}/public/whats-new/posts?per_page=${perPage}&t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) return [];
     const json = await res.json();
     return Array.isArray(json.data?.posts) ? json.data.posts : [];
@@ -85,7 +88,8 @@ export async function getPosts(perPage = 20): Promise<WPPost[]> {
 
 export async function getPostBySlug(slug: string): Promise<WPPost | null> {
   try {
-    const res = await fetch(`${API_URL}/public/whats-new/post/${encodeURIComponent(slug)}`);
+    const url = `${API_URL}/public/whats-new/post/${encodeURIComponent(slug)}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) return null;
     const json = await res.json();
     return json?.success && json?.data?.post ? json.data.post : null;

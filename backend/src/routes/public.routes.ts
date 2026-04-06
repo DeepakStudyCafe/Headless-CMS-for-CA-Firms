@@ -229,7 +229,8 @@ router.get('/whats-new/posts', async (req, res) => {
   try {
     const perPage = Math.min(Number(req.query.per_page) || 20, 50)
     const cacheKey = `wp:posts:${perPage}`
-    const cached = getCache(cacheKey)
+    const bypassCache = typeof req.query.t !== 'undefined' || typeof req.query.bust !== 'undefined'
+    const cached = bypassCache ? null : getCache(cacheKey)
     if (cached) return res.json({ success: true, data: { posts: cached } })
 
     const url = `${WP_BASE}/posts?per_page=${perPage}&orderby=date&order=desc&_embed=1`
@@ -251,7 +252,8 @@ router.get('/whats-new/posts', async (req, res) => {
 router.get('/whats-new/post/by-id/:id', async (req, res) => {
   try {
     const cacheKey = `wp:post:id:${req.params.id}`
-    const cached = getCache(cacheKey)
+    const bypassCache = typeof req.query.t !== 'undefined' || typeof req.query.bust !== 'undefined'
+    const cached = bypassCache ? null : getCache(cacheKey)
     if (cached) return res.json({ success: true, data: { post: cached } })
 
     const url = `${WP_BASE}/posts/${req.params.id}?_embed=1`
@@ -269,7 +271,8 @@ router.get('/whats-new/post/by-id/:id', async (req, res) => {
 router.get('/whats-new/post/:slug', async (req, res) => {
   try {
     const cacheKey = `wp:post:slug:${req.params.slug}`
-    const cached = getCache(cacheKey)
+    const bypassCache = typeof req.query.t !== 'undefined' || typeof req.query.bust !== 'undefined'
+    const cached = bypassCache ? null : getCache(cacheKey)
     if (cached) return res.json({ success: true, data: { post: cached } })
 
     const url = `${WP_BASE}/posts?slug=${encodeURIComponent(req.params.slug)}&_embed=1`
@@ -294,7 +297,8 @@ router.get('/whats-new/search', async (req, res) => {
     if (!q) return res.json({ success: true, data: { posts: [] } })
     const perPage = Math.min(Number(req.query.per_page) || 10, 20)
     const cacheKey = `wp:search:${q.toLowerCase()}:${perPage}`
-    const cached = getCache(cacheKey)
+    const bypassCache = typeof req.query.t !== 'undefined' || typeof req.query.bust !== 'undefined'
+    const cached = bypassCache ? null : getCache(cacheKey)
     if (cached) return res.json({ success: true, data: { posts: cached } })
     const url = `${WP_BASE}/posts?search=${encodeURIComponent(q)}&per_page=${perPage}&orderby=date&order=desc&_embed=1`
     const wpRes = await fetch(url, { headers: WP_HEADERS })
@@ -310,4 +314,17 @@ router.get('/whats-new/search', async (req, res) => {
 })
 
 export default router;
+
+// Development helper: clear WP cache entries
+router.post('/clear-wp-cache', async (req, res) => {
+  try {
+    let removed = 0
+    for (const key of Array.from(cache.keys())) {
+      if (key.startsWith('wp:')) { cache.delete(key); removed++ }
+    }
+    res.json({ success: true, data: { removed } })
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message })
+  }
+})
 

@@ -113,6 +113,14 @@
     transform: translateY(-4px);
   }
 
+  /* Post detail link color override: ensure clickable links are blue like MonikaS image */
+  .prose a, .prose a:visited {
+    color: #1e40af; /* Tailwind blue-800 */
+  }
+  .prose a:hover {
+    color: #1e3a8a; /* Slightly darker on hover */
+  }
+
   /* Navy utilities (used by admin UI) */
   .bg-navy-100 { background-color: hsl(var(--navy-100)); }
   .bg-navy-500 { background-color: hsl(var(--navy-500)); }

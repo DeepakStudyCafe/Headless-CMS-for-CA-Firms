@@ -16,6 +16,7 @@ import ServiceDetailPage from "./pages/ServiceDetailPage";
 import ContactPage from "./pages/ContactPage";
 import QueryPage from "./pages/QueryPage";
 import CareerPage from "./pages/CareerPage";
+import PostDetail from "./pages/PostDetail";
 import NotFound from "./pages/NotFound";
 import AdminRoot from "./pages/admin/AdminRoot";
 import Login from "./pages/admin/Login";
@@ -51,6 +52,7 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/query" element={<QueryPage />} />
           <Route path="/career" element={<CareerPage />} />
+          <Route path="/post/:slug" element={<PostDetail />} />
           <Route path="/admin" element={<AdminRoot />} />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
@@ -65,15 +67,18 @@ const AnimatedRoutes = () => {
 const AppLayout = () => {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
+  const isPost = location.pathname.startsWith('/post/');
+
+  const showLayout = !isAdmin && !isPost;
 
   return (
     <>
       <ScrollToTop />
-      {!isAdmin && <Header />}
+      {showLayout && <Header />}
       <main className="min-h-screen">
         <AnimatedRoutes />
       </main>
-      {!isAdmin && <Footer />}
+      {showLayout && <Footer />}
     </>
   );
 };

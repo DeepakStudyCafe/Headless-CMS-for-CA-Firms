@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData } from '../lib/api';
+import { getPageData, getPosts } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,13 +8,16 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, BookOpen, FileText, Users, Calculator, Building2, Shield, Search, TrendingUp, Star, ArrowRight, Rocket, Factory, Monitor, Briefcase } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
 import AnimatedCounter from '../components/AnimatedCounter';
+import { UpdatesTicker } from '../components/UpdatesTicker';
 
 const Index = () => {
   const [pageData, setPageData] = useState<any>(null);
   const [current, setCurrent] = useState(0);
+  const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
     getPageData('home').then((res) => setPageData(mapData(res))).catch(console.error);
+    getPosts(20).then(setPosts).catch(console.error);
   }, []);
 
   const currentSlides = pageData?.sections?.find((s: any) => s.type === 'hero')?.textContent?.slides || [];
@@ -101,24 +104,31 @@ const Index = () => {
           <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'services-section')?.textContent?.heading || 'Our Services'}</h2>
           <p className="section-subtitle">{pageData?.sections?.find((s: any) => s.type === 'services-section')?.textContent?.subheading}</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {(pageData?.sections?.find((s: any) => s.type === 'services-section')?.textContent?.items || []).map((s, i) => (
-            <motion.div
-              key={s.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <Link to={`/services/${s.name.toLowerCase().replace(/ /g, '-')}`} className="card-premium block p-6 h-full group">
-                <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <s.icon size={22} style={{ color: 'hsl(var(--primary-foreground))' }} />
-                </div>
-                <h3 className="font-heading font-semibold text-lg mb-2 text-foreground">{s.name}</h3>
-                <p className="text-sm text-muted-foreground">{s.desc}</p>
-              </Link>
-            </motion.div>
-          ))}
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            {(pageData?.sections?.find((s: any) => s.type === 'services-section')?.textContent?.items || []).map((s: any, i: number) => (
+              <motion.div
+                key={s.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Link to={`/services/${s.name.toLowerCase().replace(/ /g, '-')}`} className="card-premium block p-6 h-full group">
+                  <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <s.icon size={22} style={{ color: 'hsl(var(--primary-foreground))' }} />
+                  </div>
+                  <h3 className="font-heading font-semibold text-lg mb-2 text-foreground">{s.name}</h3>
+                  <p className="text-sm text-muted-foreground">{s.desc}</p>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          {posts && posts.length > 0 && (
+            <aside className="w-full lg:w-80 flex-shrink-0 self-stretch" aria-label="Latest updates">
+              <UpdatesTicker posts={posts} />
+            </aside>
+          )}
         </div>
       </SectionWrapper>
 
