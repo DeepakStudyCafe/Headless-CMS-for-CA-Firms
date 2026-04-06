@@ -106,6 +106,19 @@ app.use('/uploads', (req, res, next) => {
 });
 app.use('/uploads', express.static(rootUploadsPath, { maxAge: '1d' }));
 
+// Explicit handler for favicon in uploads to avoid JSON 'route not found' responses
+app.get('/uploads/favicon.ico', (req, res) => {
+  const filePath = path.join(rootUploadsPath, 'favicon.ico');
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Cache-Control', 'public, max-age=86400, stale-while-revalidate=3600');
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.warn('favicon.ico not found in uploads:', filePath, err.message);
+      return res.status(404).json({ success: false, error: 'File not found' });
+    }
+  });
+});
+
 
 
 // Health check
