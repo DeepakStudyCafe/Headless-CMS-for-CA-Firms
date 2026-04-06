@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/x-icon" href="https://api.digitechai.in/uploads/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="https://api.digitechai.in/api/uploads/favicon.ico" />
       </head>
       <body className={inter.className}>
         <ConditionalLayout>{children}</ConditionalLayout>
