@@ -123,6 +123,17 @@ const sendFavicon = (req: Request, res: Response) => {
 app.get('/uploads/favicon.ico', sendFavicon);
 app.head('/uploads/favicon.ico', sendFavicon);
 
+// Mirror uploads under /api/uploads to support proxies that prefix with /api
+app.use('/api/uploads', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Cache-Control', 'public, max-age=86400, stale-while-revalidate=3600');
+  res.header('Vary', 'Origin');
+  next();
+});
+app.use('/api/uploads', express.static(rootUploadsPath, { maxAge: '1d' }));
+app.get('/api/uploads/favicon.ico', sendFavicon);
+app.head('/api/uploads/favicon.ico', sendFavicon);
+
 
 
 // Health check
