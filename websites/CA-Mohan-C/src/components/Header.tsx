@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Phone, Mail, BookOpen, FileText, Users, Calculator, Building2, Shield, Search, TrendingUp } from 'lucide-react';
+import { getWebsiteData } from '../lib/api';
 
 const serviceDropdown = [
   { name: 'Bookkeeping', href: '/services/bookkeeping', icon: BookOpen },
@@ -29,9 +30,11 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [websiteData, setWebsiteData] = useState<any>(null);
   const location = useLocation();
 
   useEffect(() => {
+    getWebsiteData().then((res) => setWebsiteData(res)).catch(console.error);
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -42,17 +45,24 @@ const Header = () => {
     setDropdownOpen(false);
   }, [location]);
 
+  const name = websiteData?.name || 'CA Mohan C Chartered Accountant';
+  const logo = websiteData?.logo || 'https://api.digitechai.in/uploads/logo.png';
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-card/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
       {/* Top bar */}
       <div className={`transition-all duration-300 ${isScrolled ? 'h-0 overflow-hidden opacity-0' : 'h-auto opacity-100'}`}>
         <div className="container-wide mx-auto flex items-center justify-end gap-6 px-4 py-2 text-sm" style={{ color: 'hsl(var(--primary-foreground))' }}>
-          <a href="tel:+911234567890" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-            <Phone size={14} /> +91 123 456 7890
-          </a>
-          <a href="mailto:info@apexca.com" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-            <Mail size={14} /> info@apexca.com
-          </a>
+          {websiteData?.phone && (
+            <a href={`tel:${websiteData.phone}`} className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+              <Phone size={14} /> {websiteData.phone}
+            </a>
+          )}
+          {websiteData?.email && (
+            <a href={`mailto:${websiteData.email}`} className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+              <Mail size={14} /> {websiteData.email}
+            </a>
+          )}
         </div>
       </div>
 
@@ -60,14 +70,14 @@ const Header = () => {
         <Link to="/" className="flex items-center gap-2">
           <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg overflow-hidden bg-transparent flex items-center justify-center p-1">
             <img
-              src="https://api.digitechai.in/uploads/logo.png"
-              alt="CA Mohan C Chartered Accountant logo"
+              src={logo}
+              alt={`${name} logo`}
               className="w-full h-full object-contain"
             />
           </div>
           <div>
             <span className={`font-heading font-bold text-lg transition-colors ${isScrolled ? 'text-secondary' : 'text-card'}`}>
-              CA Mohan C Chartered Accountant
+              {name}
             </span>
             <div className={`text-sm transition-colors ${isScrolled ? 'text-black' : 'text-white'}`}>Chartered Accountants</div>
           </div>

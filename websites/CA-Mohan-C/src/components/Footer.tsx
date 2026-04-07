@@ -1,7 +1,20 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { getWebsiteData } from '../lib/api';
 
 const Footer = () => {
+  const [websiteData, setWebsiteData] = useState<any>(null);
+
+  useEffect(() => {
+    getWebsiteData().then((res) => setWebsiteData(res)).catch(console.error);
+  }, []);
+
+  const name = websiteData?.name || 'CA Mohan C Chartered Accountant';
+  const logo = websiteData?.logo || 'https://api.digitechai.in/uploads/footerlogo.png';
+  const footerContent = websiteData?.themeConfig?.footerContent || {};
+  const desc = footerContent.description || 'A premier chartered accountancy firm delivering world-class financial services with integrity, precision, and innovation.';
+
   return (
     <footer className="bg-navy-600 mt-[0.5px]">
       <div className="container-wide mx-auto section-padding !pb-8">
@@ -11,18 +24,18 @@ const Footer = () => {
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-lg overflow-hidden bg-transparent flex items-center justify-center p-1">
                 <img
-                  src="https://api.digitechai.in/uploads/footerlogo.png"
-                  alt="CA Mohan C Chartered Accountant logo"
+                  src={logo}
+                  alt={`${name} logo`}
                   className="w-full h-full object-contain"
                 />
               </div>
               <div>
-                <span className="font-heading font-bold text-sm" style={{ color: 'hsl(var(--secondary-foreground))' }}>CA Mohan C Chartered Accountant</span>
-                <div className="text-sm text-muted-foreground">Chartered Accountants</div>
+                <span className="font-heading font-bold text-sm" style={{ color: 'hsl(var(--secondary-foreground))' }}>{name}</span>
+                <div className="text-sm text-muted-foreground">Chartered Accountants</div>     
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-4" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
-              A premier chartered accountancy firm delivering world-class financial services with integrity, precision, and innovation.
+              {desc}
             </p>
           </div>
 
@@ -43,7 +56,7 @@ const Footer = () => {
             <h4 className="font-heading font-semibold mb-4" style={{ color: 'hsl(var(--secondary-foreground))' }}>Services</h4>
             <div className="space-y-2">
               {['Bookkeeping', 'GST Filing', 'Tax Planning', 'Audit Services', 'Financial Advisory'].map((s) => (
-                <Link key={s} to={`/services/${s.toLowerCase().replace(/ /g, '-')}`} className="block text-sm transition-colors" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
+                <Link key={s} to={`/services/${s.toLowerCase().replace(/ /g, '-')}`} className="block text-sm transition-colors" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}> 
                   {s}
                 </Link>
               ))}
@@ -54,27 +67,33 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold mb-4" style={{ color: 'hsl(var(--secondary-foreground))' }}>Contact Us</h4>
             <div className="space-y-3">
-              <div className="flex items-start gap-3 text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
-                <MapPin size={16} className="mt-0.5 flex-shrink-0" />
-                <span>123 Financial District, Mumbai, Maharashtra 400001</span>
-              </div>
-              <a href="tel:+911234567890" className="flex items-center gap-3 text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
-                <Phone size={16} /> +91 123 456 7890
-              </a>
-              <a href="mailto:info@apexca.com" className="flex items-center gap-3 text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
-                <Mail size={16} /> info@apexca.com
-              </a>
+              {websiteData?.address && (
+                <div className="flex items-start gap-3 text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
+                  <MapPin size={16} className="mt-0.5 flex-shrink-0" />
+                  <span>{websiteData.address}</span>
+                </div>
+              )}
+              {websiteData?.phone && (
+                <a href={`tel:${websiteData.phone}`} className="flex items-center gap-3 text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
+                  <Phone size={16} /> {websiteData.phone}
+                </a>
+              )}
+              {websiteData?.email && (
+                <a href={`mailto:${websiteData.email}`} className="flex items-center gap-3 text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
+                  <Mail size={16} /> {websiteData.email}
+                </a>
+              )}
             </div>
           </div>
         </div>
 
             <div className="border-t pt-6 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderColor: 'hsl(var(--secondary-foreground) / 0.15)' }}>
               <p className="text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }}>
-                © {new Date().getFullYear()} CA Mohan C Chartered Accountant. All rights reserved.
+                &copy; {new Date().getFullYear()} {name}. All rights reserved.
               </p>
-              <div>
+              <div className='text-gray-300'>
                 Powered By{' '}
-                <a href="https://webcafe.co.in/" target="_blank" rel="noopener" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }} className="hover:text-accent hover:underline no-underline">Webcafe Pvt. Ltd.</a>
+                <a href="https://webcafe.co.in/" target="_blank" rel="noopener noreferrer" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }} className="hover:text-accent hover:underline no-underline">Webcafe a Product of Studycafe Pvt Ltd.</a>
               </div>
             </div>
       </div>
