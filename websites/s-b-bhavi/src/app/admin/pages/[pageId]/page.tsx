@@ -1,9 +1,9 @@
-
+﻿'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useRouter, useParams } from 'next/navigation'
 
-const API_URL = import.meta.env.VITE_API_URL || '/api'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
 const IMG_BASE = API_URL.replace(/\/api$/, '')
 
 function getToken() {
@@ -22,21 +22,14 @@ async function apiFetch(path: string, options: RequestInit = {}) {
       ...(options.headers || {}),
     },
   })
-  if (res.status === 401) {
-    try { localStorage.removeItem('site_admin_token') } catch {}
-    throw new Error('Unauthorized')
-  }
   const data = await res.json()
   if (!res.ok) throw new Error(data.error || 'Request failed')
   return data
 }
 
 function resolveImg(url: string | null | undefined) {
-  if (!url) return null;
-  if (url.startsWith('data:')) return url;
-  if (url.startsWith('http')) return url;
-  if (url.startsWith('/assets/') || url.includes('.')) return `${IMG_BASE}${url}`;
-  return `https://placehold.co/400x300/10b981/ffffff?text=${url}`;
+  if (!url) return null
+  return url.startsWith('http') ? url : `${IMG_BASE}${url}`
 }
 
 const inp = 'w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
@@ -59,7 +52,7 @@ interface Page {
 }
 
 export default function PageEditor() {
-  const navigate = useNavigate()
+  const router = useRouter()
   const params = useParams()
   const pageId = params?.pageId as string
 
@@ -76,16 +69,16 @@ export default function PageEditor() {
 
   useEffect(() => {
     const token = getToken()
-    if (!token) { navigate('/admin/login', { replace: true }); return }
+    if (!token) { router.replace('/admin/login'); return }
     if (!pageId) return
     apiFetch(`/content/pages/${pageId}`)
       .then((d) => {
         setPage(d.data.page)
         setSections(d.data.page.sections || [])
       })
-      .catch((e: any) => { showToast(e.message, 'err'); navigate('/admin/dashboard', { replace: true }) })
+      .catch((e: any) => { showToast(e.message, 'err'); router.replace('/admin/dashboard') })
       .finally(() => setLoading(false))
-  }, [navigate, pageId, showToast])
+  }, [router, pageId, showToast])
 
   const setTC = (sectionId: string, patch: Record<string, any>) =>
     setSections((prev) =>
@@ -140,10 +133,7 @@ export default function PageEditor() {
         prev.map((s) => {
           if (s.id !== sectionId) return s
           const arr = [...((s.textContent?.[arrayKey]) || [])]
-          
-          const isSrc = arr[itemIdx].src !== undefined;
-          arr[itemIdx] = { ...arr[itemIdx], [isSrc ? 'src' : 'image']: d.data.imageUrl };
-
+          arr[itemIdx] = { ...arr[itemIdx], image: d.data.imageUrl }
           return { ...s, textContent: { ...(s.textContent || {}), [arrayKey]: arr } }
         })
       )
@@ -190,7 +180,7 @@ export default function PageEditor() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       {toast && (
-        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-sm text-white transition-all ${toast.type === 'ok' ? 'bg-navy-600' : 'bg-red-600'}`}>
+        <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-lg shadow-lg text-sm text-white transition-all ${toast.type === 'ok' ? 'bg-green-600' : 'bg-red-600'}`}>
           {toast.msg}
         </div>
       )}
@@ -200,7 +190,7 @@ export default function PageEditor() {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={() => navigate('/admin/dashboard')}
+              onClick={() => router.push('/admin/dashboard')}
               className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -211,7 +201,7 @@ export default function PageEditor() {
             <span className="text-gray-300">|</span>
             <span className="font-semibold text-gray-800 text-sm">{page?.title || 'Page Editor'}</span>
             {page?.status && (
-              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${page.status === 'PUBLISHED' ? 'bg-navy-100 text-navy-700' : 'bg-yellow-100 text-yellow-700'}`}>
+              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${page.status === 'PUBLISHED' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
                 {page.status}
               </span>
             )}
@@ -321,10 +311,10 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4">
       <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
-        Section {idx + 1} � {section.type}
+        Section {idx + 1} — {section.type}
       </p>
 
-      {(section.imageUrl !== null || section.type === 'hero' || section.type === 'text-image' || (section.textContent && section.textContent.image !== undefined) || (section.type && typeof section.type === 'string' && section.type.includes('about'))) && (
+      {(section.imageUrl !== null || section.type === 'hero' || section.type === 'text-image') && (
         <div className="mb-4">
           <label className={lbl}>Section Image</label>
           {section.imageUrl ? (
@@ -360,32 +350,6 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
       <Field label="Call to Action" k="cta" />
       <Field label="Button Text" k="buttonText" />
       <Field label="Badge / Label" k="badge" />
-      <Field label="Label" k="label" />
-      <Field label="Description 1" k="description1" area />
-      <Field label="Description 2" k="description2" area />
-      <Field label="Mission Title" k="missionTitle" />
-      <Field label="Mission Description" k="missionDesc" area />
-      <Field label="Mission Heading" k="missionHeading" />
-      <Field label="Mission Text" k="missionText" area />
-      <Field label="Vision Title" k="visionTitle" />
-      <Field label="Vision Description" k="visionDesc" area />
-      <Field label="Vision Heading" k="visionHeading" />
-      <Field label="Vision Text" k="visionText" area />
-      <Field label="Button Link" k="buttonLink" />
-      <Field label="Office Heading" k="officeHeading" />
-      <Field label="Office Address" k="officeAddress" area />
-      <Field label="Office Phone" k="officePhone" />
-      <Field label="Office Email" k="officeEmail" />
-      <Field label="Office Hours" k="officeHours" />
-      <Field label="Map URL" k="mapUrl" area />
-      <Field label="Quick Contact Heading" k="quickContactHeading" />
-      <Field label="FAQ Heading" k="faqHeading" />
-      <Field label="Label (Office)" k="labelOffice" />
-      <Field label="Title (Office)" k="titleOffice" />
-      <Field label="Description (Office)" k="descOffice" area />
-      <Field label="Label (Events)" k="labelEvents" />
-      <Field label="Title (Events)" k="titleEvents" />
-      <Field label="Description (Events)" k="descEvents" area />
       <Field label="Tag Line" k="tagline" />
 
       {section.type === 'contact-info' && (
@@ -402,79 +366,6 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
           <Field label="Map Embed Code" k="mapEmbed" area />
           <Field label="Location Address" k="address" />
         </>
-      )}
-
-      {Array.isArray(tc.slides) && (
-        <div className="mb-3">
-          <label className={lbl}>Slides (Hero)</label>
-          <div className="space-y-3">
-            {(tc.slides as Record<string, any>[]).map((slide, si) => (
-              <div key={si} className="border border-gray-100 rounded-lg p-3 bg-gray-50 space-y-2">
-                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Slide {si + 1}</p>
-                <div>
-                  <span className="block text-[11px] text-gray-400 mb-1">Title</span>
-                  <textarea autoComplete="off" value={slide.title || ''} onChange={(e) => onSetItemField('slides', si, 'title', e.target.value)} rows={2} className={`${inp} resize-vertical`} />
-                </div>
-                <div>
-                  <span className="block text-[11px] text-gray-400 mb-1">Subtitle</span>
-                  <textarea autoComplete="off" value={slide.subtitle || ''} onChange={(e) => onSetItemField('slides', si, 'subtitle', e.target.value)} rows={2} className={`${inp} resize-vertical`} />
-                </div>
-                <div>
-                  <span className="block text-[11px] text-gray-400 mb-1">Badge</span>
-                  <input type="text" autoComplete="off" value={slide.badge || ''} onChange={(e) => onSetItemField('slides', si, 'badge', e.target.value)} className={inp} />
-                </div>
-                <div>
-                  <span className="block text-[11px] text-gray-400 mb-1">Image</span>
-                  {slide.image ? (
-                    <div className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200 group">
-                      <img src={resolveImg(slide.image) || ''} alt="" className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                        <label className="cursor-pointer bg-white text-gray-800 text-xs px-2 py-1 rounded hover:bg-gray-100 transition-colors">
-                          Change
-                          <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onItemImageUpload('slides', si, f) }} />
-                        </label>
-                        <button type="button" onClick={() => onSetItemField('slides', si, 'image', '')} className="bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600 transition-colors">
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <label className="cursor-pointer inline-flex items-center gap-2 text-xs text-blue-600 border border-dashed border-blue-300 rounded-lg px-3 py-2 hover:bg-blue-50 transition-colors">
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      Upload Image
-                      <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onItemImageUpload('slides', si, f) }} />
-                    </label>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {Array.isArray(tc.tags) && (
-        <div className="mb-3">
-          <label className={lbl}>Tags</label>
-          <div className="space-y-2">
-            {(tc.tags as string[]).map((tag, ti) => (
-              <input
-                key={ti}
-                type="text"
-                autoComplete="off"
-                value={tag}
-                onChange={(e) => {
-                  const arr = [...tc.tags]
-                  arr[ti] = e.target.value
-                  onSetTC({ tags: arr })
-                }}
-                placeholder={`Tag ${ti + 1}`}
-                className={inp}
-              />
-            ))}
-          </div>
-        </div>
       )}
 
       {Array.isArray(tc.features) && (
@@ -500,86 +391,15 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
         </div>
       )}
 
-      
-        {Array.isArray(tc.benefits) && (
-          <div className="mb-4 border border-gray-200 rounded p-4 bg-white">
-            <label className={lbl}>Benefits</label>
-            <div className="space-y-3">
-              {(tc.benefits as string[]).map((b, bi) => (
-                <div key={bi} className="flex gap-2">
-                  <input type="text" value={b} onChange={(e) => {
-                    const newB = [...tc.benefits]; newB[bi] = e.target.value; onSetTC({ benefits: newB });
-                  }} className={inp} />
-                  <button type="button" onClick={() => {
-                    const newB = tc.benefits.filter((_, i) => i !== bi); onSetTC({ benefits: newB });
-                  }} className="text-red-500 hover:text-red-700">Del</button>
-                </div>
-              ))}
-              <button type="button" onClick={() => onSetTC({ benefits: [...tc.benefits, 'New Benefit'] })} className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded hover:bg-gray-200">
-                + Add Benefit
-              </button>
-            </div>
-          </div>
-        )}
-
-        {Array.isArray(tc.process) && (
-          <div className="mb-4 border border-gray-200 rounded p-4 bg-white">
-            <label className={lbl}>Process Steps</label>
-            <div className="space-y-3">
-              {(tc.process as string[]).map((p, pi) => (
-                <div key={pi} className="flex gap-2">
-                  <input type="text" value={p} onChange={(e) => {
-                    const newP = [...tc.process]; newP[pi] = e.target.value; onSetTC({ process: newP });
-                  }} className={inp} />
-                  <button type="button" onClick={() => {
-                    const newP = tc.process.filter((_, i) => i !== pi); onSetTC({ process: newP });
-                  }} className="text-red-500 hover:text-red-700">Del</button>
-                </div>
-              ))}
-              <button type="button" onClick={() => onSetTC({ process: [...tc.process, 'New Step'] })} className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded hover:bg-gray-200">
-                + Add Step
-              </button>
-            </div>
-          </div>
-        )}
-
-        {Array.isArray(tc.faqs) && (
-          <div className="mb-3">
-            <label className={lbl}>FAQs</label>
-            <div className="space-y-3">
-              {(tc.faqs as any[]).map((faq, fi) => (
-                <div key={fi} className="border border-gray-100 rounded-lg p-3 bg-gray-50 space-y-2">
-                  <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">FAQ {fi + 1}</p>
-                  <div>
-                    <span className="block text-[11px] text-gray-400 mb-1">Question</span>
-                    <input type="text" autoComplete="off" value={faq.q || ''} onChange={(e) => onSetItemField('faqs', fi, 'q', e.target.value)} className={inp} />
-                  </div>
-                  <div>
-                    <span className="block text-[11px] text-gray-400 mb-1">Answer</span>
-                    <textarea autoComplete="off" value={faq.a || ''} onChange={(e) => onSetItemField('faqs', fi, 'a', e.target.value)} rows={2} className={inp} />
-                  </div>
-                </div>
-              ))}
-              <button type="button" onClick={() => onSetTC({ faqs: [...tc.faqs, { q: 'New Question', a: 'New Answer' }] })} className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded hover:bg-gray-200">
-                + Add FAQ
-              </button>
-            </div>
-          </div>
-        )}
-
       {Array.isArray(tc.stats) && (
         <div className="mb-3">
           <label className={lbl}>Statistics</label>
           <div className="space-y-2">
-            {(tc.stats as Record<string, any>[]).map((stat, si) => (
-              <div key={si} className="grid grid-cols-3 gap-2">
+            {(tc.stats as { value: string; label: string }[]).map((stat, si) => (
+              <div key={si} className="grid grid-cols-2 gap-2">
                 <div>
-                  <span className="block text-[11px] text-gray-400 mb-1">Value/End</span>
-                  <input type="text" autoComplete="off" value={stat.end !== undefined ? stat.end : (stat.value || '')} onChange={(e) => onSetItemField('stats', si, stat.end !== undefined ? 'end' : 'value', e.target.value)} className={inp} placeholder="500" />
-                </div>
-                <div>
-                  <span className="block text-[11px] text-gray-400 mb-1">Suffix</span>
-                  <input type="text" autoComplete="off" value={stat.suffix || ''} onChange={(e) => onSetItemField('stats', si, 'suffix', e.target.value)} className={inp} placeholder="+" />
+                  <span className="block text-[11px] text-gray-400 mb-1">Value</span>
+                  <input type="text" autoComplete="off" value={stat.value || ''} onChange={(e) => onSetItemField('stats', si, 'value', e.target.value)} className={inp} placeholder="500+" />
                 </div>
                 <div>
                   <span className="block text-[11px] text-gray-400 mb-1">Label</span>
@@ -591,43 +411,7 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
         </div>
       )}
 
-      
-
-      
-
-        {Array.isArray(tc.items) && typeof tc.items[0] === 'string' && (
-          <div className="mb-3">
-            <label className={lbl}>Items (Text list)</label>
-            <div className="space-y-2">
-              {(tc.items as string[]).map((itm, ii) => (
-                <div key={ii} className="flex gap-2 items-center">
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value={itm}
-                    onChange={(e) => {
-                      const arr = [...tc.items]
-                      arr[ii] = e.target.value
-                      onSetTC({ items: arr })
-                    }}
-                    className={inp}
-                  />
-                  <button type="button" onClick={() => {
-                    const arr = [...tc.items];
-                    arr.splice(ii, 1);
-                    onSetTC({ items: arr });
-                  }} className="text-red-500 hover:text-red-700 font-bold p-2">&times;</button>
-                </div>
-              ))}
-              <button type="button" onClick={() => onSetTC({ items: [...tc.items, 'New Item'] })} className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded hover:bg-gray-200 mt-2">
-                + Add Item
-              </button>
-            </div>
-          </div>
-        )}
-
-        {Array.isArray(tc.items) && typeof tc.items[0] !== 'string' && (
-
+      {Array.isArray(tc.items) && (
         <div className="mb-3">
           <label className={lbl}>
             {section.type === 'team' ? 'Team Members' : section.type === 'gallery' ? 'Gallery Items' : 'Service Items'}
@@ -638,18 +422,18 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
                 <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Item {ii + 1}</p>
 
                 {/* Per-item image (team member photo, gallery image) */}
-                {(item.image !== undefined || item.src !== undefined) && (
+                {item.image !== undefined && (
                   <div>
                     <span className="block text-[11px] text-gray-400 mb-1">Image</span>
-                    {(item.image || item.src) ? (
+                    {item.image ? (
                       <div className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200 group">
-                        <img src={resolveImg(item.image || item.src) || ''} alt="" className="w-full h-full object-cover" />
+                        <img src={resolveImg(item.image) || ''} alt="" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                           <label className="cursor-pointer bg-white text-gray-800 text-xs px-2 py-1 rounded hover:bg-gray-100 transition-colors">
                             Change
                             <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onItemImageUpload('items', ii, f) }} />
                           </label>
-                          <button type="button" onClick={() => onSetItemField('items', ii, item.src !== undefined ? 'src' : 'image', '')} className="bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600 transition-colors">
+                          <button type="button" onClick={() => onSetItemField('items', ii, 'image', '')} className="bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600 transition-colors">
                             Remove
                           </button>
                         </div>
@@ -677,18 +461,8 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
                     <span className="block text-[11px] text-gray-400 mb-1">Title</span>
                     <input type="text" autoComplete="off" value={item.title || ''} onChange={(e) => onSetItemField('items', ii, 'title', e.target.value)} className={inp} />
                   </div>
-                )}                  {item.q !== undefined && (
-                    <div>
-                      <span className="block text-[11px] text-gray-400 mb-1">Question</span>
-                      <input type="text" autoComplete="off" value={item.q || ''} onChange={(e) => onSetItemField('items', ii, 'q', e.target.value)} className={inp} />
-                    </div>
-                  )}
-                  {item.a !== undefined && (
-                    <div>
-                      <span className="block text-[11px] text-gray-400 mb-1">Answer</span>
-                      <textarea autoComplete="off" value={item.a || ''} onChange={(e) => onSetItemField('items', ii, 'a', e.target.value)} rows={2} className={`${inp} resize-vertical`} />
-                    </div>
-                  )}                {item.name !== undefined && (
+                )}
+                {item.name !== undefined && (
                   <div>
                     <span className="block text-[11px] text-gray-400 mb-1">Name</span>
                     <input type="text" autoComplete="off" value={item.name || ''} onChange={(e) => onSetItemField('items', ii, 'name', e.target.value)} className={inp} />
@@ -706,24 +480,6 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
                     <textarea autoComplete="off" value={item.description || ''} onChange={(e) => onSetItemField('items', ii, 'description', e.target.value)} rows={2} className={`${inp} resize-vertical`} />
                   </div>
                 )}
-                {item.desc !== undefined && (
-                  <div>
-                    <span className="block text-[11px] text-gray-400 mb-1">Description (desc)</span>
-                    <textarea autoComplete="off" value={item.desc || ''} onChange={(e) => onSetItemField('items', ii, 'desc', e.target.value)} rows={2} className={`${inp} resize-vertical`} />
-                  </div>
-                )}
-                {item.text !== undefined && (
-                  <div>
-                    <span className="block text-[11px] text-gray-400 mb-1">Text</span>
-                    <textarea autoComplete="off" value={item.text || ''} onChange={(e) => onSetItemField('items', ii, 'text', e.target.value)} rows={2} className={`${inp} resize-vertical`} />
-                  </div>
-                )}
-                {item.href !== undefined && (
-                  <div>
-                    <span className="block text-[11px] text-gray-400 mb-1">Link URL</span>
-                    <input type="text" autoComplete="off" value={item.href || ''} onChange={(e) => onSetItemField('items', ii, 'href', e.target.value)} className={inp} />
-                  </div>
-                )}
               </div>
             ))}
           </div>
@@ -732,5 +488,3 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
     </div>
   )
 }
-
-

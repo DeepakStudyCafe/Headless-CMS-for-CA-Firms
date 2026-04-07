@@ -13,6 +13,7 @@ export const transporter = nodemailer.createTransport({
 const WEBSITE_EMAILS = {
   'firm1-sharma': process.env.FIRM1_EMAIL || 'sharma.contact@gmail.com',
   'firm2-verma': process.env.FIRM2_EMAIL || 'verma.business@gmail.com',
+  
   'firm3-gupta': process.env.FIRM3_EMAIL || 'gupta.k.deepak@gmail.com',
   'firm4-kapoor': process.env.FIRM4_EMAIL || 'kapoor.contact@gmail.com',
   'firm5-singh': process.env.FIRM5_EMAIL || 'singh.contact@gmail.com',
@@ -20,13 +21,15 @@ const WEBSITE_EMAILS = {
   'template-4': process.env.TEMPLATE_4_EMAIL || 'ca.asgupta@gmail.com',
   'showcase-website': process.env.SHOWCASE_EMAIL || 'info@studycafe.in',
   'abhishekrajaram': 'support@abhishekrajaram.com',
-  'monikas': 'sdeepakncy@gmail.com',
+  'monikas': 't.sharma1991@mail.ca.in',
+  's-b-bhavi': 'cabhavi10@gmail.com',
 };
 
 // Website names mapping
 const WEBSITE_NAMES = {
   'firm1-sharma': process.env.FIRM1_NAME || 'Sharma & Associates',
   'firm2-verma': process.env.FIRM2_NAME || 'Verma & Co',
+  
   'firm3-gupta': process.env.FIRM3_NAME || 'Gupta Partners',
   'firm4-kapoor': process.env.FIRM4_NAME || 'Kapoor Associates',
   'firm5-singh': process.env.FIRM5_NAME || 'Singh & Partners',
@@ -35,6 +38,7 @@ const WEBSITE_NAMES = {
   'showcase-website': process.env.SHOWCASE_NAME || 'StudyCafe Showcase',
   'abhishekrajaram': 'Abhishek Rajaram CA Firm',
   'monikas': 'Monika S CA Firm',
+  's-b-bhavi': 'S B Bhavi & CO',
 };
 
 // Email sender function

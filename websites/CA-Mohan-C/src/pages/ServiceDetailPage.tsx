@@ -24,8 +24,23 @@ const ServiceDetailPage = () => {
   const { slug } = useParams();
 
   useEffect(() => {
-    getPageData('services').then((res) => setPageData(mapData(res))).catch(console.error);     
-  }, []);
+    // Try to fetch the specific service details page first
+    getPageData(`services%2F${slug}`)
+      .then((res) => {
+        if (res && res.sections && res.sections.length > 0) {
+          setPageData(mapData(res));
+        } else {
+          // Fallback to 'services' page if specific service page isn't found
+          getPageData('services')
+            .then((fallback) => setPageData(mapData(fallback)))
+            .catch(console.error);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        getPageData('services').then((fallback) => setPageData(mapData(fallback))).catch(console.error);
+      });
+  }, [slug]);
 
   if (!pageData) return <FullPageLoader />;
 
@@ -37,19 +52,48 @@ const ServiceDetailPage = () => {
 
   const Icon = service.icon;
 
+  const sd = (pageData?.sections || []).find((s: any) => s.type === 'service-details');
+  const dHeading = sd?.textContent?.heading || service.title;
+  const dDesc = sd?.textContent?.description || service.desc;
+  const dBenefits = Array.isArray(sd?.textContent?.benefits) ? sd.textContent.benefits : service.benefits;
+  const dProcess = Array.isArray(sd?.textContent?.process) ? sd.textContent.process : service.process;
+
+  // Prefer FAQs coming from admin/page data when available
+  const dynamicFaqs: { q: string; a: string }[] | null = (() => {
+    try {
+      // section explicitly for service-details
+      if (sd?.textContent?.faqs && Array.isArray(sd.textContent.faqs)) return sd.textContent.faqs;
+
+      // fallback: check services-section items for per-item faqs
+      const items = (pageData?.sections || []).find((s: any) => s.type === 'services-section')?.textContent?.items || [];
+      const match = items.find((it: any) => {
+        if (!it) return false;
+        const href = it.href || '';
+        if (href && slug && href.endsWith(slug)) return true;
+        if (it.slug && it.slug === slug) return true;
+        if (it.name && slug && it.name.toLowerCase().replace(/\s+/g, '-') === slug) return true;
+        return false;
+      });
+      if (match?.faqs && Array.isArray(match.faqs)) return match.faqs;
+    } catch (e) {
+      // ignore
+    }
+    return null;
+  })();
+
   return (
     <div>
-      <PageHero title={service.title} breadcrumb={service.title} image={`${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/services-hero.jpg`} />
+      <PageHero title={dHeading} breadcrumb={dHeading} image={`${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/services-hero.jpg`} />
 
       <SectionWrapper>
         <div className="grid lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
-            <h2 className="section-title">{service.title}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-8">{service.desc}</p>
+            <h2 className="section-title">{dHeading}</h2>
+            <p className="text-muted-foreground leading-relaxed mb-8">{dDesc}</p>
 
             <h3 className="font-heading font-semibold text-xl mb-4 text-foreground">Key Benefits</h3>
             <div className="grid sm:grid-cols-2 gap-3 mb-8">
-              {service.benefits.map((b) => (
+              {dBenefits.map((b: string) => (
                 <div key={b} className="flex items-center gap-3 text-foreground">
                   <CheckCircle size={18} className="text-primary flex-shrink-0" />
                   <span className="text-sm">{b}</span>
@@ -59,7 +103,7 @@ const ServiceDetailPage = () => {
 
             <h3 className="font-heading font-semibold text-xl mb-4 text-foreground">Our Process</h3>
             <div className="grid sm:grid-cols-4 gap-4 mb-8">
-              {service.process.map((step, i) => (
+              {dProcess.map((step: string, i: number) => (
                 <motion.div key={step} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="card-premium p-4 text-center">
                   <div className="w-8 h-8 rounded-full gradient-primary mx-auto mb-2 flex items-center justify-center text-sm font-bold" style={{ color: 'hsl(var(--primary-foreground))' }}>{i + 1}</div>
                   <p className="text-sm font-medium text-foreground">{step}</p>
@@ -69,7 +113,7 @@ const ServiceDetailPage = () => {
 
             <h3 className="font-heading font-semibold text-xl mb-4 text-foreground">FAQs</h3>
             <div className="space-y-4">
-              {service.faqs.map((faq) => (
+              {(dynamicFaqs || service.faqs).map((faq) => (
                 <div key={faq.q} className="card-premium p-5">
                   <h4 className="font-semibold text-foreground mb-1">{faq.q}</h4>
                   <p className="text-sm text-muted-foreground">{faq.a}</p>

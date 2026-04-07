@@ -18,17 +18,27 @@ const AboutPage = () => {
 
   return (
     <div>
-      <PageHero title="About Us" breadcrumb="About" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || `${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/about-hero.jpg`} />
+      <PageHero 
+        title="About Us" 
+        breadcrumb="About" 
+        image={
+          pageData?.sections?.find((s: any) => s.type === 'about')?.imageUrl || 
+          pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || 
+          `${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/about-hero.jpg`
+        } 
+      />
 
       <SectionWrapper>
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.heading}</h2>
+            <h2 className="section-title">
+              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.heading || 'Who We Are'}
+            </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Apex & Associates is a leading chartered accountancy firm with a legacy of excellence spanning nearly two decades. We combine traditional values with modern innovation to deliver world-class financial services.
+              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.description1 || "Apex & Associates is a leading chartered accountancy firm with a legacy of excellence spanning nearly two decades. We combine traditional values with modern innovation to deliver world-class financial services."}
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Our team of certified chartered accountants, tax experts, and financial advisors work collaboratively to provide comprehensive solutions tailored to each client's unique needs.
+              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.description2 || "Our team of certified chartered accountants, tax experts, and financial advisors work collaboratively to provide comprehensive solutions tailored to each client's unique needs."}
             </p>
           </div>
           <div className="grid grid-cols-2 gap-6">
@@ -46,15 +56,23 @@ const AboutPage = () => {
             <div className="w-14 h-14 rounded-lg gradient-primary flex items-center justify-center mb-4">
               <Target size={28} style={{ color: 'hsl(var(--primary-foreground))' }} />
             </div>
-            <h3 className="font-heading font-bold text-xl mb-3 text-foreground">Our Mission</h3>
-            <p className="text-muted-foreground leading-relaxed">To empower businesses with innovative financial solutions, ensuring compliance, growth, and long-term success through expert guidance and unwavering commitment.</p>
+            <h3 className="font-heading font-bold text-xl mb-3 text-foreground">
+              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.missionHeading || 'Our Mission'}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.missionText || "To empower businesses with innovative financial solutions, ensuring compliance, growth, and long-term success through expert guidance and unwavering commitment."}
+            </p>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="card-premium p-8">
             <div className="w-14 h-14 rounded-lg gradient-accent flex items-center justify-center mb-4">
               <Eye size={28} className="text-secondary" />
             </div>
-            <h3 className="font-heading font-bold text-xl mb-3 text-foreground">Our Vision</h3>
-            <p className="text-muted-foreground leading-relaxed">To be the most trusted and innovative chartered accountancy firm globally, setting new benchmarks in financial services excellence.</p>
+            <h3 className="font-heading font-bold text-xl mb-3 text-foreground">
+              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.visionHeading || 'Our Vision'}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.visionText || "To be the most trusted and innovative chartered accountancy firm globally, setting new benchmarks in financial services excellence."}
+            </p>
           </motion.div>
         </div>
       </SectionWrapper>

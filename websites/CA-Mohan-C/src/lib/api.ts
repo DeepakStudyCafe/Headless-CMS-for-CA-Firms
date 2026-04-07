@@ -44,7 +44,18 @@ export async function getPageData(slug: string): Promise<PageData | null> {
     fetchSlug = fetchSlug.replace(/^\//, '');
 
     const res = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${fetchSlug}`);
-    if (!res.ok) return null;
+    if (!res.ok) {
+      // Try common alternate slugs (services <-> service, careers <-> career)
+      const altSlug = fetchSlug === 'services' ? 'service' : fetchSlug === 'service' ? 'services' : fetchSlug === 'careers' ? 'career' : fetchSlug === 'career' ? 'careers' : null;
+      if (altSlug) {
+        const altRes = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${altSlug}`);
+        if (altRes.ok) {
+          const altData = await altRes.json();
+          return altData?.data?.page || null;
+        }
+      }
+      return null;
+    }
     const data = await res.json();
     return data?.data?.page || null;
   } catch (error) {
