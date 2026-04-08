@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData } from '../lib/api';
+import { getPageData, getImageUrl } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { Linkedin, Mail } from 'lucide-react';
@@ -15,7 +15,7 @@ const TeamPage = () => {
 
   return (
     <div>
-      <PageHero title="Our Team" breadcrumb="Team" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || `${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/team-hero.jpg`} />
+      <PageHero title="Our Team" breadcrumb="Team" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || getImageUrl('/uploads/team-hero.jpg')} />
 
       <SectionWrapper>
         <div className="text-center mb-12">

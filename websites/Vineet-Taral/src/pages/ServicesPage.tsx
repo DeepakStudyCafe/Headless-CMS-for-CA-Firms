@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData } from '../lib/api';
+import { getPageData, getImageUrl } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,7 @@ const ServicesPage = () => {
 
   return (
     <div>
-      <PageHero title="Our Services" breadcrumb="Services" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || `${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/services-hero.jpg`} />
+      <PageHero title="Our Services" breadcrumb="Services" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || getImageUrl('/uploads/services-hero.jpg')} />
       <SectionWrapper>
         <div className="text-center mb-12">
           <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'services-header')?.textContent?.heading}</h2>

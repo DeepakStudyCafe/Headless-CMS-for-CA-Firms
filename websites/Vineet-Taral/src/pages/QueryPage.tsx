@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData } from '../lib/api';
+import { getPageData, getImageUrl } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { HelpCircle, ChevronDown } from 'lucide-react';
@@ -20,7 +20,7 @@ const QueryPage = () => {
 
   return (
     <div>
-      <PageHero title="Submit a Query" breadcrumb="Query" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || `${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/contact-hero.jpg`} />
+      <PageHero title="Submit a Query" breadcrumb="Query" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || getImageUrl('/uploads/contact-hero.jpg')} />
 
       <SectionWrapper>
         <div className="grid lg:grid-cols-2 gap-12">

@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData } from '../lib/api';
+import { getPageData, getImageUrl } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 
 import { motion, AnimatePresence } from 'framer-motion';
@@ -27,7 +27,7 @@ const GalleryPage = () => {
 
   return (
     <div>
-      <PageHero title="Gallery" breadcrumb="Gallery" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || `${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/gallery-hero.jpg`} />
+      <PageHero title="Gallery" breadcrumb="Gallery" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || getImageUrl('/uploads/gallery-hero.jpg')} />
 
       <SectionWrapper>
         <div className="text-center mb-8">

@@ -30,7 +30,7 @@ export const mapData = (data: any) => {
             path = '/uploads/' + path;
         }
 
-        const baseUrl = (import.meta.env.VITE_API_URL || '').replace(/\/api$/, '');
+        const baseUrl = (import.meta.env.VITE_API_URL || import.meta.env.BASE_URL || '').replace(/\/api$/, '');
         return `${baseUrl}${path}`;
     };
 

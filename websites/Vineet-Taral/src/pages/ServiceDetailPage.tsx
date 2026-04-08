@@ -39,7 +39,7 @@ const ServiceDetailPage = () => {
 
   return (
     <div>
-      <PageHero title={service.title} breadcrumb={service.title} image={`${(import.meta.env.VITE_API_URL || '').replace(/\/api$/, '')}/uploads/services-hero.jpg`} />
+      <PageHero title={service.title} breadcrumb={service.title} image={getImageUrl('/uploads/services-hero.jpg')} />
 
       <SectionWrapper>
         <div className="grid lg:grid-cols-3 gap-12">
