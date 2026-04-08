@@ -43,10 +43,25 @@ export async function getPageData(slug: string): Promise<PageData | null> {
     if (slug === '/' || slug === 'index' || slug === '') fetchSlug = 'home';
     fetchSlug = fetchSlug.replace(/^\//, '');
 
-    const res = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${fetchSlug}`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data?.data?.page || null;
+    const trySlugs = [fetchSlug];
+    // also try singular/plural variant if primary fails
+    if (fetchSlug.endsWith('s')) {
+      trySlugs.push(fetchSlug.replace(/s$/, ''));
+    } else {
+      trySlugs.push(fetchSlug + 's');
+    }
+
+    for (const s of trySlugs) {
+      try {
+        const res = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${s}`);
+        if (!res.ok) continue;
+        const data = await res.json();
+        return data?.data?.page || null;
+      } catch (e) {
+        continue;
+      }
+    }
+    return null;
   } catch (error) {
     console.error('Error fetching page data:', error);
     return null;
