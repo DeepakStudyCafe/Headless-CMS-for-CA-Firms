@@ -8,7 +8,8 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8093,
-    allowedHosts: ["caasgupta.in", "www.caasgupta.in"],
+    // allow the production domain for local preview/dev HMR
+    allowedHosts: ["ajoygoyalassociates.com", "www.ajoygoyalassociates.com"],
     hmr: {
       overlay: false,
     },
@@ -16,7 +17,7 @@ export default defineConfig(({ mode }) => ({
   preview: {
     host: "::",
     port: 8093,
-    allowedHosts: ["caasgupta.in", "www.caasgupta.in"],
+    allowedHosts: ["ajoygoyalassociates.com", "www.ajoygoyalassociates.com"],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
