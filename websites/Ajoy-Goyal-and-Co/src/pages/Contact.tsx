@@ -1,0 +1,135 @@
+import Layout from "@/components/Layout";
+import PageHero from "@/components/PageHero";
+import ScrollReveal from "@/components/ScrollReveal";
+import contactHero from "@/assets/contact-hero.jpg";
+import { Phone, Mail, MapPin, Clock, Send, ArrowRight } from "lucide-react";
+import { useState } from 'react';
+import { Link } from "react-router-dom";
+import { usePageData } from "@/hooks/useWebsiteData";
+import { getImageUrl, submitContactForm } from "@/lib/api";
+import { toast } from "react-toastify";
+
+const Contact = () => {
+  const { website, getSection, isLoading } = usePageData('contact');
+  const siteData = website;
+  const [submitting, setSubmitting] = useState(false);
+
+  const ctaSec = getSection('contact-hero')?.textContent;
+  const heroImage = (ctaSec?.image) ? getImageUrl(ctaSec.image) : contactHero;
+
+  return (
+    <Layout>
+      <PageHero 
+        title={ctaSec?.title || "Contact Us"} 
+        subtitle={ctaSec?.subtitle || "Let's start a conversation about your financial future"} 
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]} 
+        image={heroImage || contactHero} 
+      />
+      
+      <section className="py-24 bg-background">
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-16">
+            <ScrollReveal>
+              <span className="text-accent font-semibold text-xs uppercase tracking-[0.2em]">{ctaSec?.tagline || "Reach Out"}</span>
+              <div className="section-divider mt-3 mb-5" />
+              <h2 className="text-3xl font-heading font-bold text-foreground mb-8">{ctaSec?.heading || "Get in Touch"}</h2>
+              
+              <form className="space-y-5" onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const data = new FormData(form);
+                const payload = {
+                  name: (data.get('fullName') as string) || '',
+                  email: (data.get('email') as string) || '',
+                  phone: (data.get('phone') as string) || '',
+                  company: (data.get('company') as string) || '',
+                  message: (data.get('message') as string) || '',
+                };
+                setSubmitting(true);
+                try {
+                  const res = await submitContactForm(payload);
+                  if (res?.success) {
+                    toast.success(res.message || 'Message sent successfully');
+                    form.reset();
+                  } else {
+                    toast.error(res?.message || 'Failed to send message');
+                  }
+                } catch (err) {
+                  toast.error('An error occurred. Please try again.');
+                } finally {
+                  setSubmitting(false);
+                }
+              }}>
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <input name="fullName" type="text" placeholder="Full Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" required />
+                  <input name="email" type="email" placeholder="Email Address" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" required />
+                </div>
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <input name="phone" type="tel" placeholder="Phone Number" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" required />
+                  <input name="company" type="text" placeholder="Company Name" className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition" />
+                </div>
+                <textarea name="message" placeholder="Your Message" rows={5} className="w-full px-5 py-3.5 rounded-xl border bg-card text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition resize-none" required />
+                <button type="submit" disabled={submitting} className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed">
+                  {submitting ? (
+                    <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                  {submitting ? 'Sending...' : 'Send Message'}
+                </button>
+              </form>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.2}>
+              <div className="space-y-6">
+                <h3 className="font-heading font-bold text-foreground text-xl">Office Details</h3>
+                {[
+                  { icon: MapPin, title: "Address", text: siteData?.address || "123 Financial District, BKC, Mumbai, Maharashtra 400051, India" },
+                  { icon: Phone, title: "Phone", text: siteData?.phone || "+91 22 1234 5678" },
+                  { icon: Mail, title: "Email", text: siteData?.email || "info@sharmaco.com" },
+                  { icon: Clock, title: "Hours", text: siteData?.workingHours || "Mon - Sat: 9:00 AM - 6:00 PM" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4 p-5 bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 hover:-translate-y-1">
+                    <div className="w-11 h-11 rounded-xl bg-emerald-subtle flex items-center justify-center shrink-0">
+                      <item.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-foreground">{item.title}</div>
+                      <div className="text-sm text-muted-foreground mt-0.5">{item.text}</div>
+                    </div>
+                  </div>
+                ))}
+
+                <div className="rounded-2xl overflow-hidden card-shadow h-64 mt-4">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3149.524846498629!2d72.8367607!3d18.952024500000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce24ffd9c049%3A0x9aca725fa5432078!2sANAND%20BUILDING%2C%2086%2C%20Kazi%20Syed%20St%2C%20Mandvi%20Koliwada%2C%20Vadgadi%2C%20Masjid%20Bandar%20West%2C%20Masjid%20Bandar%2C%20Mumbai%2C%20Maharashtra%20400003!5e1!3m2!1sen!2sin!4v1774424425194!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Office Location"
+                  />
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-secondary" />
+        <div className="container relative z-10 text-center">
+          <h2 className="text-2xl md:text-4xl font-heading font-bold text-primary-foreground mb-4">Ready to Get Started?</h2>
+          <p className="text-primary-foreground/70 mb-8">Schedule a free consultation with our expert team today.</p>
+          <Link to="/query" className="group inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-accent text-accent-foreground font-semibold hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-0.5 transition-all">
+            Submit a Query <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export default Contact;

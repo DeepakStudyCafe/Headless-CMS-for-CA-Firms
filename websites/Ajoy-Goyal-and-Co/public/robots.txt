@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Allow: /admin
+
+User-agent: Twitterbot
+Allow: /
+Allow: /admin
+
+User-agent: facebookexternalhit
+Allow: /
+Allow: /admin
+
+User-agent: *
+Allow: /
+Allow: /admin
+
+Sitemap: https://caasgupta.in/sitemap.xml
