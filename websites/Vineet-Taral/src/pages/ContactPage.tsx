@@ -63,7 +63,7 @@ const ContactPage = () => {
 
             <div className="card-premium overflow-hidden rounded-xl">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.0!2d72.87!3d18.93!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDU1JzQ4LjAiTiA3MsKwNTInMTIuMCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.779886573351!2d72.86561791064226!3d19.01930718209927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cfe5ebe263a1%3A0x424a60bb0877c685!2sVineet%20Taral%20%26%20Associates%20-%20Tax%20Consultant%20%26%20Professional%20Accountant!5e1!3m2!1sen!2sin!4v1774852539553!5m2!1sen!2sin"
                 width="100%" height="300" style={{ border: 0 }} allowFullScreen loading="lazy"
                 title="Office Location"
               />
