@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8082,
-    allowedHosts: ["temp2.automationcafe.in", "www.temp2.automationcafe.in"],
+    allowedHosts: ["temp2.webcafe.co.in", "www.temp2.webcafe.co.in"],
     proxy: { '/api': { target: 'http://localhost:5000', changeOrigin: true } },
     hmr: {
       overlay: false,
@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => ({
   preview: {
     host: "::",
     port: 8082,
-    allowedHosts: ["temp2.automationcafe.in", "www.temp2.automationcafe.in"],
+    allowedHosts: ["temp2.webcafe.co.in", "www.temp2.webcafe.co.in"],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

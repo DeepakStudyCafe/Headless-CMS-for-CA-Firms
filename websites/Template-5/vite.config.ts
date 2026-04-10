@@ -9,8 +9,8 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8081,
     allowedHosts: [
-      "temp7.automationcafe.in",
-      "www.temp7.automationcafe.in"
+      "temp7.webcafe.co.in",
+      "www.temp7.webcafe.co.in"
     ],
     hmr: {
       overlay: false,

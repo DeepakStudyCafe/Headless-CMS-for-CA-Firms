@@ -112,7 +112,7 @@ export function Footer() {
           </div>
           <div>
             Powered By{' '}
-            <a href="https://automationcafe.in/" target="_blank" rel="noopener" className="hover:text-white hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
+            <a href="https://webcafe.co.in/" target="_blank" rel="noopener" className="hover:text-white hover:underline no-underline">Automationcafe Pvt. Ltd.</a>
           </div>
         </div>
       </div>

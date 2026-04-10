@@ -19,8 +19,8 @@ export default defineConfig(({ mode }) => ({
       },
     },
     allowedHosts: [
-      "temp15.automationcafe.in",
-      "www.temp15.automationcafe.in"
+      "temp15.webcafe.co.in",
+      "www.temp15.webcafe.co.in"
     ],
     hmr: {
       overlay: false,

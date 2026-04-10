@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     host: "::",
     port: 8081,
-    allowedHosts: ["temp7.automationcafe.in", "www.temp7.automationcafe.in"],
+    allowedHosts: ["temp7.webcafe.co.in", "www.temp7.webcafe.co.in"],
     hmr: {
       overlay: false,
     },
