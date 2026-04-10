@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8082,
     allowedHosts: ["temp2.webcafe.co.in", "www.temp2.webcafe.co.in"],
+    proxy: { '/api': { target: 'http://127.0.0.1:5000', changeOrigin: true } },
     hmr: {
       overlay: false,
     },
