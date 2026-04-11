@@ -5,6 +5,9 @@ export const API_URL = import.meta.env.VITE_API_URL || '/api';
 // Use the slug associated with the template based on env or default to template-4
 const WEBSITE_SLUG = import.meta.env.VITE_WEBSITE_SLUG || 'template-4';
 
+// Temporary debug: log which env values the built bundle is using (shows in browser console)
+console.log('ENV (build): VITE_WEBSITE_SLUG=', import.meta.env.VITE_WEBSITE_SLUG, 'VITE_API_URL=', import.meta.env.VITE_API_URL);
+
 const api = axios.create({
   baseURL: API_URL,
 });
