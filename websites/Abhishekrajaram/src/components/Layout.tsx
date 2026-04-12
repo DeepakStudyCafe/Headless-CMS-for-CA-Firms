@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: ReactNode }) => (
     <main className="flex-1">{children}</main>
     <Footer />
     <a
-      href="https://wa.me/919798217532"
+      href="https://wa.me/919810638155"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 bg-[#25D366] text-white p-3.5 rounded-full shadow-lg hover:scale-110 transition-transform z-50 flex items-center justify-center border-2 border-white/20"
