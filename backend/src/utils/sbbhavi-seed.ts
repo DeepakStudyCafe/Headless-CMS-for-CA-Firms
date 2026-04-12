@@ -63,7 +63,7 @@ async function main() {
           {
             type: 'hero',
             order: 1,
-            imageUrl: 'https://images.stockcake.com/public/8/f/2/8f232cdb-1ba5-42aa-be75-f9fbb33c2f6c_large/corporate-team-meeting-stockcake.jpg',
+            imageUrl: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800',
             textContent: {
               heading: 'Modern Accounting Solutions',
               subheading: 'Bookkeeping, GST, and Payroll services for growing businesses',
@@ -73,7 +73,7 @@ async function main() {
           {
             type: 'text-image',
             order: 2,
-            imageUrl: 'https://blog.camonk.com/wp-content/uploads/2025/12/Top-CA-Firms-in-Chandigarh-Best-Articleship-CA-Monk-1024x683.jpg',
+            imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800',
             textContent: {
               heading: 'Simplify Your Finances',
               description: 'We specialize in bookkeeping, GST compliance, and payroll management for SMEs. We leverage cloud accounting tools to provide real-time financial insights.',
