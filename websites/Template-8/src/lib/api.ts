@@ -29,8 +29,15 @@ export async function getWebsiteData() {
   try {
     const res = await fetch(`${API_URL}/public/website/${WEBSITE_SLUG}`);
     if (!res.ok) return null;
-    const data = await res.json();
-    return data?.data?.website || null;
+    const text = await res.text();
+    try {
+      const data = JSON.parse(text);
+      return data?.data?.website || null;
+    } catch (err) {
+      console.error('getWebsiteData: response was not JSON. URL:', `${API_URL}/public/website/${WEBSITE_SLUG}`);
+      console.error('Response text (first 2000 chars):', text?.slice?.(0, 2000));
+      return null;
+    }
   } catch (error) {
     console.error('Error fetching website data:', error);
     return null;
@@ -44,8 +51,15 @@ export async function getPageData(slug: string): Promise<PageData | null> {
     fetchSlug = fetchSlug.replace(/^\//, '');
     const res = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${fetchSlug}`);
     if (!res.ok) return null;
-    const data = await res.json();
-    return data?.data?.page || null;
+    const text = await res.text();
+    try {
+      const data = JSON.parse(text);
+      return data?.data?.page || null;
+    } catch (err) {
+      console.error('getPageData: response was not JSON. URL:', `${API_URL}/public/pages/${WEBSITE_SLUG}/${fetchSlug}`);
+      console.error('Response text (first 2000 chars):', text?.slice?.(0, 2000));
+      return null;
+    }
   } catch (error) {
     console.error('Error fetching page data:', error);
     return null;
