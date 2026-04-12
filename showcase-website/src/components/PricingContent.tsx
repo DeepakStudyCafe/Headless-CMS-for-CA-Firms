@@ -95,7 +95,7 @@ export default function PricingContent() {
                   <div className="text-xs text-gray-500">STANDARD</div>
                   <div className="flex items-center justify-center gap-2 mt-1">
                     <IndianRupee className="w-4 h-4 text-primary-700" />
-                    <div className="text-lg font-extrabold">8,000.00</div>
+                    <div className="text-lg font-extrabold">15,000.00</div>
                   </div>
                   <div className="text-xs text-gray-500">One-time</div>
                 </div>
@@ -103,7 +103,7 @@ export default function PricingContent() {
                   <div className="text-xs text-gray-500">PREMIUM</div>
                   <div className="flex items-center justify-center gap-2 mt-1">
                     <IndianRupee className="w-4 h-4 text-blue-700" />
-                    <div className="text-lg font-extrabold">10,000.00</div>
+                    <div className="text-lg font-extrabold">20,000.00</div>
                   </div>
                   <div className="text-xs text-gray-500">One-time + priority support</div>
                 </div>
