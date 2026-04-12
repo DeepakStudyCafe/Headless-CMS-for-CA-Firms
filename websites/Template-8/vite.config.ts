@@ -15,6 +15,20 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    proxy: {
+      '/api': {
+        target: 'https://api.digitechai.in',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
+      },
+      '/uploads': {
+        target: 'https://api.digitechai.in',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/uploads/, '/uploads')
+      }
+    },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
