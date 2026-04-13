@@ -3,13 +3,13 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  console.log('🌱 Starting Ajoy Goyal & CO. database seed...')
+  console.log('🌱 Starting Ajoy Goyal & Associates. database seed...')
 
-  // Create Ajoy Goyal & CO. Website
+  // Create Ajoy Goyal & Associates. Website
   const ajoyGoyalWebsite = await prisma.website.upsert({
     where: { slug: 'ajoy-goyal-and-co' },
     update: {
-      name: 'Ajoy Goyal & CO.',
+      name: 'Ajoy Goyal & Associates.',
       domain: 'http://localhost:8093',
       phone: '+91 22 1234 5678',
       email: 'info@ajoygoyal.com',
@@ -22,12 +22,12 @@ async function main() {
         theme: 'modern',
         footerContent: {
           description: 'A structural financial consulting firm dedicated to bringing robust growth and stability.',
-          copyright: '© 2026 Ajoy Goyal & CO.. All rights reserved.'
+          copyright: '© 2026 Ajoy Goyal & Associates.. All rights reserved.'
         }
       },
     },
     create: {
-      name: 'Ajoy Goyal & CO.',
+      name: 'Ajoy Goyal & Associates.',
       slug: 'ajoy-goyal-and-co',
       domain: 'http://localhost:8093',
       phone: '+91 22 1234 5678',
@@ -41,12 +41,12 @@ async function main() {
         theme: 'modern',
         footerContent: {
           description: 'A structural financial consulting firm dedicated to bringing robust growth and stability.',
-          copyright: '© 2026 Ajoy Goyal & CO.. All rights reserved.'
+          copyright: '© 2026 Ajoy Goyal & Associates.. All rights reserved.'
         }
       },
     },
   })
-  console.log('✅ Ajoy Goyal & CO. website created')
+  console.log('✅ Ajoy Goyal & Associates. website created')
 
   // Helper to safely delete existing old pages to re-seed fresh
   await prisma.section.deleteMany({
@@ -729,7 +729,7 @@ async function main() {
     }
   })
 
-  console.log('✅ Ajoy Goyal & CO. seed complete')
+  console.log('✅ Ajoy Goyal & Associates. seed complete')
 }
 
 main()

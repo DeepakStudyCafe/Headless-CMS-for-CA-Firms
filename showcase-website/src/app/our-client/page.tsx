@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import ClientsGrid from '@/components/ClientsGrid'
 import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -16,9 +17,14 @@ export default function OurClientPage() {
         { name: 'Abhishek Raja Ram & Co', url: 'https://abhishekrajaram.in/', img: '/abhishekrajaram.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         { name: 'PD Gupta & CO', url: 'https://pdgupta.com/', img: '/client-1.png', description: 'Full-service CA firm offering taxation, audit and advisory with modern client portal.' },
         { name: 'Arvind Gupta & Associates', url: 'https://caasgupta.in/', img: '/client-2.png', description: 'Specialized in SME tax planning and accounting; mobile-friendly site with contact forms.' },
-        { name: 'I S K & Co', url: 'https://iskco.in/', img: '/isko-and-co.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
+        { name: 'Vineet Taral & Associates', url: 'https://vineettaral.in/', img: '/vineettaral.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
+        
         { name: 'Monika S & Associates', url: 'https://monikasassociates.in/', img: '/monikaS.png', description: 'Helping small businesses with tax strategy and financial services; modern website with convenient inquiry forms.' },
+        { name: 'I S K & Co', url: 'https://iskco.in/', img: '/isko-and-co.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
         { name: 'CA Mohan C Chartered Accountant', url: 'https://camohanc.in/', img: '/camohan.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
+        
+        { name: 'S B Bhavi & CO.', url: 'https://casbbhavi.in/', img: '/casbbhavi.png', description: 'Empowering small businesses through smart tax planning and financial services; modern website with easy contact forms.' },
+        { name: 'Ajoy Goyal & Associates  CO.', url: 'https://ajoygoyalassociates.com/', img: '/ajoygoyalassociates.png', description: 'Helping small businesses with smart tax planning and financial solutions; modern website with simple contact forms and quick response support.' },
         
         // { name: 'Kapoor Advisors', url: 'https://kapoor.example', img: '/client-4.png' },
         // { name: 'Singh Partners', url: 'https://singh.example', img: '/client-5.png' },
@@ -55,25 +61,7 @@ export default function OurClientPage() {
                 <h2 className="text-3xl font-bold mb-4 text-center">Our Clients</h2>
                 <p className="text-slate-600 mb-16 text-center">Trusted CA firms and finance consultants who chose Webcafe for a professional online presence.</p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {clients.map((c) => (
-                        <div
-                            key={c.name}
-                            className="group relative block bg-gradient-to-b from-white to-slate-50 border border-slate-100 rounded-2xl shadow-lg hover:shadow-2xl transition-transform duration-300 transform hover:-translate-y-2 overflow-hidden"
-                        >
-                            <div className="relative h-56 bg-slate-100 overflow-hidden">
-                                <Image src={c.img} alt={`${c.name} banner`} fill style={{ objectFit: 'contain', objectPosition: 'center' }} className="transition-transform duration-500 group-hover:scale-105" />
-                            </div>
-                            <div className="p-5">
-                                <div className="flex items-center justify-between mb-3">
-                                    <h3 className="text-lg font-semibold mr-4 truncate">{c.name}</h3>
-                                    <a href={c.url} target="_blank" rel="noopener noreferrer" className="text-sm bg-primary-600 text-white px-3 py-1 rounded hover:bg-primary-700 transition">Visit</a>
-                                </div>
-                                <p className="text-slate-600 text-sm mb-4">{c.description}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                <ClientsGrid clients={clients} />
             </section>
 
             {/* Why Choose Us (replaces Case Studies) */}
