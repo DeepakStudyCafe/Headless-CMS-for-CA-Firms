@@ -59,15 +59,18 @@ export function Header() {
               <Image
                 src="https://api.digitechai.in/uploads/logo.png"
                 alt={websiteData?.name || 'Logo'}
-                width={40}
-                height={40}
+                width={50}
+                height={50}
                 className="object-contain"
                 unoptimized
               />
             ) : null}
-            <span className="text-2xl font-light">
-              {websiteData?.name || 'S B Bhavi & CO.'}
-            </span>
+            <div>
+              <span className="text-2xl font-light">
+                {websiteData?.name || 'S B Bhavi & CO.'}
+              </span>
+              <div className="text-sm text-gray-500">Chartered Accountant</div>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}

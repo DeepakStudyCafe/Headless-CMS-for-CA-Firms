@@ -110,7 +110,7 @@ async function main() {
                 {
                         "year": "2005",
                         "title": "Founded",
-                        "desc": "Apex & Associates established in Mumbai."
+                        "desc": "Vineet Taral & Associates established in Mumbai."
                 },
                 {
                         "year": "2010",
@@ -578,7 +578,7 @@ async function main() {
                 {
                         "name": "Rajesh Sharma",
                         "role": "CEO, TechVentures",
-                        "text": "Apex & Associates transformed our financial operations. Their expertise in tax planning saved us significantly."
+                        "text": "Vineet Taral & Associates transformed our financial operations. Their expertise in tax planning saved us significantly."
                 },
                 {
                         "name": "Priya Mehta",
@@ -949,7 +949,7 @@ async function main() {
         // --- NEW DYNAMIC HEADINGS ---
         
         const newSections = [
-          { pageSlug: 'about', type: 'about', textContent: { heading: 'Who We Are', description1: 'Founded in 2005, Apex & Associates has established itself as a premier chartered accountancy firm.', description2: 'We believe in building lasting relationships with our clients based on trust, integrity, and exceptional service quality.', missionHeading: 'Our Mission', missionText: 'To empower businesses with innovative financial solutions, ensuring compliance, growth, and long-term success through expert guidance and unwavering commitment.', visionHeading: 'Our Vision', visionText: 'To be the most trusted and innovative chartered accountancy firm globally, setting new benchmarks in financial services excellence.' } },
+          { pageSlug: 'about', type: 'about', textContent: { heading: 'Who We Are', description1: 'Founded in 2005, Vineet Taral & Associates has established itself as a premier chartered accountancy firm.', description2: 'We believe in building lasting relationships with our clients based on trust, integrity, and exceptional service quality.', missionHeading: 'Our Mission', missionText: 'To empower businesses with innovative financial solutions, ensuring compliance, growth, and long-term success through expert guidance and unwavering commitment.', visionHeading: 'Our Vision', visionText: 'To be the most trusted and innovative chartered accountancy firm globally, setting new benchmarks in financial services excellence.' } },
           { pageSlug: 'career', type: 'career-header', textContent: { heading: 'Join Our Team', subheading: 'Build your career with a firm that values growth, innovation, and excellence.' } },
           { pageSlug: 'contact', type: 'contact-header', textContent: { heading: 'Get In Touch', subheading: 'Have a question or want to discuss how we can help your business? Fill out the form and our team will get back to you within 24 hours.' } },
           { pageSlug: 'gallery', type: 'gallery-header', textContent: { heading: 'Our Gallery' } },

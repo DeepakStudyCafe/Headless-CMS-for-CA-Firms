@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Phone, Mail, BookOpen, FileText, Users, Calculator, Building2, Shield, Search, TrendingUp } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone, Mail, BookOpen, FileText, Users, Calculator, Building2, Shield, Search, TrendingUp, Facebook, Linkedin, Instagram, Youtube } from 'lucide-react';
 
 const serviceDropdown = [
   { name: 'Bookkeeping', href: '/services/bookkeeping', icon: BookOpen },
@@ -45,14 +45,35 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-card/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
       {/* Top bar */}
-      <div className={`transition-all duration-300 ${isScrolled ? 'h-0 overflow-hidden opacity-0' : 'h-auto opacity-100'}`}>
-        <div className="container-wide mx-auto flex items-center justify-end gap-6 px-4 py-2 text-sm" style={{ color: 'hsl(var(--primary-foreground))' }}>
-          <a href="tel:+911234567890" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-            <Phone size={14} /> +91 9773545123
-          </a>
-          <a href="mailto:vineettaral@gmail.com" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-            <Mail size={14} /> vineettaral@gmail.com
-          </a>
+      <div className={`transition-all duration-300 ${isScrolled ? 'h-0 overflow-hidden opacity-0' : 'h-auto opacity-100'}`} style={{ backgroundColor: 'hsl(var(--primary))' }}>
+        <div className="container-wide mx-auto flex items-center justify-between gap-6 px-4 py-2 text-sm" style={{ color: 'hsl(var(--primary-foreground))' }}>
+          <div className="flex items-center gap-4">
+            <a href="tel:+911234567890" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+              <Phone size={14} /> <span className="ml-1">+91 9773545123</span>
+            </a>
+            <a href="mailto:vineettaral@gmail.com" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
+              <Mail size={14} /> <span className="ml-1">vineettaral@gmail.com</span>
+            </a>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <a href="https://www.instagram.com/vtassociates?igsh=MTIzYXFqcHF2ejNmeQ%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+              <Instagram size={16} />
+            </a>
+            <a href="https://www.facebook.com/share/18St3p1sLF/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+              <Facebook size={16} />
+            </a>
+            <a href="https://x.com" target="_blank" rel="noopener" aria-label="X" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+              <X size={16} />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+              <Linkedin size={16} />
+            </a>
+            
+            <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+              <Youtube size={18} />
+            </a>
+          </div>
         </div>
       </div>
 

@@ -10,7 +10,7 @@ interface PageHeroProps {
 
 const PageHero = ({ title, breadcrumb, image }: PageHeroProps) => {
   return (
-    <section className="relative h-[40vh] min-h-[320px] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[48vh] md:h-[62vh] lg:h-[72vh] md:min-h-[380px] flex items-center justify-center overflow-hidden">
       <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0 page-hero-overlay" />
       <motion.div

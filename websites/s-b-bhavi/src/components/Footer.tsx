@@ -55,7 +55,10 @@ export function Footer() {
                   className="object-contain"
                   unoptimized
                 />
-                <h3 className="text-xl font-semibold">{websiteData?.name || 'Verma & Associates'}</h3>
+                <div>
+                  <h3 className="text-xl font-semibold">{websiteData?.name || 'S B Bhavi & CO.'}</h3>
+                  <div className="text-sm text-gray-400">Chartered Accountant</div>
+                </div>
               </div>
               <p className="text-gray-400 text-sm mt-3">
                 {fc.description || 'Professional Chartered Accountants providing expert financial, taxation, audit, compliance, advisory, and strategic business consulting services with integrity and excellence.'}
@@ -125,7 +128,7 @@ export function Footer() {
 
         <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-start md:items-center text-gray-400 text-sm gap-3">
           <div className="w-full md:w-auto">
-            {fc.copyright || `\u00a9 ${new Date().getFullYear()} ${websiteData?.name || 'Verma & Associates'}. All rights reserved.`}
+            {fc.copyright || `\u00a9 ${new Date().getFullYear()} ${websiteData?.name || 'S B Bhavi & CO.'}. All rights reserved.`}
           </div>
           <div className="w-full md:w-auto">
             Powered By{' '}

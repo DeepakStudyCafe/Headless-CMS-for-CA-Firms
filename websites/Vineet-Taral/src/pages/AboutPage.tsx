@@ -18,14 +18,14 @@ const AboutPage = () => {
 
   return (
     <div>
-      <PageHero title="About Us" breadcrumb="About" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || getImageUrl('/uploads/about-hero.jpg')} />
+      <PageHero title="About Us Vineet Taral & Associates" breadcrumb="About" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || getImageUrl('/uploads/about-hero.jpg')} />
 
       <SectionWrapper>
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.heading}</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Apex & Associates is a leading chartered accountancy firm with a legacy of excellence spanning nearly two decades. We combine traditional values with modern innovation to deliver world-class financial services.
+              Vineet Taral & Associates is a leading chartered accountancy firm with a legacy of excellence spanning nearly two decades. We combine traditional values with modern innovation to deliver world-class financial services.
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Our team of certified chartered accountants, tax experts, and financial advisors work collaboratively to provide comprehensive solutions tailored to each client's unique needs.

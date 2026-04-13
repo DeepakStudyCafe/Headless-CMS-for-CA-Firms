@@ -7,7 +7,7 @@ const nextConfig = {
     outputFileTracingRoot: undefined,
   },
   images: {
-    domains: ['localhost', 'images.unsplash.com', '72.62.243.99', 'api.digitechai.in', 'studycafe.in', 'www.studycafe.in', 'i0.wp.com', 'i1.wp.com', 'i2.wp.com'],
+    domains: ['localhost', 'images.unsplash.com', '72.62.243.99', 'api.digitechai.in', 'studycafe.in', 'www.studycafe.in', 'i0.wp.com', 'i1.wp.com', 'i2.wp.com', 'images.stockcake.com', 'blog.camonk.com'],
     remotePatterns: [
       {
         protocol: 'http',
@@ -29,6 +29,16 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'blog.camonk.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.stockcake.com',
+        pathname: '/**',
       },
       {
         protocol: 'https',
