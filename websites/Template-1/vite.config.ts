@@ -13,8 +13,8 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
     proxy: {
-      "/api": { target: "http://localhost:5000", changeOrigin: true },
-      "/uploads": { target: "http://localhost:5000", changeOrigin: true },
+      "/api": { target: "https://api.digitechai.in", changeOrigin: true },
+      "/uploads": { target: "https://api.digitechai.in", changeOrigin: true },
     },
   },
   preview: {
