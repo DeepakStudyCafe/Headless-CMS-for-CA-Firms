@@ -18,7 +18,7 @@ const AboutPage = () => {
 
   return (
     <div>
-      <PageHero title="About Us Vineet Taral & Associates" breadcrumb="About" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || getImageUrl('/uploads/about-hero.jpg')} />
+      <PageHero title="About Vineet Taral & Associates" breadcrumb="About" image={pageData?.sections?.find((s: any) => s.type === 'hero')?.imageUrl || getImageUrl('/uploads/about-hero.jpg')} />
 
       <SectionWrapper>
         <div className="grid lg:grid-cols-2 gap-12 items-center">
