@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import normalizeImageUrl from '@/lib/normalizeImageUrl';
 import Link from "next/link";
 import { Calendar, Clock, Facebook, Twitter, Linkedin, ArrowLeft, Image as ImageIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -121,11 +122,11 @@ export default function BlogDetailsPage() {
 
           <figure className="mb-14 relative w-full">
             {blog.coverImageUrl ? (
-              <img 
-                src={blog.coverImageUrl} 
-                alt={blog.imageAltText || blog.title} 
-                className="w-full h-auto aspect-[16/9] md:aspect-[2/1] object-cover rounded-[1rem] shadow-lg border border-slate-100" 
-              />
+                <img
+                  src={normalizeImageUrl(blog.coverImageUrl) || blog.coverImageUrl} 
+                  alt={blog.imageAltText || blog.title}
+                  className="w-full h-auto aspect-[16/9] md:aspect-[2/1] object-cover rounded-[1rem] shadow-lg border border-slate-100"
+                />
             ) : null}
           </figure>
 

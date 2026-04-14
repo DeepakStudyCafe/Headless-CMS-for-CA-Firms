@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
+import normalizeImageUrl from '@/lib/normalizeImageUrl';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { 
@@ -187,58 +188,7 @@ export default function AdminDashboardPage() {
   // Quill ref and modules/formats
   const quillRef = useRef<any>(null);
 
-  // Normalize image URLs to always return an absolute URL
-  const normalizeImageUrl = (raw?: string | null) => {
-    if (!raw) return null;
-    let s = raw.trim();
-    const base = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/api\/?$/i, '');
-    // Fix malformed protocol like 'https:/.domain.com' -> 'https://domain.com'
-    s = s.replace(/^(https?:)\/.?/i, (m, p1) => p1 + '//');
-    // If already absolute URL now
-    if (/^https?:\/\//i.test(s)) {
-      // remove accidental dots immediately after protocol: 'https:////.example' -> 'https://example'
-      s = s.replace(/^(https?:\/\/)+\.+/, '$1').replace(/^(https?:\/\/)\/+/, '$1');
-      try {
-        const parsed = new URL(s);
-        if (base) {
-          const baseHost = new URL(base).hostname; // e.g. api.digitechai.in
-          const baseRoot = baseHost.split('.').slice(-2).join('.'); // digitechai.in
-          if (parsed.hostname !== baseHost && parsed.hostname.endsWith(baseRoot)) {
-            // keep path/query/hash but use the base origin (ensures api. prefix)
-            return new URL(parsed.pathname + parsed.search + parsed.hash, base).toString();
-          }
-        }
-        return parsed.toString();
-      } catch (e) {
-        // fallback to s
-        return s;
-      }
-    }
-    if (/^\/\//.test(s)) return 'https:' + s;
-    // strip leading dots/slashes
-    s = s.replace(/^[\.\/]+/, '');
-
-    // If base is available and the raw contains the same hostname (even malformed), use base + remaining path
-    if (base) {
-      try {
-        const hostname = new URL(base).hostname; // e.g. api.digitechai.in
-        if (s.includes(hostname)) {
-          const idx = s.indexOf(hostname);
-          const path = s.slice(idx + hostname.length);
-          return base + (path.startsWith('/') ? path : '/' + path);
-        }
-      } catch (e) {
-        // ignore and fallthrough
-      }
-    }
-
-    // If looks like host/path, prefix https://
-    if (/^[a-z0-9.-]+\//i.test(s)) return 'https://' + s;
-
-    if (!base) return s.startsWith('/') ? s : '/' + s;
-    const sep = s.startsWith('/') ? '' : '/';
-    return base + sep + s;
-  };
+  
 
   // Quill CSS is imported at module top to ensure toolbar and editor styles load
 
@@ -270,10 +220,8 @@ export default function AdminDashboardPage() {
 
   const uploadImage = async (): Promise<string | null> => {
     if (!imageFile) return null;
-    
     setUploadingImage(true);
     showToast('Uploading image...', 'loading');
-    
     try {
       const formData = new FormData();
       formData.append('image', imageFile);
@@ -288,39 +236,13 @@ export default function AdminDashboardPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Upload failed');
-      
-      return process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') + data.data.imageUrl;
+      return (process.env.NEXT_PUBLIC_API_URL || '').replace('/api', '') + data.data.imageUrl;
     } catch (err: any) {
       showToast(err.message || 'Image upload failed', 'error');
       return null;
     } finally {
       setUploadingImage(false);
     }
-  };
-
-  const openCreateModal = () => {
-    setIsEditing(false);
-    setCurrentBlogId(null);
-    setFormData({
-      title: '',
-      slug: '',
-      category: 'General',
-      readTime: '5 min read',
-      excerpt: '',
-      content: '',
-      coverImageUrl: '',
-      imageAltText: '',
-      tags: '',
-      seoTitle: '',
-      seoDescription: '',
-      isDraft: false,
-      author: 'Kirtika Prajapati'
-    });
-    setEditorContent('');
-    setEditorKey('editor-new-' + Date.now());
-    setImageFile(null);
-    setImagePreviewUrl(null);
-    setIsModalOpen(true);
   };
 
   const openEditModal = (blog: Blog) => {
@@ -351,6 +273,31 @@ export default function AdminDashboardPage() {
     } else {
       setImagePreviewUrl(null);
     }
+    setIsModalOpen(true);
+  };
+
+  const openCreateModal = () => {
+    setIsEditing(false);
+    setCurrentBlogId(null);
+    setFormData({
+      title: '',
+      slug: '',
+      category: 'General',
+      readTime: '5 min read',
+      excerpt: '',
+      content: '',
+      coverImageUrl: '',
+      imageAltText: '',
+      tags: '',
+      seoTitle: '',
+      seoDescription: '',
+      isDraft: false,
+      author: 'Kirtika Prajapati'
+    });
+    setEditorContent('');
+    setEditorKey('editor-new-' + Date.now());
+    setImageFile(null);
+    setImagePreviewUrl(null);
     setIsModalOpen(true);
   };
 

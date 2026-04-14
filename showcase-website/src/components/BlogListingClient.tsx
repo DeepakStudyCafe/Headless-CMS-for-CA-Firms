@@ -1,6 +1,7 @@
-'use client';
+ 'use client';
 
 import { useEffect, useState } from 'react';
+import normalizeImageUrl from '@/lib/normalizeImageUrl';
 import Link from 'next/link';
 import { Calendar, User, ArrowRight, BookOpen, AlertCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -89,7 +90,7 @@ export default function BlogListingClient() {
                 >
                   <div className="relative h-64 overflow-hidden bg-slate-100">
                     {blog.coverImageUrl ? (
-                      <img src={blog.coverImageUrl} alt={blog.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={normalizeImageUrl(blog.coverImageUrl) || blog.coverImageUrl} alt={blog.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center text-slate-300 bg-slate-50">
                         <BookOpen size={48} className="mb-2 opacity-50" />
