@@ -21,3 +21,5 @@ export default function ServicesPage() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

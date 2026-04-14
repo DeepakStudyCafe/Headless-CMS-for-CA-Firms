@@ -71,3 +71,5 @@ export default function ShippingAndDelivery() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

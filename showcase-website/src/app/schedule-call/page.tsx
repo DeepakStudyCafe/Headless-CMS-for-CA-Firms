@@ -21,3 +21,5 @@ export default function ScheduleCallPage() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

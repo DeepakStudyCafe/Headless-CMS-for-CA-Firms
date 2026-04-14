@@ -71,3 +71,5 @@ export default function TermsAndConditions() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

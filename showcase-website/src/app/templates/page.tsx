@@ -21,3 +21,5 @@ export default function TemplatesPage() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

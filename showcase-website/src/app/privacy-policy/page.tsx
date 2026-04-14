@@ -77,3 +77,5 @@ export default function PrivacyPolicy() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

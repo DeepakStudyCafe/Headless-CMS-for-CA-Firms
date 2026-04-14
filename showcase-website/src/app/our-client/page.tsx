@@ -119,3 +119,5 @@ export default function OurClientPage() {
         </main>
     )
 }
+ 
+export const dynamic = 'force-dynamic';

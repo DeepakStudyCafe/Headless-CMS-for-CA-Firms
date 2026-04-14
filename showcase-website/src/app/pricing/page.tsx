@@ -21,3 +21,5 @@ export default function PricingPage() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

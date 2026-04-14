@@ -21,3 +21,5 @@ export default function PaymentPage() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

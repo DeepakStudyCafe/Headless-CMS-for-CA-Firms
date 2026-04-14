@@ -70,3 +70,5 @@ export default function CancellationAndRefund() {
     </main>
   )
 }
+
+export const dynamic = 'force-dynamic';

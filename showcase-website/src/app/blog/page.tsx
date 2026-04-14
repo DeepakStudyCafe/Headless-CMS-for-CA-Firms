@@ -13,3 +13,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function BlogListingPage() {
   return <BlogListingClient />;
 }
+
+export const dynamic = 'force-dynamic';
