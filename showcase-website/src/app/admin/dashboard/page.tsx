@@ -330,7 +330,7 @@ export default function AdminDashboardPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.title || !formData.content) {
+    if (!formData.title || !editorContent) {
       showToast('Title and Content are required', 'error');
       return;
     }
@@ -370,19 +370,24 @@ export default function AdminDashboardPage() {
         body: JSON.stringify(payload)
       });
       
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error);
-      
+      const resData = await res.json();
+      if (!res.ok) {
+        console.error('Blog save failed:', resData);
+        throw new Error(resData.error || 'Error saving blog');
+      }
+
+      console.log(isEditing ? 'Blog updated successfully:' : 'Blog created successfully:', resData);
       showToast(isEditing ? 'Blog updated successfully!' : 'Blog created successfully!', 'success');
       
       if (isEditing) {
-        setBlogs(blogs.map(b => b.id === currentBlogId ? data.data : b));
+        setBlogs(blogs.map(b => b.id === currentBlogId ? resData.data : b));
       } else {
-        setBlogs([data.data, ...blogs]);
+        setBlogs([resData.data, ...blogs]);
       }
       
       setIsModalOpen(false);
     } catch (err: any) {
+      console.error('Error saving blog:', err);
       showToast(err.message || 'Error saving blog', 'error');
     }
   };
