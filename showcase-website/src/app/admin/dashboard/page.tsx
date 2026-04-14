@@ -190,17 +190,54 @@ export default function AdminDashboardPage() {
   // Normalize image URLs to always return an absolute URL
   const normalizeImageUrl = (raw?: string | null) => {
     if (!raw) return null;
-    const s = raw.trim();
-    if (/^https?:\/\//i.test(s)) return s;
-    if (/^\/\//.test(s)) return `https:${s}`;
-    // remove accidental leading dots
-    const cleaned = s.replace(/^\.+/, '');
-    // if looks like host/path (e.g. api.domain.com/...), prefix https://
-    if (/^[a-z0-9.-]+\//i.test(cleaned)) return `https://${cleaned}`;
+    let s = raw.trim();
     const base = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/api\/?$/i, '');
-    if (!base) return cleaned.startsWith('/') ? cleaned : `/${cleaned}`;
-    const sep = cleaned.startsWith('/') ? '' : '/';
-    return base + sep + cleaned;
+    // Fix malformed protocol like 'https:/.domain.com' -> 'https://domain.com'
+    s = s.replace(/^(https?:)\/.?/i, (m, p1) => p1 + '//');
+    // If already absolute URL now
+    if (/^https?:\/\//i.test(s)) {
+      // remove accidental dots immediately after protocol: 'https:////.example' -> 'https://example'
+      s = s.replace(/^(https?:\/\/)+\.+/, '$1').replace(/^(https?:\/\/)\/+/, '$1');
+      try {
+        const parsed = new URL(s);
+        if (base) {
+          const baseHost = new URL(base).hostname; // e.g. api.digitechai.in
+          const baseRoot = baseHost.split('.').slice(-2).join('.'); // digitechai.in
+          if (parsed.hostname !== baseHost && parsed.hostname.endsWith(baseRoot)) {
+            // keep path/query/hash but use the base origin (ensures api. prefix)
+            return new URL(parsed.pathname + parsed.search + parsed.hash, base).toString();
+          }
+        }
+        return parsed.toString();
+      } catch (e) {
+        // fallback to s
+        return s;
+      }
+    }
+    if (/^\/\//.test(s)) return 'https:' + s;
+    // strip leading dots/slashes
+    s = s.replace(/^[\.\/]+/, '');
+
+    // If base is available and the raw contains the same hostname (even malformed), use base + remaining path
+    if (base) {
+      try {
+        const hostname = new URL(base).hostname; // e.g. api.digitechai.in
+        if (s.includes(hostname)) {
+          const idx = s.indexOf(hostname);
+          const path = s.slice(idx + hostname.length);
+          return base + (path.startsWith('/') ? path : '/' + path);
+        }
+      } catch (e) {
+        // ignore and fallthrough
+      }
+    }
+
+    // If looks like host/path, prefix https://
+    if (/^[a-z0-9.-]+\//i.test(s)) return 'https://' + s;
+
+    if (!base) return s.startsWith('/') ? s : '/' + s;
+    const sep = s.startsWith('/') ? '' : '/';
+    return base + sep + s;
   };
 
   // Quill CSS is imported at module top to ensure toolbar and editor styles load
