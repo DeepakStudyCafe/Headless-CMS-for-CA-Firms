@@ -1,0 +1,82 @@
+{
+  "home": {
+    "pageName": "Home",
+    "titleTag": "Webcafe Showcase — Modern Websites for CA Firms",
+    "metaDescription": "Explore Webcafe Showcase: pre-built, customizable website templates and features tailored for CA firms to launch professional websites quickly."
+  },
+  "pricing": {
+    "pageName": "Pricing",
+    "titleTag": "Pricing — Webcafe Showcase",
+    "metaDescription": "Flexible pricing plans for Webcafe templates and hosting — affordable options for small and growing CA firms with transparent billing."
+  },
+  "clients": {
+    "pageName": "Clients",
+    "titleTag": "Clients — Webcafe Showcase",
+    "metaDescription": "See examples of CA firms using Webcafe templates: client stories, case studies, and showcases that demonstrate real results."
+  },
+  "about": {
+    "pageName": "About",
+    "titleTag": "About — Webcafe Showcase",
+    "metaDescription": "Learn about Webcafe: our mission to empower CA firms with headless CMS templates, fast deployments, and easy content management."
+  },
+  "features": {
+    "pageName": "Features",
+    "titleTag": "Features — Webcafe Showcase",
+    "metaDescription": "Discover Webcafe features: responsive templates, SEO-friendly pages, blog editor, image uploads, and integrations built for professional firms."
+  },
+  "services": {
+    "pageName": "Services",
+    "titleTag": "Services — Webcafe Showcase",
+    "metaDescription": "Overview of website and digital services available for CA firms, including custom templates, content migration, and support packages."
+  },
+  "contact": {
+    "pageName": "Contact",
+    "titleTag": "Contact — Webcafe Showcase",
+    "metaDescription": "Get in touch with the Webcafe team for demos, pricing questions, or help launching your CA firm's website using our templates."
+  },
+  "blog": {
+    "pageName": "Blog",
+    "titleTag": "Blog — Webcafe Showcase",
+    "metaDescription": "Read product updates, design tips, and marketing advice for CA firms to improve online presence using Webcafe templates."
+  },
+  "blogPost": {
+    "pageName": "Blog Post",
+    "titleTag": "Article — Webcafe Showcase",
+    "metaDescription": "In-depth articles and guides about building, running, and optimizing websites for CA firms using the Webcafe headless CMS."
+  },
+  "templates": {
+    "pageName": "Templates",
+    "titleTag": "Templates — Webcafe Showcase",
+    "metaDescription": "Browse professionally designed website templates for CA firms: responsive layouts, customizable sections, and quick setup guides."
+  },
+  "payment": {
+    "pageName": "Payment",
+    "titleTag": "Payment — Webcafe Showcase",
+    "metaDescription": "Secure payment and billing information for purchasing Webcafe plans, add-ons, and professional services for CA firms."
+  },
+  "scheduleCall": {
+    "pageName": "Schedule a Call",
+    "titleTag": "Schedule a Call — Webcafe Showcase",
+    "metaDescription": "Book a demo or consultation with the Webcafe team to discuss templates, migration, and how to get your CA firm online fast."
+  },
+  "privacyPolicy": {
+    "pageName": "Privacy Policy",
+    "titleTag": "Privacy Policy — Webcafe Showcase",
+    "metaDescription": "Read Webcafe's privacy practices: how we handle data, cookies, and the information of visitors and clients of CA firms."
+  },
+  "terms": {
+    "pageName": "Terms & Conditions",
+    "titleTag": "Terms & Conditions — Webcafe Showcase",
+    "metaDescription": "Legal terms and conditions governing the use of Webcafe templates, services, and platform for CA firms and their websites."
+  },
+  "cancellationRefund": {
+    "pageName": "Cancellation & Refund",
+    "titleTag": "Cancellation & Refund — Webcafe Showcase",
+    "metaDescription": "Policies for cancellations, refunds, and service changes for Webcafe subscriptions and one-time purchases."
+  },
+  "shipping": {
+    "pageName": "Shipping & Delivery",
+    "titleTag": "Shipping & Delivery — Webcafe Showcase",
+    "metaDescription": "Information about delivery of any physical items or documentation related to Webcafe services and onboarding packages."
+  }
+}

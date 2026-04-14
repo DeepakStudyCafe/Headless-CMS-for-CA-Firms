@@ -56,6 +56,33 @@ async function main() {
   console.log(`   Password:  ${siteAdminPassword}`)
   console.log()
 
+  // ─── 3. SiteAdmin for showcase-website (hardcoded as requested) ─────────
+  try {
+    const showcaseEmail = 'admin@showcase.local'
+    const showcasePassword = 'showcase@Admin123'
+    const showcaseHash = await bcrypt.hash(showcasePassword, 12)
+
+    let showcaseSite = await prisma.website.findUnique({ where: { slug: 'showcase-website' } })
+    if (!showcaseSite) {
+      console.log('⚠️ showcase-website not found in DB. Creating minimal website record...')
+      showcaseSite = await prisma.website.create({ data: { name: 'Showcase Website', slug: 'showcase-website', isActive: true } })
+      console.log(`   Created website id: ${showcaseSite.id}`)
+    }
+
+    await (prisma as any).siteAdmin.upsert({
+      where: { websiteId: showcaseSite.id },
+      update: { email: showcaseEmail, passwordHash: showcaseHash, failedAttempts: 0, lockedUntil: null },
+      create: { websiteId: showcaseSite.id, email: showcaseEmail, passwordHash: showcaseHash },
+    })
+    console.log(`✅ Showcase site admin set:`)
+    console.log(`   URL:      http://localhost:3007/admin`)
+    console.log(`   Email:    ${showcaseEmail}`)
+    console.log(`   Password: ${showcasePassword}`)
+    console.log()
+  } catch (err) {
+    console.error('Error creating showcase site admin:', err)
+  }
+
   console.log('🎉 All admin credentials set successfully!\n')
 }
 

@@ -4,26 +4,31 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Menu, X, Phone } from 'lucide-react'
 
-export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
+export default function Navbar({ forceSolid = false }: { forceSolid?: boolean } = {}) {
+  const [isScrolled, setIsScrolled] = useState(forceSolid)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
+    if (forceSolid) {
+      setIsScrolled(true)
+      return
+    }
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [forceSolid])
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/about', label: 'About Us' },
-    { href: '/templates', label: 'Templates' },
-    { href: '/our-client', label: 'Our Client' },
     
+    { href: '/about', label: 'About Us' },
+    { href: '/our-client', label: 'Our Client' },
+    { href: '/templates', label: 'Templates' },      
     { href: '/services', label: 'Services' },
     { href: '/pricing', label: 'Online Payment' },
+    { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contact' },
   ]
 

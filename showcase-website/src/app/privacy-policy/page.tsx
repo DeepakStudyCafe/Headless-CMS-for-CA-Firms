@@ -1,6 +1,16 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Banner from '@/components/Banner'
+import { getSeoMetadata } from '@/lib/seoHelper';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const meta = await getSeoMetadata('privacyPolicy');
+  return {
+    title: meta.title,
+    description: meta.description,
+  };
+}
 
 export default function PrivacyPolicy() {
   return (

@@ -156,3 +156,25 @@ model SiteAdmin {
 
   @@map("site_admins")
 }
+
+// Blog model for showcase website
+model Blog {
+  id             String   @id @default(uuid())
+  title          String
+  slug           String   @unique
+  category       String
+  readTime       String   @map("read_time")
+  excerpt        String?
+  content        String
+  coverImageUrl  String?  @map("cover_image_url")
+  imageAltText   String?  @map("image_alt_text")
+  tags           String   // Stored as comma-separated string
+  seoTitle       String?  @map("seo_title")
+  seoDescription String?  @map("seo_description")
+  isDraft        Boolean  @default(false) @map("is_draft")
+  author         String   @default("Kirtika Prajapati")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("blogs")
+}

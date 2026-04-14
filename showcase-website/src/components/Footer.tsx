@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react'
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Home, FileText, Info, List, Tag, Monitor, Code, Search, Wrench, Server, CreditCard, ShieldCheck, BookOpen, Briefcase, MessageSquare, RotateCw, Truck, AtSign } from 'lucide-react'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -32,76 +32,126 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-col min-w-0 ml-10">
+          {/* Mobile-only: Quick Links and Our Services side-by-side */}
+          <div className="flex gap-6 md:hidden">
+            <div className="w-1/2">
+              <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Quick Links</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="flex items-center gap-2">
+                  <Home className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/" className="hover:text-primary-400 transition-colors duration-300">Home</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/templates" className="hover:text-primary-400 transition-colors duration-300">Templates</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Info className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/about" className="hover:text-primary-400 transition-colors duration-300">About Us</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Briefcase className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Services</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Tag className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/pricing" className="hover:text-primary-400 transition-colors duration-300">Pricing</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/contact" className="hover:text-primary-400 transition-colors duration-300">Contact</Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="w-1/2">
+              <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Our Services</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="flex items-center gap-2">
+                  <Monitor className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Website Design</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Code className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Custom Development</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Search className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">SEO Optimization</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Wrench className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Website Maintenance</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Server className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Hosting & Support</Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                  <Link href="/payment" className="hover:text-primary-400 transition-colors duration-300">Online Payment</Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Desktop-only: restore original separate columns */}
+          <div className="hidden md:flex flex-col min-w-0 ml-10">
             <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Quick Links</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li>
-                <Link href="/" className="hover:text-primary-400 transition-colors duration-300">
-                  Home
-                </Link>
+              <li className="flex items-center gap-2">
+                <Home className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/" className="hover:text-primary-400 transition-colors duration-300">Home</Link>
               </li>
-              <li>
-                <Link href="/templates" className="hover:text-primary-400 transition-colors duration-300">
-                  Templates
-                </Link>
+              <li className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/templates" className="hover:text-primary-400 transition-colors duration-300">Templates</Link>
               </li>
-              <li>
-                <Link href="/about" className="hover:text-primary-400 transition-colors duration-300">
-                  About Us
-                </Link>
+              <li className="flex items-center gap-2">
+                <Info className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/about" className="hover:text-primary-400 transition-colors duration-300">About Us</Link>
               </li>
-              <li>
-                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">
-                  Services
-                </Link>
+              <li className="flex items-center gap-2">
+                <Briefcase className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Services</Link>
               </li>
-              <li>
-                <Link href="/pricing" className="hover:text-primary-400 transition-colors duration-300">
-                  Pricing
-                </Link>
+              <li className="flex items-center gap-2">
+                <Tag className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/pricing" className="hover:text-primary-400 transition-colors duration-300">Pricing</Link>
               </li>
-              <li>
-                <Link href="/contact" className="hover:text-primary-400 transition-colors duration-300">
-                  Contact
-                </Link>
+              <li className="flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/contact" className="hover:text-primary-400 transition-colors duration-300">Contact</Link>
               </li>
             </ul>
           </div>
 
-          {/* Services */}
-          <div className="flex flex-col min-w-0">
+          <div className="hidden md:flex flex-col min-w-0">
             <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Our Services</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li>
-                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">
-                  Website Design
-                </Link>
+              <li className="flex items-center gap-2">
+                <Monitor className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Website Design</Link>
               </li>
-              <li>
-                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">
-                  Custom Development
-                </Link>
+              <li className="flex items-center gap-2">
+                <Code className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Custom Development</Link>
               </li>
-              <li>
-                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">
-                  SEO Optimization
-                </Link>
+              <li className="flex items-center gap-2">
+                <Search className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">SEO Optimization</Link>
               </li>
-              <li>
-                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">
-                  Website Maintenance
-                </Link>
+              <li className="flex items-center gap-2">
+                <Wrench className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Website Maintenance</Link>
               </li>
-              <li>
-                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">
-                  Hosting & Support
-                </Link>
+              <li className="flex items-center gap-2">
+                <Server className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/services" className="hover:text-primary-400 transition-colors duration-300">Hosting & Support</Link>
               </li>
-              <li>
-                <Link href="/payment" className="hover:text-primary-400 transition-colors duration-300">
-                  Online Payment
-                </Link>
+              <li className="flex items-center gap-2">
+                <CreditCard className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/payment" className="hover:text-primary-400 transition-colors duration-300">Online Payment</Link>
               </li>
             </ul>
           </div>
@@ -110,25 +160,21 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold text-sm mb-3 uppercase tracking-wide">Legal & Policies</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li>
-                <Link href="/privacy-policy" className="hover:text-primary-400 transition-colors duration-300 text-sm">
-                  Privacy Policy
-                </Link>
+              <li className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/privacy-policy" className="hover:text-primary-400 transition-colors duration-300 text-sm">Privacy Policy</Link>
               </li>
-              <li>
-                <Link href="/terms-and-conditions" className="hover:text-primary-400 transition-colors duration-300 text-sm">
-                  Terms and Conditions
-                </Link>
+              <li className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/terms-and-conditions" className="hover:text-primary-400 transition-colors duration-300 text-sm">Terms and Conditions</Link>
               </li>
-              <li>
-                <Link href="/cancellation-and-refund" className="hover:text-primary-400 transition-colors duration-300 text-sm">
-                  Cancellation and Refund Policy
-                </Link>
+              <li className="flex items-center gap-2">
+                <RotateCw className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/cancellation-and-refund" className="hover:text-primary-400 transition-colors duration-300 text-sm">Cancellation and Refund Policy</Link>
               </li>
-              <li>
-                <Link href="/shipping-and-delivery" className="hover:text-primary-400 transition-colors duration-300 text-sm">
-                  Shipping and Delivery Policy
-                </Link>
+              <li className="flex items-center gap-2">
+                <Truck className="w-4 h-4 text-primary-400 flex-shrink-0" />
+                <Link href="/shipping-and-delivery" className="hover:text-primary-400 transition-colors duration-300 text-sm">Shipping and Delivery Policy</Link>
               </li>
             </ul>
           </div>
@@ -140,17 +186,13 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <a href="mailto:support@studycafe.in" className="hover:text-primary-400 transition-colors duration-300 text-sm">
-                    support@studycafe.in
-                  </a>
+                  <a href="mailto:support@studycafe.in" className="hover:text-primary-400 transition-colors duration-300 text-sm">support@studycafe.in</a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
+                <AtSign className="w-4 h-4 text-primary-400 mt-1 flex-shrink-0" />
                 <div>
-                  <a href="mailto:marketing@studycafe.in" className="hover:text-primary-400 transition-colors duration-300 text-sm">
-                    marketing@studycafe.in
-                  </a>
+                  <a href="mailto:marketing@studycafe.in" className="hover:text-primary-400 transition-colors duration-300 text-sm">marketing@studycafe.in</a>
                 </div>
               </li>
               <li className="flex items-start gap-3">

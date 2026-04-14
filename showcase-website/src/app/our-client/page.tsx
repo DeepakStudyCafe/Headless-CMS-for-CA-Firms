@@ -5,10 +5,14 @@ import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Rocket, Settings, TrendingUp } from 'lucide-react'
+import { getSeoMetadata } from '@/lib/seoHelper';
 
-export const metadata: Metadata = {
-    title: 'Our Client — Webcafe Showcase',
-    description: 'Showcase page for a client using Webcafe templates.',
+export async function generateMetadata(): Promise<Metadata> {
+    const meta = await getSeoMetadata('clients');
+    return {
+        title: meta.title,
+        description: meta.description,
+    };
 }
 
 export default function OurClientPage() {
