@@ -41,20 +41,19 @@ async function main() {
   // Find the template-5 website
   const website = await prisma.website.findUnique({ where: { slug: 'template-5' } })
   if (!website) {
-    console.error('❌ template-5 website not found in DB. Run "npm run seed:template5" first.')
-    process.exit(1)
+    console.error('❌ template-5 website not found in DB. Skipping Template-5 setup.')
+  } else {
+    await (prisma as any).siteAdmin.upsert({
+      where: { websiteId: website.id },
+      update: { email: siteAdminEmail, passwordHash: siteAdminHash, failedAttempts: 0, lockedUntil: null },
+      create: { websiteId: website.id, email: siteAdminEmail, passwordHash: siteAdminHash },
+    })
+    console.log(`✅ Template-5 site admin (/admin route):`)
+    console.log(`   URL:       http://localhost:8081/admin`)
+    console.log(`   Email:     ${siteAdminEmail}`)
+    console.log(`   Password:  ${siteAdminPassword}`)
+    console.log()
   }
-
-  await (prisma as any).siteAdmin.upsert({
-    where: { websiteId: website.id },
-    update: { email: siteAdminEmail, passwordHash: siteAdminHash, failedAttempts: 0, lockedUntil: null },
-    create: { websiteId: website.id, email: siteAdminEmail, passwordHash: siteAdminHash },
-  })
-  console.log(`✅ Template-5 site admin (/admin route):`)
-  console.log(`   URL:       http://localhost:8081/admin`)
-  console.log(`   Email:     ${siteAdminEmail}`)
-  console.log(`   Password:  ${siteAdminPassword}`)
-  console.log()
 
   // ─── 3. SiteAdmin for showcase-website (hardcoded as requested) ─────────
   try {
