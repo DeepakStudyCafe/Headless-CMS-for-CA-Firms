@@ -187,6 +187,22 @@ export default function AdminDashboardPage() {
   // Quill ref and modules/formats
   const quillRef = useRef<any>(null);
 
+  // Normalize image URLs to always return an absolute URL
+  const normalizeImageUrl = (raw?: string | null) => {
+    if (!raw) return null;
+    const s = raw.trim();
+    if (/^https?:\/\//i.test(s)) return s;
+    if (/^\/\//.test(s)) return `https:${s}`;
+    // remove accidental leading dots
+    const cleaned = s.replace(/^\.+/, '');
+    // if looks like host/path (e.g. api.domain.com/...), prefix https://
+    if (/^[a-z0-9.-]+\//i.test(cleaned)) return `https://${cleaned}`;
+    const base = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/api\/?$/i, '');
+    if (!base) return cleaned.startsWith('/') ? cleaned : `/${cleaned}`;
+    const sep = cleaned.startsWith('/') ? '' : '/';
+    return base + sep + cleaned;
+  };
+
   // Quill CSS is imported at module top to ensure toolbar and editor styles load
 
   const modules = useMemo(() => ({
@@ -294,15 +310,7 @@ export default function AdminDashboardPage() {
     // If the blog already has a cover image URL, show it in the preview
     if (blog.coverImageUrl) {
       const raw = blog.coverImageUrl;
-      // If it's already an absolute URL, use it as-is. Otherwise, prepend API base.
-      const isAbsolute = /^https?:\/\//i.test(raw) || /^\/\//.test(raw);
-      if (isAbsolute) {
-        setImagePreviewUrl(raw);
-      } else {
-        const base = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/api\/?$/i, '');
-        const sep = raw.startsWith('/') ? '' : '/';
-        setImagePreviewUrl(base ? base + sep + raw : raw);
-      }
+      setImagePreviewUrl(normalizeImageUrl(raw) || raw);
     } else {
       setImagePreviewUrl(null);
     }
@@ -379,10 +387,11 @@ export default function AdminDashboardPage() {
       console.log(isEditing ? 'Blog updated successfully:' : 'Blog created successfully:', resData);
       showToast(isEditing ? 'Blog updated successfully!' : 'Blog created successfully!', 'success');
       
+      const saved = { ...resData.data, coverImageUrl: normalizeImageUrl(resData.data?.coverImageUrl) || resData.data?.coverImageUrl };
       if (isEditing) {
-        setBlogs(blogs.map(b => b.id === currentBlogId ? resData.data : b));
+        setBlogs(blogs.map(b => b.id === currentBlogId ? saved : b));
       } else {
-        setBlogs([resData.data, ...blogs]);
+        setBlogs([saved, ...blogs]);
       }
       
       setIsModalOpen(false);
@@ -481,7 +490,7 @@ export default function AdminDashboardPage() {
                       <td className="px-6 py-5">
                         <div className="flex items-center">
                           {blog.coverImageUrl ? (
-                            <img src={blog.coverImageUrl} className="w-12 h-12 rounded-lg object-cover mr-4 shadow-sm border border-slate-100" alt="cover" />
+                            <img src={normalizeImageUrl(blog.coverImageUrl) || blog.coverImageUrl} className="w-12 h-12 rounded-lg object-cover mr-4 shadow-sm border border-slate-100" alt="cover" />
                           ) : (
                             <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mr-4 text-slate-300 shrink-0">
                               <ImageIcon className="w-5 h-5" />
