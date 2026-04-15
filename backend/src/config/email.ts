@@ -23,6 +23,9 @@ const WEBSITE_EMAILS = {
   'abhishekrajaram': 'support@abhishekrajaram.com',
   'monikas': 't.sharma1991@mail.ca.in',
   's-b-bhavi': 'cabhavi10@gmail.com',
+  'agarwal-financial-consultancy': process.env.AGARWAL_EMAIL || 'agarwalfinancialconsultancy@gmail.com',
+  'vineet-taral': process.env.VINEET_EMAIL || 'vineettaral@gmail.com',
+  'vineet-taral-and-associates': process.env.VINEET_EMAIL || 'vineettaral@gmail.com',
 };
 
 // Website names mapping
@@ -39,6 +42,8 @@ const WEBSITE_NAMES = {
   'abhishekrajaram': 'Abhishek Rajaram CA Firm',
   'monikas': 'Monika S CA Firm',
   's-b-bhavi': 'S B Bhavi & CO',
+  'agarwal-financial-consultancy': process.env.AGARWAL_NAME || 'Agarwal Financial Consultancy',
+  'vineet-taral': process.env.VINEET_NAME || 'Vineet Taral & Associates',
 };
 
 // Email sender function
@@ -83,7 +88,7 @@ export const sendEmail = async (
 const formatKey = (k: string) => k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).trim();
 
 const generateBaseEmail = (title: string, emoji: string, formData: any) => {
-  const exclude = ['website', 'websiteSlug', 'formType', 'subject'];
+  const exclude = ['website', 'websiteSlug', 'formType'];
   const escape = (v: any) => String(v).replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
   let rows = '';

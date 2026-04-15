@@ -87,7 +87,7 @@ export default function AdminSeoPage() {
                 setEditingKey(null);
             }
         } catch (err) {
-            console.error(err);
+            
             alert('Failed to save SEO data.');
         } finally {
             setSavingKey(null);

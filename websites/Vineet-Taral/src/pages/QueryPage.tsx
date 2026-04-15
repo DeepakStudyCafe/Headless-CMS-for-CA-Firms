@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData, getImageUrl } from '../lib/api';
+import { getPageData, getImageUrl, submitQueryForm } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { HelpCircle, ChevronDown } from 'lucide-react';
@@ -13,7 +13,7 @@ const QueryPage = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
-    getPageData('query').then((res) => setPageData(mapData(res))).catch(console.error);        
+    getPageData('query').then((res) => setPageData(mapData(res))).catch(console.error);
   }, []);
 
   if (!pageData) return <FullPageLoader />;
@@ -27,11 +27,32 @@ const QueryPage = () => {
           <div>
             <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'query-header')?.textContent?.heading}</h2>
             <p className="text-muted-foreground mb-6">{pageData?.sections?.find((s: any) => s.type === 'query-header')?.textContent?.subheading}</p>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <input type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <textarea rows={5} placeholder="Your Query" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
+            <form className="space-y-4" onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const data = new FormData(form);
+                const payload = {
+                  name: (data.get('name') as string) || '',
+                  email: (data.get('email') as string) || '',
+                  subject: (data.get('subject') as string) || '',
+                  query: (data.get('query') as string) || ''
+                };
+                try {
+                  const res = await submitQueryForm(payload);
+                  if (res?.success) {
+                    alert(res.message || 'Query submitted successfully');
+                    form.reset();
+                  } else {
+                    alert(res?.message || 'Failed to submit query');
+                  }
+                } catch (err) {
+                  alert('An error occurred. Please try again.');
+                }
+              }}>
+              <input name="name" type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <input name="email" type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <input name="subject" type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <textarea name="query" rows={5} placeholder="Your Query" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
               <button type="submit" className="btn-primary-gradient">Submit Query</button>
             </form>
           </div>

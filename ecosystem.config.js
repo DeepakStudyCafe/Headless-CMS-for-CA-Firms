@@ -363,6 +363,16 @@ module.exports = {
       autorestart: true,
       restart_delay: 5000
     }
+    ,{
+      name: 'agarwal-financial-consultancy',
+      cwd: './websites/Agarwal-Financial-Consultancy',
+      script: 'npm',
+      args: 'run preview',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8094
+      }
+    }
   ],
 
   deploy: {

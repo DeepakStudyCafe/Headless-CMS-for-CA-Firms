@@ -108,3 +108,51 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
     return null;
   }
 }
+
+// Form submission helpers
+export async function submitContactForm(formData: { name: string; email: string; phone?: string; company?: string; message: string; subject?: string }) {
+  try {
+    const payload = { ...formData, website: WEBSITE_SLUG };
+    const res = await fetch(`${API_URL}/forms/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    console.error('submitContactForm error', err);
+    return { success: false, message: 'An error occurred. Please try again.' };
+  }
+}
+
+export async function submitQueryForm(formData: any) {
+  try {
+    const payload = { ...formData, website: WEBSITE_SLUG };
+    const res = await fetch(`${API_URL}/forms/query`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    console.error('submitQueryForm error', err);
+    return { success: false, message: 'An error occurred. Please try again.' };
+  }
+}
+
+export async function submitCareerForm(formData: FormData) {
+  try {
+    formData.append('website', WEBSITE_SLUG);
+    const res = await fetch(`${API_URL}/forms/career`, {
+      method: 'POST',
+      body: formData,
+    });
+    const result = await res.json();
+    return result;
+  } catch (err) {
+    console.error('submitCareerForm error', err);
+    return { success: false, message: 'An error occurred. Please try again.' };
+  }
+}

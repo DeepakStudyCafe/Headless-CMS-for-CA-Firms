@@ -26,7 +26,8 @@
     "setup:admins": "ts-node src/utils/setup-admins.ts",
     "seed:camohanc": "ts-node src/utils/camohan-seed.ts",
     "seed:vineet-taral": "ts-node src/utils/vineet-taral-seed.ts",
-    "seed:sbbhavi": "ts-node src/utils/sbbhavi-seed.ts"
+    "seed:sbbhavi": "ts-node src/utils/sbbhavi-seed.ts",
+    "seed:agarwal-financial": "ts-node src/utils/agarwal-financial-seed.ts"
   },
   "keywords": [
     "cms",

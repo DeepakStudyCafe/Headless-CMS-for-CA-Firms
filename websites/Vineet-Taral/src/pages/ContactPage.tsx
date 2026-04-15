@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData, getImageUrl } from '../lib/api';
+import { getPageData, getImageUrl, getWebsiteData, submitContactForm } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
@@ -9,8 +9,10 @@ import SectionWrapper from '../components/SectionWrapper';
 
 const ContactPage = () => {
   const [pageData, setPageData] = useState<any>(null);
+  const [website, setWebsite] = useState<any>(null);
   useEffect(() => {
     getPageData('contact').then((res) => setPageData(mapData(res))).catch(console.error);
+    getWebsiteData().then(setWebsite).catch(console.error);
   }, []);
   if (!pageData) return <FullPageLoader />;
 
@@ -24,16 +26,39 @@ const ContactPage = () => {
             <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'contact-header')?.textContent?.heading}</h2>
             <p className="text-muted-foreground mb-8">{pageData?.sections?.find((s: any) => s.type === 'contact-header')?.textContent?.subheading}</p>
 
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-5" onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const data = new FormData(form);
+                const payload = {
+                  name: (data.get('fullName') as string) || '',
+                  email: (data.get('email') as string) || '',
+                  phone: (data.get('phone') as string) || '',
+                  company: (data.get('company') as string) || '',
+                  message: (data.get('message') as string) || '',
+                  subject: (data.get('subject') as string) || ''
+                };
+                try {
+                  const res = await submitContactForm(payload);
+                  if (res?.success) {
+                    alert(res.message || 'Message sent successfully');
+                    form.reset();
+                  } else {
+                    alert(res?.message || 'Failed to send message');
+                  }
+                } catch (err) {
+                  alert('An error occurred. Please try again.');
+                }
+              }}>
               <div className="grid sm:grid-cols-2 gap-4">
-                <input type="text" placeholder="Full Name" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
-                <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
+                <input name="fullName" type="text" placeholder="Full Name" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
+                <input name="email" type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
-                <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
-                <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
+                <input name="phone" type="tel" placeholder="Phone Number" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
+                <input name="subject" type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
               </div>
-              <textarea rows={5} placeholder="Your Message" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all resize-none" />
+              <textarea name="message" rows={5} placeholder="Your Message" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all resize-none" />
               <button type="submit" className="btn-primary-gradient">Send Message</button>
             </form>
           </div>

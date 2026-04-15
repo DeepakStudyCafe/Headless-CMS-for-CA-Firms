@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData, getImageUrl } from '../lib/api';
+import { getPageData, getImageUrl, submitCareerForm } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { Heart, Users, TrendingUp, Award, MapPin, Clock, Briefcase } from 'lucide-react';
@@ -10,7 +10,8 @@ import SectionWrapper from '../components/SectionWrapper';
 const CareerPage = () => {
   const [pageData, setPageData] = useState<any>(null);
   useEffect(() => {
-    getPageData('careers').then((res) => setPageData(mapData(res))).catch(console.error);
+    // seed uses slug 'career'
+    getPageData('career').then((res) => setPageData(mapData(res))).catch(console.error);
   }, []);
   if (!pageData) return <FullPageLoader />;
 
@@ -60,13 +61,31 @@ const CareerPage = () => {
       <SectionWrapper>
         <div className="max-w-2xl mx-auto">
           <h2 className="section-title text-center">Submit Your Application</h2>
-          <form className="space-y-4 mt-8" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-4 mt-8" onSubmit={async (e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              const data = new FormData(form);
+              try {
+                const res = await submitCareerForm(data);
+                if (res?.success) {
+                  alert(res.message || 'Application submitted successfully');
+                  form.reset();
+                } else {
+                  alert(res?.message || 'Failed to submit application');
+                }
+              } catch (err) {
+                alert('An error occurred. Please try again.');
+              }
+            }}>
             <div className="grid sm:grid-cols-2 gap-4">
-              <input type="text" placeholder="Full Name" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <input name="firstName" type="text" placeholder="Full Name" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <input name="mobile" type="tel" placeholder="Mobile Number" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
             </div>
-            <input type="text" placeholder="Position Applied For" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-            <textarea rows={4} placeholder="Cover Letter" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
+            <div className="grid sm:grid-cols-2 gap-4">
+              <input name="email" type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <input name="position" type="text" placeholder="Position Applied For" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+            </div>
+            <textarea name="comments" rows={4} placeholder="Cover Letter" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
             <button type="submit" className="btn-primary-gradient">Submit Application</button>
           </form>
         </div>

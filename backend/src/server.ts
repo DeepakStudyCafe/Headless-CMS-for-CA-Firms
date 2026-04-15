@@ -59,10 +59,13 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:8088/',
   'http://localhost:8090/',
   'http://localhost:8092/',
+    'http://localhost:8094',
+    'http://localhost:8095',
   'https://api.digitechai.in',
   'https://iskco.in/',
   'http://localhost:3011/',
-  'http://localhost:8093'
+  'http://localhost:8093',
+  'http://localhost:8094'
 ];
 
 
