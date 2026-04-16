@@ -30,6 +30,7 @@ export default function OurClientPage() {
         { name: 'S B Bhavi & CO.', url: 'https://casbbhavi.in/', img: '/casbbhavi.png', description: 'Empowering small businesses through smart tax planning and financial services; modern website with easy contact forms.' },
         { name: 'Ajoy Goyal & Associates  CO.', url: 'https://ajoygoyalassociates.com/', img: '/ajoygoyalassociates.png', description: 'Helping small businesses with smart tax planning and financial solutions; modern website with simple contact forms and quick response support.' },
         { name: 'Agarwal Financial Consultancy.', url: 'https://afcadvisory.in/', img: '/afcadvisory.png', description: 'Helping small businesses with expert FEMA and indirect tax solutions; modern website with easy contact forms and fast response support.' },
+        { name: 'R Mugunthan', url: 'https://carmugunthan.in/', img: '/carmugunthan.png', description: 'Helping growing businesses with smart compliance and indirect tax services; modern website with simple inquiry forms and quick support response.' },
         
         // { name: 'Kapoor Advisors', url: 'https://kapoor.example', img: '/client-4.png' },
         // { name: 'Singh Partners', url: 'https://singh.example', img: '/client-5.png' },
