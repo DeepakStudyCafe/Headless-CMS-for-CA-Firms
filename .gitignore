@@ -18,9 +18,8 @@ admin-dashboard/.DS_Store
 
 # Websites ignore rules (all firms)
 websites/*/node_modules/
-websites/*/.next/
-websites/*/out/
-websites/*/dist/
+
+
 websites/*/.env*
 websites/*/*.log
 websites/*/.DS_Store
@@ -30,9 +29,7 @@ websites/*/.DS_Store
 node_modules/
 
 # Build output
-/dist/
-/.next/
-out/
+
 
 # Environment variables
 .env*
@@ -77,8 +74,7 @@ backend/prisma/generated/
 
 
 # Ignore all websites folders and their build artifacts
-websites/*/.next/
-websites/*/out/
+
 websites/*/node_modules/
 websites/*/.env*
 websites/*/*.log
