@@ -27,7 +27,7 @@ export default function Navbar({ forceSolid = false }: { forceSolid?: boolean } 
     { href: '/our-client', label: 'Our Client' },
     { href: '/templates', label: 'Templates' },      
     { href: '/services', label: 'Services' },
-    { href: '/pricing', label: 'Online Payment' },
+    { href: '/pricing', label: 'Pricing' },
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contact' },
   ]

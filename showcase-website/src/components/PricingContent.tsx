@@ -13,7 +13,6 @@ export default function PricingContent() {
     'Responsive Mobile-Friendly Layout',
     'Enquiry Form',
     'Social Media Integration',
-    'Blog Dynamics',
     'Due Date Reminder',
     'Updates and Notifications',
     'Latest News (GST, Income tax)',
@@ -21,10 +20,10 @@ export default function PricingContent() {
     'Google Map',
     'QR Code Scanner',
     'Live Chat Integration',
-    'Whats App Chat',
+    'WhatsApp Chat Integration',
     'Enquiry Form Popup',
     'Client Reviews and Testimonials',
-    'Video Image Gallery',
+    'Image Gallery',
     'Optimized Code for Speed Fast Loading',
   ]
 

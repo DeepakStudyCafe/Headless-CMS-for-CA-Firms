@@ -178,7 +178,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.7 }}
             >
               <iframe
-                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.7094479677764!2d77.21619331508165!3d28.613939982420993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce2daa9eb4d0b%3A0x717971125923e5d!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1642678912345!5m2!1sen!2sin'}
+                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3912.8839561507957!2d75.77435877452321!3d11.269939849897966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x836f83d5072a7a97%3A0x513653990d8c6ebe!2sLong%20Green%20Financial%20Consulting!5e0!3m2!1sen!2sin!4v1776333573476!5m2!1sen!2sin'}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
