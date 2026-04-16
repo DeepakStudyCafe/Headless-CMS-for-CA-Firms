@@ -65,7 +65,8 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'https://iskco.in/',
   'http://localhost:3011/',
   'http://localhost:8093',
-  'http://localhost:8094'
+  'http://localhost:8094',
+  'http://localhost:8095'
 ];
 
 
@@ -73,6 +74,11 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
+
+    // In non-production (local/dev) allow all origins for ease of testing
+    if (process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
 
     // Normalize origin by removing trailing slashes
     const normalizedOrigin = origin.replace(/\/$/, '');

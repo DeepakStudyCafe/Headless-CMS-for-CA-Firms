@@ -1,0 +1,322 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 240 4% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 4% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 4% 12%;
+
+    --primary: 43 65% 52%;
+    --primary-foreground: 240 4% 12%;
+
+    --primary-dark: 38 87% 38%;
+    --primary-light: 47 85% 80%;
+    --primary-shimmer: 43 65% 52%;
+
+    --secondary: 90 10% 28%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 40 20% 92%;
+    --muted-foreground: 0 0% 42%;
+
+    --accent: 43 65% 52%;
+    --accent-foreground: 240 4% 12%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 43 40% 88%;
+    --input: 43 40% 88%;
+    --ring: 43 65% 52%;
+
+    --radius: 0.5rem;
+
+    --charcoal: 240 4% 12%;
+    --warm-gray: 0 0% 42%;
+    --paper: 40 33% 97%;
+    --footer-bg: 0 0% 7%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+  .font-sans {
+    font-family: 'DM Sans', sans-serif;
+  }
+  .font-accent {
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+/* Gold shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-btn {
+  background: linear-gradient(90deg, #D4AF37 0%, #F5E6A3 50%, #D4AF37 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+  pointer-events: none;
+}
+
+.shimmer-btn:active {
+  transform: scale(0.97);
+}
+
+/* Dot pattern */
+.dot-pattern {
+  background-image: radial-gradient(#D4AF37 1px, transparent 0);
+  background-size: 40px 40px;
+  opacity: 0.05;
+}
+
+/* Diagonal stripes */
+.diagonal-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(212, 175, 55, 0.03) 20px,
+    rgba(212, 175, 55, 0.03) 21px
+  );
+}
+
+/* ===== NEW PREMIUM EFFECTS ===== */
+
+/* Noise texture overlay */
+.noise-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Gold grid pattern */
+.gold-grid {
+  background-image:
+    linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Gold grain for dark sections */
+.gold-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.65' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Card shimmer sweep */
+@keyframes card-shimmer {
+  0% { transform: translateX(-100%) rotate(-45deg); }
+  100% { transform: translateX(200%) rotate(-45deg); }
+}
+
+.card-shimmer-sweep::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.08) 40%,
+    rgba(212, 175, 55, 0.15) 50%,
+    rgba(212, 175, 55, 0.08) 60%,
+    transparent 100%
+  );
+  transform: translateX(-100%) rotate(-45deg);
+  transition: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-shimmer-sweep:hover::before {
+  animation: card-shimmer 0.8s ease-out forwards;
+}
+
+/* Ken Burns effect */
+@keyframes kenburns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.kenburns {
+  animation: kenburns 8s ease-in-out alternate infinite;
+}
+
+/* Marquee scroll */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-scroll {
+  animation: marquee 25s linear infinite;
+}
+
+/* Section heading reveal line */
+@keyframes reveal-line {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+.reveal-line {
+  transform-origin: left;
+  animation: reveal-line 0.8s ease-out forwards;
+}
+
+/* Scroll progress bar for testimonial */
+@keyframes progress-fill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.progress-bar {
+  animation: progress-fill 4s linear forwards;
+}
+
+/* Custom cursor */
+.custom-cursor {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #D4AF37;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.custom-cursor.hovering {
+  width: 12px;
+  height: 12px;
+  border-color: #F5E6A3;
+  background: rgba(212, 175, 55, 0.3);
+}
+
+/* SVG Wave divider */
+.section-divider {
+  position: relative;
+}
+
+.section-divider::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30 Q 360 0 720 30 Q 1080 60 1440 30 L1440 60 L0 60 Z' fill='%23F9F8F6'/%3E%3C/svg%3E") no-repeat center;
+  background-size: cover;
+  z-index: 2;
+}
+
+.section-divider-dark::after {
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30 Q 360 0 720 30 Q 1080 60 1440 30 L1440 60 L0 60 Z' fill='%231C1C1E'/%3E%3C/svg%3E") no-repeat center;
+  background-size: cover;
+}
+
+.section-divider-white::after {
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30 Q 360 0 720 30 Q 1080 60 1440 30 L1440 60 L0 60 Z' fill='%23FFFFFF'/%3E%3C/svg%3E") no-repeat center;
+  background-size: cover;
+}
+
+/* Stat glow divider */
+.glow-divider {
+  width: 1px;
+  background: #D4AF37;
+  box-shadow: 0 0 8px #D4AF37, 0 0 16px rgba(212, 175, 55, 0.3);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-scroll {
+    animation: none;
+  }
+  .kenburns {
+    animation: none;
+  }
+}
+
+/* Gold accent line for headings */
+.gold-accent-line {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.gold-accent-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #D4AF37 0%, #B8860B 100%);
+}
