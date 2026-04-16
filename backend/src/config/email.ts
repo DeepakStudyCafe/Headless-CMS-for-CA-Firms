@@ -26,8 +26,8 @@ const WEBSITE_EMAILS = {
   'agarwal-financial-consultancy': process.env.AGARWAL_EMAIL || 'agarwalfinancialconsultancy@gmail.com',
   'vineet-taral': process.env.VINEET_EMAIL || 'vineettaral@gmail.com',
   'vineet-taral-and-associates': process.env.VINEET_EMAIL || 'vineettaral@gmail.com',
-  'isk-and-co': process.env.ISK_AND_CO_EMAIL || 'sdeepakncy@gmail.com',
-  'firm1-isk': process.env.ISK_AND_CO_EMAIL || 'sdeepakncy@gmail.com',
+  'isk-and-co': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
+  'firm1-isk': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
 };
 
 // Website names mapping
