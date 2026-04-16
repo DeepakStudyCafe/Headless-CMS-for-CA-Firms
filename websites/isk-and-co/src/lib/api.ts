@@ -139,12 +139,18 @@ export async function submitContactForm(formData: {
   message: string
 }) {
   try {
-    const res = await fetch(`${API_URL}/forms/contact`, {
+    // Resolve correct endpoint whether NEXT_PUBLIC_API_URL contains '/api' or not.
+    const base = API_URL?.replace(/\/$/, '') || '';
+    const endpoint = base
+      ? (base.endsWith('/api') ? `${base}/forms/contact` : `${base}/api/forms/contact`)
+      : '/api/forms/contact';
+
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ...formData,
-        website: 'firm1-ISK'
+        website: 'isk-and-co'
       }),
     })
     
@@ -170,12 +176,17 @@ export async function submitQueryForm(formData: {
   query: string
 }) {
   try {
-    const res = await fetch(`${API_URL}/forms/query`, {
+    const base = API_URL?.replace(/\/$/, '') || '';
+    const endpoint = base
+      ? (base.endsWith('/api') ? `${base}/forms/query` : `${base}/api/forms/query`)
+      : '/api/forms/query';
+
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ...formData,
-        website: 'firm1-ISK'
+        website: 'isk-and-co'
       }),
     })
     
@@ -190,9 +201,14 @@ export async function submitQueryForm(formData: {
 export async function submitCareerForm(formData: FormData) {
   try {
     // Add website parameter to FormData
-    formData.append('website', 'firm1-ISK')
-    
-    const res = await fetch(`${API_URL}/forms/career`, {
+    formData.append('website', 'isk-and-co')
+
+    const base = API_URL?.replace(/\/$/, '') || '';
+    const endpoint = base
+      ? (base.endsWith('/api') ? `${base}/forms/career` : `${base}/api/forms/career`)
+      : '/api/forms/career';
+
+    const res = await fetch(endpoint, {
       method: 'POST',
       body: formData, // FormData for file upload
     })
