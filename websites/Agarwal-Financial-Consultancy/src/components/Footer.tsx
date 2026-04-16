@@ -13,29 +13,26 @@ const Footer = () => {
   return (
     <footer className="bg-navy-600 mt-[0.5px]">
       <div className="container-wide mx-auto section-padding !pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <div className="flex items-center ">
-              <div className="w-16 h-16 rounded-lg overflow-hidden bg-transparent flex items-center justify-center">
+              <div className="w-32 md:w-40  rounded-lg overflow-hidden bg-transparent flex items-center justify-center mb-2">
                 <img
-                  src="/agarwal-logo.png"
+                  src="/AFC-White.png"
                   alt="Agarwal Financial Consultancy logo"
-                  className="w-full h-full object-contain"
+                  className="w-auto h-full object-contain"
                 />
               </div>
-              <div>
-                <span className="font-heading font-bold text-sm" style={{ color: 'hsl(var(--secondary-foreground))' }}>Agarwal Financial Consultancy</span>
-                
-              </div>
+              
             </div>
             <p className="text-sm leading-relaxed mb-4" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
-              A premier chartered accountancy firm delivering world-class financial services with integrity, precision, and innovation.
+             A premier FEMA & Indirect Tax Expert firm delivering world-class financial solutions with accuracy, compliance, and strategic insight—committed to excellence, transparency, and client success.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="col-span-1">
             <h4 className="font-heading font-semibold mb-4" style={{ color: 'hsl(var(--secondary-foreground))' }}>Quick Links</h4>
             <div className="space-y-2">
               {['About', 'Team', 'Services', 'Career', 'Contact'].map((item) => (
@@ -47,7 +44,7 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div>
+          <div className="col-span-1">
             <h4 className="font-heading font-semibold mb-4" style={{ color: 'hsl(var(--secondary-foreground))' }}>Services</h4>
             <div className="space-y-2">
               {['Bookkeeping', 'GST Filing', 'Tax Planning', 'Audit Services', 'Financial Advisory'].map((s) => (
@@ -59,7 +56,7 @@ const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <h4 className="font-heading font-semibold mb-4" style={{ color: 'hsl(var(--secondary-foreground))' }}>Contact Us</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.7)' }}>
@@ -78,7 +75,7 @@ const Footer = () => {
 
             <div className="border-t pt-6 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderColor: 'hsl(var(--secondary-foreground) / 0.15)' }}>
               <p className="text-sm" style={{ color: 'hsl(var(--secondary-foreground) / 0.5)' }}>
-                © {new Date().getFullYear()} Agarwal Financial Chartered Accountant. All rights reserved.
+                © {new Date().getFullYear()} Agarwal Fema & Indirect Tax Expert. All rights reserved.
               </p>
               <div className='text-gray-300 text-sm'>
                 Powered By{' '}

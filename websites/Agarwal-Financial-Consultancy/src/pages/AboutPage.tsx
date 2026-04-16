@@ -24,12 +24,12 @@ const AboutPage = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.heading}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Agarwal Financial Consultancy is a leading chartered accountancy firm with a legacy of excellence spanning nearly two decades. We combine traditional values with modern innovation to deliver world-class financial services.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Our team of certified chartered accountants, tax experts, and financial advisors work collaboratively to provide comprehensive solutions tailored to each client's unique needs.
-            </p>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+  Agarwal Financial Consultancy is a trusted FEMA & Indirect Tax Expert firm with a legacy of excellence spanning nearly two decades. We blend deep regulatory expertise with modern strategies to deliver reliable and result-driven financial solutions.
+</p>
+<p className="text-muted-foreground leading-relaxed">
+  Our team of experienced tax professionals, compliance specialists, and financial advisors work closely to provide customized solutions that align with each client’s specific business requirements.
+</p>
           </div>
           <div className="grid grid-cols-2 gap-6">
             <AnimatedCounter end={500} suffix="+" label="Clients Served" />
@@ -54,7 +54,7 @@ const AboutPage = () => {
               <Eye size={28} className="text-secondary" />
             </div>
             <h3 className="font-heading font-bold text-xl mb-3 text-foreground">Our Vision</h3>
-            <p className="text-muted-foreground leading-relaxed">To be the most trusted and innovative chartered accountancy firm globally, setting new benchmarks in financial services excellence.</p>
+            <p className="text-muted-foreground leading-relaxed">To be the most trusted and innovative FEMA & Indirect Tax Expert firm globally, setting new benchmarks in financial excellence and compliance leadership.</p>
           </motion.div>
         </div>
       </SectionWrapper>

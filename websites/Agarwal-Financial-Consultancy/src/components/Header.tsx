@@ -52,32 +52,42 @@ const Header = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-card/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
       {/* Top bar */}
       <div className={`transition-all duration-300 ${isScrolled ? 'h-0 overflow-hidden opacity-0' : 'h-auto opacity-100'}`} style={{ backgroundColor: 'hsl(var(--primary))' }}>
-        <div className="container-wide mx-auto flex items-center justify-between gap-6 px-4 py-2 text-sm" style={{ color: 'hsl(var(--primary-foreground))' }}>
-          <div className="flex items-center gap-4">
-            <a href="tel:+911234567890" className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-              <Phone size={14} /> <span className="ml-1">+91 9773545123</span>
-            </a>
-            <a href={`mailto:${website?.email || ''}`} className="flex items-center gap-1 hover:opacity-80 transition-opacity">
-              <Mail size={14} /> <span className="ml-1">{website?.email || "Email loading..."}</span>
-            </a>
+        <div className="container-wide mx-auto flex flex-col md:flex-row items-center justify-between gap-2 px-4 py-2 text-sm" style={{ color: 'hsl(var(--primary-foreground))' }}>
+          <div className="w-full flex items-center justify-between">
+            <div className="flex items-center gap-3 min-w-0">
+              <a href="tel:+911234567890" className="flex items-center gap-1 hover:opacity-80 transition-opacity whitespace-nowrap">
+                <Phone size={14} /> <span className="ml-1">+91 9773545123</span>
+              </a>
+
+              {/* email shown inline on md+ only */}
+              <a href={`mailto:${website?.email || ''}`} className="hidden md:flex items-center gap-1 hover:opacity-80 transition-opacity ml-3">
+                <Mail size={14} /> <span className="ml-1">{website?.email || "Email loading..."}</span>
+              </a>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <a href="#" target="_blank" rel="noopener" aria-label="Instagram" className="w-8 h-8 md:w-6 md:h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+                <Instagram size={16} />
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Facebook" className="w-8 h-8 md:w-6 md:h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+                <Facebook size={16} />
+              </a>
+              <a href="https://x.com" target="_blank" rel="noopener" aria-label="X" className="w-8 h-8 md:w-6 md:h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+                <X size={16} />
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" className="w-8 h-8 md:w-6 md:h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+                <Linkedin size={16} />
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" className="w-8 h-8 md:w-6 md:h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
+                <Youtube size={18} />
+              </a>
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <a href="#" target="_blank" rel="noopener" aria-label="Instagram" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
-              <Instagram size={16} />
-            </a>
-            <a href="#" target="_blank" rel="noopener" aria-label="Facebook" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
-              <Facebook size={16} />
-            </a>
-            <a href="https://x.com" target="_blank" rel="noopener" aria-label="X" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
-              <X size={16} />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
-              <Linkedin size={16} />
-            </a>
-            
-            <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube" className="w-6 h-6 flex items-center justify-center rounded-full bg-white/8 text-white/95 transition-all duration-200 transform hover:scale-110 hover:-translate-y-0.5 hover:bg-white/14 shadow-sm hover:shadow-md ring-0 hover:ring-2 hover:ring-white/20">
-              <Youtube size={18} />
+          {/* email shown under phone+social on small screens */}
+          <div className="w-full block md:hidden ">
+            <a href={`mailto:${website?.email || ''}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity text-sm truncate">
+              <Mail size={14} /> <span className="truncate">{website?.email || 'Email loading...'}</span>
             </a>
           </div>
         </div>
