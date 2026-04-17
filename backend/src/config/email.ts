@@ -2,7 +2,9 @@ import nodemailer from 'nodemailer';
 
 // Email configuration - uses environment variables
 export const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER || 'web@studycafe.in',
     pass: process.env.EMAIL_PASS || 'bxbt ovrw odpm pigt'

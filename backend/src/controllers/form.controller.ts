@@ -46,7 +46,8 @@ export const submitContactForm = async (req: Request, res: Response): Promise<vo
     console.error('Contact form error:', error);
     res.status(500).json({
       success: false,
-      message: 'An error occurred while processing your request'
+      message: 'An error occurred while processing your request',
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 };
@@ -114,7 +115,8 @@ export const submitQueryForm = async (req: Request, res: Response): Promise<void
     console.error('Query form error:', error);
     res.status(500).json({
       success: false,
-      message: 'An error occurred while processing your query'
+      message: 'An error occurred while processing your query',
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 };
@@ -179,7 +181,8 @@ export const submitCareerForm = async (req: Request, res: Response): Promise<voi
     console.error('Career form error:', error);
     res.status(500).json({
       success: false,
-      message: 'An error occurred while processing your application'
+      message: 'An error occurred while processing your application',
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 };
