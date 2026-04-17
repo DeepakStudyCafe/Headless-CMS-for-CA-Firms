@@ -36,7 +36,7 @@ export default function CTASection() {
             transition={{ delay: 0.2 }}
             className="font-sans text-white/40 mb-12 max-w-2xl mx-auto text-sm"
           >
-            Partner with Vanguard & Co. for expert financial guidance. Let's build your success story together.
+            Partner with R Mugunthan. for expert financial guidance. Let's build your success story together.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -52,7 +52,7 @@ export default function CTASection() {
               Schedule Consultation
             </a>
             <a
-              href="tel:+919999999999"
+              href="tel:+919841047064"
               className="border border-gold/40 text-gold px-12 py-4 font-sans font-bold uppercase tracking-[0.15em] text-[11px] hover:bg-gold hover:text-charcoal transition-all duration-300 inline-flex items-center justify-center gap-2 backdrop-blur-sm"
             >
               <Phone className="w-4 h-4" />

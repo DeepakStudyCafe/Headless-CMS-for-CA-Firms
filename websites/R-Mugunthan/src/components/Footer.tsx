@@ -12,9 +12,7 @@ const SERVICES = [
   { title: "Payroll", href: "/services/payroll" },
   { title: "Tax Planning", href: "/services/tax-planning" },
   { title: "Company Formation", href: "/services/company-formation" },
-  { title: "Compliance", href: "/services/compliance" },
-  { title: "Audit Services", href: "/services/audit-services" },
-  { title: "Financial Advisory", href: "/services/financial-advisory" },
+  
 ];
 import { Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -126,7 +124,7 @@ export default function Footer({ websiteData }: { websiteData?: any }) {
             {copyrightText}
           </p>
           <p className="font-sans text-white/30 text-xs">
-            Webcafe Pvt. Ltd.
+           Powered By <a href="https://webcafe.co.in/" target="_blank" rel="noopener noreferrer" className="underline">Webcafe</a> a Product of Studycafe Pvt Ltd.
           </p>
         </div>
       </div>

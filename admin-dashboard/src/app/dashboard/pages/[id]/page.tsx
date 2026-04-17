@@ -752,14 +752,14 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                   </div>
                                 )}
                                 {/* Image field */}
-                                {(item.image !== undefined || ['team', 'team-core-header', 'partners'].includes(section.type)) && (
+                                {(item.image !== undefined || item.img !== undefined || ['team', 'team-core-header', 'partners'].includes(section.type)) && (
                                   <div>
                                     <Label>Image</Label>
                                     <div className="relative w-full h-32 mt-2 mb-2 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 group hover:border-gray-400 transition-colors">
-                                      {item.image ? (
+                                      {(item.image || item.img) ? (
                                         <>
                                           <Image
-                                            src={getImageUrl(item.image)}
+                                            src={getImageUrl(item.image || item.img)}
                                             alt={item.title || item.name || "Item image"}
                                             fill
                                             className="object-cover"
@@ -779,7 +779,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                                       const response = await mediaAPI.upload(file)
                                                       const imageUrl = response.data.data.imageUrl
                                                       const updatedItems = [...section.textContent.items]
-                                                      updatedItems[itemIndex] = { ...item, image: imageUrl }
+                                                      updatedItems[itemIndex] = { ...item, image: imageUrl, img: imageUrl }
                                                       handleSectionUpdate(section.id, 'textContent', {
                                                         ...section.textContent,
                                                         items: updatedItems,
@@ -813,7 +813,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                                     const response = await mediaAPI.upload(file)
                                                     const imageUrl = response.data.data.imageUrl
                                                     const updatedItems = [...section.textContent.items]
-                                                    updatedItems[itemIndex] = { ...item, image: imageUrl }
+                                                    updatedItems[itemIndex] = { ...item, image: imageUrl, img: imageUrl }
                                                     handleSectionUpdate(section.id, 'textContent', {
                                                       ...section.textContent,
                                                       items: updatedItems,
@@ -832,14 +832,14 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                         </div>
                                       )}
                                     </div>
-                                    {item.image && (
+                                    {(item.image || item.img) && (
                                       <div className="flex justify-end mt-1">
                                         <Button
                                           variant="outline"
                                           size="sm"
                                           onClick={() => {
                                             const updatedItems = [...section.textContent.items]
-                                            updatedItems[itemIndex] = { ...item, image: '' }
+                                            updatedItems[itemIndex] = { ...item, image: '', img: '' }
                                             handleSectionUpdate(section.id, 'textContent', {
                                               ...section.textContent,
                                               items: updatedItems,
@@ -852,10 +852,10 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                       </div>
                                     )}
                                     <Input
-                                      value={item.image || ''}
+                                      value={item.image || item.img || ''}
                                       onChange={(e) => {
                                         const updatedItems = [...section.textContent.items]
-                                        updatedItems[itemIndex] = { ...item, image: e.target.value }
+                                        updatedItems[itemIndex] = { ...item, image: e.target.value, img: e.target.value }
                                         handleSectionUpdate(section.id, 'textContent', {
                                           ...section.textContent,
                                           items: updatedItems,
@@ -869,13 +869,13 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                 {/* Gallery-specific: src field */}
 
                                 {/* Image / Src Upload */}
-                                {((item.image !== undefined || item.src !== undefined) || ['team', 'team-core-header', 'partners', 'gallery'].includes(section.type)) && (
+                                {((item.image !== undefined || item.src !== undefined || item.img !== undefined) || ['team', 'team-core-header', 'partners', 'gallery'].includes(section.type)) && (
                                   <div>
                                     <Label>{(item.src !== undefined || section.type === 'gallery') ? 'Gallery Image' : 'Member Photo'}</Label>
-                                    {(item.image || item.src) && (
+                                    {(item.image || item.src || item.img) && (
                                       <div className="relative w-32 h-32 mb-2 rounded border border-gray-200 overflow-hidden group">
 
-                                        <Image src={getImageUrl(item.image || item.src)} alt="Item" fill className="object-cover" />
+                                        <Image src={getImageUrl(item.image || item.src || item.img)} alt="Item" fill className="object-cover" />
 
                                       </div>
                                     )}
@@ -889,7 +889,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                             const res = await mediaAPI.upload(file);
                                             const url = res.data.data.imageUrl;
                                             const updatedItems = [...section.textContent.items];
-                                            updatedItems[itemIndex] = { ...item, [(item.src !== undefined || section.type === 'gallery') ? 'src' : 'image']: url };
+                                            updatedItems[itemIndex] = { ...item, [(item.src !== undefined || section.type === 'gallery') ? 'src' : 'image']: url, img: (item.src !== undefined || section.type === 'gallery') ? (item.img || '') : url };
                                             handleSectionUpdate(section.id, 'textContent', { ...section.textContent, items: updatedItems });
                                           } catch (e) { }
                                         }
@@ -1197,7 +1197,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
 
                   if (typeof val === 'string' || typeof val === 'number') {
                     const isLongText = typeof val === 'string' && (val.length > 80 || key.toLowerCase().includes('desc') || key.toLowerCase().includes('text') || key.toLowerCase().includes('address') || key.toLowerCase().includes('mission') || key.toLowerCase().includes('vision'));
-                    const isImage = key.toLowerCase().includes('image') || key.toLowerCase().includes('logo');
+                    const isImage = key.toLowerCase().includes('image') || key.toLowerCase().includes('logo') || key.toLowerCase().includes('img') || key.toLowerCase().includes('src');
                     return (
                       <div key={key}>
                         <Label className="capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</Label>
@@ -1307,7 +1307,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                                     }}><Trash2 className="w-4 h-4" /></Button>
                                   </div>
                                   {Object.keys(item).map((itemKey) => {
-                                    const isImage = itemKey.toLowerCase().includes('image') || itemKey.toLowerCase().includes('logo') || itemKey.toLowerCase().includes('avatar');
+                                    const isImage = itemKey.toLowerCase().includes('image') || itemKey.toLowerCase().includes('logo') || itemKey.toLowerCase().includes('avatar') || itemKey.toLowerCase().includes('img') || itemKey.toLowerCase().includes('src');
                                     return (
                                       <div key={itemKey}>
                                         <Label className="capitalize text-xs">{itemKey}</Label>
@@ -1406,7 +1406,7 @@ export default function PageEditorPage({ params }: { params: { id: string } }) {
                         <Label className="capitalize font-semibold text-base">{key.replace(/([A-Z])/g, ' $1').trim()}</Label>
                         {Object.keys(val).map((subKey) => {
                           const subVal = val[subKey];
-                          const isImage = subKey.toLowerCase().includes('image') || subKey.toLowerCase().includes('logo');
+                          const isImage = subKey.toLowerCase().includes('image') || subKey.toLowerCase().includes('logo') || subKey.toLowerCase().includes('img') || subKey.toLowerCase().includes('src');
 
                           if (typeof subVal === 'string' || typeof subVal === 'number') {
                             return (

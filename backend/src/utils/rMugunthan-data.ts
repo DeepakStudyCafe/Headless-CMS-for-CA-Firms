@@ -24,22 +24,22 @@ export const NAV_ITEMS = [
 
 export const HERO_SLIDES = [
   {
-    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600",
-    title: "Precision in Audit",
-    subtitle: "Global standards, local expertise.",
-    label: "Trusted Since 2005",
+    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&auto=format&fit=crop&q=80",
+    title: "Technology-Driven Accounting",
+    subtitle: "Leveraging AI for smarter financial decisions.",
+    label: "AI + Accounting",
   },
   {
-    img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600",
-    title: "Strategic Tax Planning",
-    subtitle: "Navigating complexity with clarity.",
-    label: "Expert Advisory",
+    img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&auto=format&fit=crop&q=80",
+    title: "Secure Cloud Systems",
+    subtitle: "Modern infrastructure for reliable compliance.",
+    label: "Cloud First",
   },
   {
-    img: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600",
-    title: "Corporate Governance",
-    subtitle: "Building foundations for sustainable growth.",
-    label: "Compliance First",
+    img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1600&auto=format&fit=crop&q=80",
+    title: "Data & Insights",
+    subtitle: "Actionable analytics to grow your business.",
+    label: "Insights",
   },
 ];
 
@@ -110,7 +110,7 @@ export const WHY_CHOOSE_US = [
 
 export const TESTIMONIALS = [
   {
-    text: "Vanguard & Co. transformed our approach to tax compliance. Their expertise saved us significant capital while keeping us fully compliant.",
+    text: "R Mugunthan. transformed our approach to tax compliance. Their expertise saved us significant capital while keeping us fully compliant.",
     name: "Rajesh Mehta",
     designation: "CEO, Meridian Industries",
     initials: "RM",
@@ -325,14 +325,13 @@ export const CAREER_BENEFITS = [
 ];
 
 export const CONTACT_INFO = {
-  address: "1204, Tower A, Peninsula Business Park, Senapati Bapat Marg, Lower Parel, Mumbai - 400013, India",
-  phone: "+91 99999 99999",
-  email: "info@vanguardca.in",
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.530841187955!2d72.82720281490247!3d18.99436638719864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce41266e5e5b%3A0x7e74979b39e9e5a7!2sLower%20Parel%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin",
+  address: "VANJULA 23 ARISIKARA Street Mylapore Chennai 600004",
+  phone: "+91 9841047064",
+  email: "rmugunth@gmail.com",
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.087454201237!2d80.26809667454745!3d13.030102613593971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267d14e27e22b%3A0x49da092e1fdd697b!2sAkshara%20Play%20School!5e0!3m2!1sen!2sin!4v1776407312036!5m2!1sen!2sin",
   workingHours: {
-    weekdays: "Monday - Friday: 9:30 AM - 6:30 PM",
-    saturday: "Saturday: 10:00 AM - 2:00 PM",
-    sunday: "Sunday: Closed",
+    weekdays: "Monday - Saturday: 10:00 AM - 6:00 PM",
+    
   },
 };
 

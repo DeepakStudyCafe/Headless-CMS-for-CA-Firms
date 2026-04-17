@@ -1,6 +1,18 @@
 export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 export const WEBSITE_SLUG = 'r-mugunthan';
 
+export function getImageUrl(path?: string) {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;   
+  let imagePath = path;
+  if (!imagePath.startsWith('/uploads/') && !imagePath.startsWith('/assets/')) {
+    imagePath = imagePath.replace(/^\/+/, '').replace(/^uploads\//, '');        
+    imagePath = '/uploads/' + imagePath;
+  }
+  const baseUrl = API_URL.replace('/api', '');
+  return baseUrl + imagePath;
+}
+
 export interface SectionContent {
   heading?: string;
   subheading?: string;
@@ -55,10 +67,39 @@ export async function getPageData(slug: string): Promise<PageData | null> {
   }
 }
 
-export function getImageUrl(path: string | undefined | null) {
-  if (!path) return '';
-  if (path.startsWith('http')) return path;
-  
-  const baseUrl = API_URL.replace(/\/api$/, '');
-  return `${baseUrl}${path}`;
+export interface WPPost {
+  id: number;
+  date: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  link: string;
+  authorName?: string;
+  featuredImage?: string;
 }
+
+export async function getPosts(perPage = 20): Promise<WPPost[]> {
+  try {
+    const url = `${API_URL}/public/whats-new/posts?per_page=${perPage}&t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return Array.isArray(json.data?.posts) ? json.data.posts : [];
+  } catch {
+    return [];
+  }
+}
+
+export async function getPostBySlug(slug: string): Promise<WPPost | null> {     
+  try {
+    const url = `${API_URL}/public/whats-new/post/${encodeURIComponent(slug)}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json?.success && json?.data?.post ? json.data.post : null;
+  } catch {
+    return null;
+  }
+}
+

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getImageUrl } from "@/lib/api";
 
 function WordReveal({ text, delay = 0 }: { text: string; delay?: number }) {
   return (
@@ -65,7 +66,7 @@ export default function HeroBanner({ data }: { data?: any }) {
               background: "linear-gradient(to top, rgba(212,175,55,0.08) 0%, transparent 30%)"
             }} />
             <img
-              src={slide.img}
+              src={getImageUrl(slide.img || slide.image || slide.src)}
               alt={slide.title}
               className="w-full h-full object-cover kenburns"
             />

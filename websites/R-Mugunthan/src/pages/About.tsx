@@ -11,7 +11,7 @@ import { Target, Eye, Shield, Award, Heart, Lightbulb, Users, Scale, BadgeCheck,
 const iconMap: Record<string, React.ElementType> = { Shield, Award, Heart, Lightbulb, Users, Scale };
 
 import { useState, useEffect } from "react";
-import { getPageData, getWebsiteData, PageData } from "@/lib/api";
+import { getPageData, getWebsiteData, PageData, getImageUrl } from "@/lib/api";
 
 const About = () => {
   const [pageData, setPageData] = useState<PageData | null>(null);
@@ -66,8 +66,15 @@ const About = () => {
 
       {/* Page Hero */}
       {heroSection && (
-        <section className="relative bg-charcoal py-24 md:py-32 overflow-hidden">
-          <div className="absolute inset-0 dot-pattern opacity-[0.03]" />
+        <section className="relative bg-charcoal py-24 md:py-32 overflow-hidden">          {heroSection.imageUrl && (
+            <div className="absolute inset-0 z-0">
+              <img 
+                src={getImageUrl(heroSection.imageUrl)} 
+                alt="Banner" 
+                className="w-full h-full object-cover opacity-20"
+              />
+            </div>
+          )}          <div className="absolute inset-0 dot-pattern opacity-[0.03]" />
           <div className="absolute inset-0 gold-grain" />
           <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
             <motion.span

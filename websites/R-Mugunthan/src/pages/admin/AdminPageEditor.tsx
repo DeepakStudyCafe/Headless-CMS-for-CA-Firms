@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getToken, apiFetch, uploadImage } from "@/lib/adminApi";
+import { getImageUrl } from "@/lib/api";
 
 interface Section {
   id: string;
@@ -49,7 +50,13 @@ export default function AdminPageEditor() {
     );
   };
 
-  const handleImageUpload = async (sectionId: string, file: File, itemIndex?: number, itemField = "image") => {
+  const handleImageUpload = async (
+    sectionId: string,
+    file: File,
+    itemIndex?: number,
+    itemField = "image",
+    arrayKey = "items"
+  ) => {
     try {
       const imageUrl = await uploadImage(file);
 
@@ -57,9 +64,9 @@ export default function AdminPageEditor() {
         setSections((prev) =>
           prev.map((s) => {
             if (s.id !== sectionId) return s;
-            const items = [...(s.textContent?.items || [])];
-            items[itemIndex] = { ...items[itemIndex], [itemField]: imageUrl };
-            return { ...s, textContent: { ...s.textContent, items } };
+            const arr = [...(s.textContent?.[arrayKey] || [])];
+            arr[itemIndex] = { ...arr[itemIndex], [itemField]: imageUrl };
+            return { ...s, textContent: { ...s.textContent, [arrayKey]: arr } };
           })
         );
       } else {
@@ -139,14 +146,18 @@ export default function AdminPageEditor() {
             </div>
             <div className="p-5 space-y-4">
 
-              {/* Section Image Upload */}
-              {(section.type === "hero" || section.type === "text-image" || section.imageUrl) && (
+              {/* Section Image Upload (hidden for hero sections that use slides) */}
+              {(
+                section.type === "text-image" ||
+                (section.type === "hero" && !Array.isArray(section.textContent?.slides)) ||
+                (section.type !== "hero" && section.imageUrl)
+              ) && (
                 <div>
                   <label className={lbl}>Section Image</label>
                   <div className="relative w-full h-40 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 group hover:border-[#2A3B36]/50 transition-colors">
                     {section.imageUrl ? (
                       <>
-                        <img src={section.imageUrl} alt="" className="w-full h-full object-cover" />
+                        <img src={getImageUrl(section.imageUrl)} alt="" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                           <label className="cursor-pointer bg-white text-black px-4 py-2 rounded-lg flex items-center gap-2 text-sm">
                             📷 Change Image
@@ -179,6 +190,61 @@ export default function AdminPageEditor() {
               )}
               {section.textContent?.description !== undefined && (
                 <div><label className={lbl}>Description</label><textarea rows={3} value={section.textContent.description || ""} onChange={(e) => updateSection(section.id, "textContent", { description: e.target.value })} className={`${inp} resize-vertical`} placeholder="Description..." /></div>
+              )}
+              {/* Slides (hero) editing */}
+              {Array.isArray(section.textContent?.slides) && (
+                <div>
+                  <label className={lbl}>Slides</label>
+                  <div className="space-y-3 mt-1">
+                    {section.textContent.slides.map((slide: any, si: number) => (
+                      <div key={si} className="border border-gray-200 rounded-xl p-4 bg-gray-50 space-y-3">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs font-semibold text-gray-500">Slide {si + 1}</span>
+                          <button onClick={() => { const slides = section.textContent.slides.filter((_: any, i: number) => i !== si); updateSection(section.id, "textContent", { slides }); }} className="text-red-400 hover:text-red-600 text-xs">Remove</button>
+                        </div>
+
+                        <div>
+                          <label className={lbl}>Image</label>
+                          <div className="relative h-40 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 group hover:border-[#2A3B36]/50 transition-colors mb-2">
+                            {slide.img || slide.image || slide.src ? (
+                              <>
+                                <img src={getImageUrl(slide.img || slide.image || slide.src)} alt="" className="w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                  <label className="cursor-pointer bg-white text-black px-3 py-1 rounded text-xs">
+                                    📷 Change
+                                    <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(section.id, f, si, 'img', 'slides'); }} />
+                                  </label>
+                                </div>
+                              </>
+                            ) : (
+                              <div className="flex items-center justify-center h-full">
+                                <label className="cursor-pointer text-gray-400 text-xs flex flex-col items-center gap-1">
+                                  📷 Upload Image
+                                  <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(section.id, f, si, 'img', 'slides'); }} />
+                                </label>
+                              </div>
+                            )}
+                          </div>
+                          <input type="text" value={slide.img || slide.image || slide.src || ''} onChange={(e) => { const s = [...section.textContent.slides]; s[si] = { ...slide, img: e.target.value, image: e.target.value }; updateSection(section.id, 'textContent', { slides: s }); }} className={inp} placeholder="Or paste image URL..." />
+                        </div>
+
+                        <div>
+                          <label className={lbl}>Title</label>
+                          <input value={slide.title || ''} onChange={(e) => { const s = [...section.textContent.slides]; s[si] = { ...slide, title: e.target.value }; updateSection(section.id, 'textContent', { slides: s }); }} className={inp} placeholder="Slide title..." />
+                        </div>
+                        <div>
+                          <label className={lbl}>Subtitle</label>
+                          <input value={slide.subtitle || ''} onChange={(e) => { const s = [...section.textContent.slides]; s[si] = { ...slide, subtitle: e.target.value }; updateSection(section.id, 'textContent', { slides: s }); }} className={inp} placeholder="Slide subtitle..." />
+                        </div>
+                        <div>
+                          <label className={lbl}>Label</label>
+                          <input value={slide.label || ''} onChange={(e) => { const s = [...section.textContent.slides]; s[si] = { ...slide, label: e.target.value }; updateSection(section.id, 'textContent', { slides: s }); }} className={inp} placeholder="Short label (e.g., 'AI + Accounting')" />
+                        </div>
+                      </div>
+                    ))}
+                    <button onClick={() => { const newSlide = { img: '', title: '', subtitle: '', label: '' }; updateSection(section.id, 'textContent', { slides: [...section.textContent.slides, newSlide] }); }} className="text-xs text-[#2A3B36] hover:underline">+ Add Slide</button>
+                  </div>
+                </div>
               )}
               {section.textContent?.cta !== undefined && (
                 <div><label className={lbl}>Button Text</label><input value={section.textContent.cta || ""} onChange={(e) => updateSection(section.id, "textContent", { cta: e.target.value })} className={inp} placeholder="e.g. Get Started" /></div>
@@ -234,7 +300,7 @@ export default function AdminPageEditor() {
                               <div className="relative h-32 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 group hover:border-[#2A3B36]/50 transition-colors mb-2">
                                 {url ? (
                                   <>
-                                    <img src={url} alt="" className="w-full h-full object-cover" />
+                                    <img src={getImageUrl(url)} alt="" className="w-full h-full object-cover" />
                                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                       <label className="cursor-pointer bg-white text-black px-3 py-1 rounded text-xs">
                                         📷 Change

@@ -34,7 +34,7 @@ async function main() {
       phone: '+91 9841047064',
       email: 'rmugunth@gmail.com',
       address: '"VANJULA", 23 ARISIKARA Street, Mylapore, Chennai 600004',
-      workingHours: 'Mon - Fri: 9:30 AM - 6:30 PM, Sat: 10:00 AM - 2:00 PM',
+      workingHours: 'Monday - Saturday: 10:00 AM - 6:00 PM',
       isActive: true,
       isAdminEnabled: true,
       themeConfig: {
@@ -48,7 +48,7 @@ async function main() {
            mapUrl: CONTACT_INFO.mapEmbedUrl,
         },
         footerContent: {
-           description: "R Mugunthan provides comprehensive financial and advisory services to help businesses grow securely.",
+           description: "R Mugunthan provides comprehensive financial and advisory services to help businesses grow securely, ensuring compliance, strategic planning, and long-term financial stability with personalized expert guidance.",
            copyright: "© 2026 R Mugunthan All rights reserved.",
         }
       },
@@ -61,7 +61,7 @@ async function main() {
       phone: '+91 9841047064',
       email: 'rmugunth@gmail.com',
       address: '"VANJULA", 23 ARISIKARA Street, Mylapore, Chennai 600004',
-      workingHours: 'Mon - Fri: 9:30 AM - 6:30 PM, Sat: 10:00 AM - 2:00 PM',
+      workingHours: 'Monday - Saturday: 10:00 AM - 6:00 PM',
       isActive: true,
       isAdminEnabled: true,
       themeConfig: {

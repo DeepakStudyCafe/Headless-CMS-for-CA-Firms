@@ -13,6 +13,7 @@ import Services from "./pages/Services.tsx";
 import Query from "./pages/Query.tsx";
 import Career from "./pages/Career.tsx";
 import Contact from "./pages/Contact.tsx";
+import PostDetail from "./pages/PostDetail.tsx";
 
 import ServiceDetail from "./pages/services/ServiceDetail.tsx";
 
@@ -40,8 +41,7 @@ const App = () => (
           <Route path="/query" element={<Query />} />
           <Route path="/career" element={<Career />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/services/:slug" element={<ServiceDetail />} />
-
+          <Route path="/services/:slug" element={<ServiceDetail />} />          <Route path="/post/:slug" element={<PostDetail />} />
           {/* Admin routes — all wrapped in AdminGuard for status/lock checks */}
           <Route
             path="/admin"
