@@ -6,7 +6,10 @@ export const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.EMAIL_USER || 'web@studycafe.in',
     pass: process.env.EMAIL_PASS || 'bxbt ovrw odpm pigt'
-  }
+  },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000
 });
 
 // Dynamic website to email mapping using environment variables
