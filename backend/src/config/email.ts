@@ -3,15 +3,19 @@ import nodemailer from 'nodemailer';
 // Email configuration - uses environment variables
 export const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  requireTLS: true,
   auth: {
     user: process.env.EMAIL_USER || 'web@studycafe.in',
     pass: process.env.EMAIL_PASS || 'bxbt ovrw odpm pigt'
   },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000
+  tls: {
+    rejectUnauthorized: false
+  },
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
+  socketTimeout: 20000
 });
 
 // Dynamic website to email mapping using environment variables
