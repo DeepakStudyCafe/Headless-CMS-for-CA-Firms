@@ -17,7 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
-import { getPageData, getWebsiteData, PageData } from "@/lib/api";
+import { getPageData, getWebsiteData, PageData, API_URL } from "@/lib/api";
 
 const queryFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -47,10 +47,22 @@ const Query = () => {
     defaultValues: { name: "", email: "", phone: "", serviceType: "", message: "" },
   });
 
-  const onSubmit = (data: QueryFormValues) => {
-    console.log(data);
-    toast({ title: "Query Submitted!", description: "Our experts will respond within 24 business hours. Thank you for reaching out." });
-    form.reset();
+  const onSubmit = async (data: QueryFormValues) => {
+    try {
+      const res = await fetch(`${API_URL}/forms/query`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, query: data.message, website: "r-mugunthan" }),
+      });
+      if (res.ok) {
+        toast({ title: "Query Submitted!", description: "Our experts will respond within 24 business hours. Thank you for reaching out." });
+        form.reset();
+      } else {
+        toast({ title: "Error", description: "Failed to submit query. Please try again later.", variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Error", description: "Failed to submit query. Please try again later.", variant: "destructive" });
+    }
   };
 
   if (loading) {
@@ -80,6 +92,19 @@ const Query = () => {
   const infoData = contactSection?.textContent?.info;
   const faqsData = faqSection?.textContent?.items || [];
   const dynamicServices = servicesSection?.textContent?.items || [];
+  const defaultServices = [
+    { value: 'bookkeeping', label: 'Bookkeeping' },
+    { value: 'gst', label: 'GST Filing' },
+    { value: 'payroll', label: 'Payroll' },
+    { value: 'tax-planning', label: 'Tax Planning' },
+    { value: 'company-formation', label: 'Company Formation' },
+    { value: 'compliance', label: 'Compliance' },
+    { value: 'audit', label: 'Audit & Assurance' },
+    { value: 'financial-advisory', label: 'Financial Advisory' },
+    { value: 'taxation', label: 'Taxation & Compliance' },
+    { value: 'advisory', label: 'Business Advisory' },
+    { value: 'other', label: 'Other Queries' },
+  ];
 
 
   return (
@@ -178,9 +203,12 @@ const Query = () => {
                           </FormControl>
                             <SelectContent>
                               <SelectItem value="general">General Inquiry</SelectItem>
-                              {dynamicServices.map((s: any) => (
-                                <SelectItem key={s.title || s.id} value={s.title}>{s.title}</SelectItem>
-                              ))}
+                                {defaultServices.map((s) => (
+                                  <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                                ))}
+                                {dynamicServices.map((s: any) => (
+                                  <SelectItem key={s.title || s.id} value={s.title}>{s.title}</SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                         <FormMessage />

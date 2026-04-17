@@ -328,7 +328,7 @@ export const CONTACT_INFO = {
   address: "VANJULA 23 ARISIKARA Street Mylapore Chennai 600004",
   phone: "+91 9841047064",
   email: "rmugunth@gmail.com",
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.087454201237!2d80.26809667454745!3d13.030102613593971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267d14e27e22b%3A0x49da092e1fdd697b!2sAkshara%20Play%20School!5e0!3m2!1sen!2sin!4v1776407312036!5m2!1sen!2sin",
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3887.088128152441!2d80.26779987507747!3d13.030059687290727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTPCsDAxJzQ4LjIiTiA4MMKwMTYnMTMuNCJF!5e0!3m2!1sen!2sin!4v1776417548980!5m2!1sen!2sin",
   workingHours: {
     weekdays: "Monday - Saturday: 10:00 AM - 6:00 PM",
     

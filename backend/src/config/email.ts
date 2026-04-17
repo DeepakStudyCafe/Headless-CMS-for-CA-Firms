@@ -28,6 +28,7 @@ const WEBSITE_EMAILS = {
   'vineet-taral-and-associates': process.env.VINEET_EMAIL || 'vineettaral@gmail.com',
   'isk-and-co': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
   'firm1-isk': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
+  'r-mugunthan': 'rmugunth@gmail.com',
 };
 
 // Website names mapping
@@ -140,7 +141,16 @@ const generateBaseEmail = (title: string, emoji: string, formData: any) => {
 
 // Email templates with modern design and emoji icons
 export const createContactEmailTemplate = (formData: any): string => generateBaseEmail('Contact', '📧', formData);
-export const createQueryEmailTemplate = (formData: any): string => generateBaseEmail('Query', '❓', formData);
+export const createQueryEmailTemplate = (formData: any): string => {
+  // Normalize query payload: some frontends send both `query` and `message`.
+  // We want only a single `message` entry in the email (remove duplicate `Query` field).
+  const payload: any = { ...formData };
+  const msg = formData.message || formData.query || '';
+  // Remove the legacy `query` field so the email shows only `Message` (or `Message` key)
+  delete payload.query;
+  payload.message = msg;
+  return generateBaseEmail('Query', '❓', payload);
+};
 export const createCareerEmailTemplate = (formData: any): string => generateBaseEmail('Career', '💼', formData);
 
 export const createQueryEmailTemplateTemplate4 = (formData: any): string => {

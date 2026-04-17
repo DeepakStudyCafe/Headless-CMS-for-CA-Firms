@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
-import { getPageData, getWebsiteData, PageData } from "@/lib/api";
+import { getPageData, getWebsiteData, PageData, API_URL } from "@/lib/api";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -42,10 +42,22 @@ const Contact = () => {
     defaultValues: { name: "", email: "", phone: "", subject: "", message: "" },
   });
 
-  const onSubmit = (data: ContactFormValues) => {
-    console.log(data);
-    toast({ title: "Message Sent!", description: "Thank you for reaching out. We will get back to you within 24 business hours." });
-    form.reset();
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      const res = await fetch(`${API_URL}/forms/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, website: "r-mugunthan" }),
+      });
+      if (res.ok) {
+        toast({ title: "Message Sent!", description: "Thank you for reaching out. We will get back to you within 24 business hours." });
+        form.reset();
+      } else {
+        toast({ title: "Error", description: "Failed to send message. Please try again later.", variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Error", description: "Failed to send message. Please try again later.", variant: "destructive" });
+    }
   };
 
   const contactSection = pageData?.sections?.find(s => s.type === 'contact');

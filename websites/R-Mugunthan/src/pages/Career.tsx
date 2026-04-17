@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect, useRef } from "react";
-import { getPageData, getWebsiteData, PageData } from "@/lib/api";
+import { getPageData, getWebsiteData, PageData, API_URL } from "@/lib/api";
 
 const iconMap: Record<string, React.ElementType> = { GraduationCap, Heart, TrendingUp, Clock, Users, Scale };
 
@@ -49,10 +49,22 @@ const Career = () => {
     defaultValues: { name: "", email: "", phone: "", position: "", coverLetter: "" },
   });
 
-  const onSubmit = (data: CareerFormValues) => {
-    console.log(data);
-    toast({ title: "Application Submitted!", description: "Thank you for your interest. Our HR team will review your application and get back to you soon." });
-    form.reset();
+  const onSubmit = async (data: CareerFormValues) => {
+    try {
+      const res = await fetch(`${API_URL}/forms/career`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, firstName: data.name, website: "r-mugunthan" }),
+      });
+      if (res.ok) {
+        toast({ title: "Application Submitted!", description: "Thank you for your interest. Our HR team will review your application and get back to you soon." });
+        form.reset();
+      } else {
+        toast({ title: "Error", description: "Failed to submit application. Please try again later.", variant: "destructive" });
+      }
+    } catch (err) {
+      toast({ title: "Error", description: "Failed to submit application. Please try again later.", variant: "destructive" });
+    }
   };
 
   const scrollToForm = () => {

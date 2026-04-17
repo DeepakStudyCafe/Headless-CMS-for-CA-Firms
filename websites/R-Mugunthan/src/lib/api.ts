@@ -1,4 +1,6 @@
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// `VITE_API_URL` must be provided via environment (.env) and not fallback to localhost.
+// This enforces using env config in production and prevents accidental local API literals.
+export const API_URL = import.meta.env.VITE_API_URL as string;
 export const WEBSITE_SLUG = 'r-mugunthan';
 
 export function getImageUrl(path?: string) {
@@ -39,7 +41,8 @@ export interface PageData {
 
 export async function getWebsiteData() {
   try {
-    const res = await fetch(`${API_URL}/public/website/${WEBSITE_SLUG}`);
+    const url = `${API_URL}/public/website/${WEBSITE_SLUG}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) return null;
     const data = await res.json();
     return data?.data?.website || null;
@@ -57,7 +60,8 @@ export async function getPageData(slug: string): Promise<PageData | null> {
     // Remove leading slash if any
     fetchSlug = fetchSlug.replace(/^\//, '');
 
-    const res = await fetch(`${API_URL}/public/pages/${WEBSITE_SLUG}/${fetchSlug}`);
+    const url = `${API_URL}/public/pages/${WEBSITE_SLUG}/${fetchSlug}?t=${Date.now()}`;
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) return null;
     const data = await res.json();
     return data?.data?.page || null;
