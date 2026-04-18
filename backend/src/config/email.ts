@@ -38,6 +38,7 @@ const WEBSITE_EMAILS = {
   'isk-and-co': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
   'firm1-isk': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
   'r-mugunthan': 'rmugunth@gmail.com',
+  'a-arun-ganjewar-and-co': process.env.ARUN_EMAIL || 'a.arun.contact@gmail.com',
 };
 
 // Website names mapping
@@ -58,6 +59,7 @@ const WEBSITE_NAMES = {
   'vineet-taral': process.env.VINEET_NAME || 'Vineet Taral & Associates',
   'isk-and-co': process.env.ISK_AND_CO_NAME || 'ISK & Co',
   'firm1-isk': process.env.ISK_AND_CO_NAME || 'ISK & Co',
+  'a-arun-ganjewar-and-co': process.env.ARUN_NAME || 'A. Arun Ganjewar and Co.',
 };
 
 // Email sender function

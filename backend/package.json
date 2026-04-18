@@ -22,6 +22,7 @@
     "seed:template10": "ts-node src/utils/template-10-seed.ts",
     "seed:template7": "ts-node src/utils/template-7-seed.ts",
     "seed:template8": "ts-node src/utils/template-8-seed.ts",
+    "seed:arun": "ts-node src/utils/a-arun-ganjewar-seed.ts",
     "seed:isk-and-co": "ts-node src/utils/isk-and-co-seed.ts",
     "setup:admins": "ts-node src/utils/setup-admins.ts",
     "seed:camohanc": "ts-node src/utils/camohan-seed.ts",

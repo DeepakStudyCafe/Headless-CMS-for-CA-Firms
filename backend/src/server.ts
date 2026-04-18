@@ -69,7 +69,8 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:3011/',
   'http://localhost:8093',
   'http://localhost:8094',
-  'http://localhost:8095'
+  'http://localhost:8095',
+  'http://localhost:3012'
 ];
 
 

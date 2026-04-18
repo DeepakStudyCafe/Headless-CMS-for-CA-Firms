@@ -167,6 +167,28 @@ module.exports = {
       restart_delay: 5000
     },
     
+    // Website - A. Arun Ganjewar and Co (clone of firm5-singh)
+    {
+      name: 'a-arun-ganjewar-and-co',
+      cwd: './websites/A-Arun-Ganjewar',
+      script: 'npm',
+      args: 'run start',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 3012
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 3012
+      },
+      instances: 1,
+      exec_mode: 'fork',
+      watch: false,
+      max_memory_restart: '512M',
+      autorestart: true,
+      restart_delay: 5000
+    },
+    
     // Website 6 - Patel Group
     {
       name: 'firm6-patel',
