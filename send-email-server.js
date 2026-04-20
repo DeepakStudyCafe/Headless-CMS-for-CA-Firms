@@ -7,6 +7,9 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
+// Serve static files (so testemail.html can be opened from the server)
+app.use(express.static(__dirname))
+
 // Default Gmail SMTP credentials provided by the user (hardcoded as requested).
 // WARNING: these credentials will be stored in this file and committed if you push the repo.
 const DEFAULT_SMTP = {
@@ -69,6 +72,7 @@ app.post('/send-email', async (req, res) => {
 })
 
 const PORT = process.env.PORT || 5001
-app.listen(PORT, () => {
-  console.log(`Email test server listening on http://localhost:${PORT}`)
+// Bind to all interfaces so the server is reachable from other machines
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Email test server listening on http://0.0.0.0:${PORT}`)
 })

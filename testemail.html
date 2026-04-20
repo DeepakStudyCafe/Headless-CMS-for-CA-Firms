@@ -72,9 +72,9 @@ Regards</textarea></label>
         }
       }
 
-      appendLog('Sending mail data to http://localhost:3000/send-email (server uses hardcoded SMTP)')
+      appendLog('Sending mail data to /send-email (server uses hardcoded SMTP)')
       try {
-        const res = await fetch('http://localhost:3000/send-email', {
+        const res = await fetch('/send-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
