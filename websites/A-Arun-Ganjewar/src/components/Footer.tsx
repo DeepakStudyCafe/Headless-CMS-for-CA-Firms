@@ -60,8 +60,8 @@ export function Footer() {
               {fc.description || 'Professional Chartered Accountants providing expert financial, taxation, audit, compliance, advisory, and strategic business consulting services with integrity and excellence.'}
             </p>
           </div>
-          <div className="flex flex-1 flex-col md:flex-row md:justify-between gap-8">
-            <div>
+          <div className="flex flex-1 flex-col md:flex-row md:justify-between gap-8 min-w-0">
+            <div className="min-w-0">
               <h4 className="font-semibold mb-4">Quick Links</h4>
               <div className="space-y-2">
                 <Link href="/about" className="block text-gray-400 hover:text-white">
@@ -98,7 +98,11 @@ export function Footer() {
               <h4 className="font-semibold mb-4">Contact</h4>
               {websiteData?.email && <p className="text-gray-400 mb-2">Email: {websiteData.email}</p>}
               {websiteData?.phone && <p className="text-gray-400 mb-2">Phone: {websiteData.phone}</p>}
-              {websiteData?.address && <p className="text-gray-400 mb-2">{websiteData.address}</p>}
+              {websiteData?.address && (
+                <p className="text-gray-400 mb-2 break-words max-w-xs md:max-w-sm lg:max-w-md">
+                  {websiteData.address}
+                </p>
+              )}
               <div className="flex gap-4 mt-4">
                 <a href={fc.facebook || 'https://facebook.com'} target="_blank" rel="noopener" aria-label="Facebook" className="rounded-full bg-white/10 hover:bg-blue-600 transition-colors w-10 h-10 flex items-center justify-center">
                   <Facebook className="text-white w-5 h-5" />

@@ -1,0 +1,130 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
+
+  --font-display: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px oklch(0.2 0.04 260 / 0.04), 0 8px 24px oklch(0.2 0.04 260 / 0.06);
+  --shadow-card-hover: 0 2px 4px oklch(0.2 0.04 260 / 0.06), 0 16px 40px oklch(0.2 0.04 260 / 0.10);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Brand palette mapped to oklch */
+  --background: oklch(0.972 0.005 247);          /* #F1F5F9 */
+  --surface: oklch(1 0 0);                        /* #FFFFFF */
+  --foreground: oklch(0.18 0.04 260);             /* #0F172A */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.04 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.04 260);
+
+  --navy: oklch(0.22 0.06 260);                   /* #0B1F3A */
+  --navy-2: oklch(0.32 0.13 264);                 /* #1E3A8A */
+
+  --primary: oklch(0.22 0.06 260);                /* navy primary for headings/footer */
+  --primary-foreground: oklch(0.98 0.005 247);
+
+  --secondary: oklch(0.96 0.008 247);
+  --secondary-foreground: oklch(0.22 0.06 260);
+
+  --accent: oklch(0.55 0.22 264);                 /* #2563EB accent blue */
+  --accent-foreground: oklch(1 0 0);
+
+  --muted: oklch(0.96 0.008 247);
+  --muted-foreground: oklch(0.5 0.03 257);        /* #475569 */
+
+  --destructive: oklch(0.58 0.24 27);
+  --destructive-foreground: oklch(0.98 0.005 247);
+
+  --border: oklch(0.91 0.012 250);                /* #E2E8F0 */
+  --input: oklch(0.91 0.012 250);
+  --ring: oklch(0.55 0.22 264);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+}
+
+@layer utilities {
+  .container-tight {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  .nav-underline {
+    position: relative;
+  }
+  .nav-underline::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  .nav-underline:hover::after,
+  .nav-underline[data-active="true"]::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, oklch(0.22 0.06 260 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.22 0.06 260 / 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+  }
+}

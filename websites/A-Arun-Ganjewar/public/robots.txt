@@ -4,6 +4,8 @@ Disallow: /_next/
 Disallow: /dashboard/
 Disallow: /login/
 Disallow: /admin/
+Disallow: /post/
+Disallow: /https://aaganjewarandco.in/post/
 Allow: /
 
-Sitemap: https://digitechai.in/sitemap.xml
+Sitemap: https://aaganjewarandco.in/sitemap.xml

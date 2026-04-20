@@ -1,13 +1,26 @@
 /** @type {import('next').NextConfig} */
-const sitemapDomain = 'https://digitechai.in/';
+const sitemapDomain = 'https://aaganjewarandco.in/';
+
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
-  experimental: {
-    outputFileTracingRoot: undefined,
-  },
+
+  // 🔥 IMPORTANT (standalone hatao, export lagao)
+  output: 'export',
+
   images: {
-    domains: ['localhost', 'images.unsplash.com', '72.62.243.99', 'api.digitechai.in', 'studycafe.in', 'www.studycafe.in', 'i0.wp.com', 'i1.wp.com', 'i2.wp.com'],
+    unoptimized: true, // 🔥 required for static export
+    domains: [
+      'localhost',
+      'images.unsplash.com',
+      '159.65.154.5',
+      'api.digitechai.in',
+      'studycafe.in',
+      'www.studycafe.in',
+      'www.aaganjewarandco.in',
+      'i0.wp.com',
+      'i1.wp.com',
+      'i2.wp.com'
+    ],
     remotePatterns: [
       {
         protocol: 'http',
@@ -47,7 +60,6 @@ const nextConfig = {
       },
     ]
   },
-  // rewrites removed for sitemap.xml, static file will be served from public/
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
