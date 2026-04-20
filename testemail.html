@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Test Email Sender</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 20px; max-width: 900px; margin: auto }
+    label { display:block; margin-top:8px }
+    input, textarea, select { width:100%; padding:8px; margin-top:4px }
+    .row { display:flex; gap:12px }
+    .col { flex:1 }
+    pre { background:#111; color:#dfe; padding:12px; height:260px; overflow:auto }
+    .small { font-size:0.9rem; color:#666 }
+  </style>
+</head>
+<body>
+  <h1>Test Email Sender</h1>
+  <p class="small">This page sends the provided SMTP credentials and mail data to a local Node server (see send-email-server.js) which uses <code>nodemailer</code>. Run the server and open this page, then press "Send".</p>
+
+  <h2>SMTP Settings</h2>
+  <div id="smtp-section" style="display:none">
+    <label>Host<input id="smtp-host" value="smtp.gmail.com" /></label>
+    <div class="row">
+      <div class="col">
+        <label>Port<input id="smtp-port" value="587" /></label>
+      </div>
+      <div class="col">
+        <label>Secure <select id="smtp-secure"><option value="false">false (STARTTLS)</option><option value="true">true (TLS)</option></select></label>
+      </div>
+    </div>
+    <label>Username<input id="smtp-user" value="web@studycafe.in" /></label>
+    <label>Password<input id="smtp-pass" type="password" value="" /></label>
+  </div>
+  <p class="small">SMTP is handled server-side (hardcoded). The client will only send mail data for testing.</p>
+
+  <h2>Mail</h2>
+  <p class="small">Sender is fixed on the server (web@studycafe.in).</p>
+  <label>To<input id="mail-to" value="recipient@example.com" /></label>
+  <label>Subject<input id="mail-subject" value="Test email from testemail.html" /></label>
+  <label>Text<textarea id="mail-text">Hello,
+
+This is a test email sent from testemail.html via the local send-email-server.js.
+
+Regards</textarea></label>
+
+  <div style="margin-top:12px">
+    <button id="send-btn">Send</button>
+    <button id="clear-log">Clear Log</button>
+  </div>
+
+  <h2>Log</h2>
+  <pre id="log">Logs will appear here...</pre>
+
+  <script>
+    const logEl = document.getElementById('log')
+    function appendLog(msg) {
+      logEl.textContent += '\n' + new Date().toISOString() + '  ' + msg
+      logEl.scrollTop = logEl.scrollHeight
+    }
+
+    document.getElementById('clear-log').addEventListener('click', () => { logEl.textContent = '' })
+
+    document.getElementById('send-btn').addEventListener('click', async () => {
+      appendLog('Preparing payload...')
+      const payload = {
+        mail: {
+          to: document.getElementById('mail-to').value,
+          subject: document.getElementById('mail-subject').value,
+          text: document.getElementById('mail-text').value,
+          html: undefined,
+        }
+      }
+
+      appendLog('Sending mail data to http://localhost:3000/send-email (server uses hardcoded SMTP)')
+      try {
+        const res = await fetch('http://localhost:3000/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+
+        appendLog('Received HTTP ' + res.status)
+        const data = await res.json()
+        appendLog('Response JSON: ' + JSON.stringify(data, null, 2))
+      } catch (err) {
+        appendLog('Fetch error: ' + (err && err.message ? err.message : String(err)))
+      }
+    })
+  </script>
+</body>
+</html>

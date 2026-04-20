@@ -27,12 +27,12 @@ export default function AboutContent() {
     { name: 'Deepak Gupta', role: 'Founder & CEO', image: '/Deepak-gupta.jpeg', linkedin: 'https://www.linkedin.com/in/ca-deepak-gupta-/' },
     { name: 'Raja Mehta', role: 'Manager', image: '/Raja.jpeg', linkedin: '' },
     { name: 'Deepak Sharma', role: 'Software Developer', image: '/Deepak.webp', linkedin: 'https://www.linkedin.com/in/deepak-sharma-588b33231?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
-    { name: 'Sagar Gupta', role: 'Software Developer', image: '/sagar.jpeg', linkedin: '' },
+    // { name: 'Sagar Gupta', role: 'Software Developer', image: '/sagar.jpeg', linkedin: '' },
     { name: 'Mahima Gupta', role: 'Sales operations manager', image: '/Mahima.png', linkedin: 'https://www.linkedin.com/in/mahima-gupta-39562b244?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
     { name: 'Deepanshi Rohilla', role: 'Digital Marketing Executive', image: '/dipancy.jpeg', linkedin: 'https://www.linkedin.com/in/deepanshi-rohilla-206657290?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
     { name: 'Kirtika', role: 'Digital Marketing Executive', image: '/Kirtika.jpeg', linkedin: 'https://www.linkedin.com/in/kirtika-prajapati-61087537b?utm_source=share_via&utm_content=profile&utm_medium=member_ios' },
     
-    { name: 'Chanchal', role: 'Client Relations Specialist', image: '/chanchal.jpeg', linkedin: 'https://www.linkedin.com/in/chanchal-sharma-668190396?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
+    { name: 'Chanchal', role: 'support', image: '/chanchal.jpeg', linkedin: 'https://www.linkedin.com/in/chanchal-sharma-668190396?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
   ]
 
   const stats = [

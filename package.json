@@ -54,8 +54,10 @@
     "concurrently": "^8.2.2"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "next": "^16.1.6",
+    "nodemailer": "^8.0.5",
     "rss-parser": "^3.13.0"
   }
 }
