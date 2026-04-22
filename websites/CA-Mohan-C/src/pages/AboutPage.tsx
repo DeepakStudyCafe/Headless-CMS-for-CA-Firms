@@ -16,6 +16,19 @@ const AboutPage = () => {
   }, []);
   if (!pageData) return <FullPageLoader />;
 
+  const aboutSection = pageData?.sections?.find((s: any) => s.type === 'about')
+  const statsSection = pageData?.sections?.find((s: any) => s.type === 'stats')
+  // stats may be stored in about section or in a separate stats section; backend may store JSON as string
+  let aboutStatsRaw = aboutSection?.textContent?.stats ?? statsSection?.textContent?.stats ?? []
+  let aboutStats: any[] = []
+  if (typeof aboutStatsRaw === 'string') {
+    try { aboutStats = JSON.parse(aboutStatsRaw) } catch { aboutStats = aboutStatsRaw.trim() ? [aboutStatsRaw] : [] }
+  } else if (Array.isArray(aboutStatsRaw)) {
+    aboutStats = aboutStatsRaw
+  } else {
+    aboutStats = []
+  }
+
   return (
     <div>
       <PageHero 
@@ -35,17 +48,32 @@ const AboutPage = () => {
               {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.heading || 'Who We Are'}
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.description1 || "Apex & Associates is a leading chartered accountancy firm with a legacy of excellence spanning nearly two decades. We combine traditional values with modern innovation to deliver world-class financial services."}
+              {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.description1 || "Mohan is a leading chartered accountancy firm with a legacy of excellence spanning nearly two decades. We combine traditional values with modern innovation to deliver world-class financial services."}
             </p>
             <p className="text-muted-foreground leading-relaxed">
               {pageData?.sections?.find((s: any) => s.type === 'about')?.textContent?.description2 || "Our team of certified chartered accountants, tax experts, and financial advisors work collaboratively to provide comprehensive solutions tailored to each client's unique needs."}
             </p>
           </div>
           <div className="grid grid-cols-2 gap-6">
-            <AnimatedCounter end={500} suffix="+" label="Clients Served" />
-            <AnimatedCounter end={18} suffix="+" label="Years Experience" />
-            <AnimatedCounter end={50} suffix="+" label="Team Members" />
-            <AnimatedCounter end={12} label="Industry Awards" />
+            {aboutStats.length > 0 ? (
+              <>
+                {aboutStats.map((stat: any, i: number) => {
+                  const raw = stat.end ?? stat.value ?? ''
+                  const rawStr = String(raw || '')
+                  const numPart = rawStr.replace(/[^0-9.-]/g, '')
+                  const end = numPart ? Number(numPart) : 0
+                  const suffix = stat.suffix || (rawStr.match(/[^0-9.-]+$/)?.[0] || '')
+                  return <AnimatedCounter key={i} end={end} suffix={suffix} label={stat.label || ''} />
+                })}
+              </>
+            ) : (
+              <>
+                <AnimatedCounter end={500} suffix="+" label="Clients Served" />     
+                <AnimatedCounter end={18} suffix="+" label="Years Experience" />    
+                <AnimatedCounter end={50} suffix="+" label="Team Members" />        
+                <AnimatedCounter end={12} label="Industry Awards" />
+              </>
+            )}
           </div>
         </div>
       </SectionWrapper>

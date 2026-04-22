@@ -102,7 +102,7 @@ const TeamPage = () => {
           {((pageData?.sections?.find((s: any) => s.type === 'team-certs-header')?.textContent?.items || [
             {title: 'ICAI Certified'}, {title:'ISO 27001'}, {title:'DISA Qualified'}, {title:'GST Practitioner'}, {title:'IFRS Expert'}, {title:'Forensic Accounting'}
           ]) as any[]).map((cert, i) => (
-            <div key={i} className="card-premium px-5 py-3 text-sm font-medium text-foreground">{cert.title || cert}</div>
+            <div key={i} className="card-premium px-5 py-3 text-sm font-medium text-foreground">{typeof cert === 'string' ? cert : cert.title || ''}</div>
           ))}
 
         </div>

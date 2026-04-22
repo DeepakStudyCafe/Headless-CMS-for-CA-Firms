@@ -11,9 +11,9 @@ export default function TemplatesPageContent() {
     const templatesPerPage = 6
 
     const templates = [
-       
 
-{
+
+        {
             id: 1,
             name: 'Template-1',
             slug: 'template-1',
@@ -80,7 +80,7 @@ export default function TemplatesPageContent() {
             image: '/Template-8.png',
             pages: 12,
         },
-         {
+        {
             id: 6,
             name: 'Template-6',
             slug: 'sharma-associates',
@@ -134,8 +134,8 @@ export default function TemplatesPageContent() {
             image: '/Template-4.png',
             pages: 14,
         },
-        
-{
+
+        {
             id: 10,
             name: 'Template-10',
             slug: 'template-10',
@@ -162,8 +162,8 @@ export default function TemplatesPageContent() {
             pages: 10,
         },
 
-        
-        
+
+
         {
             id: 12,
             name: 'Template-12',
@@ -191,8 +191,8 @@ export default function TemplatesPageContent() {
             pages: 16,
         },
         // New templates (added per request) - do not modify the existing entries above
-        
-{
+
+        {
             id: 14,
             name: 'Template-14',
             slug: 'template-14',
@@ -205,7 +205,7 @@ export default function TemplatesPageContent() {
             image: '/digitechai.png',
             pages: 11,
         },
-        
+
 
         {
             id: 15,
@@ -220,9 +220,61 @@ export default function TemplatesPageContent() {
             image: '/Template-1.png',
             pages: 14,
         },
-        
+        {
+            id: 16,
+            name: 'Template-16',
+            slug: 'template-16',
+            theme: 'Creative Purple',
+            category: 'Creative',
+            color: '#8b5cf6',
+            bgGradient: 'from-purple-900 to-purple-700',
+            description: 'Template-3 preview',
+            url: 'https://temp16.webcafe.co.in/',
+            image: '/temp16.png',
+            pages: 14,
+        },
+        {
+            id: 17,
+            name: 'Template-17',
+            slug: 'template-17',
+            theme: 'Creative Purple',
+            category: 'Creative',
+            color: '#8b5cf6',
+            bgGradient: 'from-purple-900 to-purple-700',
+            description: 'Template-3 preview',
+            url: 'https://temp17.webcafe.co.in/',
+            image: '/temp17.png',
+            pages: 14,
+        },
+        {
+            id: 18,
+            name: 'Template-18',
+            slug: 'template-18',
+            theme: 'Creative Purple',
+            category: 'Creative',
+            color: '#8b5cf6',
+            bgGradient: 'from-purple-900 to-purple-700',
+            description: 'Template-3 preview',
+            url: 'https://temp18.webcafe.co.in/',
+            image: '/temp18.png',
+            pages: 14,
+        },
+        {
+            id: 15,
+            name: 'Template-19',
+            slug: 'template-19',
+            theme: 'Creative Purple',
+            category: 'Creative',
+            color: '#8b5cf6',
+            bgGradient: 'from-purple-900 to-purple-700',
+            description: 'Template-3 preview',
+            url: 'https://temp19.webcafe.co.in/',
+            image: '/temp19.png',
+            pages: 14,
+        },
 
-        
+
+
 
     ]
 

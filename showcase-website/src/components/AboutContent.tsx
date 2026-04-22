@@ -22,7 +22,7 @@ export default function AboutContent() {
     { name: "Mahima Gupta", role: "Sales operations manager", image: "/Mahima.png", linkedin: "" },
     { name: "Deepanshi Rohilla", role: "Digital Marketing Executive", image: "/dipancy.jpeg", linkedin: "" },
     { name: "Kirtika", role: "Digital Marketing Executive", image: "/Kirtika.jpeg", linkedin: "" },
-    { name: "Chanchal", role: "Support", image: "/chanchal.jpeg", linkedin: "" },
+    { name: "Chanchal", role: "Client Relations Specialist", image: "/chanchal.jpeg", linkedin: "" },
   ]
 
   const stats = [

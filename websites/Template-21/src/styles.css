@@ -1,0 +1,146 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-subtext: var(--subtext);
+  --color-surface: var(--surface);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Warm premium CA palette */
+  --background: oklch(0.984 0.004 85);          /* #FAFAF9 warm light */
+  --surface: oklch(0.965 0.008 80);             /* slightly darker warm */
+  --foreground: oklch(0.145 0.012 50);          /* #0C0A09 text dark */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.012 50);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.012 50);
+
+  --primary: oklch(0.205 0.012 55);             /* #1C1917 deep charcoal */
+  --primary-foreground: oklch(0.984 0.004 85);
+
+  --secondary: oklch(0.36 0.014 60);            /* #44403C muted brown-gray */
+  --secondary-foreground: oklch(0.984 0.004 85);
+
+  --muted: oklch(0.94 0.008 75);
+  --muted-foreground: oklch(0.52 0.014 60);     /* #78716C subtext */
+  --subtext: oklch(0.52 0.014 60);
+
+  --accent: oklch(0.55 0.18 42);                /* #C2410C burnt orange */
+  --accent-foreground: oklch(0.984 0.004 85);
+  --accent-soft: oklch(0.88 0.07 65);           /* #FED7AA */
+
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.984 0.004 85);
+
+  --border: oklch(0.9 0.008 70);                /* #E7E5E4 */
+  --input: oklch(0.9 0.008 70);
+  --ring: oklch(0.55 0.18 42);
+
+  --chart-1: oklch(0.55 0.18 42);
+  --chart-2: oklch(0.36 0.014 60);
+  --chart-3: oklch(0.88 0.07 65);
+  --chart-4: oklch(0.205 0.012 55);
+  --chart-5: oklch(0.52 0.014 60);
+
+  --sidebar: oklch(0.984 0.004 85);
+  --sidebar-foreground: oklch(0.145 0.012 50);
+  --sidebar-primary: oklch(0.205 0.012 55);
+  --sidebar-primary-foreground: oklch(0.984 0.004 85);
+  --sidebar-accent: oklch(0.94 0.008 75);
+  --sidebar-accent-foreground: oklch(0.205 0.012 55);
+  --sidebar-border: oklch(0.9 0.008 70);
+  --sidebar-ring: oklch(0.55 0.18 42);
+}
+
+.dark {
+  --background: oklch(0.145 0.012 50);
+  --foreground: oklch(0.984 0.004 85);
+  --card: oklch(0.205 0.012 55);
+  --card-foreground: oklch(0.984 0.004 85);
+  --primary: oklch(0.984 0.004 85);
+  --primary-foreground: oklch(0.205 0.012 55);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+}
+
+@layer base {
+  @font-face {
+    font-family: "Fraunces";
+    font-style: normal;
+    font-display: swap;
+    src: url("https://fonts.gstatic.com/s/fraunces/v32/6NUh8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk.woff2") format("woff2");
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .text-balance { text-wrap: balance; }
+
+  .underline-grow {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.4s ease;
+  }
+  .underline-grow:hover { background-size: 100% 1px; }
+
+  .scroll-hide::-webkit-scrollbar { display: none; }
+  .scroll-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}

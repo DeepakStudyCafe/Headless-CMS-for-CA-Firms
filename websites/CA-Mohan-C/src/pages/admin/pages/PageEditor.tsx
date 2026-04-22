@@ -672,6 +672,12 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
                     <input type="text" autoComplete="off" value={item.icon || ''} onChange={(e) => onSetItemField('items', ii, 'icon', e.target.value)} className={inp} placeholder="e.g. calculator" />
                   </div>
                 )}
+                {(item.year !== undefined || section.type === 'timeline') && (
+                  <div>
+                    <span className="block text-[11px] text-gray-400 mb-1">Year</span>
+                    <input type="text" autoComplete="off" value={item.year || ''} onChange={(e) => onSetItemField('items', ii, 'year', e.target.value)} className={inp} placeholder="e.g. 2023" />
+                  </div>
+                )}
                 {item.title !== undefined && (
                   <div>
                     <span className="block text-[11px] text-gray-400 mb-1">Title</span>
