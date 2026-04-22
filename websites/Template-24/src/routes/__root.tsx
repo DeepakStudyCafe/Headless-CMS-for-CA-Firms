@@ -1,4 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute} from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 
@@ -33,14 +33,12 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "ABC & Associates is a chartered accountancy firm offering audit, taxation, advisory and compliance services with quiet precision and trusted counsel.",
-      },
+          "ABC & Associates is a chartered accountancy firm offering audit, taxation, advisory and compliance services with quiet precision and trusted counsel."},
       { name: "author", content: "ABC & Associates" },
       { property: "og:title", content: "ABC & Associates — Chartered Accountants" },
       {
         property: "og:description",
-        content: "Quiet precision in audit, tax and advisory.",
-      },
+        content: "Quiet precision in audit, tax and advisory."},
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -50,28 +48,13 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&display=swap",
-      },
-    ],
-  }),
-  shellComponent: RootShell,
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&display=swap"},
+    ]}),
+  
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
-});
+  notFoundComponent: NotFoundComponent});
 
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+
 
 function RootComponent() {
   return <Outlet />;

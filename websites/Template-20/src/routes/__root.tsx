@@ -1,4 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute} from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 
@@ -33,15 +33,13 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "ABC & Associates is a trusted firm of Chartered Accountants delivering audit, taxation, advisory and compliance services with precision and integrity.",
-      },
+          "ABC & Associates is a trusted firm of Chartered Accountants delivering audit, taxation, advisory and compliance services with precision and integrity."},
       { name: "author", content: "ABC & Associates" },
       { property: "og:title", content: "ABC & Associates — Chartered Accountants" },
       {
         property: "og:description",
         content:
-          "Trusted Chartered Accountancy firm delivering audit, taxation, and advisory services for businesses.",
-      },
+          "Trusted Chartered Accountancy firm delivering audit, taxation, and advisory services for businesses."},
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -51,28 +49,13 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap",
-      },
-    ],
-  }),
-  shellComponent: RootShell,
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"},
+    ]}),
+  
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
-});
+  notFoundComponent: NotFoundComponent});
 
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+
 
 function RootComponent() {
   return <Outlet />;

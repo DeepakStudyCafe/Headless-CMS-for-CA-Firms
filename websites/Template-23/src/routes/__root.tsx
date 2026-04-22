@@ -1,4 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute} from "@tanstack/react-router";
 import appCss from "../styles.css?url";
 import { SideRailNav } from "@/components/SideRailNav";
 import { TopBar } from "@/components/TopBar";
@@ -42,26 +42,12 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" },
-    ],
-  }),
-  shellComponent: RootShell,
+    ]}),
+  
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
-});
+  notFoundComponent: NotFoundComponent});
 
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" className="dark">
-      <head>
-        <HeadContent />
-      </head>
-      <body className="bg-background text-foreground antialiased">
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+
 
 function RootComponent() {
   return (

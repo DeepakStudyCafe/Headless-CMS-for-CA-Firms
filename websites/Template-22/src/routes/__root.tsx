@@ -1,4 +1,4 @@
-import { Outlet, createRootRoute, HeadContent, Scripts, Link } from "@tanstack/react-router";
+import { Outlet, createRootRoute,   Link } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 
@@ -33,13 +33,11 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "ABC & Associates — premium chartered accountancy services. Audit, tax, advisory and compliance with elegance and precision.",
-      },
+          "ABC & Associates — premium chartered accountancy services. Audit, tax, advisory and compliance with elegance and precision."},
       { property: "og:title", content: "ABC & Associates — Chartered Accountants" },
       {
         property: "og:description",
-        content: "Trusted chartered accountancy services for businesses and individuals.",
-      },
+        content: "Trusted chartered accountancy services for businesses and individuals."},
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -47,25 +45,10 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: appCss },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap",
-      },
-    ],
-  }),
-  shellComponent: RootShell,
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"},
+    ]}),
+  
   component: () => <Outlet />,
-  notFoundComponent: NotFoundComponent,
-});
+  notFoundComponent: NotFoundComponent});
 
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+
