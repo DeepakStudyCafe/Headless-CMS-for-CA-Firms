@@ -1,5 +1,4 @@
-// Replaced with a cleaned, syntactically-safe version preserving layout and styles.
-// Kept card classes and sizes intact; arranged team as requested.
+
 
 "use client"
 

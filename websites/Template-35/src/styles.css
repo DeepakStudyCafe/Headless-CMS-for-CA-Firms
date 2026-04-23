@@ -1,0 +1,196 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Brand palette */
+  --cream: oklch(0.975 0.008 85);          /* #F9F8F6 */
+  --gold: oklch(0.78 0.12 82);              /* #D4AF37 */
+  --gold-soft: oklch(0.84 0.09 85);         /* #C9A14A lighter */
+  --gold-deep: oklch(0.62 0.13 70);         /* deeper gold */
+  --ink: oklch(0.27 0.02 260);              /* #1F2937 */
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--gold-deep);
+  --primary-foreground: oklch(0.99 0.005 85);
+  --secondary: oklch(0.94 0.012 85);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.93 0.01 85);
+  --muted-foreground: oklch(0.45 0.02 260); /* #6B7280-ish */
+  --accent: var(--gold);
+  --accent-foreground: oklch(0.2 0.02 260);
+  --destructive: oklch(0.58 0.22 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.9 0.015 85);
+  --input: oklch(0.9 0.015 85);
+  --ring: var(--gold);
+
+  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  --gradient-gold: linear-gradient(135deg, oklch(0.84 0.09 85) 0%, oklch(0.62 0.13 70) 100%);
+  --gradient-cream: linear-gradient(180deg, oklch(0.98 0.006 85) 0%, oklch(0.95 0.012 85) 100%);
+  --gradient-hero: radial-gradient(ellipse at top right, oklch(0.84 0.09 85 / 0.25), transparent 60%),
+                   radial-gradient(ellipse at bottom left, oklch(0.78 0.12 82 / 0.15), transparent 55%);
+  --shadow-gold: 0 20px 60px -20px oklch(0.62 0.13 70 / 0.45);
+  --shadow-soft: 0 10px 40px -15px oklch(0.27 0.02 260 / 0.18);
+  --shadow-card: 0 4px 24px -8px oklch(0.27 0.02 260 / 0.12);
+}
+
+.dark {
+  --background: oklch(0.18 0.015 260);
+  --foreground: oklch(0.97 0.005 85);
+  --card: oklch(0.22 0.018 260);
+  --card-foreground: oklch(0.97 0.005 85);
+  --popover: oklch(0.22 0.018 260);
+  --popover-foreground: oklch(0.97 0.005 85);
+  --primary: var(--gold);
+  --primary-foreground: oklch(0.18 0.015 260);
+  --secondary: oklch(0.27 0.02 260);
+  --secondary-foreground: oklch(0.97 0.005 85);
+  --muted: oklch(0.27 0.02 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --accent: var(--gold);
+  --accent-foreground: oklch(0.18 0.015 260);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--gold);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+}
+
+@layer utilities {
+  .text-gold { color: var(--gold-deep); }
+  .bg-gold { background-color: var(--gold); }
+  .bg-gold-deep { background-color: var(--gold-deep); }
+  .bg-cream { background-color: var(--cream); }
+  .border-gold { border-color: var(--gold); }
+  .gradient-gold { background-image: var(--gradient-gold); }
+  .gradient-hero { background-image: var(--gradient-hero); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+
+  .glass {
+    background: oklch(1 0 0 / 0.6);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid oklch(1 0 0 / 0.5);
+  }
+  .glass-dark {
+    background: oklch(0.27 0.02 260 / 0.7);
+    backdrop-filter: blur(14px);
+    border: 1px solid oklch(1 0 0 / 0.08);
+  }
+
+  .nav-link {
+    position: relative;
+    transition: color 0.25s ease;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 2px;
+    background: var(--gradient-gold);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s ease;
+  }
+  .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+  .nav-link:hover { color: var(--gold-deep); }
+
+  .btn-gold {
+    background: var(--gradient-gold);
+    color: white;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 20px -8px oklch(0.62 0.13 70 / 0.5);
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -8px oklch(0.62 0.13 70 / 0.65);
+  }
+
+  .btn-outline-gold {
+    border: 1.5px solid var(--gold-deep);
+    color: var(--gold-deep);
+    transition: all 0.3s ease;
+  }
+  .btn-outline-gold:hover {
+    background: var(--gold-deep);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .card-lift {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-gold);
+  }
+
+  .reveal { opacity: 0; transform: translateY(40px); }
+
+  .fancy-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-gold);
+    border-radius: 2px;
+  }
+}

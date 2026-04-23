@@ -1,0 +1,46 @@
+import { Outlet, createRootRoute,   Link } from "@tanstack/react-router";
+import appCss from "../styles.css?url";
+
+function NotFoundComponent() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-7xl font-bold text-primary">404</h1>
+        <h2 className="mt-4 text-2xl font-semibold text-foreground">Page not found</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          The page you're looking for doesn't exist.
+        </p>
+        <div className="mt-6">
+          <Link to="/" className="inline-flex items-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition">
+            Go home
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "Sterling & Co. — Premium Chartered Accountants" },
+      { name: "description", content: "Premier Chartered Accountancy firm offering tax planning, GST, audit, advisory and compliance services with elegance and precision." },
+      { name: "author", content: "Sterling & Co." },
+      { property: "og:title", content: "Sterling & Co. — Premium Chartered Accountants" },
+      { property: "og:description", content: "Tax, GST, audit, advisory & compliance — crafted with precision." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" },
+    ]}),
+  
+  component: () => <Outlet />,
+  notFoundComponent: NotFoundComponent});
+
+
