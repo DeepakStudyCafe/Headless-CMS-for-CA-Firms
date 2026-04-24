@@ -46,15 +46,14 @@ export default function PricingContent() {
     false,
     true,
     true,
-    true,
-    true,
+      
   ]
 
   const premiumCells: (boolean | string)[] = [
     true,
     
     '2GB',
-    ...new Array(features.length - 3).fill(true),
+    ...new Array(features.length - 2).fill(true),
   ]
 
   return (
