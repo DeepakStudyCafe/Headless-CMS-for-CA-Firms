@@ -1,0 +1,130 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-sand: var(--sand);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --shadow-soft: 0 20px 60px -30px color-mix(in oklab, var(--ink) 25%, transparent);
+  --shadow-card: 0 30px 80px -40px color-mix(in oklab, var(--sage) 50%, transparent);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Brand palette */
+  --sage: oklch(0.45 0.05 130);            /* #546B41 */
+  --sage-light: oklch(0.71 0.06 120);      /* #99AD7A */
+  --sand: oklch(0.85 0.04 80);             /* #DCCCAC */
+  --cream: oklch(0.975 0.018 90);          /* #FFF8EC */
+  --ink: oklch(0.27 0.02 90);              /* dark warm neutral */
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--sage);
+  --primary-foreground: var(--cream);
+  --secondary: var(--sand);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.94 0.015 85);
+  --muted-foreground: oklch(0.45 0.015 85);
+  --accent: var(--sage-light);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.55 0.18 27);
+  --destructive-foreground: var(--cream);
+  --border: oklch(0.88 0.02 85);
+  --input: oklch(0.9 0.02 85);
+  --ring: var(--sage);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .text-balance { text-wrap: balance; }
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(84,107,65,0.06) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+  }
+  .editorial-rule {
+    background: linear-gradient(90deg, transparent, var(--sage) 20%, var(--sage) 80%, transparent);
+    height: 1px;
+  }
+  .glass {
+    background: color-mix(in oklab, var(--cream) 70%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid color-mix(in oklab, var(--cream) 60%, transparent);
+  }
+  .hero-overlay {
+    background:
+      radial-gradient(80% 60% at 30% 40%, color-mix(in oklab, var(--sage) 55%, transparent), transparent 70%),
+      linear-gradient(180deg, color-mix(in oklab, var(--ink) 35%, transparent) 0%, color-mix(in oklab, var(--sage) 55%, transparent) 100%);
+  }
+  .reveal { opacity: 0; transform: translateY(24px); }
+}

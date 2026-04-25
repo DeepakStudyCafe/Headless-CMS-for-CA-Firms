@@ -1,0 +1,137 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap');
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-cream: var(--cream);
+  --color-ocean: var(--ocean);
+  --color-brass: var(--brass);
+  --color-mist: var(--mist);
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Brand palette — strict */
+  --ink: oklch(0.31 0.02 240);          /* #2C3947 primary blue */
+  --mist: oklch(0.94 0.008 240);        /* #E8EDF2 light blue */
+  --ocean: oklch(0.55 0.04 235);        /* #547A95 warm blue */
+  --brass: oklch(0.72 0.07 80);         /* #C2A56D muted beige/gold */
+  --cream: oklch(0.97 0.01 85);         /* warm paper */
+
+  --background: oklch(0.98 0.005 85);
+  --foreground: oklch(0.24 0.015 240);
+
+  --card: oklch(1 0 0);
+  --card-foreground: var(--foreground);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--foreground);
+
+  --primary: var(--ink);
+  --primary-foreground: var(--cream);
+  --secondary: var(--mist);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.95 0.005 85);
+  --muted-foreground: oklch(0.45 0.02 240);
+  --accent: var(--brass);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.88 0.01 240);
+  --input: oklch(0.92 0.01 240);
+  --ring: var(--ocean);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-sans { font-family: var(--font-sans); }
+
+  .text-balance { text-wrap: balance; }
+
+  .reveal { opacity: 0; transform: translateY(28px); }
+
+  .grain {
+    background-image:
+      radial-gradient(oklch(0.31 0.02 240 / 0.04) 1px, transparent 1px);
+    background-size: 4px 4px;
+  }
+
+  .hairline {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--color-border), transparent);
+  }
+
+  .glass {
+    background: oklch(1 0 0 / 0.08);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid oklch(1 0 0 / 0.12);
+  }
+
+  .label-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--color-brass);
+  }
+
+  .vrule {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--color-border), transparent);
+  }
+}

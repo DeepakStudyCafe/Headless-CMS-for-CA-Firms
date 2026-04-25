@@ -1,0 +1,138 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-wine: var(--wine);
+  --color-plum: var(--plum);
+  --color-bone: var(--bone);
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Brand palette */
+  --bone: oklch(0.962 0.002 60);          /* #F3F4F4 background */
+  --ink: oklch(0.27 0 0);                 /* #2C2C2C text */
+  --wine: oklch(0.42 0.11 358);           /* #853953 deep wine */
+  --plum: oklch(0.34 0.10 340);           /* #612D53 rich purple */
+
+  --background: var(--bone);
+  --foreground: var(--ink);
+
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+
+  --primary: var(--wine);
+  --primary-foreground: oklch(0.98 0.005 60);
+  --secondary: var(--plum);
+  --secondary-foreground: oklch(0.98 0.005 60);
+
+  --muted: oklch(0.92 0.003 60);
+  --muted-foreground: oklch(0.45 0.01 60);
+  --accent: var(--wine);
+  --accent-foreground: oklch(0.98 0.005 60);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.88 0.005 60);
+  --input: oklch(0.88 0.005 60);
+  --ring: var(--wine);
+
+  --gradient-wine: linear-gradient(135deg, #853953 0%, #612D53 100%);
+  --gradient-wine-soft: linear-gradient(135deg, rgba(133,57,83,0.92) 0%, rgba(97,45,83,0.92) 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(44,44,44,0.35) 0%, rgba(44,44,44,0.85) 100%);
+  --shadow-luxe: 0 30px 80px -20px rgba(133,57,83,0.35);
+  --shadow-soft: 0 20px 50px -20px rgba(44,44,44,0.25);
+}
+
+.dark {
+  --background: oklch(0.18 0.01 340);
+  --foreground: oklch(0.96 0.005 60);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .text-wine { color: #853953; }
+  .text-plum { color: #612D53; }
+  .text-ink { color: #2C2C2C; }
+  .bg-wine { background-color: #853953; }
+  .bg-plum { background-color: #612D53; }
+  .bg-ink { background-color: #2C2C2C; }
+  .bg-bone { background-color: #F3F4F4; }
+  .bg-gradient-wine { background-image: var(--gradient-wine); }
+  .bg-gradient-wine-soft { background-image: var(--gradient-wine-soft); }
+  .bg-gradient-overlay { background-image: var(--gradient-overlay); }
+  .shadow-luxe { box-shadow: var(--shadow-luxe); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .border-wine { border-color: #853953; }
+
+  .clip-diagonal { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
+  .clip-diagonal-r { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%); }
+
+  .text-stroke {
+    -webkit-text-stroke: 1px #853953;
+    color: transparent;
+  }
+
+  .marquee {
+    animation: marquee 35s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}

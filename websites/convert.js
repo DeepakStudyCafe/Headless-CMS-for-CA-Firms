@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const templates = ['Template-26', 'Template-27', 'Template-28', 'Template-29', 'Template-30', 'Template-31', 'Template-32', 'Template-33', 'Template-34', 'Template-35', 'Template-36', 'Template-37', 'Template-38', 'Template-39', 'Template-40'];
+const templates = ['Template-41', 'Template-42', 'Template-43', 'Template-44', 'Template-45', 'Template-46', 'Template-47', 'Template-48', 'Template-49', 'Template-50'];
 const baseDir = __dirname;
 
 for (const template of templates) {
