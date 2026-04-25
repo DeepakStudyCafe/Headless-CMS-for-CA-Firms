@@ -18,7 +18,7 @@ admin-dashboard/.DS_Store
 
 # Websites ignore rules (all firms)
 websites/*/node_modules/
-
+websites/*/.next
 
 websites/*/.env*
 websites/*/*.log
