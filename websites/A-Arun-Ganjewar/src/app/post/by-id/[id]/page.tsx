@@ -1,7 +1,14 @@
-﻿import { getPostById } from '@/lib/api'
+﻿import { getPostById, getPosts } from '@/lib/api'
 import { redirect, notFound } from 'next/navigation'
 
 export const revalidate = 300
+
+// For static export (output: 'export'), Next.js needs to know
+// which dynamic routes to pre-render. Return available post IDs.
+export async function generateStaticParams() {
+  const posts = await getPosts(100)
+  return posts.map((p) => ({ id: String(p.id) }))
+}
 
 interface Props {
   params: { id: string }

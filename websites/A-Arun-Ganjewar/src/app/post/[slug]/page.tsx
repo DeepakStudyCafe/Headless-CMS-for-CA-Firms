@@ -1,10 +1,17 @@
-﻿import { getPostBySlug } from '@/lib/api'
+﻿import { getPostBySlug, getPosts } from '@/lib/api'
 import { sanitizeContent } from '@/lib/sanitize'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
 export const revalidate = 300
+
+// For static export (output: 'export'), Next.js needs the list
+// of dynamic `slug` params to pre-render. Provide them here.
+export async function generateStaticParams() {
+  const posts = await getPosts(100)
+  return posts.map((p) => ({ slug: String(p.slug) }))
+}
 
 interface Props {
   params: { slug: string }

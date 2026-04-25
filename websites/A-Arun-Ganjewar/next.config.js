@@ -4,8 +4,7 @@ const sitemapDomain = 'https://aaganjewarandco.in/';
 const nextConfig = {
   reactStrictMode: true,
 
-  // 🔥 IMPORTANT (standalone hatao, export lagao)
-  output: 'export',
+  // Note: removed `output: 'export'` to allow server-side dynamic routes
 
   images: {
     unoptimized: true, // 🔥 required for static export
