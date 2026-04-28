@@ -36,6 +36,7 @@ const WEBSITE_EMAILS = {
   'vineet-taral': process.env.VINEET_EMAIL || 'vineettaral@gmail.com',
   'vineet-taral-and-associates': process.env.VINEET_EMAIL || 'vineettaral@gmail.com',
   'isk-and-co': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
+  'vb-agrawal-and-associates': process.env.VB_AGRAWAL_EMAIL || 'vbagrawal@gmail.com',
   'firm1-isk': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
   'r-mugunthan': 'rmugunth@gmail.com',
   'a-arun-ganjewar-and-co': process.env.ARUN_EMAIL || 'a.arun.contact@gmail.com',
@@ -58,6 +59,7 @@ const WEBSITE_NAMES = {
   'agarwal-financial-consultancy': process.env.AGARWAL_NAME || 'Agarwal Financial Consultancy',
   'vineet-taral': process.env.VINEET_NAME || 'Vineet Taral & Associates',
   'isk-and-co': process.env.ISK_AND_CO_NAME || 'ISK & Co',
+  'vb-agrawal-and-associates': process.env.VB_AGRAWAL_NAME || 'V.B. Agrawal & Associates',
   'firm1-isk': process.env.ISK_AND_CO_NAME || 'ISK & Co',
   'a-arun-ganjewar-and-co': process.env.ARUN_NAME || 'A. Arun Ganjewar and Co.',
 };

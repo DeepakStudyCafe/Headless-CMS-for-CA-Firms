@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const sitemapDomain = "https://sagartask.in";
+const sitemapDomain = "https://iskco.in/";
 const nextConfig = {
   reactStrictMode: true,
   output: "standalone",
