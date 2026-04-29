@@ -100,10 +100,10 @@ export default function Hero() {
                         className="relative z-30 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto bg-gray-100 rounded-xl p-4 sm:p-6 shadow-md"
                     >
                         {[
-                            { number: '10+', label: 'Premium Templates' },
+                            { number: '50+', label: 'Premium Templates' },
                             { number: 'Admin', label: 'Panel Included' },
                             { number: '24/7', label: 'Support Available' },
-                            { number: '500+', label: 'Happy Clients' },
+                            { number: '200+', label: 'Happy Clients' },
                         ].map((stat, index) => (
                             <div key={index} className="text-center">
                                 <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-600 mb-2">

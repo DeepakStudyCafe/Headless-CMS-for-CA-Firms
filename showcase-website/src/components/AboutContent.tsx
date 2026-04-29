@@ -25,8 +25,8 @@ export default function AboutContent() {
   ]
 
   const stats = [
-    { number: "10+", label: "Premium Templates" },
-    { number: "500+", label: "Happy Clients" },
+    { number: "50+", label: "Premium Templates" },
+    { number: "200+", label: "Happy Clients" },
     { number: "100+", label: "Websites Launched" },
     { number: "Admin", label: "Panel in Every Site" },
   ]

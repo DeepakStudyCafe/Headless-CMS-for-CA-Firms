@@ -11,7 +11,7 @@ export default function ServicesContent() {
       title: 'Website Templates',
       description: 'Professionally designed templates with admin panels for easy content management and site control.',
       features: [
-        'Choice of 10+ premium designs',
+        'Choice of 50+ premium designs',
         'Built-in admin dashboard',
         'Responsive across all devices',
         'SEO-optimized structure',

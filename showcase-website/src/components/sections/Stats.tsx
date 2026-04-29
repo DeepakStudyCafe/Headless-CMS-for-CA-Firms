@@ -7,21 +7,21 @@ export default function Stats() {
   const stats = [
     {
       icon: Users,
-      number: '500+',
+      number: '200+',
       label: 'Happy Clients',
       color: 'text-blue-600',
       bgColor: 'bg-blue-100',
     },
     {
       icon: Globe,
-      number: '100+',
+      number: '80+',
       label: 'Websites Deployed',
       color: 'text-green-600',
       bgColor: 'bg-green-100',
     },
     {
       icon: Award,
-      number: '10+',
+      number: '50+',
       label: 'Premium Templates',
       color: 'text-purple-600',
       bgColor: 'bg-purple-100',
