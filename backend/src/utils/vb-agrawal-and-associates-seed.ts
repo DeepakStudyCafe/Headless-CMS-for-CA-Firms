@@ -13,13 +13,13 @@ async function main() {
   await prisma.page.deleteMany({ where: { website: { slug: 'vb-agrawal-and-associates' } } });
 
   // Create admin user
-  const adminPassword = await bcrypt.hash('Admin@123', 10)
+  const adminPassword = await bcrypt.hash('vb1Admin@123', 10)
   const admin = await prisma.user.upsert({
     where: { email: 'admin@cafirm.com' },
     update: {},
     create: {
       name: 'Admin User',
-      email: 'admin@cafirm.com',
+      email: 'vbadmin@cafirm.com',
       passwordHash: adminPassword,
       role: 'SUPER_ADMIN',
     },
@@ -33,12 +33,12 @@ async function main() {
     where: { slug: 'vb-agrawal-and-associates' },
     update: {
       name: 'V.B. Agrawal & Associates',
-      domain: 'https://vbagrawalco.in',
+      domain: 'https://vbagrawal.in',
       logo: '/uploads/logo.svg',
-      phone: '9895092930',
-      email: 'sansheer@lgfinconsult.com',
-      address: '2 nd Floor, Aerosoft Plaza Building, English Church Cross Road, Nadakkavu, Kozhikode - 673011',
-      workingHours: 'Mon - Sat: 10:00 AM - 6:00 PM',
+      phone: '+91 9827198961, 9827102403',
+      email: 'vb99.associates@gmail.com',
+      address: 'Office No.204, 2nd Loor, National Corporate Park, G.e.road,raipur (C.G)-492001.  2)ramadhin Marg,rajnandgaon (C.G.)-491441.',
+      workingHours: 'Mon - Sat: 10:00 AM - 7:00 PM',
       themeConfig: {
         primaryColor: '#1e40af',
         secondaryColor: '#64748b',
@@ -49,12 +49,12 @@ async function main() {
     create: {
       name: 'V.B. Agrawal & Associates',
       slug: 'vb-agrawal-and-associates',
-      domain: 'https://vbagrawalco.in',
+      domain: 'https://vbagrawal.in',
       logo: '/uploads/logo.svg',
-      phone: '9895092930',
-      email: 'sansheer@lgfinconsult.com',
-      address: '2 nd Floor, Aerosoft Plaza Building, English Church Cross Road, Nadakkavu, Kozhikode - 673011',
-      workingHours: 'Mon - Sat: 10:00 AM - 6:00 PM',
+      phone: '+91 9827198961, 9827102403',
+      email: 'vb99.associates@gmail.com',
+      address: 'Office No.204, 2nd Loor, National Corporate Park, G.e.road,raipur (C.G)-492001.  2)ramadhin Marg,rajnandgaon (C.G.)-491441.',
+      workingHours: 'Mon - Sat: 10:00 AM - 7:00 PM',
       themeConfig: {
         primaryColor: '#1e40af',
         secondaryColor: '#64748b',
@@ -78,7 +78,7 @@ async function main() {
           {
             type: 'hero',
             order: 1,
-            imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600',
+            imageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400',
             textContent: {
               heading: 'Trusted Chartered Accountants Since 1995',
               subheading: 'Expert financial guidance for businesses and individuals',
@@ -88,7 +88,7 @@ async function main() {
           {
             type: 'text-image',
             order: 2,
-            imageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600',
+            imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
             textContent: {
               heading: 'Professional Audit & Assurance Services',
               subheading: 'Comprehensive Financial Solutions',
@@ -328,10 +328,10 @@ async function main() {
             textContent: {
               title: 'Contact Information',
               subtitle: 'Reach out to us through any of these channels',
-              address: '2 nd Floor, Aerosoft Plaza Building, English Church Cross Road, Nadakkavu, Kozhikode - 673011',
-              phone: '9895092930',
-              email: 'sansheer@lgfinconsult.com',
-              hours: 'Mon - Sat: 10:00 AM - 6:00 PM',
+              address: 'Office No.204, 2nd Loor, National Corporate Park, G.e.road,raipur (C.G)-492001.  2)ramadhin Marg,rajnandgaon (C.G.)-491441.',
+              phone: '9827198961',
+              email: 'vb99.associates@gmail.com',
+              hours: 'Mon - Sat: 10:00 AM - 7:00 PM',
             },
           },
           {
@@ -361,7 +361,7 @@ async function main() {
       contentHeading: 'Comprehensive Audit Solutions',
       contentDescription: 'We conduct thorough statutory audits as per Companies Act and other regulatory requirements. Our comprehensive approach ensures complete compliance.',
       features: ['Financial statement audits', 'Internal control assessment', 'Compliance verification', 'Detailed audit reports'],
-      contentImage: 'https://images.unsplash.com/photo-1507679622115-6ba8a914041b?w=800',
+      contentImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400',
     },
     {
       slug: 'taxation-services',
@@ -394,7 +394,7 @@ async function main() {
       contentHeading: 'What We Offer',
       contentDescription: 'Professional bookkeeping services to keep your financial records accurate and up-to-date.',
       features: ['Daily transaction recording', 'Bank reconciliation', 'Accounts payable & receivable', 'Financial statement preparation', 'Cash flow management'],
-      contentImage: 'https://images.unsplash.com/photo-1507679622115-6ba8a914041b?w=800',
+      contentImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400',
     },
     {
       slug: 'gst-filing',
@@ -434,7 +434,7 @@ async function main() {
       title: 'Company Formation - V.B. Agrawal & Associates',
       heroHeading: 'Company Formation',
       heroSubheading: 'End-to-end company registration services',
-      heroImage: 'https://images.unsplash.com/photo-1507679622115-6ba8a914041b?w=1600',
+      heroImage: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1600',
       contentHeading: 'What We Offer',
       contentDescription: 'End-to-end company registration and formation services. From choosing the right business structure to getting your company registered.',
       features: ['Private Limited Company registration', 'LLP formation', 'Partnership deed drafting', 'MSME registration', 'Startup India registration'],
@@ -445,7 +445,7 @@ async function main() {
       title: 'Regulatory Compliance - V.B. Agrawal & Associates',
       heroHeading: 'Regulatory Compliance',
       heroSubheading: 'Comprehensive compliance services',
-      heroImage: 'https://images.unsplash.com/photo-1507679622115-6ba8a914041b?w=1600',
+      heroImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400',
       contentHeading: 'What We Offer',
       contentDescription: 'Comprehensive compliance services to keep your business aligned with all statutory and regulatory requirements.',
       features: ['ROC filings', 'Annual compliance', 'Statutory audits', 'Legal compliance review', 'Director KYC'],
@@ -456,7 +456,7 @@ async function main() {
       title: 'Financial Advisory - V.B. Agrawal & Associates',
       heroHeading: 'Financial Advisory',
       heroSubheading: 'Expert financial advisory services',
-      heroImage: 'https://images.unsplash.com/photo-1507679622115-6ba8a914041b?w=1600',
+      heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
       contentHeading: 'What We Offer',
       contentDescription: 'Expert financial advisory services to help you make informed business decisions and achieve your financial goals.',
       features: ['Business valuation', 'Financial planning', 'Investment advisory', 'Merger & acquisition support', 'Funding assistance'],

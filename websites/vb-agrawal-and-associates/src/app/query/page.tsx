@@ -115,7 +115,7 @@ export default function QueryPage() {
                 <Phone className="h-6 w-6 text-blue-600" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Call Us</h3>
-              <p className="text-gray-600">+91 8281954777</p>
+              <p className="text-gray-600">0771-4066608</p>
             </motion.div>
 
             <motion.div 
@@ -128,7 +128,7 @@ export default function QueryPage() {
                 <Mail className="h-6 w-6 text-blue-600" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Email Us</h3>
-              <p className="text-gray-600">contact@lgfinconsult.com</p>
+              <p className="text-gray-600"> vb99.associates@gmail.com</p>
             </motion.div>
 
             <motion.div 
