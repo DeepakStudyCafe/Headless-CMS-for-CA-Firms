@@ -178,7 +178,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.7 }}
             >
               <iframe
-                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d238061.03470785072!2d81.19133748729368!3d21.20392768412632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a28ddc29c2112fb%3A0x1956ccdfdfc44dde!2sNational%20Corporate%20Park!5e0!3m2!1sen!2sin!4v1777450863273!5m2!1sen!2sin'}
+                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3821.4845839960853!2d81.10230807672812!3d16.702656081126445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3614c3607ee519%3A0x17959e60c0b69eee!2s6d%2C%207A-10-55%2F1%2C%20Southern%20St%2C%20Southernstreet%2C%20Paidichintapadu%2C%20Eluru%2C%20Andhra%20Pradesh%20534001!5e0!3m2!1sen!2sin!4v1777450596534!5m2!1sen!2sin'}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

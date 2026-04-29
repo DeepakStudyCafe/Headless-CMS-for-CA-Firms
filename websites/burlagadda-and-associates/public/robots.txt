@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /admin/
+Disallow: /post/
+Allow: /
+
+Sitemap: https://burlagadda.in/sitemap.xml

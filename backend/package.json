@@ -25,6 +25,7 @@
     "seed:arun": "ts-node src/utils/a-arun-ganjewar-seed.ts",
     "seed:isk-and-co": "ts-node src/utils/isk-and-co-seed.ts",
     "seed:vb-agrawal-and-associates": "ts-node src/utils/vb-agrawal-and-associates-seed.ts",
+    "seed:burlagadda-and-associates": "ts-node src/utils/burlagadda-and-associates-seed.ts",
     "setup:admins": "ts-node src/utils/setup-admins.ts",
     "seed:camohanc": "ts-node src/utils/camohan-seed.ts",
     "seed:vineet-taral": "ts-node src/utils/vineet-taral-seed.ts",
