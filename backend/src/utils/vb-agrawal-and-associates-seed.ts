@@ -80,7 +80,7 @@ async function main() {
             order: 1,
             imageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400',
             textContent: {
-              heading: 'Trusted Chartered Accountants Since 1995',
+              heading: 'Trusted Chartered Accountants Since 2026',
               subheading: 'Expert financial guidance for businesses and individuals',
               cta: 'Get Started',
             },
@@ -157,7 +157,7 @@ async function main() {
             imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800',
             textContent: {
               heading: 'About V.B. Agrawal & Associates',
-              subheading: 'Building trust through excellence in accounting since 1995',
+              subheading: 'Building trust through excellence in accounting since 2026',
             },
           },
           {

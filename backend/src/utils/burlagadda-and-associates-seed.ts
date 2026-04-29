@@ -80,7 +80,7 @@ async function main() {
             order: 1,
             imageUrl: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600',
             textContent: {
-              heading: 'Trusted Chartered Accountants Since 1995',
+              heading: 'Trusted Chartered Accountants Since 2026',
               subheading: 'Expert financial guidance for businesses and individuals',
               cta: 'Get Started',
             },
@@ -157,7 +157,7 @@ async function main() {
             imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
             textContent: {
               heading: 'About Burlagadda & Associates',
-              subheading: 'Building trust through excellence in accounting since 1995',
+              subheading: 'Building trust through excellence in accounting since 2026',
             },
           },
           {
