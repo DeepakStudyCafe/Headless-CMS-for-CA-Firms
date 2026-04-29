@@ -1,4 +1,4 @@
-// Use environment variable or fallback to empty string (will be determined at runtime)
+// Use environment variable only. Production build must set `NEXT_PUBLIC_API_URL`.
 const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
 const WEBSITE_SLUG = 'vb-agrawal-and-associates'
 
