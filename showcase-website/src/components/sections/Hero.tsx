@@ -8,19 +8,15 @@ export default function Hero() {
     return (
         <>
             <section className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden gradient-bg pt-16">
-                {/* Mobile fallback image for small screens; video for larger screens */}
+                {/* Banner image for all screens (replaces video on desktop) */}
                 <img
-                    className="absolute inset-0 z-0 w-full h-full object-cover sm:hidden"
+                    className="absolute inset-0 z-0 w-full h-full object-cover"
                     src="/showcase-banner.jpeg"
                     alt="Showcase banner"
                 />
-                <video className="absolute inset-0 z-0 w-full h-full object-cover hidden sm:block" autoPlay muted loop playsInline poster="/sagartask-in.png">
-                    <source src="/showcase-banner.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
 
                 {/* Subtle blue-tinted overlay with light blur for readability */}
-                <div className="absolute inset-0 z-10 bg-blue-700/20 backdrop-blur-sm pointer-events-none" />
+                <div className="absolute inset-0 z-10  backdrop-blur-sm pointer-events-none" />
 
                 {/* Animated Background Elements (hidden on small screens) */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -47,19 +43,19 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
-                            className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-300 mb-6 leading-tight"
+                            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]"
                         >
                             Transform Your CA Practice with
-                            <span className="gradient-text"> Professional Websites</span>
+                            <span className="text-blue-200"> Professional Websites</span>
                         </motion.h1>
 
                         <motion.p
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-base sm:text-lg md:text-xl text-white/80 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed"
+                            className="text-base sm:text-lg md:text-xl text-white mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]"
                         >
-                            Launch your professional website with built-in admin panel to manage content easily. Choose from our <span className="font-bold text-blue-600">premium templates</span> designed specifically for CA firms with complete control over your website.
+                            Launch your professional website with built-in admin panel to manage content easily. Choose from our <span className="font-bold text-yellow-300">premium templates</span> designed specifically for CA firms with complete control over your website.
                         </motion.p>
 
                         <motion.div
