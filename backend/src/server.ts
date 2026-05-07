@@ -59,8 +59,8 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:8088/',
   'http://localhost:8090/',
   'http://localhost:8092/',
-    'http://localhost:8094',
-    'http://localhost:8095',
+  'http://localhost:8094',
+  'http://localhost:8095',
   'https://api.digitechai.in',
   'https://iskco.in',
   'https://iskco.in/',
@@ -165,24 +165,24 @@ app.get('/health/db', async (req, res) => {
   try {
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
-    
+
     // Test database connection
     await prisma.$connect();
-    await prisma.user.count(); // Simple query to test
+    await prisma.user.count();
     await prisma.$disconnect();
-    
-    res.json({ 
-      status: 'ok', 
+
+    res.json({
+      status: 'ok',
       database: 'connected',
-      timestamp: new Date().toISOString() 
+      timestamp: new Date().toISOString()
     });
   } catch (error: any) {
-    
-    res.status(500).json({ 
-      status: 'error', 
+
+    res.status(500).json({
+      status: 'error',
       database: 'disconnected',
       error: error.message,
-      timestamp: new Date().toISOString() 
+      timestamp: new Date().toISOString()
     });
   }
 });
@@ -209,16 +209,16 @@ const initializeDatabase = async () => {
   try {
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
-    
+
     await prisma.$connect();
     console.log('✅ Database connected successfully');
-    
+
     // Test basic operations
     const userCount = await prisma.user.count();
     const websiteCount = await prisma.website.count();
-    
+
     console.log(`📊 Database stats: ${userCount} users, ${websiteCount} websites`);
-    
+
     await prisma.$disconnect();
     return true;
   } catch (error: any) {
@@ -236,7 +236,7 @@ app.listen(PORT, '0.0.0.0', async () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`📊 Environment: ${process.env.NODE_ENV}`);
   console.log(`🔗 Health check: http://localhost:${PORT}/health`);
-  
+
   // Initialize database connection
   const dbInitialized = await initializeDatabase();
   if (!dbInitialized) {

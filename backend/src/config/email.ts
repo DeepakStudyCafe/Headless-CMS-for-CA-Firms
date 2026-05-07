@@ -41,6 +41,7 @@ const WEBSITE_EMAILS = {
   'firm1-isk': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
   'r-mugunthan': 'rmugunth@gmail.com',
   'a-arun-ganjewar-and-co': process.env.ARUN_EMAIL || 'a.arun.contact@gmail.com',
+  'anagam-and-co': process.env.ANAGAM_EMAIL || 'anagamandco@gmail.com',
 };
 
 // Website names mapping
@@ -64,6 +65,7 @@ const WEBSITE_NAMES = {
   'burlagadda-and-associates': process.env.BURLAGADDA_NAME || 'Burlagadda & Associates',
   'firm1-isk': process.env.ISK_AND_CO_NAME || 'ISK & Co',
   'a-arun-ganjewar-and-co': process.env.ARUN_NAME || 'A. Arun Ganjewar and Co.',
+  'anagam-and-co': process.env.ANAGAM_NAME || 'ANAGAM & CO',
 };
 
 // Email sender function

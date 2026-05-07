@@ -196,7 +196,7 @@ async function main() {
       name: 'Precision Financial',
       domain: 'https://template8.local',
       logo: 'https://api.digitechai.in/uploads/logo.png',
-      phone: '+91 98765 43210',
+      phone: '+91 9876543210',
       email: 'info@precisionfinancial.in',
       address: '123 Financial District, Mumbai, Maharashtra 400001',
       workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
