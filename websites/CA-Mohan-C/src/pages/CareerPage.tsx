@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData } from '../lib/api';
+import { getPageData, API_URL, WEBSITE_SLUG } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { Heart, Users, TrendingUp, Award, MapPin, Clock, Briefcase } from 'lucide-react';
@@ -9,6 +9,51 @@ import SectionWrapper from '../components/SectionWrapper';
 
 const CareerPage = () => {
   const [pageData, setPageData] = useState<any>(null);
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', position: '', comments: '' });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{type: 'success'|'error', msg: string} | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    try {
+      const data = new FormData();
+      data.append('name', formData.name);
+      data.append('email', formData.email);
+      data.append('phone', formData.phone);
+      data.append('position', formData.position);
+      data.append('comments', formData.comments);
+      data.append('website', WEBSITE_SLUG);
+      if (resumeFile) {
+        data.append('resume', resumeFile);
+      }
+
+      const res = await fetch(`${API_URL}/forms/career`, {
+        method: 'POST',
+        body: data
+      });
+      
+      const result = await res.json();
+      if (res.ok && result.success) {
+        setSubmitStatus({ type: 'success', msg: result.message || 'Application submitted successfully!' });
+        setFormData({ name: '', email: '', phone: '', position: '', comments: '' });
+        setResumeFile(null);
+        // Reset file input by finding it
+        const fileInput = document.getElementById('resume-upload') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+      } else {
+        setSubmitStatus({ type: 'error', msg: result.message || 'Failed to submit application.' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', msg: 'An error occurred. Please try again later.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   useEffect(() => {
     getPageData('careers').then((res) => setPageData(mapData(res))).catch(console.error);
   }, []);
@@ -60,15 +105,29 @@ const CareerPage = () => {
       <SectionWrapper>
         <div className="max-w-2xl mx-auto">
           <h2 className="section-title text-center">Submit Your Application</h2>
-          <form className="space-y-4 mt-8" onSubmit={(e) => e.preventDefault()}>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <input type="text" placeholder="Full Name" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-            </div>
-            <input type="text" placeholder="Position Applied For" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-            <textarea rows={4} placeholder="Cover Letter" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
-            <button type="submit" className="btn-primary-gradient">Submit Application</button>
-          </form>
+            {submitStatus && (
+              <div className={`mb-6 p-4 rounded-lg ${submitStatus.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                {submitStatus.msg}
+              </div>
+            )}
+            <form className="space-y-4 mt-8" onSubmit={handleSubmit}>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <input required type="text" placeholder="Full Name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                <input required type="email" placeholder="Email Address" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <input required type="tel" placeholder="Mobile Number" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+                <input type="text" placeholder="Position Applied For" value={formData.position} onChange={e => setFormData({...formData, position: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              </div>
+              <textarea required rows={4} placeholder="Cover Letter" value={formData.comments} onChange={e => setFormData({...formData, comments: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-1">Resume (PDF/DOC)</label>
+                <input id="resume-upload" type="file" accept=".pdf,.doc,.docx" onChange={e => setResumeFile(e.target.files?.[0] || null)} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              </div>
+              <button type="submit" disabled={isSubmitting} className="btn-primary-gradient disabled:opacity-70">
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </button>
+            </form>
         </div>
       </SectionWrapper>
     </div>

@@ -45,7 +45,7 @@ const Header = () => {
     setDropdownOpen(false);
   }, [location]);
 
-  const name = websiteData?.name || 'CA Mohan C Chartered Accountant';
+  const name = websiteData?.name || 'Mohan C & Co.';
   const logo = websiteData?.logo || 'https://api.digitechai.in/uploads/logo.png';
 
   return (
@@ -77,7 +77,7 @@ const Header = () => {
           </div>
           <div>
             <span className={`font-heading font-bold text-lg transition-colors ${isScrolled ? 'text-secondary' : 'text-card'}`}>
-              {name}
+              Mohan C & Co.
             </span>
             <div className={`text-sm transition-colors ${isScrolled ? 'text-black' : 'text-white'}`}>Chartered Accountants</div>
           </div>

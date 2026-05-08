@@ -28,7 +28,7 @@ export default function OurClientPage() {
         
         { name: 'Monika S & Associates', url: 'https://monikasassociates.in/', img: '/monikaS.png', description: 'Helping small businesses with tax strategy and financial services; modern website with convenient inquiry forms.' },
         { name: 'I S K & Co', url: 'https://iskco.in/', img: '/isko-and-co.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
-        { name: 'CA Mohan C Chartered Accountant', url: 'https://camohanc.in/', img: '/camohan.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
+        { name: 'Mohan C & Co', url: 'https://camohanc.in/', img: '/camohan.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
         
         { name: 'S B Bhavi & CO.', url: 'https://casbbhavi.in/', img: '/casbbhavi.png', description: 'Empowering small businesses through smart tax planning and financial services; modern website with easy contact forms.' },
         { name: 'Ajoy Goyal & Associates  CO.', url: 'https://ajoygoyalassociates.com/', img: '/ajoygoyalassociates.png', description: 'Helping small businesses with smart tax planning and financial solutions; modern website with simple contact forms and quick response support.' },

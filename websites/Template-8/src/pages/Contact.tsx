@@ -26,6 +26,7 @@ export default function Contact() {
   const loadData = useCallback(() => {
     Promise.all([getPageData("contact"), getWebsiteData()]).then(([page, site]) => {
       setPageData(page); setWebsiteData(site);
+      if (page?.title) document.title = page.title + (site?.name ? " - " + site.name : ""); else if (site?.name) document.title = site.name;
     });
   }, []);
 

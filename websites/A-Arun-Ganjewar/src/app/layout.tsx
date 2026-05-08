@@ -9,7 +9,7 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-  title: 'Singh & Co. Advisors - Trusted CA Firm',
+  title: 'A-Arun Ganjewar & Co. - Trusted CA Firm',
   description: 'Trusted Chartered Accountants providing professional accounting, taxation, and advisory services',
 }
 

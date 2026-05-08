@@ -42,6 +42,8 @@ const WEBSITE_EMAILS = {
   'r-mugunthan': 'rmugunth@gmail.com',
   'a-arun-ganjewar-and-co': process.env.ARUN_EMAIL || 'a.arun.contact@gmail.com',
   'anagam-and-co': process.env.ANAGAM_EMAIL || 'anagamandco@gmail.com',
+  'ca-mohan-c': 'ca.mohan.c@gmail.com',
+  'nipun-panchamiya-and-associates': 'nipun.panchamiya@outlook.com',
 };
 
 // Website names mapping

@@ -394,6 +394,15 @@ module.exports = {
         NODE_ENV: 'development',
         PORT: 8094
       }
+    },{
+      name: 'nipun-panchamiya-and-associates',
+      cwd: './websites/nipun-panchamiya-and-associates',
+      script: 'npm',
+      args: 'run preview',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8096
+      }
     }
   ],
 

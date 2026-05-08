@@ -10,7 +10,7 @@ const Footer = () => {
     getWebsiteData().then((res) => setWebsiteData(res)).catch(console.error);
   }, []);
 
-  const name = websiteData?.name || 'CA Mohan C Chartered Accountant';
+  const name = websiteData?.name || 'Mohan C & Co.';
   const logo = websiteData?.logo || 'https://api.digitechai.in/uploads/footerlogo.png';
   const footerContent = websiteData?.themeConfig?.footerContent || {};
   const desc = footerContent.description || 'A premier chartered accountancy firm delivering world-class financial services with integrity, precision, and innovation.';
@@ -30,7 +30,7 @@ const Footer = () => {
                 />
               </div>
               <div>
-                <span className="font-heading font-bold text-sm" style={{ color: 'hsl(var(--secondary-foreground))' }}>{name}</span>
+                <span className="font-heading font-bold text-sm" style={{ color: 'hsl(var(--secondary-foreground))' }}>Mohan C & Co.</span>
                 <div className="text-sm text-muted-foreground">Chartered Accountants</div>     
               </div>
             </div>

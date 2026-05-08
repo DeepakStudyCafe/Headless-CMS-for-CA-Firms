@@ -1,6 +1,6 @@
 import { mapData } from '../lib/mapper';
 import { useState, useEffect } from 'react';
-import { getPageData } from '../lib/api';
+import { getPageData, API_URL, WEBSITE_SLUG } from '../lib/api';
 import { FullPageLoader } from '../components/Loader';
 import { motion } from 'framer-motion';
 import { HelpCircle, ChevronDown } from 'lucide-react';
@@ -11,6 +11,33 @@ import SectionWrapper from '../components/SectionWrapper';
 const QueryPage = () => {
   const [pageData, setPageData] = useState<any>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [formData, setFormData] = useState({ name: '', email: '', subjectOfQuery: '', query: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{type: 'success'|'error', msg: string} | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    try {
+      const res = await fetch(`${API_URL}/forms/query`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, website: WEBSITE_SLUG })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSubmitStatus({ type: 'success', msg: data.message || 'Query submitted successfully!' });
+        setFormData({ name: '', email: '', subjectOfQuery: '', query: '' });
+      } else {
+        setSubmitStatus({ type: 'error', msg: data.message || 'Failed to submit query.' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', msg: 'An error occurred. Please try again later.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     getPageData('query').then((res) => setPageData(mapData(res))).catch(console.error);        
@@ -27,12 +54,19 @@ const QueryPage = () => {
           <div>
             <h2 className="section-title">{pageData?.sections?.find((s: any) => s.type === 'query-header')?.textContent?.heading}</h2>
             <p className="text-muted-foreground mb-6">{pageData?.sections?.find((s: any) => s.type === 'query-header')?.textContent?.subheading}</p>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <input type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <input type="text" placeholder="Subject" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
-              <textarea rows={5} placeholder="Your Query" className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
-              <button type="submit" className="btn-primary-gradient">Submit Query</button>
+            {submitStatus && (
+              <div className={`mb-6 p-4 rounded-lg ${submitStatus.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                {submitStatus.msg}
+              </div>
+            )}
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <input required type="text" placeholder="Your Name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <input required type="email" placeholder="Email Address" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <input type="text" placeholder="Subject" value={formData.subjectOfQuery} onChange={e => setFormData({...formData, subjectOfQuery: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30" />
+              <textarea required rows={5} placeholder="Your Query" value={formData.query} onChange={e => setFormData({...formData, query: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none" />
+              <button type="submit" disabled={isSubmitting} className="btn-primary-gradient disabled:opacity-70">
+                {isSubmitting ? 'Submitting...' : 'Submit Query'}
+              </button>
             </form>
           </div>
 

@@ -102,9 +102,10 @@ router.get('/websites', async (req, res) => {
 });
 
 // Get page by website slug and page slug (public)
-router.get('/pages/:websiteSlug/:pageSlug', async (req, res) => {
+router.get('/pages/:websiteSlug/*', async (req, res) => {
   try {
-    const { websiteSlug, pageSlug } = req.params;
+    const websiteSlug = req.params.websiteSlug;
+    const pageSlug = (req.params as any)[0];
 
     const website = await prisma.website.findUnique({
       where: { slug: websiteSlug }

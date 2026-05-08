@@ -19,6 +19,7 @@ const Index = () => {
     Promise.all([getPageData('home'), getWebsiteData()]).then(([p, w]) => {
       setPageData(p);
       setWebsiteData(w);
+      if (p?.title) document.title = p.title + (w?.name ? " - " + w.name : ""); else if (w?.name) document.title = w.name;
     });
   }, []);
 
