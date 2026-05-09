@@ -12,7 +12,7 @@ const TeamSection = ({ data }: { data?: any }) => {
   const label = tc.label || 'Meet The Team';
   const heading = tc.heading || 'Our Expert Team';
   const DEFAULT_TEAM = [
-    { name: "Rajesh Sharma", role: "Managing Partner", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" },
+    { name: "CA Nipun Panchamiya", role: "Founder", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" },
     { name: "Priya Patel", role: "Senior Tax Consultant", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" },
     { name: "Amit Verma", role: "Audit Director", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" },
     { name: "Sneha Kapoor", role: "Financial Advisor", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400" },

@@ -112,7 +112,7 @@ const SERVICE_DETAILS: Record<string, any> = {
 }
 
 const TEAM8 = [
-  { name: 'Rajesh Sharma', role: 'Managing Partner', bio: '20+ years in taxation, audit and corporate advisory across diverse industries.', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400' },
+  { name: 'CA Nipun Panchamiya', role: 'Founder', bio: '20+ years in taxation, audit and corporate advisory across diverse industries.', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400' },
   { name: 'Priya Patel', role: 'Senior Tax Consultant', bio: 'Specialist in direct and indirect tax planning for high-growth businesses.', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400' },
   { name: 'Amit Verma', role: 'Audit Director', bio: 'Leads statutory and internal audit engagements for large corporates.', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400' },
   { name: 'Sneha Kapoor', role: 'Financial Advisor', bio: 'Expert in wealth management and holistic financial planning.', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400' },
@@ -166,7 +166,7 @@ const FEATURES = [
 ]
 
 const TEAM = [
-  { name: 'Rajesh Sharma', role: 'Managing Partner', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400' },
+  { name: 'CA Nipun Panchamiya', role: 'Founder', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400' },
   { name: 'Priya Patel', role: 'Senior Tax Consultant', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400' },
   { name: 'Amit Verma', role: 'Audit Director', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400' },
   { name: 'Sneha Kapoor', role: 'Financial Advisor', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400' },
