@@ -77,14 +77,14 @@ export default function ScheduleCallContent() {
           transition={{ duration: 0.5 }}
           className="container-custom max-w-2xl"
         >
-          <div className="bg-white rounded-2xl shadow-2xl p-12 text-center">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-12 text-center">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-12 h-12 text-green-500" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
               Call Scheduled Successfully!
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-base md:text-lg text-gray-600 mb-8 px-2">
               Thank you for scheduling a call with us. You'll receive a confirmation email shortly with call details.
             </p>
             <div className="bg-blue-50 rounded-lg p-6 mb-8">
@@ -142,8 +142,8 @@ export default function ScheduleCallContent() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-300 mb-4">Schedule a Free Consultation</h1>
-          <p className="text-xl text-white/80">Book a call with our team to discuss your website needs. We're here to help you succeed!</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-300 mb-4 px-4">Schedule a Free Consultation</h1>
+          <p className="text-lg sm:text-xl text-white/80 px-4">Book a call with our team to discuss your website needs. We're here to help you succeed!</p>
         </motion.div>
 
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">

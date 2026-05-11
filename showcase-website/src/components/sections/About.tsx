@@ -17,7 +17,7 @@ export default function About() {
   ]
 
   return (
-    <section className="py-20 gradient-bg" id="about">
+    <section className="py-20 gradient-bg overflow-hidden" id="about">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div

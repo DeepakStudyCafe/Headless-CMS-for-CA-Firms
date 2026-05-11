@@ -117,8 +117,8 @@ export default function ContactContent() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto pt-24"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Get in Touch</h1>
-            <p className="text-xl text-white/80 leading-relaxed">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6">Get in Touch</h1>
+            <p className="text-lg sm:text-xl text-white/80 leading-relaxed px-4">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
           </motion.div>
         </div>
       </section>
@@ -246,7 +246,7 @@ export default function ContactContent() {
 
               <div className="bg-gradient-to-br from-primary-600 to-blue-700 rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Prefer to Schedule a Call?</h3>
-                <p className="mb-6 opacity-90">Book a free consultation with our team to discuss your needs in detail.</p>
+                <p className="mb-6 opacity-90 px-4">Book a free consultation with our team to discuss your needs in detail.</p>
                 <a href="/schedule-call" className="inline-block bg-white text-primary-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">Schedule Now</a>
               </div>
             </motion.div>

@@ -26,11 +26,11 @@
   }
 
   .section-heading {
-    @apply text-4xl md:text-5xl font-bold text-gray-900 mb-6;
+    @apply text-3xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6 px-2;
   }
 
   .section-subheading {
-    @apply text-lg md:text-xl text-gray-600 max-w-3xl mx-auto;
+    @apply text-base md:text-xl text-gray-600 max-w-3xl mx-auto px-4;
   }
 
   .card {
@@ -95,5 +95,13 @@
 
   .animation-delay-600 {
     animation-delay: 0.6s;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

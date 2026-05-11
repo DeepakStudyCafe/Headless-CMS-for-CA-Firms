@@ -112,7 +112,7 @@ export default function TemplatesPreview() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mb-12"
         >
           {templates.map((template) => (
             <motion.div
@@ -122,44 +122,45 @@ export default function TemplatesPreview() {
             >
               {/* Template Preview */}
               <div
-                className="h-40 sm:h-48 relative overflow-hidden"
+                className="h-32 sm:h-48 relative overflow-hidden"
                 style={{
                   background: `linear-gradient(135deg, ${template.color} 0%, ${template.color}dd 100%)`,
                 }}
               >
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-white text-center p-6">
-                    <div className="text-3xl font-bold mb-2">{template.name.split(' ')[0]}</div>
-                    <div className="text-sm opacity-90">{template.theme}</div>
+                  <div className="text-white text-center p-2 sm:p-6">
+                    <div className="text-xl sm:text-3xl font-bold mb-1 sm:mb-2">{template.name.split(' ')[0]}</div>
+                    <div className="text-[10px] sm:text-sm opacity-90">{template.theme}</div>
                   </div>
                 </div>
               </div>
 
               {/* Template Info */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+              <div className="p-3 sm:p-6">
+                <h3 className="text-sm sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2 line-clamp-1">
                   {template.name}
                 </h3>
-                <p className="text-gray-600 mb-4">{template.description}</p>
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                  <span>{template.pages} Pages</span>
+                <p className="text-xs sm:text-base text-gray-600 mb-2 sm:mb-4 line-clamp-2">{template.description}</p>
+                <div className="flex items-center justify-between text-[10px] sm:text-sm text-gray-500 mb-3 sm:mb-4">
+                  <span className="hidden sm:inline">{template.pages} Pages</span>
                   <span className="flex items-center gap-1">
                     <div
-                      className="w-3 h-3 rounded-full"
+                      className="w-2 h-2 sm:w-3 sm:h-3 rounded-full"
                       style={{ backgroundColor: template.color }}
                     ></div>
-                    {template.theme}
+                    <span className="truncate max-w-[60px] sm:max-w-none">{template.theme}</span>
                   </span>
                 </div>
                 <a
                   href={template.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 group"
+                  className="flex items-center justify-center gap-1 sm:gap-2 w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all duration-300 group text-xs sm:text-base"
                 >
-                  View Live Demo
-                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <span className="hidden sm:inline">View Live Demo</span>
+                  <span className="sm:hidden">Demo</span>
+                  <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </motion.div>

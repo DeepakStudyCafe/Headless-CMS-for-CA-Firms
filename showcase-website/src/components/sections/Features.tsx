@@ -71,7 +71,7 @@ export default function Features() {
   }
 
   return (
-    <section className="py-20 bg-white/50" id="features">
+    <section className="py-20 bg-white/50 overflow-hidden" id="features">
       <div className="container-custom">
         <div className="text-center mb-16">
           <motion.h2

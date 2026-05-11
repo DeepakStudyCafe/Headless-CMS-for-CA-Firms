@@ -39,7 +39,7 @@ export default function TemplateFeatures() {
   ]
 
   return (
-    <section className="py-20 bg-white" id="features">
+    <section className="py-20 bg-white overflow-hidden" id="features">
       <div className="container-custom">
         <div className="text-center mb-16">
           <motion.h2

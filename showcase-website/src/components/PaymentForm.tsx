@@ -77,14 +77,14 @@ export default function PaymentForm() {
           transition={{ duration: 0.5 }}
           className="container-custom max-w-2xl"
         >
-          <div className="bg-white rounded-2xl shadow-2xl p-12 text-center">
+          <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-12 text-center mx-4 sm:mx-0">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-12 h-12 text-green-500" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 px-2">
               Payment Request Submitted!
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-base md:text-lg text-gray-600 mb-8 px-4">
               Thank you for your interest! Our team will contact you shortly with payment details and next steps.
             </p>
             <div className="bg-blue-50 rounded-lg p-6 mb-8">
@@ -129,10 +129,10 @@ export default function PaymentForm() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-12"
+          className="text-center max-w-3xl mx-auto mb-12 px-4"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Complete Your Payment</h1>
-          <p className="text-xl text-white/80">Choose your plan and get started with your professional website today</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">Complete Your Payment</h1>
+          <p className="text-lg sm:text-xl text-white/80">Choose your plan and get started with your professional website today</p>
         </motion.div>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -143,7 +143,7 @@ export default function PaymentForm() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-2"
           >
-            <div className="bg-white rounded-2xl shadow-xl p-8">
+            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
                   <CreditCard className="w-6 h-6 text-primary-600" />

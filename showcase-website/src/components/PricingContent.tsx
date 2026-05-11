@@ -42,8 +42,8 @@ export default function PricingContent() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Simple, Transparent Pricing</h1>
-            <p className="text-lg text-white/80 leading-relaxed">Choose the perfect plan for your CA firm. No hidden fees, no surprises. All prices are one-time payments.</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">Simple, Transparent Pricing</h1>
+            <p className="text-base sm:text-lg text-white/80 leading-relaxed px-4">Choose the perfect plan for your CA firm. No hidden fees, no surprises. All prices are one-time payments.</p>
           </motion.div>
         </div>
       </section>

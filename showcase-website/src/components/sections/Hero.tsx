@@ -31,10 +31,10 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
-                            className="mb-6"
+                            className="mb-6 px-4"
                         >
-                            <span className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                <Sparkles className="w-4 h-4" />
+                            <span className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[10px] xs:text-xs sm:text-sm font-semibold">
+                                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
                                 Premium Website Templates for CA Firms
                             </span>
                         </motion.div>
@@ -43,7 +43,7 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
-                            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]"
+                            className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]"
                         >
                             Transform Your CA Practice with
                             <span className="text-blue-200"> Professional Websites</span>
@@ -53,7 +53,7 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-base sm:text-lg md:text-xl text-white mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]"
+                            className="text-sm sm:text-lg md:text-xl text-white mb-6 sm:mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] px-4"
                         >
                             Launch your professional website with built-in admin panel to manage content easily. Choose from our <span className="font-bold text-yellow-300">premium templates</span> designed specifically for CA firms with complete control over your website.
                         </motion.p>
@@ -62,13 +62,13 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
-                            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4"
                         >
-                            <Link href="/templates" className="btn-primary flex items-center gap-2 group">
+                            <Link href="/templates" className="btn-primary w-full sm:w-auto flex items-center justify-center gap-2 group">
                                 View Templates
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link href="/schedule-call" className="btn-secondary flex items-center gap-2">
+                            <Link href="/schedule-call" className="btn-secondary w-full sm:w-auto flex items-center justify-center gap-2">
                                 <Phone className="w-5 h-5" />
                                 Schedule a Call
                             </Link>
@@ -78,8 +78,8 @@ export default function Hero() {
                     </div>
                 </div>
 
-                {/* Scroll Indicator */}
-                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
+                {/* Scroll Indicator - hide on mobile to save space */}
+                <div className="hidden sm:block absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
                     <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
                         <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
                     </div>
@@ -87,13 +87,13 @@ export default function Hero() {
             </section>
 
             {/* Stats banner placed below the hero */}
-            <section className="relative py-8 mt-8 md:-mt-24 lg:-mt-24">
+            <section className="relative py-8 md:-mt-24 lg:-mt-24">
                 <div className="container-custom relative z-20">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="relative z-30 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto bg-gray-100 rounded-xl p-4 sm:p-6 shadow-md"
+                        className="relative z-30 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto bg-gray-100 rounded-xl p-4 sm:p-6 shadow-md"
                     >
                         {[
                             { number: '50+', label: 'Premium Templates' },
@@ -102,10 +102,10 @@ export default function Hero() {
                             { number: '200+', label: 'Happy Clients' },
                         ].map((stat, index) => (
                             <div key={index} className="text-center">
-                                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-600 mb-2">
+                                <div className="text-xl sm:text-3xl md:text-4xl font-bold text-primary-600 mb-1 sm:mb-2">
                                     {stat.number}
                                 </div>
-                                <div className="text-sm sm:text-base md:text-base text-gray-600">{stat.label}</div>
+                                <div className="text-xs sm:text-base text-gray-600">{stat.label}</div>
                             </div>
                         ))}
                     </motion.div>

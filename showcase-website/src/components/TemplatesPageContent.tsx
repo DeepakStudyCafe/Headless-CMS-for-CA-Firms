@@ -711,8 +711,8 @@ export default function TemplatesPageContent() {
                         transition={{ duration: 0.6 }}
                         className="text-center max-w-4xl mx-auto mb-12 pt-24"
                     >
-                        <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">Premium Website Templates</h1>
-                        <p className="text-xl text-white/80 leading-relaxed">Each template includes admin panel, content management system, and powerful features for CA firms</p>
+                        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-4 md:mb-6 px-4">Premium Website Templates</h1>
+                        <p className="text-lg sm:text-xl text-white/80 leading-relaxed px-4">Each template includes admin panel, content management system, and powerful features for CA firms</p>
                     </motion.div>
                 </div>
             </section>
@@ -723,21 +723,23 @@ export default function TemplatesPageContent() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="flex justify-center mb-12"
+                    className="flex justify-center mb-12 max-w-full"
                 >
-                    <div className="inline-flex bg-white rounded-lg shadow-lg p-1">
-                        {['all', 'professional', 'modern', 'creative'].map((filter) => (
-                            <button
-                                key={filter}
-                                onClick={() => handleFilterChange(filter)}
-                                className={`px-6 py-3 rounded-md font-semibold transition-all duration-300 ${activeFilter === filter
-                                    ? 'bg-primary-600 text-white shadow-md'
-                                    : 'text-gray-600 hover:text-gray-900'
-                                    }`}
-                            >
-                                {filter === 'all' ? 'All Templates' : filter.charAt(0).toUpperCase() + filter.slice(1)}
-                            </button>
-                        ))}
+                    <div className="flex overflow-x-auto pb-2 sm:pb-0 hide-scrollbar w-full sm:w-auto justify-start sm:justify-center">
+                        <div className="inline-flex bg-white rounded-lg shadow-lg p-1 whitespace-nowrap mx-auto">
+                            {['all', 'professional', 'modern', 'creative'].map((filter) => (
+                                <button
+                                    key={filter}
+                                    onClick={() => handleFilterChange(filter)}
+                                    className={`px-4 sm:px-6 py-2 sm:py-3 rounded-md font-semibold transition-all duration-300 text-sm sm:text-base ${activeFilter === filter
+                                        ? 'bg-primary-600 text-white shadow-md'
+                                        : 'text-gray-600 hover:text-gray-900'
+                                        }`}
+                                >
+                                    {filter === 'all' ? 'All Templates' : filter.charAt(0).toUpperCase() + filter.slice(1)}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 </motion.div>
 
@@ -840,12 +842,12 @@ export default function TemplatesPageContent() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="mt-20 text-center bg-gradient-to-br from-primary-600 to-blue-700 rounded-2xl p-12 text-white"
+                    className="mt-12 md:mt-20 text-center bg-gradient-to-br from-primary-600 to-blue-700 rounded-2xl p-6 md:p-12 text-white"
                 >
-                    <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                    <h3 className="text-2xl md:text-4xl font-bold mb-4">
                         Need Help Choosing?
                     </h3>
-                    <p className="text-xl mb-8 opacity-90">
+                    <p className="text-lg md:text-xl mb-8 opacity-90">
                         Schedule a free consultation to find the perfect template for your CA firm
                     </p>
                     <Link

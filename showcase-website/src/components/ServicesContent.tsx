@@ -149,10 +149,10 @@ export default function ServicesContent() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto pt-24"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6">
               Complete Web Solutions with Admin Control
             </h1>
-            <p className="text-xl text-white/80 leading-relaxed">
+            <p className="text-lg sm:text-xl text-white/80 leading-relaxed px-4">
               Choose from 6 professional templates, each featuring a built-in admin panel that lets site owners manage content, submit update requests, and control their website effortlessly.
             </p>
           </motion.div>
