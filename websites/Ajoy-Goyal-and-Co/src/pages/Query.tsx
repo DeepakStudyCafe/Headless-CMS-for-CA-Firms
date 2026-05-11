@@ -61,12 +61,16 @@ const Query = () => {
 
                 setSubmitting(true);
                 try {
-                  await submitQueryForm(data);
-                  toast.success("Your query has been submitted successfully.");
-                  form.reset();
+                  const res = await submitQueryForm(data);
+                  if (res?.success) {
+                    toast.success(res.message || "Your query has been submitted successfully.");
+                    form.reset();
+                  } else {
+                    toast.error(res?.message || "Failed to submit your query. Please try again later.");
+                  }
                 } catch (error) {
                   console.error("Failed to submit query", error);
-                  toast.error("Failed to submit your query. Please try again later.");
+                  toast.error("An error occurred. Please try again later.");
                 } finally {
                   setSubmitting(false);
                 }

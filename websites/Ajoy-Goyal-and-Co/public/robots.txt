@@ -29,4 +29,11 @@ User-agent: *
 Allow: /
 Allow: /admin
 
-Sitemap: https://caasgupta.in/sitemap.xml
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /admin/
+Disallow: /post/
+
+Sitemap: https://ajoygoyalassociates.com/sitemap.xml

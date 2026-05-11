@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /admin/
+Disallow: /post/
+Disallow: /https://satyugcorporateconsultancy.com/post/
+Allow: /
+
+Sitemap: https://satyugcorporateconsultancy.com/sitemap.xml

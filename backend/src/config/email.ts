@@ -44,7 +44,9 @@ const WEBSITE_EMAILS = {
   'anagam-and-co': process.env.ANAGAM_EMAIL || 'anagamandco@gmail.com',
   'ca-mohan-c': 'ca.mohan.c@gmail.com',
   'nipun-panchamiya-and-associates': 'nipun.panchamiya@outlook.com',
-  'd-u-and-associates': process.env.DU_ASSOCIATES_EMAIL || 'duassociates.in@gmail.com',
+  'd-u-and-associates': process.env.DU_ASSOCIATES_EMAIL || 'duassociates4@gmail.com',
+  'satyug-corporate-consultancy': process.env.SATYUG_EMAIL || 'satyugconsultancy@gmail.com',
+  'ajoy-goyal-and-co': 'Ajoy_goyal@hotmail.com',
 };
 
 // Website names mapping
@@ -70,6 +72,8 @@ const WEBSITE_NAMES = {
   'a-arun-ganjewar-and-co': process.env.ARUN_NAME || 'A. Arun Ganjewar and Co.',
   'anagam-and-co': process.env.ANAGAM_NAME || 'ANAGAM & CO',
   'd-u-and-associates': 'D U & Associates',
+  'satyug-corporate-consultancy': process.env.SATYUG_NAME || 'Satyug corporate consultancy pvt ltd',
+  'ajoy-goyal-and-co': 'Ajoy Goyal and Co',
 };
 
 // Email sender function

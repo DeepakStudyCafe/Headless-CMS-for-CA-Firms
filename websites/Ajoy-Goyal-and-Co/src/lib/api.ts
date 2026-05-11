@@ -60,6 +60,21 @@ export async function submitQueryForm(formData: any) {
   }
 }
 
+export async function submitCareerForm(formData: FormData) {
+  try {
+    // Note: formData should already contain 'website' slug from the component
+    const res = await api.post(`/forms/career`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return res.data;
+  } catch (err: any) {
+    console.error('submitCareerForm error', err?.message || err);
+    return { success: false, message: 'An error occurred. Please try again.' };
+  }
+}
+
 export interface WPPost {
   id: number;
   date: string;

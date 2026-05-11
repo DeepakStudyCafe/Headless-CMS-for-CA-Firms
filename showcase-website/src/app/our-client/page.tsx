@@ -38,11 +38,11 @@ export default function OurClientPage() {
         { name: 'R Mugunthan', url: 'https://carmugunthan.in/', img: '/carmugunthan.png', description: 'Helping growing businesses with smart compliance and indirect tax services; modern website with simple inquiry forms and quick support response.' },
         
         { name: 'Burlagadda & Associates', url: 'https://burlagadda.in/', img: '/burlagadda.png', description: 'Empowering small businesses through smart tax planning and financial services; modern website with easy contact forms.' },
+        { name: 'Nipun Panchamiya and Associates ', url: 'https://canpaassociates.com/', img: '/NipunPanchamiya.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
+        { name: 'D U & Associates ', url: 'http://duassociates.in/', img: '/DU&Associates.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         
         
-        // { name: 'Kapoor Advisors', url: 'https://kapoor.example', img: '/client-4.png' },
-        // { name: 'Singh Partners', url: 'https://singh.example', img: '/client-5.png' },
-        // { name: 'Patel Group', url: 'https://patel.example', img: '/client-6.png' },
+
     ]
 
 
