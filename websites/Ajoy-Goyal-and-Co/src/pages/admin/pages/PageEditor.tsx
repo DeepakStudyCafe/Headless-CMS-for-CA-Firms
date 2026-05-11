@@ -1,4 +1,4 @@
-﻿
+
 
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -576,7 +576,7 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
 
         <div className="mb-3">
           <label className={lbl}>
-            {section.type === 'team' ? 'Team Members' : section.type === 'gallery' ? 'Gallery Items' : 'Service Items'}
+            {(section.type === 'team' || section.type === 'team-members' || section.type === 'partners') ? 'Team Members' : section.type === 'gallery' ? 'Gallery Items' : 'Service Items'}
           </label>
           <div className="space-y-3">
             {(tc.items as Record<string, any>[]).map((item, ii) => (
@@ -584,7 +584,7 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
                 <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Item {ii + 1}</p>
 
                 {/* Per-item image (team member photo, gallery image) */}
-                {item.image !== undefined && (
+                {(item.image !== undefined || section.type === 'team' || section.type === 'team-members' || section.type === 'partners' || section.type === 'gallery-grid') && (
                   <div>
                     <span className="block text-[11px] text-gray-400 mb-1">Image</span>
                     {item.image ? (
@@ -644,6 +644,30 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
                   <div>
                     <span className="block text-[11px] text-gray-400 mb-1">Role</span>
                     <input type="text" autoComplete="off" value={item.role || ''} onChange={(e) => onSetItemField('items', ii, 'role', e.target.value)} className={inp} />
+                  </div>
+                )}
+                {item.expertise !== undefined && (
+                  <div>
+                    <span className="block text-[11px] text-gray-400 mb-1">Expertise</span>
+                    <input type="text" autoComplete="off" value={item.expertise || ''} onChange={(e) => onSetItemField('items', ii, 'expertise', e.target.value)} className={inp} />
+                  </div>
+                )}
+                {item.dept !== undefined && (
+                  <div>
+                    <span className="block text-[11px] text-gray-400 mb-1">Department</span>
+                    <input type="text" autoComplete="off" value={item.dept || ''} onChange={(e) => onSetItemField('items', ii, 'dept', e.target.value)} className={inp} />
+                  </div>
+                )}
+                {item.initials !== undefined && (
+                  <div>
+                    <span className="block text-[11px] text-gray-400 mb-1">Initials</span>
+                    <input type="text" autoComplete="off" value={item.initials || ''} onChange={(e) => onSetItemField('items', ii, 'initials', e.target.value)} className={inp} />
+                  </div>
+                )}
+                {item.linkedin !== undefined && (
+                  <div>
+                    <span className="block text-[11px] text-gray-400 mb-1">LinkedIn URL</span>
+                    <input type="text" autoComplete="off" value={item.linkedin || ''} onChange={(e) => onSetItemField('items', ii, 'linkedin', e.target.value)} className={inp} />
                   </div>
                 )}
                 {item.description !== undefined && (

@@ -31,7 +31,8 @@
     "seed:camohanc": "ts-node src/utils/camohan-seed.ts",
     "seed:vineet-taral": "ts-node src/utils/vineet-taral-seed.ts",
     "seed:sbbhavi": "ts-node src/utils/sbbhavi-seed.ts",
-    "seed:agarwal-financial": "ts-node src/utils/agarwal-financial-seed.ts"
+    "seed:agarwal-financial": "ts-node src/utils/agarwal-financial-seed.ts",
+    "seed:du-associates": "ts-node src/utils/du-associates-seed.ts"
   },
   "keywords": [
     "cms",

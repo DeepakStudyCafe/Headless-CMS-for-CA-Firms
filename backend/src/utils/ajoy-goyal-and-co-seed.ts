@@ -11,9 +11,9 @@ async function main() {
     update: {
       name: 'Ajoy Goyal & Associates.',
       domain: 'http://localhost:8093',
-      phone: '+91 22 1234 5678',
-      email: 'info@ajoygoyal.com',
-      address: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
+      phone: '+91 9810058147',
+      email: 'Ajoy_goyal@hotmail.com',
+      address: 'Modi Tower- 98, Nehru Place, Delhi - 110019',
       workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
       themeConfig: {
         primaryColor: '#000080',
@@ -30,9 +30,9 @@ async function main() {
       name: 'Ajoy Goyal & Associates.',
       slug: 'ajoy-goyal-and-co',
       domain: 'http://localhost:8093',
-      phone: '+91 22 1234 5678',
-      email: 'info@ajoygoyal.com',
-      address: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
+      phone: '+91 9810058147',
+      email: 'Ajoy_goyal@hotmail.com',
+      address: 'Modi Tower- 98, Nehru Place, Delhi - 110019',
       workingHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
       themeConfig: {
         primaryColor: '#000080',
@@ -102,7 +102,7 @@ async function main() {
             textContent: {
               badge: 'About Our Firm',
               heading: 'Trusted Financial Partners Since 2005',
-              description1: 'Sharma & Co. is a premier Chartered Accountancy firm committed to delivering exceptional financial services. With nearly two decades of experience, we serve a diverse clientele from ambitious startups to established corporations.',
+              description1: 'Ajoy Goyal & Associates. is a premier Chartered Accountancy firm committed to delivering exceptional financial services. With nearly two decades of experience, we serve a diverse clientele from ambitious startups to established corporations.',
               description2: 'Our team brings deep industry expertise ensuring compliance, efficiency, and strategic financial growth for every client we serve.',
               tags: ['ICAI Registered', 'ISO Certified', 'Award Winning'],
               stats: [
@@ -138,7 +138,7 @@ async function main() {
               title: 'What Our Clients Say',
               description: 'Hear from the businesses we\'ve helped grow and succeed.',
               items: [
-                { name: 'Rajesh Kumar', role: 'CEO, TechStartup India', text: 'Sharma & Co. transformed our financial operations. Their expertise in tax planning saved us significantly and their team\'s responsiveness is unmatched.' },
+                { name: 'Rajesh Kumar', role: 'CEO, TechStartup India', text: 'Ajoy Goyal & Associates. transformed our financial operations. Their expertise in tax planning saved us significantly and their team\'s responsiveness is unmatched.' },
                 { name: 'Priya Mehta', role: 'Director, GreenLeaf Mfg.', text: 'Exceptional audit services and compliance support. They truly understand the manufacturing sector and deliver beyond expectations.' },
                 { name: 'Amit Patel', role: 'Founder, Digital Solutions', text: 'Professional, responsive, and deeply knowledgeable. The best CA firm we\'ve worked with — they feel like an extension of our team.' }
               ]
@@ -184,7 +184,7 @@ async function main() {
             textContent: {
               badge: 'Who We Are',
               heading: 'A Legacy of Financial Excellence',
-              description1: 'Sharma & Co. is one of India\'s leading Chartered Accountancy firms, established in 2005. We provide comprehensive financial services including auditing, taxation, advisory, and compliance solutions.',
+              description1: 'Ajoy Goyal & Associates. is one of India\'s leading Chartered Accountancy firms, established in 2005. We provide comprehensive financial services including auditing, taxation, advisory, and compliance solutions.',
               description2: 'Our team combines deep technical expertise with industry knowledge to deliver customized solutions that drive business growth and ensure regulatory compliance.',
               stats: [
                 { end: 18, suffix: '+', label: 'Years Experience' },
@@ -228,7 +228,7 @@ async function main() {
               label: 'Our Journey',
               heading: 'Company Timeline',
               items: [
-                { year: '2005', title: 'Founded', desc: 'Sharma & Co. established with a vision to redefine financial advisory.' },
+                { year: '2005', title: 'Founded', desc: 'Ajoy Goyal & Associates. established with a vision to redefine financial advisory.' },
                 { year: '2010', title: '100 Clients', desc: 'Crossed the milestone of serving 100 businesses across India.' },
                 { year: '2015', title: 'Team of 30', desc: 'Expanded our team with top chartered accountants and experts.' },
                 { year: '2020', title: 'Digital Transformation', desc: 'Embraced technology for seamless cloud-based financial services.' },
@@ -241,7 +241,7 @@ async function main() {
             order: 6,
             textContent: {
               badge: 'Why Choose Us',
-              heading: 'The Sharma & Co. Advantage',
+              heading: 'The Ajoy Goyal & Associates. Advantage',
               description: 'We combine decades of expertise with modern technology to deliver unparalleled financial services.',
               items: [
                 '20+ years of industry experience',
@@ -365,7 +365,7 @@ async function main() {
             textContent: {
               badge: 'Our Culture',
               heading: 'A Place to Grow & Excel',
-              description: 'At Sharma & Co., we foster a culture of continuous learning, collaboration, and professional development. Our team members are empowered to innovate and excel in their careers.',
+              description: 'At Ajoy Goyal & Associates., we foster a culture of continuous learning, collaboration, and professional development. Our team members are empowered to innovate and excel in their careers.',
               items: ['Continuous Learning', 'Work-Life Balance', 'Team Collaboration']
             }
           }
@@ -446,7 +446,7 @@ async function main() {
             textContent: {
               badge: 'Join Our Team',
               heading: 'Build Your Career With Us',
-              description: 'At Sharma & Co., we nurture talent and provide an environment where professionals can thrive, learn, and grow into industry leaders.'
+              description: 'At Ajoy Goyal & Associates., we nurture talent and provide an environment where professionals can thrive, learn, and grow into industry leaders.'
             }
           },
           {
@@ -516,9 +516,9 @@ async function main() {
               badge: 'Reach Out',
               heading: 'Get in Touch',
               officeHeading: 'Office Details',
-              officeAddress: '123 Financial District, BKC, Mumbai, Maharashtra 400051, India',
-              officePhone: '+91 22 1234 5678',
-              officeEmail: 'info@ajoygoyal.com',
+              officeAddress: 'Modi Tower- 98, Nehru Place, Delhi - 110019',
+              officePhone: '+91 9810058147',
+              officeEmail: 'Ajoy_goyal@hotmail.com',
               officeHours: 'Mon - Sat: 9:00 AM - 6:00 PM',
               mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.5!2d72.86!3d19.06!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDAzJzM2LjAiTiA3MsKwNTEnMzYuMCJF!5e0!3m2!1sen!2sin!4v1'
             }
@@ -565,8 +565,8 @@ async function main() {
               heading: 'Have a Question?',
               quickContactHeading: 'Quick Contact',
               quickContacts: [
-                { icon: 'Phone', label: '+91 22 1234 5678', sub: 'Mon-Sat, 9am-6pm' },
-                { icon: 'Mail', label: 'info@ajoygoyal.com', sub: 'We reply within 24 hours' },
+                { icon: 'Phone', label: '+91 9810058147', sub: 'Mon-Sat, 9am-6pm' },
+                { icon: 'Mail', label: 'Ajoy_goyal@hotmail.com', sub: 'We reply within 24 hours' },
                 { icon: 'MessageCircle', label: 'Live Chat', sub: 'Available during business hours' }
               ],
               faqHeading: 'FAQs',

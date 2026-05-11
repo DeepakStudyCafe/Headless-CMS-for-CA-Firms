@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /admin/
+Disallow: /post/
+Allow: /
+
+Sitemap: https://duassociates.in/sitemap.xml

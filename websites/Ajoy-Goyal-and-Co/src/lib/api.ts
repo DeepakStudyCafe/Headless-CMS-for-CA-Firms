@@ -3,7 +3,7 @@ import axios from 'axios';
 // Get API URL from env (no default fallback in code)
 export const API_URL = import.meta.env.VITE_API_URL || '/api';
 // Use the slug associated with the template based on env or default to template-4
-const WEBSITE_SLUG = import.meta.env.VITE_WEBSITE_SLUG || 'template-4';
+const WEBSITE_SLUG = import.meta.env.VITE_WEBSITE_SLUG || 'ajoy-goyal-and-co';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -36,7 +36,7 @@ export async function submitContactForm(formData: {
   try {
     const payload = {
       ...formData,
-      website: import.meta.env.VITE_WEBSITE_SLUG || 'template-4'
+      website: import.meta.env.VITE_WEBSITE_SLUG || 'ajoy-goyal-and-co'
     };
     const res = await api.post(`/forms/contact`, payload);
     return res.data;
@@ -50,7 +50,7 @@ export async function submitQueryForm(formData: any) {
   try {
     const payload = {
       ...formData,
-      website: import.meta.env.VITE_WEBSITE_SLUG || 'template-4'
+      website: import.meta.env.VITE_WEBSITE_SLUG || 'ajoy-goyal-and-co'
     };
     const res = await api.post(`/forms/query`, payload);
     return res.data;
