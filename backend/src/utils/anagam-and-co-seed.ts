@@ -27,12 +27,12 @@ async function main() {
   console.log('✅ Admin user created')
 
   // ============================================================
-  // WEBSITE 1: ANAGAM & CO (Professional Blue Theme)
+  // WEBSITE 1: Anagam & CO (Professional Blue Theme)
   // ============================================================
   const Anagam = await prisma.website.upsert({
     where: { slug: 'anagam-and-co' },
     update: {
-      name: 'ANAGAM & CO',
+      name: 'Anagam & CO',
       domain: 'https://anagam.in/',
       logo: '/uploads/logo.svg',
       phone: '+91 8074251457',
@@ -47,7 +47,7 @@ async function main() {
       },
     },
     create: {
-      name: 'ANAGAM & CO',
+      name: 'Anagam & CO',
       slug: 'anagam-and-co',
       domain: 'https://anagam.in/',
       logo: '/uploads/logo.svg',
@@ -63,14 +63,14 @@ async function main() {
       },
     },
   })
-  console.log('✅ ANAGAM & CO website created')
+  console.log('✅ Anagam & CO website created')
 
   // Anagam Pages
   await prisma.page.create({
     data: {
       websiteId: Anagam.id,
       slug: 'home',
-      title: 'Home - ANAGAM & CO',
+      title: 'Home - Anagam & CO',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -80,7 +80,7 @@ async function main() {
             order: 1,
             imageUrl: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600',
             textContent: {
-              heading: 'Trusted Chartered Accountants Since 2026',
+              heading: 'Trusted Chartered Accountants Since 2019',
               subheading: 'Expert financial guidance for businesses and individuals',
               cta: 'Get Started',
             },
@@ -92,7 +92,7 @@ async function main() {
             textContent: {
               heading: 'Professional Audit & Assurance Services',
               subheading: 'Comprehensive Financial Solutions',
-              description: 'ANAGAM & CO provides top-tier audit, taxation, and corporate advisory services to businesses across a wide range of industries, delivering reliable and result-driven financial solutions.',
+              description: 'Anagam & CO provides top-tier audit, taxation, and corporate advisory services to businesses across a wide range of industries, delivering reliable and result-driven financial solutions.',
               features: ['Statutory & Internal Audits', 'Tax Planning & Compliance', 'Corporate Advisory', 'Financial Due Diligence'],
             },
           },
@@ -108,7 +108,7 @@ async function main() {
                 { icon: 'file', title: 'Taxation', description: 'Income tax, GST, and international taxation' },
                 { icon: 'building', title: 'Corporate Services', description: 'Company formation, compliance, and secretarial' },
                 { icon: 'trending', title: 'Financial Advisory', description: 'Business valuation and financial planning' },
-                { icon: 'users', title: 'RAnagam Management', description: 'Internal controls and rAnagam assessment' },
+                { icon: 'users', title: 'Risk  Management', description: 'Internal controls and Risk  assessment' },
                 { icon: 'check', title: 'Compliance', description: 'Regulatory compliance and reporting' },
               ],
             },
@@ -120,9 +120,9 @@ async function main() {
             textContent: {
               heading: 'Our Achievements',
               stats: [
-                { value: '500+', label: 'Clients Served' },
-                { value: '25+', label: 'Years Experience' },
-                { value: '50+', label: 'Team Members' },
+                { value: '100+', label: 'Clients Served' },
+                { value: '10+', label: 'Years Experience' },
+                { value: '10+', label: 'Team Members' },
                 { value: '98%', label: 'Client Satisfaction' },
               ],
             },
@@ -146,7 +146,7 @@ async function main() {
     data: {
       websiteId: Anagam.id,
       slug: 'about',
-      title: 'About Us - ANAGAM & CO',
+      title: 'About Us - Anagam & CO',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -156,8 +156,8 @@ async function main() {
             order: 1,
             imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
             textContent: {
-              heading: 'About ANAGAM & CO',
-              subheading: 'Building trust through excellence in accounting since 2026',
+              heading: 'About Anagam & CO',
+              subheading: 'Building trust through excellence in accounting since 2019',
             },
           },
           {
@@ -166,8 +166,8 @@ async function main() {
             imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
             textContent: {
               heading: 'Our Legacy of Excellence',
-              description: 'Founded by CA Anagam, our firm has grown from a small practice to one of the most respected accounting firms in the region. We specialize in serving corporate clients with complex audit and taxation needs.',
-              features: ['ISO 9001:2015 Certified', 'Member of ICAI', 'Recognized by major regulatory bodies', 'Award-winning team'],
+              description: 'Founded by CA Harikrishna, our firm has grown from a small practice to one of the most respected accounting firms in the region. We specialize in serving corporate clients with complex audit and taxation needs.',
+              features: ['Trusted Financial & Tax Advisory Services', 'Member of ICAI', 'Recognized by major regulatory bodies', 'Award-winning team'],
             },
           },
           {
@@ -189,7 +189,7 @@ async function main() {
     data: {
       websiteId: Anagam.id,
       slug: 'team',
-      title: 'Our Team - ANAGAM & CO',
+      title: 'Our Team - Anagam & CO',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -211,8 +211,8 @@ async function main() {
               heading: 'Our Leadership',
               description: 'Led by experienced chartered accountants and finance professionals',
               items: [
-                { name: 'CA Anagam', role: 'Managing Partner', image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400', description: 'FCA, 30+ years experience' },
-                { name: 'CA Priya Mehta', role: 'Partner - Audit', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400', description: 'Specializes in corporate audits' },
+                { name: 'CA Saikumar Anagam', role: 'Managing Partner', image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400', description: 'FCA, 30+ years experience' },
+                { name: 'CA Harikrishna', role: 'Partner', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400', description: 'Specializes in corporate audits' },
                 { name: 'CA Amit Kumar', role: 'Partner - Taxation', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400', description: 'Expert in international taxation' },
                 { name: 'CA Sneha Gupta', role: 'Senior Manager', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400', description: 'Financial advisory specialist' },
               ],
@@ -227,7 +227,7 @@ async function main() {
     data: {
       websiteId: Anagam.id,
       slug: 'services',
-      title: 'Our Services - ANAGAM & CO',
+      title: 'Our Services - Anagam & CO',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -253,7 +253,7 @@ async function main() {
                 { icon: 'file', title: 'Direct & Indirect Taxation', description: 'Income tax, GST planning and compliance' },
                 { icon: 'building', title: 'Corporate Advisory', description: 'Mergers, acquisitions, and restructuring' },
                 { icon: 'trending', title: 'Business Valuation', description: 'Fair value assessments and due diligence' },
-                { icon: 'users', title: 'RAnagam Management', description: 'Internal controls and fraud detection' },
+                { icon: 'users', title: 'Risk  Management', description: 'Internal controls and fraud detection' },
                 { icon: 'check', title: 'Regulatory Compliance', description: 'FEMA, RBI, SEBI compliance' },
               ],
             },
@@ -267,7 +267,7 @@ async function main() {
     data: {
       websiteId: Anagam.id,
       slug: 'gallery',
-      title: 'Gallery - ANAGAM & CO',
+      title: 'Gallery - Anagam & CO',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -307,7 +307,7 @@ async function main() {
     data: {
       websiteId: Anagam.id,
       slug: 'contact',
-      title: 'Contact Us - ANAGAM & CO',
+      title: 'Contact Us - Anagam & CO',
       status: 'PUBLISHED',
       publishedAt: new Date(),
       sections: {
@@ -354,7 +354,7 @@ async function main() {
   const AnagamServices = [
     {
       slug: 'audit-services',
-      title: 'Audit Services - ANAGAM & CO',
+      title: 'Audit Services - Anagam & CO',
       heroHeading: 'Professional Audit Services',
       heroSubheading: 'Ensuring accuracy, compliance, and transparency',
       heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
@@ -365,7 +365,7 @@ async function main() {
     },
     {
       slug: 'taxation-services',
-      title: 'Taxation Services - ANAGAM & CO',
+      title: 'Taxation Services - Anagam & CO',
       heroHeading: 'Expert Taxation Services',
       heroSubheading: 'Maximize tax efficiency and ensure compliance',
       heroImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600',
@@ -376,7 +376,7 @@ async function main() {
     },
     {
       slug: 'corporate-services',
-      title: 'Corporate Services - ANAGAM & CO',
+      title: 'Corporate Services - Anagam & CO',
       heroHeading: 'Corporate Advisory Services',
       heroSubheading: 'Strategic guidance for business growth and compliance',
       heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
@@ -387,7 +387,7 @@ async function main() {
     },
     {
       slug: 'bookkeeping',
-      title: 'Bookkeeping Services - ANAGAM & CO',
+      title: 'Bookkeeping Services - Anagam & CO',
       heroHeading: 'Bookkeeping Services',
       heroSubheading: 'Professional financial record management',
       heroImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600',
@@ -398,7 +398,7 @@ async function main() {
     },
     {
       slug: 'gst-filing',
-      title: 'GST Filing Services - ANAGAM & CO',
+      title: 'GST Filing Services - Anagam & CO',
       heroHeading: 'GST Filing Services',
       heroSubheading: 'Expert GST compliance and filing services',
       heroImage: 'https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?w=1600',
@@ -409,7 +409,7 @@ async function main() {
     },
     {
       slug: 'payroll',
-      title: 'Payroll Management - ANAGAM & CO',
+      title: 'Payroll Management - Anagam & CO',
       heroHeading: 'Payroll Management',
       heroSubheading: 'Complete payroll processing solutions',
       heroImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600',
@@ -420,7 +420,7 @@ async function main() {
     },
     {
       slug: 'tax-planning',
-      title: 'Tax Planning & Advisory - ANAGAM & CO',
+      title: 'Tax Planning & Advisory - Anagam & CO',
       heroHeading: 'Tax Planning & Advisory',
       heroSubheading: 'Strategic tax planning services',
       heroImage: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600',
@@ -431,7 +431,7 @@ async function main() {
     },
     {
       slug: 'company-formation',
-      title: 'Company Formation - ANAGAM & CO',
+      title: 'Company Formation - Anagam & CO',
       heroHeading: 'Company Formation',
       heroSubheading: 'End-to-end company registration services',
       heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
@@ -442,7 +442,7 @@ async function main() {
     },
     {
       slug: 'compliance',
-      title: 'Regulatory Compliance - ANAGAM & CO',
+      title: 'Regulatory Compliance - Anagam & CO',
       heroHeading: 'Regulatory Compliance',
       heroSubheading: 'Comprehensive compliance services',
       heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
@@ -453,7 +453,7 @@ async function main() {
     },
     {
       slug: 'financial-advisory',
-      title: 'Financial Advisory - ANAGAM & CO',
+      title: 'Financial Advisory - Anagam & CO',
       heroHeading: 'Financial Advisory',
       heroSubheading: 'Expert financial advisory services',
       heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600',
@@ -509,7 +509,7 @@ async function main() {
     })
   }
 
-  console.log('  ✅ ANAGAM & CO: 10 pages created')
+  console.log('  ✅ Anagam & CO: 10 pages created')
 
 }
 
