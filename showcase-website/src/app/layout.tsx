@@ -33,7 +33,7 @@ export default function RootLayout({
           href={`https://wa.me/919625080264?text=${waMessage}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-6 right-6 bg-[#25D366] text-white p-3.5 rounded-full shadow-lg hover:scale-110 transition-transform z-50 flex items-center justify-center border-2 border-white/20"
+          className="fixed bottom-20 md:bottom-6 right-6 bg-[#25D366] text-white p-3.5 rounded-full shadow-lg hover:scale-110 transition-transform z-50 flex items-center justify-center border-2 border-white/20"
           aria-label="Chat on WhatsApp"
         >
           <svg

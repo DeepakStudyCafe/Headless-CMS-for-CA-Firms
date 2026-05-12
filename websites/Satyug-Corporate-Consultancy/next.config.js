@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const sitemapDomain = 'https://aaganjewarandco.in/';
+const sitemapDomain = 'https://satyugcorporateconsultancy.com/';
 
 const nextConfig = {
   reactStrictMode: true,
@@ -15,7 +15,7 @@ const nextConfig = {
       'api.digitechai.in',
       'studycafe.in',
       'www.studycafe.in',
-      'www.aaganjewarandco.in',
+      'www.satyugcorporateconsultancy.com',
       'i0.wp.com',
       'i1.wp.com',
       'i2.wp.com'

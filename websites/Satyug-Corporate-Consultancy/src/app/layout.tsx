@@ -11,6 +11,9 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: 'Satyug corporate consultancy pvt ltd - Expert Business Advisory',
   description: 'Premier corporate consultancy firm providing strategic advisory, financial management, and operational excellence solutions.',
+  icons: {
+    icon: 'https://api.digitechai.in/api/uploads/favicon.ico',
+  },
 }
 
 export default function RootLayout({

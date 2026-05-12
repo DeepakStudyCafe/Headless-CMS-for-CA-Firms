@@ -606,6 +606,20 @@ export default function AdminDashboardPage() {
                                             className="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition text-sm bg-white text-slate-900 placeholder:text-slate-400"
                                         />
                                     </div>
+                                    {/* Author */}
+                                    <div>
+                                        <label className="block text-sm font-semibold text-slate-700 mb-1.5">Author <span className="text-red-500">*</span></label>
+                                        <select
+                                            name="author"
+                                            value={formData.author}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition text-sm bg-white text-slate-900 placeholder:text-slate-400"
+                                        >
+                                            <option value="Kirtika Prajapati">Kirtika Prajapati</option>
+                                            <option value="Deepanshi Rohilla">Deepanshi Rohilla</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 {/* Excerpt */}

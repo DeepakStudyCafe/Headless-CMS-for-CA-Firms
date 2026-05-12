@@ -95,7 +95,7 @@ export default function TemplateFeatures() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-2xl p-8 md:p-12"
+          className="bg-gradient-to-br from-primary-50 to-blue-50 rounded-2xl p-5 sm:p-8 md:p-12"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
@@ -123,9 +123,9 @@ export default function TemplateFeatures() {
                 ))}
               </ul>
             </div>
-            <div className="relative">
-              <div className="bg-white rounded-xl shadow-2xl p-6 border-4 border-primary-200">
-                <div className="bg-gradient-to-br from-primary-600 to-blue-600 rounded-lg p-6 text-white mb-4">
+            <div className="relative w-full max-w-lg mx-auto lg:mx-0">
+              <div className="bg-white rounded-xl shadow-2xl p-4 sm:p-6 border-2 sm:border-4 border-primary-200">
+                <div className="bg-gradient-to-br from-primary-600 to-blue-600 rounded-lg p-4 sm:p-6 text-white mb-4">
                   <div className="flex items-center gap-3 mb-4">
                     <Settings className="w-8 h-8" />
                     <div>
