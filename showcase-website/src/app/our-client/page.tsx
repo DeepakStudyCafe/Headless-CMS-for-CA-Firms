@@ -29,7 +29,7 @@ export default function OurClientPage() {
         { name: 'Monika S & Associates', url: 'https://monikasassociates.in/', img: '/monikaS.png', description: 'Helping small businesses with tax strategy and financial services; modern website with convenient inquiry forms.' },
         { name: 'I S K & Co', url: 'https://iskco.in/', img: '/isko-and-co.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
         { name: 'Mohan C & Co', url: 'https://camohanc.in/', img: '/camohan.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
-        
+        { name: 'D U & Associates ', url: 'http://duassociates.in/', img: '/DU&Associates.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         { name: 'S B Bhavi & CO.', url: 'https://casbbhavi.in/', img: '/casbbhavi.png', description: 'Empowering small businesses through smart tax planning and financial services; modern website with easy contact forms.' },
         { name: 'Ajoy Goyal & Associates  CO.', url: 'https://ajoygoyalassociates.com/', img: '/ajoygoyalassociates.png', description: 'Helping small businesses with smart tax planning and financial solutions; modern website with simple contact forms and quick response support.' },
         { name: 'V.B. Agrawal & Associates.', url: 'https://vbagrawal.in/', img: '/vbagrawal.png', description: 'Helping businesses grow with smart compliance and indirect tax solutions; modern website featuring easy inquiry forms and fast, reliable support responses.' },
@@ -39,7 +39,8 @@ export default function OurClientPage() {
         
         { name: 'Burlagadda & Associates', url: 'https://burlagadda.in/', img: '/burlagadda.png', description: 'Empowering small businesses through smart tax planning and financial services; modern website with easy contact forms.' },
         { name: 'Nipun Panchamiya and Associates ', url: 'https://canpaassociates.com/', img: '/NipunPanchamiya.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
-        { name: 'D U & Associates ', url: 'http://duassociates.in/', img: '/DU&Associates.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
+        
+        { name: 'Smart Msmes Advisory', url: 'https://smartmsmes.com/', img: '/smartmsmes.png', description: 'Specialized in SME tax planning and accounting; mobile-friendly site with contact forms.' },
         
         
 
