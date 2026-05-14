@@ -63,7 +63,7 @@ export default function PricingContent() {
           <div className="w-full">
             <div className="w-full rounded-xl border border-gray-100 overflow-hidden shadow-sm">
               {/* Header row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 bg-gray-50 p-4 md:p-6 items-center">
+              <div className="grid grid-cols-[1fr_110px] md:grid-cols-2 bg-gray-50 p-4 md:p-6 items-center">
                 <div className="text-sm md:text-base font-semibold">Feature</div>
                 <div className="text-center">
                   <div className="text-xs text-gray-500">PREMIUM</div>
@@ -78,7 +78,7 @@ export default function PricingContent() {
               {/* Rows */}
               <div className="divide-y divide-gray-100">
                 {features.map((label, idx) => (
-                  <div key={idx} className="grid grid-cols-1 md:grid-cols-2 items-center px-4 md:px-6 py-3">
+                  <div key={idx} className="grid grid-cols-[1fr_110px] md:grid-cols-2 items-center px-4 md:px-6 py-3">
                     <div className="text-sm md:text-base text-gray-700">{label}</div>
                     <div className="text-center text-sm md:text-base">
                       {typeof premiumCells[idx] === 'string' ? (
@@ -95,7 +95,7 @@ export default function PricingContent() {
 
               {/* CTA row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 md:p-6 bg-white">
-                <div />
+                <div className="hidden md:block" />
                 <div className="text-center">
                   <Link href="/payment" className="inline-block w-full md:w-40 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-semibold shadow">Buy Now</Link>
                 </div>

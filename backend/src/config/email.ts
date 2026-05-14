@@ -47,6 +47,7 @@ const WEBSITE_EMAILS = {
   'd-u-and-associates': process.env.DU_ASSOCIATES_EMAIL || 'duassociates4@gmail.com',
   'satyug-corporate-consultancy': process.env.SATYUG_EMAIL || 'satyugconsultancy@gmail.com',
   'ajoy-goyal-and-co': 'Ajoy_goyal@hotmail.com',
+  'smart-msmes-advisory': process.env.SMART_MSMES_EMAIL || 'info@smartmsmes.com',
 };
 
 // Website names mapping
@@ -74,6 +75,7 @@ const WEBSITE_NAMES = {
   'd-u-and-associates': 'D U & Associates',
   'satyug-corporate-consultancy': process.env.SATYUG_NAME || 'Satyug corporate consultancy pvt ltd',
   'ajoy-goyal-and-co': 'Ajoy Goyal and Co',
+  'smart-msmes-advisory': process.env.SMART_MSMES_NAME || 'Smart Msmes Advisory',
 };
 
 // Email sender function

@@ -403,6 +403,15 @@ module.exports = {
         NODE_ENV: 'development',
         PORT: 8096
       }
+    },{
+      name: 'smart-msmes-advisory',
+      cwd: './websites/smart-msmes-advisory',
+      script: 'npm',
+      args: 'run preview',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8098
+      }
     }
   ],
 

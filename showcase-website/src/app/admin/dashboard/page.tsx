@@ -394,8 +394,8 @@ export default function AdminDashboardPage() {
             {/* Toast Notification */}
             {toast && (
                 <div className={`fixed top-24 right-4 z-50 p-4 rounded-xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-0 opacity-100 ${toast.type === 'success' ? 'bg-green-50 border-green-200 text-green-700' :
-                        toast.type === 'error' ? 'bg-red-50 border-red-200 text-red-700' :
-                            'bg-blue-50 border-blue-200 text-blue-700'
+                    toast.type === 'error' ? 'bg-red-50 border-red-200 text-red-700' :
+                        'bg-blue-50 border-blue-200 text-blue-700'
                     } border`}>
                     {toast.type === 'loading' ? <Loader2 className="w-5 h-5 animate-spin" /> :
                         toast.type === 'success' ? <CheckCircle2 className="w-5 h-5" /> :

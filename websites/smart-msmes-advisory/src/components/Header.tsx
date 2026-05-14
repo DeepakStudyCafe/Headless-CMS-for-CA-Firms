@@ -52,8 +52,8 @@ const Header = () => {
         <div className="container-wide mx-auto flex flex-col md:flex-row items-center justify-between gap-2 px-4 py-2 text-sm" style={{ color: 'hsl(var(--primary-foreground))' }}>
           <div className="w-full flex items-center justify-between">
             <div className="flex items-center gap-3 min-w-0">
-              <a href="tel:+917503940139" className="flex items-center gap-1 hover:opacity-80 transition-opacity whitespace-nowrap">
-                <Phone size={14} /> <span className="ml-1">+91 7503940139</span>
+              <a href="tel:+918967632836" className="flex items-center gap-1 hover:opacity-80 transition-opacity whitespace-nowrap">
+                <Phone size={14} /> <span className="ml-1">+91 8967632836</span>
               </a>
 
               {/* email shown inline on md+ only */}
@@ -91,20 +91,19 @@ const Header = () => {
       </div>
 
       <nav className="container-wide mx-auto px-4 flex items-center justify-between h-16 md:h-18">
-        <Link to="/" className="flex items-center gap-">
-                <div className="h-14 md:h-18 flex items-center justify-center overflow-hidden bg-transparent">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="h-8 md:h-9 flex items-center justify-center overflow-hidden bg-transparent">
             <img
-              src={'/logo.png'}
-              alt="D U & Associates logo"
+              src={'https://api.digitechai.in/uploads/logo.png'}
+              alt="Smart Msmes Advisory logo"
               className="h-full w-auto object-contain"
             />
           </div>
-          {/* <div>
-            <span className={`font-heading font-bold text-lg transition-colors ${isScrolled ? 'text-secondary' : 'text-card'}`}>
-              D U & Associates
+          <div>
+            <span className="font-heading font-bold text-lg md:text-xl text-primary whitespace-nowrap">
+              Smart Msmes Advisory
             </span>
-            
-          </div> */}
+          </div>
         </Link>
 
         {/* Desktop nav */}
