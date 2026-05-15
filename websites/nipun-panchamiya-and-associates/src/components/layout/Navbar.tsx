@@ -61,9 +61,9 @@ const Navbar = ({ websiteData, disableSticky = false }: { websiteData?: any, dis
           >
             <Link to="/" className="flex-shrink-0 flex items-center gap-2">
               <img src={getImageUrl(logo)} alt={name + ' Logo'} className="h-10 lg:h-9 w-auto" />
-              <span className="hidden md:flex flex-col font-bold text-cream text-lg leading-tight tracking-wide select-none">
+              <span className="flex flex-col font-bold text-cream text-sm md:text-lg leading-tight tracking-wide select-none">
                 {name}
-                <span className="font-normal text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
+                <span className="font-normal text-[10px] md:text-xs tracking-normal -mt-0.5">Chartered Accountants</span>
               </span>
             </Link>
           </motion.div>
