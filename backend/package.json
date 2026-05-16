@@ -34,7 +34,8 @@
     "seed:agarwal-financial": "ts-node src/utils/agarwal-financial-seed.ts",
     "seed:du-associates": "ts-node src/utils/du-associates-seed.ts",
     "seed:satyug": "ts-node src/utils/satyug-corporate-consultancy-seed.ts",
-    "seed:smart-msmes": "ts-node src/utils/smart-msmes-advisory-seed.ts"
+    "seed:smart-msmes": "ts-node src/utils/smart-msmes-advisory-seed.ts",
+    "seed:abhinav-j-and-co": "ts-node src/utils/abhinav-j-and-co-seed.ts"
   },
   "keywords": [
     "cms",

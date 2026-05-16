@@ -412,6 +412,15 @@ module.exports = {
         NODE_ENV: 'development',
         PORT: 8098
       }
+    },{
+      name: 'abhinav-j-and-company',
+      cwd: './websites/abhinav-j-and-company',
+      script: 'npm',
+      args: 'run dev',
+      env: {
+        NODE_ENV: 'development',
+        PORT: 8099
+      }
     }
   ],
 
