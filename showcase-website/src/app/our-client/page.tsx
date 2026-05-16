@@ -41,6 +41,7 @@ export default function OurClientPage() {
         { name: 'Nipun Panchamiya and Associates ', url: 'https://canpaassociates.com/', img: '/NipunPanchamiya.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
         
         { name: 'Smart Msmes Advisory', url: 'https://smartmsmes.com/', img: '/smartmsmes.png', description: 'Specialized in SME tax planning and accounting; mobile-friendly site with contact forms.' },
+        { name: 'Abhinav J & Company', url: 'https://abhinavjandco.in/', img: '/abhinavjandco.png', description: 'Focused on MSME compliance, tax advisory, GST filing, and accounting solutions; responsive website with enquiry forms and mobile-friendly experience.' },
         
         
 
