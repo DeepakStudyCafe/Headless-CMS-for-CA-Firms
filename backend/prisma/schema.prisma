@@ -11,16 +11,16 @@ datasource db {
 
 // User model for authentication
 model User {
-  id           String     @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
-  email        String     @unique
-  passwordHash String     @map("password_hash")
-  role         UserRole   @default(EDITOR)
-  createdAt    DateTime   @default(now()) @map("created_at")
-  updatedAt    DateTime   @updatedAt @map("updated_at")
-  
-  revisions    Revision[]
-  auditLogs    AuditLog[]
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         UserRole @default(EDITOR)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  revisions Revision[]
+  auditLogs AuditLog[]
 
   @@map("users")
 }
@@ -33,43 +33,43 @@ enum UserRole {
 
 // Website model
 model Website {
-  id          String   @id @default(uuid())
-  name        String
-  slug        String   @unique
-  domain      String?
-  logo        String?
-  themeConfig Json?    @map("theme_config")
-  phone       String?
-  email       String?
-  address     String?
-  workingHours String? @map("working_hours") @default("Mon - Sat: 9:30 AM - 7:00 PM")
+  id             String   @id @default(uuid())
+  name           String
+  slug           String   @unique
+  domain         String?
+  logo           String?
+  themeConfig    Json?    @map("theme_config")
+  phone          String?
+  email          String?
+  address        String?
+  workingHours   String?  @default("Mon - Sat: 9:30 AM - 7:00 PM") @map("working_hours")
   isActive       Boolean  @default(true) @map("is_active")
   isAdminEnabled Boolean  @default(true) @map("is_admin_enabled")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  
-  pages       Page[]
-  auditLogs   AuditLog[]
-  analytics   Analytics[]
-  siteAdmin   SiteAdmin?
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  pages     Page[]
+  auditLogs AuditLog[]
+  analytics Analytics[]
+  siteAdmin SiteAdmin?
 
   @@map("websites")
 }
 
 // Page model
 model Page {
-  id          String      @id @default(uuid())
-  websiteId   String      @map("website_id")
+  id          String     @id @default(uuid())
+  websiteId   String     @map("website_id")
   slug        String
   title       String
-  status      PageStatus  @default(DRAFT)
-  publishedAt DateTime?   @map("published_at")
-  createdAt   DateTime    @default(now()) @map("created_at")
-  updatedAt   DateTime    @updatedAt @map("updated_at")
-  
-  website     Website     @relation(fields: [websiteId], references: [id], onDelete: Cascade)
-  sections    Section[]
-  revisions   Revision[]
+  status      PageStatus @default(DRAFT)
+  publishedAt DateTime?  @map("published_at")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  website   Website    @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  sections  Section[]
+  revisions Revision[]
 
   @@unique([websiteId, slug])
   @@map("pages")
@@ -85,14 +85,14 @@ enum PageStatus {
 model Section {
   id          String   @id @default(uuid())
   pageId      String   @map("page_id")
-  type        String   // "hero", "text-image", "gallery", "team", etc.
+  type        String // "hero", "text-image", "gallery", "team", etc.
   imageUrl    String?  @map("image_url")
   textContent Json?    @map("text_content")
   order       Int      @default(0)
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  
-  page        Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  page Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
 
   @@map("sections")
 }
@@ -103,11 +103,11 @@ model Revision {
   pageId    String   @map("page_id")
   userId    String   @map("user_id")
   data      Json
-  action    String   // "created", "updated", "published"
+  action    String // "created", "updated", "published"
   createdAt DateTime @default(now()) @map("created_at")
-  
-  page      Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id])
+
+  page Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id])
 
   @@map("revisions")
 }
@@ -120,9 +120,9 @@ model AuditLog {
   action    String
   details   Json?
   timestamp DateTime @default(now())
-  
-  website   Website? @relation(fields: [websiteId], references: [id], onDelete: SetNull)
-  user      User     @relation(fields: [userId], references: [id])
+
+  website Website? @relation(fields: [websiteId], references: [id], onDelete: SetNull)
+  user    User     @relation(fields: [userId], references: [id])
 
   @@map("audit_logs")
 }
@@ -134,8 +134,8 @@ model Analytics {
   pageSlug  String   @map("page_slug")
   visits    Int      @default(0)
   date      DateTime @default(now())
-  
-  website   Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
   @@unique([websiteId, pageSlug, date])
   @@map("analytics")
@@ -152,7 +152,7 @@ model SiteAdmin {
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")
 
-  website        Website   @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  website Website @relation(fields: [websiteId], references: [id], onDelete: Cascade)
 
   @@map("site_admins")
 }
@@ -168,7 +168,7 @@ model Blog {
   content        String
   coverImageUrl  String?  @map("cover_image_url")
   imageAltText   String?  @map("image_alt_text")
-  tags           String   // Stored as comma-separated string
+  tags           String // Stored as comma-separated string
   seoTitle       String?  @map("seo_title")
   seoDescription String?  @map("seo_description")
   isDraft        Boolean  @default(false) @map("is_draft")
@@ -177,4 +177,24 @@ model Blog {
   updatedAt      DateTime @updatedAt @map("updated_at")
 
   @@map("blogs")
+}
+
+// Demo Registration model for showcase website
+model DemoRegistration {
+  id        String                 @id @default(uuid())
+  name      String
+  email     String
+  mobile    String
+  state     String
+  status    DemoRegistrationStatus @default(PENDING)
+  createdAt DateTime               @default(now()) @map("created_at")
+  updatedAt DateTime               @updatedAt @map("updated_at")
+
+  @@map("demo_registrations")
+}
+
+enum DemoRegistrationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }

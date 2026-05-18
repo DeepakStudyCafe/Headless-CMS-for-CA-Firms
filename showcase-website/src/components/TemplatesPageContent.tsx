@@ -1,14 +1,66 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
-import { motion } from 'framer-motion'
-import { ExternalLink, Check, ChevronLeft, ChevronRight, Settings, Mouse, ChevronDown, Edit, RefreshCw, Zap } from 'lucide-react'
+import { useState, useRef, useCallback, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ExternalLink, Check, ChevronLeft, ChevronRight, Settings, Mouse, ChevronDown, Edit, RefreshCw, Zap, X } from 'lucide-react'
 import Link from 'next/link'
 
 export default function TemplatesPageContent() {
     const [currentPage, setCurrentPage] = useState(1)
     const [activeFilter, setActiveFilter] = useState('all')
     const templatesPerPage = 6
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedDemoUrl, setSelectedDemoUrl] = useState('')
+    const [formData, setFormData] = useState({ name: '', email: '', mobile: '', state: '' })
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+    const [hasRegisteredLocally, setHasRegisteredLocally] = useState(false)
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setHasRegisteredLocally(localStorage.getItem('demoRegistered') === 'true')
+        }
+    }, [])
+
+    const handleViewDemo = (e: React.MouseEvent, url: string) => {
+        e.preventDefault()
+        if (hasRegisteredLocally) {
+            window.open(url, '_blank')
+        } else {
+            setSelectedDemoUrl(url)
+            setIsModalOpen(true)
+        }
+    }
+
+    const handleSubmitDemoForm = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+        setError('')
+
+        try {
+            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+            const res = await fetch(`${apiUrl}/demo-registrations/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            const data = await res.json()
+
+            if (data.success) {
+                localStorage.setItem('demoRegistered', 'true')
+                setHasRegisteredLocally(true)
+                setIsModalOpen(false)
+                window.open(selectedDemoUrl, '_blank')
+            } else {
+                setError(data.error || 'Registration failed')
+            }
+        } catch (err) {
+            setError('An error occurred. Please try again later.')
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const templates = [
 
@@ -701,222 +753,321 @@ export default function TemplatesPageContent() {
     }
 
     return (
-        <div className="pb-20">
-            {/* Hero Section */}
-            <section className="  min-h-[500px]" style={{ ['--hero-image' as any]: "url('/about.jpeg')", backgroundImage: "url('/about.jpeg')" }}>
-                <div className="container-custom py-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center max-w-4xl mx-auto mb-12 pt-24"
-                    >
-                        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-4 md:mb-6 px-4">Premium Website Templates</h1>
-                        <p className="text-lg sm:text-xl text-white/80 leading-relaxed px-4">Each template includes admin panel, content management system, and powerful features for CA firms</p>
-                    </motion.div>
-                </div>
-            </section>
-
-            <div className="container-custom py-8">
-                {/* Filter Tabs */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="flex justify-center mb-12 max-w-full"
-                >
-                    <div className="flex overflow-x-auto pb-2 sm:pb-0 hide-scrollbar w-full sm:w-auto justify-start sm:justify-center">
-                        <div className="inline-flex bg-white rounded-lg shadow-lg p-1 whitespace-nowrap mx-auto">
-                            {['all', 'professional', 'modern', 'creative'].map((filter) => (
-                                <button
-                                    key={filter}
-                                    onClick={() => handleFilterChange(filter)}
-                                    className={`px-4 sm:px-6 py-2 sm:py-3 rounded-md font-semibold transition-all duration-300 text-sm sm:text-base ${activeFilter === filter
-                                        ? 'bg-primary-600 text-white shadow-md'
-                                        : 'text-gray-600 hover:text-gray-900'
-                                        }`}
-                                >
-                                    {filter === 'all' ? 'All Templates' : filter.charAt(0).toUpperCase() + filter.slice(1)}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Templates Gallery */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                    {currentTemplates.map((template, index) => (
+        <>
+            <div className="pb-20">
+                {/* Hero Section */}
+                <section className="  min-h-[500px]" style={{ ['--hero-image' as any]: "url('/about.jpeg')", backgroundImage: "url('/about.jpeg')" }}>
+                    <div className="container-custom py-16">
                         <motion.div
-                            key={template.id}
                             initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="card overflow-hidden group"
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="text-center max-w-4xl mx-auto mb-12 pt-24"
                         >
-                            {/* Template Image Preview (hover to scroll) */}
-                            <div className="relative h-96 overflow-hidden">
-                                <div className="relative h-96 overflow-hidden group">
-                                    <HoverScrollImage src={template.image} alt={template.theme} wide />
-                                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <div className="flex flex-col items-center justify-center bg-black bg-opacity-60 rounded-xl px-4 pt-3" style={{ backdropFilter: 'blur(2px)' }}>
-                                            <Mouse className="w-8 h-8 text-white opacity-80" />
-                                            <ChevronDown className="w-7 h-7 text-white opacity-80 animate-bounce mt-1" style={{ animationDuration: '1.2s' }} />
+                            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-white mb-4 md:mb-6 px-4">Premium Website Templates</h1>
+                            <p className="text-lg sm:text-xl text-white/80 leading-relaxed px-4">Each template includes admin panel, content management system, and powerful features for CA firms</p>
+                        </motion.div>
+                    </div>
+                </section>
+
+                <div className="container-custom py-8">
+                    {/* Filter Tabs */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="flex justify-center mb-12 max-w-full"
+                    >
+                        <div className="flex overflow-x-auto pb-2 sm:pb-0 hide-scrollbar w-full sm:w-auto justify-start sm:justify-center">
+                            <div className="inline-flex bg-white rounded-lg shadow-lg p-1 whitespace-nowrap mx-auto">
+                                {['all', 'professional', 'modern', 'creative'].map((filter) => (
+                                    <button
+                                        key={filter}
+                                        onClick={() => handleFilterChange(filter)}
+                                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-md font-semibold transition-all duration-300 text-sm sm:text-base ${activeFilter === filter
+                                            ? 'bg-primary-600 text-white shadow-md'
+                                            : 'text-gray-600 hover:text-gray-900'
+                                            }`}
+                                    >
+                                        {filter === 'all' ? 'All Templates' : filter.charAt(0).toUpperCase() + filter.slice(1)}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Templates Gallery */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                        {currentTemplates.map((template, index) => (
+                            <motion.div
+                                key={template.id}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                className="card overflow-hidden group"
+                            >
+                                {/* Template Image Preview (hover to scroll) */}
+                                <div className="relative h-96 overflow-hidden">
+                                    <div className="relative h-96 overflow-hidden group">
+                                        <HoverScrollImage src={template.image} alt={template.theme} wide />
+                                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <div className="flex flex-col items-center justify-center bg-black bg-opacity-60 rounded-xl px-4 pt-3" style={{ backdropFilter: 'blur(2px)' }}>
+                                                <Mouse className="w-8 h-8 text-white opacity-80" />
+                                                <ChevronDown className="w-7 h-7 text-white opacity-80 animate-bounce mt-1" style={{ animationDuration: '1.2s' }} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* Template Info */}
-                            <div className="p-6">
-                                <div className="mb-4 text-center">
-                                    <span className="inline-block px-4 py-1 rounded-full bg-primary-100 text-primary-700 font-bold text-sm shadow-sm border border-primary-200 mb-2">
-                                        {template.name}
-                                    </span>
+                                {/* Template Info */}
+                                <div className="p-6">
+                                    <div className="mb-4 text-center">
+                                        <span className="inline-block px-4 py-1 rounded-full bg-primary-100 text-primary-700 font-bold text-sm shadow-sm border border-primary-200 mb-2">
+                                            {template.name}
+                                        </span>
+                                    </div>
+                                    <div className="flex gap-24 justify-center">
+                                        <Link
+                                            href="/payment"
+                                            className="inline-flex items-center justify-center gap-1 px-2 py-1 text-xs bg-white hover:bg-gray-50 text-primary-600 font-semibold rounded border border-primary-600 transition-all duration-300"
+                                        >
+                                            Choose
+                                        </Link>
+                                        <a
+                                            href={template.url}
+                                            onClick={(e) => handleViewDemo(e, template.url)}
+                                            className="inline-flex items-center justify-center gap-1 px-2 py-1 text-xs bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded transition-all duration-300 group cursor-pointer"
+                                        >
+                                            View Demo
+                                            <ExternalLink className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                                        </a>
+                                    </div>
                                 </div>
-                                <div className="flex gap-24 justify-center">
-                                    <Link
-                                        href="/payment"
-                                        className="inline-flex items-center justify-center gap-1 px-2 py-1 text-xs bg-white hover:bg-gray-50 text-primary-600 font-semibold rounded border border-primary-600 transition-all duration-300"
-                                    >
-                                        Choose
-                                    </Link>
-                                    <a
-                                        href={template.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center justify-center gap-1 px-2 py-1 text-xs bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded transition-all duration-300 group"
-                                    >
-                                        View Demo
-                                        <ExternalLink className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                                    </a>
-                                </div>
-                            </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="flex justify-center items-center gap-2"
+                        >
+                            <button
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                className="p-2 rounded-lg bg-white border-2 border-gray-200 hover:border-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                            >
+                                <ChevronLeft className="w-5 h-5" />
+                            </button>
+
+                            {[...Array(totalPages)].map((_, index) => (
+                                <button
+                                    key={index + 1}
+                                    onClick={() => handlePageChange(index + 1)}
+                                    className={`w-10 h-10 rounded-lg font-semibold transition-all duration-300 ${currentPage === index + 1
+                                        ? 'bg-primary-600 text-white shadow-lg'
+                                        : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-primary-600'
+                                        }`}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))}
+
+                            <button
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                className="p-2 rounded-lg bg-white border-2 border-gray-200 hover:border-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                            >
+                                <ChevronRight className="w-5 h-5" />
+                            </button>
                         </motion.div>
-                    ))}
-                </div>
+                    )}
 
-                {/* Pagination */}
-                {totalPages > 1 && (
+                    {/* CTA Section */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="flex justify-center items-center gap-2"
+                        className="mt-12 md:mt-20 text-center bg-gradient-to-br from-primary-600 to-blue-700 rounded-2xl p-6 md:p-12 text-white"
                     >
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            className="p-2 rounded-lg bg-white border-2 border-gray-200 hover:border-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-                        >
-                            <ChevronLeft className="w-5 h-5" />
-                        </button>
-
-                        {[...Array(totalPages)].map((_, index) => (
-                            <button
-                                key={index + 1}
-                                onClick={() => handlePageChange(index + 1)}
-                                className={`w-10 h-10 rounded-lg font-semibold transition-all duration-300 ${currentPage === index + 1
-                                    ? 'bg-primary-600 text-white shadow-lg'
-                                    : 'bg-white border-2 border-gray-200 text-gray-700 hover:border-primary-600'
-                                    }`}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
-
-                        <button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className="p-2 rounded-lg bg-white border-2 border-gray-200 hover:border-primary-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-                        >
-                            <ChevronRight className="w-5 h-5" />
-                        </button>
-                    </motion.div>
-                )}
-
-                {/* CTA Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mt-12 md:mt-20 text-center bg-gradient-to-br from-primary-600 to-blue-700 rounded-2xl p-6 md:p-12 text-white"
-                >
-                    <h3 className="text-2xl md:text-4xl font-bold mb-4">
-                        Need Help Choosing?
-                    </h3>
-                    <p className="text-lg md:text-xl mb-8 opacity-90">
-                        Schedule a free consultation to find the perfect template for your CA firm
-                    </p>
-                    <Link
-                        href="/schedule-call"
-                        className="inline-flex items-center gap-2 bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
-                    >
-                        Schedule Free Consultation
-                    </Link>
-                </motion.div>
-
-                {/* Admin Features Info */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mt-12 bg-white rounded-2xl shadow-xl p-8"
-                >
-                    <div className="text-center mb-8">
-                        <div className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                            <Settings className="w-4 h-4" />
-                            Admin Panel Features
-                        </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                            Every Template Includes Full Admin Control
+                        <h3 className="text-2xl md:text-4xl font-bold mb-4">
+                            Need Help Choosing?
                         </h3>
-                        <p className="text-gray-600 max-w-2xl mx-auto">
-                            As a site owner, you get complete access to manage your website through an intuitive admin dashboard
+                        <p className="text-lg md:text-xl mb-8 opacity-90">
+                            Schedule a free consultation to find the perfect template for your CA firm
                         </p>
-                    </div>
+                        <Link
+                            href="/schedule-call"
+                            className="inline-flex items-center gap-2 bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+                        >
+                            Schedule Free Consultation
+                        </Link>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[
-                            {
-                                title: 'Content Management',
-                                description: 'Edit pages, services, team members, and blog posts directly from your dashboard',
-                                icon: Edit,
-                            },
-                            {
-                                title: 'Request Changes',
-                                description: 'Submit content update requests and track their status in real-time',
-                                icon: RefreshCw,
-                            },
-                            {
-                                title: 'Easy Updates',
-                                description: 'No technical knowledge required - update your website with just a few clicks',
-                                icon: Zap,
-                            },
-                        ].map((feature, idx) => (
-                            <div key={idx} className="bg-gray-50 rounded-lg p-6 text-center">
-                                <div className="mb-3">
-                                    {typeof feature.icon === 'string' ? (
-                                        <div className="text-4xl">{feature.icon}</div>
-                                    ) : (
-                                        // lucide-react icon component
-                                        (() => {
-                                            const Icon = feature.icon as any
-                                            return <Icon className="w-8 h-8 mx-auto text-primary-600" />
-                                        })()
-                                    )}
-                                </div>
-                                <h4 className="font-bold text-gray-900 mb-2">{feature.title}</h4>
-                                <p className="text-sm text-gray-600">{feature.description}</p>
+                    {/* Admin Features Info */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="mt-12 bg-white rounded-2xl shadow-xl p-8"
+                    >
+                        <div className="text-center mb-8">
+                            <div className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                                <Settings className="w-4 h-4" />
+                                Admin Panel Features
                             </div>
-                        ))}
-                    </div>
-                </motion.div>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                                Every Template Includes Full Admin Control
+                            </h3>
+                            <p className="text-gray-600 max-w-2xl mx-auto">
+                                As a site owner, you get complete access to manage your website through an intuitive admin dashboard
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {[
+                                {
+                                    title: 'Content Management',
+                                    description: 'Edit pages, services, team members, and blog posts directly from your dashboard',
+                                    icon: Edit,
+                                },
+                                {
+                                    title: 'Request Changes',
+                                    description: 'Submit content update requests and track their status in real-time',
+                                    icon: RefreshCw,
+                                },
+                                {
+                                    title: 'Easy Updates',
+                                    description: 'No technical knowledge required - update your website with just a few clicks',
+                                    icon: Zap,
+                                },
+                            ].map((feature, idx) => (
+                                <div key={idx} className="bg-gray-50 rounded-lg p-6 text-center">
+                                    <div className="mb-3">
+                                        {typeof feature.icon === 'string' ? (
+                                            <div className="text-4xl">{feature.icon}</div>
+                                        ) : (
+                                            // lucide-react icon component
+                                            (() => {
+                                                const Icon = feature.icon as any
+                                                return <Icon className="w-8 h-8 mx-auto text-primary-600" />
+                                            })()
+                                        )}
+                                    </div>
+                                    <h4 className="font-bold text-gray-900 mb-2">{feature.title}</h4>
+                                    <p className="text-sm text-gray-600">{feature.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                </div>
             </div>
-        </div>
+
+            {/* Demo Registration Modal */}
+            <AnimatePresence>
+                {isModalOpen && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+                        >
+                            <div className="flex justify-between items-center p-6 border-b border-gray-100 bg-gray-50/50">
+                                <div>
+                                    <h3 className="text-xl font-bold text-gray-900">Demo Access Request</h3>
+                                    <p className="text-sm text-gray-500 mt-1">Please register to view the template demo</p>
+                                </div>
+                                <button
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            <form onSubmit={handleSubmitDemoForm} className="p-6">
+                                {error && (
+                                    <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
+                                        {error}
+                                    </div>
+                                )}
+
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                            placeholder="John Doe"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                        <input
+                                            type="email"
+                                            required
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                            placeholder="john@example.com"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+                                        <input
+                                            type="tel"
+                                            required
+                                            pattern="[0-9]{10}"
+                                            value={formData.mobile}
+                                            onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                            placeholder="1234567890"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                        <input
+                                            type="text"
+                                            required
+                                            value={formData.state}
+                                            onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                            placeholder="Maharashtra"
+                                        />
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="w-full mt-6 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center"
+                                >
+                                    {loading ? (
+                                        <RefreshCw className="w-5 h-5 animate-spin" />
+                                    ) : (
+                                        'View Demo Now'
+                                    )}
+                                </button>
+                            </form>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+        </>
     )
 }
 

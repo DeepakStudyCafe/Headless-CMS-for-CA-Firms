@@ -4,7 +4,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/store/authStore'
-import { Home, Globe, Settings, LogOut, BarChart3 } from 'lucide-react'
+import { Home, Globe, Settings, LogOut, BarChart3, Users } from 'lucide-react'
 
 export function Sidebar() {
   const router = useRouter()
@@ -20,6 +20,7 @@ export function Sidebar() {
   const menuItems = [
     { icon: Home, label: 'Dashboard', href: '/dashboard' },
     { icon: Globe, label: 'Websites', href: '/Websites' },
+    { icon: Users, label: 'Demo Registrations', href: '/dashboard/demo-registrations' },
     { icon: BarChart3, label: 'Analytics', href: '/dashboard/analytics' },
     { icon: Settings, label: 'Settings', href: '/dashboard/settings' },
   ]

@@ -16,13 +16,11 @@ const Footer = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="h-8 md:h-9 rounded-lg overflow-hidden bg-transparent flex items-center justify-center">
-                <img
-                  src="https://api.digitechai.in/uploads/logo.png"
-                  alt="Smart Msmes Advisory logo"
-                  className="w-auto h-full object-contain"
-                />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-md border border-primary/20 hover:scale-105 hover:rotate-6 transition-all duration-300">
+                <span className="font-heading font-black text-xl text-white tracking-wider select-none">
+                  S
+                </span>
               </div>
               <span className="font-heading font-bold text-l text-white">
                 Smart Msmes Advisory

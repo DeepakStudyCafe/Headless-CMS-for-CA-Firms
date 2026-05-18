@@ -18,6 +18,7 @@ import publicRoutes from './routes/public.routes';
 import formRoutes from './routes/form.routes';
 import siteAdminRoutes from './routes/siteAdmin.routes';
 import blogRoutes from './routes/blog.routes';
+import demoRegistrationRoutes from './routes/demoRegistration.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -204,6 +205,7 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/forms', formRoutes);
 app.use('/api/site-admin', siteAdminRoutes);
 app.use('/api/blogs', blogRoutes);
+app.use('/api/demo-registrations', demoRegistrationRoutes);
 
 // Error handling
 app.use(notFound);

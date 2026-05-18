@@ -91,13 +91,11 @@ const Header = () => {
       </div>
 
       <nav className="container-wide mx-auto px-4 flex items-center justify-between h-16 md:h-18">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="h-8 md:h-9 flex items-center justify-center overflow-hidden bg-transparent">
-            <img
-              src={'https://api.digitechai.in/uploads/logo.png'}
-              alt="Smart Msmes Advisory logo"
-              className="h-full w-auto object-contain"
-            />
+        <Link to="/" className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center shadow-md border border-primary/20 hover:scale-105 hover:rotate-6 transition-all duration-300">
+            <span className="font-heading font-black text-xl text-white tracking-wider select-none">
+              S
+            </span>
           </div>
           <div>
             <span className="font-heading font-bold text-lg md:text-xl text-primary whitespace-nowrap">

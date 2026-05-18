@@ -99,7 +99,7 @@ export default function OurClientPage() {
                             <Settings className="w-6 h-6 text-primary-700" />
                         </div>
                         <h4 className="font-semibold mb-2 text-lg">Easy Admin</h4>
-                        <p className="text-slate-600 text-sm">Full admin panel to update services, team, blogs and manage content without technical help.</p>
+                        <p className="text-slate-600 text-sm">Full admin panel to update services, team, About and manage content without technical help.</p>
                     </div>
 
                     <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition transform hover:-translate-y-2 p-6 border border-transparent hover:border-primary-100">
