@@ -150,7 +150,7 @@ export const getAllWebsites = async (req: Request, res: Response) => {
       }
       return {
         ...website,
-        domain: getWebsiteUrl(website.slug) || website.domain || `${website.slug}.digitechai.in`,
+        domain: getWebsiteUrl(website.slug) || website.domain,
         bannerImage,
       };
     }));

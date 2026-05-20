@@ -157,6 +157,24 @@ model SiteAdmin {
   @@map("site_admins")
 }
 
+// ClientWebsite model for admin tracking
+model ClientWebsite {
+  id               String    @id @default(uuid())
+  name             String
+  slug             String    @unique
+  companyName      String?   @map("company_name")
+  email            String?
+  phone            String?
+  startDate        DateTime? @map("start_date")
+  websiteExpiryDate DateTime? @map("website_expiry_date")
+  domainOwnership  String?   @map("domain_ownership")
+  domainExpiryDate DateTime? @map("domain_expiry_date")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  @@map("client_websites")
+}
+
 // Blog model for showcase website
 model Blog {
   id             String   @id @default(uuid())

@@ -19,7 +19,7 @@ export function Sidebar() {
 
   const menuItems = [
     { icon: Home, label: 'Dashboard', href: '/dashboard' },
-    { icon: Globe, label: 'Websites', href: '/Websites' },
+    { icon: Globe, label: 'Websites', href: '/dashboard/websites' },
     { icon: Users, label: 'Demo Registrations', href: '/dashboard/demo-registrations' },
     { icon: BarChart3, label: 'Analytics', href: '/dashboard/analytics' },
     { icon: Settings, label: 'Settings', href: '/dashboard/settings' },

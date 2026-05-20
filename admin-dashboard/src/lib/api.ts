@@ -61,6 +61,15 @@ export const websiteAPI = {
   delete: (id: string) => apiClient.delete(`/websites/${id}`),
 }
 
+// Client Website API
+export const clientWebsiteAPI = {
+  getAll: (params?: { search?: string; page?: number; limit?: number }) => 
+    apiClient.get('/client-websites', { params }),
+  create: (data: any) => apiClient.post('/client-websites', data),
+  update: (id: string, data: any) => apiClient.put(`/client-websites/${id}`, data),
+  delete: (id: string) => apiClient.delete(`/client-websites/${id}`),
+}
+
 // Page API
 export const pageAPI = {
   getByWebsite: (websiteId: string, status?: string) =>

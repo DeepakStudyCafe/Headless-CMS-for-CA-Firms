@@ -241,9 +241,17 @@ export default function DashboardPage() {
                                 src={getImageUrl(website.bannerImage)} 
                                 alt={website.name}
                                 className="w-full h-full object-cover rounded-xl"
+                                onError={(e) => {
+                                  e.currentTarget.onerror = null;
+                                  e.currentTarget.src = '/assets/hero-1.jpg';
+                                }}
                               />
                             ) : (
-                              <Globe className="w-6 h-6 text-blue-500" />
+                              <img 
+                                src="/assets/hero-1.jpg" 
+                                alt={website.name}
+                                className="w-full h-full object-cover rounded-xl"
+                              />
                             )}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -309,11 +317,17 @@ export default function DashboardPage() {
                           src={getImageUrl(website.bannerImage)}
                           alt={website.name + ' Banner'}
                           className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = '/assets/hero-1.jpg';
+                          }}
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-blue-100 via-purple-100 to-indigo-100 flex items-center justify-center">
-                          <Globe className="w-20 h-20 text-blue-400 group-hover:text-blue-600 duration-500 group-hover:scale-110 transition-transform" />
-                        </div>
+                        <img
+                          src="/assets/hero-1.jpg"
+                          alt={website.name + ' Banner'}
+                          className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                        />
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
                       <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -364,9 +378,21 @@ export default function DashboardPage() {
                 <div className="flex items-center gap-4">
                   <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
                     {website.bannerImage ? (
-                      <img src={getImageUrl(website.bannerImage)} alt={website.name} className="w-full h-full object-cover" />
+                      <img 
+                        src={getImageUrl(website.bannerImage)} 
+                        alt={website.name} 
+                        className="w-full h-full object-cover" 
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = '/assets/hero-1.jpg';
+                        }}
+                      />
                     ) : (
-                      <Globe className="w-8 h-8 text-blue-400" />
+                      <img 
+                        src="/assets/hero-1.jpg" 
+                        alt={website.name} 
+                        className="w-full h-full object-cover" 
+                      />
                     )}
                   </div>
                   <div className="min-w-0">

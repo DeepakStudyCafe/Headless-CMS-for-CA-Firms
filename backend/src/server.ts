@@ -19,6 +19,7 @@ import formRoutes from './routes/form.routes';
 import siteAdminRoutes from './routes/siteAdmin.routes';
 import blogRoutes from './routes/blog.routes';
 import demoRegistrationRoutes from './routes/demoRegistration.routes';
+import clientWebsiteRoutes from './routes/clientWebsite.routes';
 
 // Import middleware
 import { errorHandler } from './middleware/errorHandler';
@@ -197,6 +198,7 @@ app.get('/health/db', async (req, res) => {
 app.use('/api/public', publicRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/websites', websiteRoutes);
+app.use('/api/client-websites', clientWebsiteRoutes);
 app.use('/api/pages', pageRoutes);
 app.use('/api/sections', sectionRoutes);
 app.use('/api/media', mediaRoutes);
@@ -241,7 +243,6 @@ const initializeDatabase = async () => {
 
 app.listen(PORT, '0.0.0.0', async () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📊 Environment: ${process.env.NODE_ENV}`);
   console.log(`🔗 Health check: http://localhost:${PORT}/health`);
 
   // Initialize database connection
