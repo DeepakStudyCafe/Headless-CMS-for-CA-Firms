@@ -65,6 +65,7 @@ export const websiteAPI = {
 export const clientWebsiteAPI = {
   getAll: (params?: { search?: string; page?: number; limit?: number }) => 
     apiClient.get('/client-websites', { params }),
+  getById: (id: string) => apiClient.get(`/client-websites/${id}`),
   create: (data: any) => apiClient.post('/client-websites', data),
   update: (id: string, data: any) => apiClient.put(`/client-websites/${id}`, data),
   delete: (id: string) => apiClient.delete(`/client-websites/${id}`),

@@ -1,7 +1,19 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+
+// Convert various date strings to YYYY-MM-DD for <input type="date" />
+const toInputDate = (val?: string) => {
+  if (!val) return ''
+  try {
+    const d = new Date(val)
+    if (isNaN(d.getTime())) return ''
+    return d.toISOString().slice(0, 10)
+  } catch {
+    return ''
+  }
+}
 import { motion } from 'framer-motion'
 import { clientWebsiteAPI } from '@/lib/api'
 import { ArrowLeft, Save } from 'lucide-react'
@@ -12,6 +24,9 @@ export default function CreateWebsitePage() {
   const router = useRouter()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
+  const searchParams = useSearchParams()
+  const editId = searchParams?.get('id') || null
+  const [isEdit, setIsEdit] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
@@ -21,21 +36,54 @@ export default function CreateWebsitePage() {
     startDate: '',
     websiteExpiryDate: '',
     domainOwnership: 'Client',
+    domainStartDate: '',
     domainExpiryDate: ''
   })
 
-  // Basic auto-slug generator
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newName = e.target.value
-    setFormData({
-      ...formData,
-      name: newName,
-      slug: newName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
-    })
-  }
+  // Name input — do not auto-generate slug; user must enter slug manually
+
+  useEffect(() => {
+    const loadForEdit = async () => {
+      if (!editId) return
+      setIsEdit(true)
+      setLoading(true)
+      try {
+        // Server does not expose GET /client-websites/:id — fetch all and find the record
+        const res = await clientWebsiteAPI.getAll()
+        const list = res.data?.data?.clientWebsites || res.data?.data?.websites || res.data?.data || res.data
+        const w = Array.isArray(list) ? list.find((x: any) => x.id === editId) : null
+        if (!w) throw new Error('Not found')
+        setFormData({
+          name: w.name || '',
+          slug: w.slug || '',
+          companyName: w.companyName || '',
+          email: w.email || '',
+          phone: w.phone || '',
+          startDate: toInputDate(w.startDate),
+          websiteExpiryDate: toInputDate(w.websiteExpiryDate),
+          domainOwnership: w.domainOwnership || 'Client',
+          domainStartDate: toInputDate(w.domainStartDate),
+          domainExpiryDate: toInputDate(w.domainExpiryDate)
+        })
+      } catch (err) {
+        console.error('Failed to load website for edit', err)
+        toast({ variant: 'destructive', title: 'Error', description: 'Failed to load website data for editing' })
+        router.push('/dashboard/websites')
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadForEdit()
+  }, [editId])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    // If domainOwnership changed to something other than 'We Own', clear domainStartDate
+    if (name === 'domainOwnership' && value !== 'We Own') {
+      setFormData({ ...formData, [name]: value, domainStartDate: '', domainExpiryDate: '' })
+      return
+    }
+    setFormData({ ...formData, [name]: value })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,17 +91,19 @@ export default function CreateWebsitePage() {
     setLoading(true)
 
     try {
-      await clientWebsiteAPI.create(formData)
-      toast({
-        title: 'Success',
-        description: 'Website created successfully',
-      })
+      if (isEdit && editId) {
+        await clientWebsiteAPI.update(editId, formData)
+        toast({ title: 'Success', description: 'Website updated successfully' })
+      } else {
+        await clientWebsiteAPI.create(formData)
+        toast({ title: 'Success', description: 'Website created successfully' })
+      }
       router.push('/dashboard/websites')
     } catch (error: any) {
       console.error('Failed to create website', error)
       toast({
         title: 'Error',
-        description: error?.response?.data?.error || 'Failed to create website',
+        description: error?.response?.data?.error || 'Failed to save website',
         variant: 'destructive',
       })
     } finally {
@@ -75,8 +125,8 @@ export default function CreateWebsitePage() {
           <ArrowLeft className="w-4 h-4 mr-1" />
           Back to Websites
         </button>
-        <h1 className="text-3xl font-bold text-gray-900">Add New Website</h1>
-        <p className="text-gray-500 mt-2">Create a new website profile for a customer.</p>
+        <h1 className="text-3xl font-bold text-gray-900">{isEdit ? 'Edit Website' : 'Add New Website'}</h1>
+        <p className="text-gray-500 mt-2">{isEdit ? 'Update website details.' : 'Create a new website profile for a customer.'}</p>
       </motion.div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
@@ -90,7 +140,7 @@ export default function CreateWebsitePage() {
                 name="name"
                 required
                 value={formData.name}
-                onChange={handleNameChange}
+                onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="E.g., John Doe"
               />
@@ -144,7 +194,7 @@ export default function CreateWebsitePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Website Start Date</label>
               <input
                 type="date"
                 name="startDate"
@@ -179,16 +229,30 @@ export default function CreateWebsitePage() {
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Domain Expiry Date</label>
-              <input
-                type="date"
-                name="domainExpiryDate"
-                value={formData.domainExpiryDate}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-            </div>
+            {formData.domainOwnership === 'We Own' && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Domain Starting Date</label>
+                  <input
+                    type="date"
+                    name="domainStartDate"
+                    value={formData.domainStartDate}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Domain Expiry Date</label>
+                  <input
+                    type="date"
+                    name="domainExpiryDate"
+                    value={formData.domainExpiryDate}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                  />
+                </div>
+              </>
+            )}
           </div>
 
           <div className="pt-6 flex justify-end gap-4 border-t border-gray-100">
@@ -206,7 +270,7 @@ export default function CreateWebsitePage() {
               className="flex items-center gap-2"
             >
               <Save className="w-4 h-4" />
-              {loading ? 'Creating...' : 'Save Website'}
+                {loading ? (isEdit ? 'Updating...' : 'Creating...') : (isEdit ? 'Update Website' : 'Save Website')}
             </Button>
           </div>
         </form>

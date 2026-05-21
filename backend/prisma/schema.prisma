@@ -168,6 +168,7 @@ model ClientWebsite {
   startDate        DateTime? @map("start_date")
   websiteExpiryDate DateTime? @map("website_expiry_date")
   domainOwnership  String?   @map("domain_ownership")
+  domainStartDate  DateTime? @map("domain_start_date")
   domainExpiryDate DateTime? @map("domain_expiry_date")
   createdAt        DateTime  @default(now()) @map("created_at")
   updatedAt        DateTime  @updatedAt @map("updated_at")

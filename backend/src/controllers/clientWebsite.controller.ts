@@ -59,7 +59,7 @@ export const createClientWebsite = async (req: AuthRequest, res: Response) => {
   try {
     const { 
       name, slug, companyName, email, phone, 
-      startDate, websiteExpiryDate, domainOwnership, domainExpiryDate 
+      startDate, websiteExpiryDate, domainOwnership, domainStartDate, domainExpiryDate 
     } = req.body;
 
     if (!name || !slug) {
@@ -76,6 +76,7 @@ export const createClientWebsite = async (req: AuthRequest, res: Response) => {
         startDate: startDate ? new Date(startDate) : null,
         websiteExpiryDate: websiteExpiryDate ? new Date(websiteExpiryDate) : null,
         domainOwnership,
+        domainStartDate: domainStartDate ? new Date(domainStartDate) : null,
         domainExpiryDate: domainExpiryDate ? new Date(domainExpiryDate) : null
       }
     });
@@ -92,7 +93,7 @@ export const updateClientWebsite = async (req: AuthRequest, res: Response) => {
     const { id } = req.params;
     const { 
       name, slug, companyName, email, phone, 
-      startDate, websiteExpiryDate, domainOwnership, domainExpiryDate 
+      startDate, websiteExpiryDate, domainOwnership, domainStartDate, domainExpiryDate 
     } = req.body;
 
     const website = await (prisma as any).clientWebsite.update({
@@ -106,6 +107,7 @@ export const updateClientWebsite = async (req: AuthRequest, res: Response) => {
         ...(startDate !== undefined && { startDate: startDate ? new Date(startDate) : null }),
         ...(websiteExpiryDate !== undefined && { websiteExpiryDate: websiteExpiryDate ? new Date(websiteExpiryDate) : null }),
         ...(domainOwnership !== undefined && { domainOwnership }),
+        ...(domainStartDate !== undefined && { domainStartDate: domainStartDate ? new Date(domainStartDate) : null }),
         ...(domainExpiryDate !== undefined && { domainExpiryDate: domainExpiryDate ? new Date(domainExpiryDate) : null })
       }
     });
