@@ -46,7 +46,7 @@ export default function CTASection() {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <a
-              href="#contact"
+              href="/query"
               className="shimmer-btn px-12 py-4 text-charcoal font-sans font-bold uppercase tracking-[0.15em] text-[11px] hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all"
             >
               Schedule Consultation

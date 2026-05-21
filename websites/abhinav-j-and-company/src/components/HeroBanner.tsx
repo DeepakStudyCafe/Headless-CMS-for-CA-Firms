@@ -27,7 +27,16 @@ export default function HeroBanner({ data }: { data?: any }) {
 
   // Use CMS provided slides if available
   const slides = data?.textContent?.slides || [];
-  const marqueeItems = data?.textContent?.marquee || [];
+  const defaultMarquee = [
+    "Trusted CA Firm - Expert Taxation Services",
+    "Company Secretarial Advice",
+    "Audit & Assurance Solutions",
+    "GST & Compliance Experts",
+    "Startup Advisory & Business Structuring",
+  ];
+  const marqueeItems = (data?.textContent?.marquee && data.textContent.marquee.length > 0)
+    ? data.textContent.marquee
+    : defaultMarquee;
 
   if (!slides || slides.length === 0) {
     return null;
@@ -88,6 +97,10 @@ export default function HeroBanner({ data }: { data?: any }) {
         </div>
 
         <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+        <style>{`
+          @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+          .marquee-scroll { display: inline-flex; gap: 1rem; animation: marquee 24s linear infinite; will-change: transform; }
+        `}</style>
 
         <div className="relative z-20 h-full flex flex-col justify-center items-center text-center px-6">
           <motion.span

@@ -26,7 +26,7 @@ const socialLinks = [
 
 export default function Footer({ websiteData }: { websiteData?: any }) {
   const logo = websiteData?.logo || "https://api.digitechai.in/uploads/footerlogo.png";
-  const name = websiteData?.name || "abc & Associates";
+  const name = websiteData?.name || "Abhinav J & Company";
   const description = websiteData?.themeConfig?.footerContent?.description || "Architects of Fiscal Integrity. Trusted by 500+ businesses across India for audit, tax, and advisory excellence.";
   const copyrightText = websiteData?.themeConfig?.footerContent?.copyright || `© ${new Date().getFullYear()} ${name} Chartered Accountants. All rights reserved.`;
   const address = websiteData?.address || "123 Financial District,\nMumbai, Maharashtra 400001";
@@ -124,7 +124,7 @@ export default function Footer({ websiteData }: { websiteData?: any }) {
             {copyrightText}
           </p>
           <p className="font-sans text-white/30 text-xs">
-           Powered By <a href="https://webcafe.co.in/" target="_blank" rel="noopener noreferrer" className="underline">Webcafe</a> a Product of Studycafe Pvt Ltd.
+           Powered By <a href="https://webcafe.co.in/" target="_blank" rel="noopener noreferrer" className="underline font-bold text-gray-400">Webcafe</a> a Product of Studycafe Pvt Ltd.
           </p>
         </div>
       </div>

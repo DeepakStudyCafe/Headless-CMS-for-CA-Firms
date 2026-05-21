@@ -24,28 +24,28 @@ export const NAV_ITEMS = [
 
 export const HERO_SLIDES = [
   {
-    img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&auto=format&fit=crop&q=80",
-    title: "Technology-Driven Accounting",
-    subtitle: "Leveraging AI for smarter financial decisions.",
-    label: "AI + Accounting",
+    img: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1600&auto=format&fit=crop&q=80",
+    title: "Expert Tax & Compliance Solutions",
+    subtitle: "Simplifying taxation, GST, and compliance for businesses.",
+    label: "Tax Advisory",
   },
   {
-    img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&auto=format&fit=crop&q=80",
-    title: "Secure Cloud Systems",
-    subtitle: "Modern infrastructure for reliable compliance.",
-    label: "Cloud First",
+    img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&auto=format&fit=crop&q=80",
+    title: "Smart Financial Planning",
+    subtitle: "Strategic accounting and financial guidance for growth.",
+    label: "Financial Advisory",
   },
   {
-    img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1600&auto=format&fit=crop&q=80",
-    title: "Data & Insights",
-    subtitle: "Actionable analytics to grow your business.",
-    label: "Insights",
+    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&auto=format&fit=crop&q=80",
+    title: "Audit & Business Insights",
+    subtitle: "Accurate audits and data-driven insights for better decisions.",
+    label: "Audit Services",
   },
 ];
 
 export const STATS = [
   { value: 500, suffix: "+", label: "Global Clients" },
-  { value: 18, suffix: "+", label: "Years of Excellence" },
+  { value: 12, suffix: "+", label: "Years of Excellence" },
   { value: 12, suffix: "", label: "Expert Partners" },
   { value: 98, suffix: "%", label: "Success Rate" },
 ];
@@ -102,7 +102,7 @@ export const SERVICES = [
 ];
 
 export const WHY_CHOOSE_US = [
-  "Over 18 years of professional excellence in finance and accounting",
+  "Over 12 years of professional excellence in finance and accounting",
   "Team of 12+ qualified chartered accountants and financial experts",
   "98% client satisfaction rate with personalized service",
   "Comprehensive solutions from audit to advisory under one roof",
@@ -122,7 +122,7 @@ export const TESTIMONIALS = [
     initials: "PS",
   },
   {
-    text: "From company registration to ongoing compliance, Vanguard handled everything with exceptional precision and care.",
+    text: "From company registration to ongoing compliance, Abhinav J & Company handled everything with exceptional precision and care.",
     name: "Amit Kapoor",
     designation: "Founder, NovaTech Solutions",
     initials: "AK",
