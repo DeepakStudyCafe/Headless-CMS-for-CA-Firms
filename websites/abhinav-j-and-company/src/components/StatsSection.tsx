@@ -58,10 +58,12 @@ export default function StatsSection({ data }: { data?: any }) {
   const isInView = useInView(sectionRef, { once: true });
 
   const statsData = data?.textContent?.stats?.map((s: any) => {
-    const valStr = String(s.value);
-    const numMatch = valStr.match(/(\d+)/);
-    const num = numMatch ? parseInt(numMatch[1], 10) : 0;
-    const suffix = valStr.replace(/\d+/g, '').trim();
+    // Prefer explicit `suffix` from CMS if provided; otherwise extract from value string
+    const rawValue = s.value;
+    const num = typeof rawValue === "number" ? rawValue : parseInt(String(rawValue).replace(/\D+/g, ""), 10) || 0;
+    const suffix = s.suffix !== undefined && s.suffix !== null
+      ? String(s.suffix)
+      : String(rawValue).replace(/\d+/g, '').trim() || '';
     return { value: num, suffix, label: s.label };
   });
 
