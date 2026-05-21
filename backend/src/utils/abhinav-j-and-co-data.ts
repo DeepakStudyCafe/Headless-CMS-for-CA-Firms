@@ -24,19 +24,19 @@ export const NAV_ITEMS = [
 
 export const HERO_SLIDES = [
   {
-    img: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1600&auto=format&fit=crop&q=80",
+    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600",
     title: "Expert Tax & Compliance Solutions",
     subtitle: "Simplifying taxation, GST, and compliance for businesses.",
     label: "Tax Advisory",
   },
   {
-    img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&auto=format&fit=crop&q=80",
+    img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600",
     title: "Smart Financial Planning",
     subtitle: "Strategic accounting and financial guidance for growth.",
     label: "Financial Advisory",
   },
   {
-    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&auto=format&fit=crop&q=80",
+    img: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600",
     title: "Audit & Business Insights",
     subtitle: "Accurate audits and data-driven insights for better decisions.",
     label: "Audit Services",
