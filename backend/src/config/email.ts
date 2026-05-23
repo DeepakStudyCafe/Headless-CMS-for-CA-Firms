@@ -49,6 +49,8 @@ const WEBSITE_EMAILS = {
   'satyug-corporate-consultancy': process.env.SATYUG_EMAIL || 'satyugconsultancy@gmail.com',
   'ajoy-goyal-and-co': 'Ajoy_goyal@hotmail.com',
   'smart-msmes-advisory': process.env.SMART_MSMES_EMAIL || 'info@smartmsmes.com',
+  'harshada-hegde': 'info@harshadahegde.com',
+  'Harshada-Hegde': 'info@harshadahegde.com',
   'rupesh-gunjal': 'carupeshgunjal@gmail.com',
   'Rupesh-Gunjal': 'carupeshgunjal@gmail.com',
 };
@@ -80,6 +82,8 @@ const WEBSITE_NAMES = {
   'satyug-corporate-consultancy': process.env.SATYUG_NAME || 'Satyug corporate consultancy pvt ltd',
   'ajoy-goyal-and-co': 'Ajoy Goyal and Co',
   'smart-msmes-advisory': process.env.SMART_MSMES_NAME || 'Smart Msmes Advisory',
+  'harshada-hegde': 'Harshada Hegde & Associates',
+  'Harshada-Hegde': 'Harshada Hegde & Associates',
   'rupesh-gunjal': 'Rupesh Gunjal & Associates',
   'Rupesh-Gunjal': 'Rupesh Gunjal & Associates',
 };
