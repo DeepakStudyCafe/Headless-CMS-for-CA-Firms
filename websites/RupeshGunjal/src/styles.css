@@ -1,0 +1,114 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-section: var(--section);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --shadow-soft: 0 4px 24px -8px rgb(168 117 81 / 0.10);
+  --shadow-lift: 0 18px 48px -16px rgb(168 117 81 / 0.22);
+  --shadow-float: 0 10px 40px -12px rgb(31 31 31 / 0.08);
+  --shadow-glow: 0 0 0 1px rgb(200 169 126 / 0.35), 0 24px 60px -20px rgb(200 169 126 / 0.35);
+  --gradient-gold: linear-gradient(135deg, oklch(0.78 0.085 78), oklch(0.66 0.08 60));
+  --gradient-cream: linear-gradient(180deg, oklch(0.985 0.006 85), oklch(0.955 0.011 82));
+}
+
+:root {
+  --radius: 1.25rem;
+  --background: oklch(0.985 0.006 85);          /* #FAF9F6 */
+  --section: oklch(0.955 0.011 82);             /* #F1EEE9 */
+  --foreground: oklch(0.21 0.004 60);           /* #1F1F1F */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.004 60);
+  --primary: oklch(0.74 0.075 76);              /* #C8A97E gold */
+  --primary-foreground: oklch(0.99 0.005 85);
+  --secondary: oklch(0.6 0.075 55);             /* #B08968 */
+  --secondary-foreground: oklch(0.99 0.005 85);
+  --muted: oklch(0.95 0.009 82);
+  --muted-foreground: oklch(0.5 0.006 60);      /* #6B6B6B */
+  --accent: oklch(0.93 0.022 80);
+  --accent-foreground: oklch(0.21 0.004 60);
+  --border: oklch(0.9 0.012 80);                /* #E5E2DC */
+  --input: oklch(0.9 0.012 80);
+  --ring: oklch(0.74 0.075 76);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .text-balance { text-wrap: balance; }
+  .gold-underline {
+    background-image: linear-gradient(var(--primary), var(--primary));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.35s ease;
+  }
+  .gold-underline:hover {
+    background-size: 100% 1px;
+  }
+  .soft-blur-blob {
+    filter: blur(80px);
+    opacity: 0.45;
+  }
+  .bg-grid-cream {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--border) 60%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--border) 60%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%);
+  }
+  .bg-gradient-gold { background-image: var(--gradient-gold); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-lift { box-shadow: var(--shadow-lift); }
+  .shadow-float { box-shadow: var(--shadow-float); }
+}

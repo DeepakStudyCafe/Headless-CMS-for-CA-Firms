@@ -1,4 +1,6 @@
-import { Outlet, createRootRoute,   Link } from "@tanstack/react-router";
+import { Outlet, createRootRoute, Link, useLocation } from "@tanstack/react-router";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/sections/Footer";
 
 import appCss from "../styles.css?url";
 
@@ -48,7 +50,18 @@ export const Route = createRootRoute({
         href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"},
     ]}),
   
-  component: () => <Outlet />,
+  component: () => {
+    const location = useLocation();
+    const isAdmin = location.pathname.startsWith('/admin');
+    
+    return (
+      <>
+        {!isAdmin && <Navbar />}
+        <Outlet />
+        {!isAdmin && <Footer />}
+      </>
+    );
+  },
   notFoundComponent: NotFoundComponent});
 
 

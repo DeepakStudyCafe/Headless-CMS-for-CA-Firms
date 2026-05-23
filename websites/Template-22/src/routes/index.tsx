@@ -1,5 +1,5 @@
+import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/sections/Hero";
 import { Highlights } from "@/sections/Highlights";
 import { Services } from "@/sections/Services";
@@ -8,27 +8,46 @@ import { WhyUs } from "@/sections/WhyUs";
 import { Process } from "@/sections/Process";
 import { Team } from "@/sections/Team";
 import { Contact } from "@/sections/Contact";
-import { Footer } from "@/sections/Footer";
+import { getPageData } from "@/lib/api";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
+  const [pageData, setPageData] = useState<any>(null);
+
+  useEffect(() => {
+    getPageData("home").then((p) => {
+      setPageData(p);
+    });
+  }, []);
+
+  if (!pageData) {
+    return <div className="min-h-screen flex items-center justify-center bg-background text-foreground">Loading...</div>;
+  }
+
+  const heroSection = pageData?.sections?.find((s: any) => s.type === "hero");
+  const highlightsSection = pageData?.sections?.find((s: any) => s.type === "highlights");
+  const servicesSection = pageData?.sections?.find((s: any) => s.type === "services");
+  const aboutSection = pageData?.sections?.find((s: any) => s.type === "about");
+  const whyUsSection = pageData?.sections?.find((s: any) => s.type === "whyus");
+  const processSection = pageData?.sections?.find((s: any) => s.type === "process");
+  const teamSection = pageData?.sections?.find((s: any) => s.type === "team");
+  const contactSection = pageData?.sections?.find((s: any) => s.type === "contact");
+
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
       <main>
-        <Hero />
-        <Highlights />
-        <Services />
-        <About />
-        <WhyUs />
-        <Process />
-        <Team />
-        <Contact />
+        {heroSection && <Hero data={heroSection} />}
+        {highlightsSection && <Highlights data={highlightsSection} />}
+        {servicesSection && <Services data={servicesSection} />}
+        {aboutSection && <About data={aboutSection} />}
+        {whyUsSection && <WhyUs data={whyUsSection} />}
+        {processSection && <Process data={processSection} />}
+        {teamSection && <Team data={teamSection} />}
+        {contactSection && <Contact data={contactSection} />}
       </main>
-      <Footer />
     </div>
   );
 }

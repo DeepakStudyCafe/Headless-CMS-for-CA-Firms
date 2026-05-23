@@ -22,7 +22,7 @@ export const transporter = nodemailer.createTransport({
 const WEBSITE_EMAILS = {
   'firm1-sharma': process.env.FIRM1_EMAIL || 'sharma.contact@gmail.com',
   'firm2-verma': process.env.FIRM2_EMAIL || 'verma.business@gmail.com',
-  
+
   'firm3-gupta': process.env.FIRM3_EMAIL || 'gupta.k.deepak@gmail.com',
   'firm4-kapoor': process.env.FIRM4_EMAIL || 'kapoor.contact@gmail.com',
   'firm5-singh': process.env.FIRM5_EMAIL || 'singh.contact@gmail.com',
@@ -49,13 +49,15 @@ const WEBSITE_EMAILS = {
   'satyug-corporate-consultancy': process.env.SATYUG_EMAIL || 'satyugconsultancy@gmail.com',
   'ajoy-goyal-and-co': 'Ajoy_goyal@hotmail.com',
   'smart-msmes-advisory': process.env.SMART_MSMES_EMAIL || 'info@smartmsmes.com',
+  'rupesh-gunjal': 'carupeshgunjal@gmail.com',
+  'Rupesh-Gunjal': 'carupeshgunjal@gmail.com',
 };
 
 // Website names mapping
 const WEBSITE_NAMES = {
   'firm1-sharma': process.env.FIRM1_NAME || 'Sharma & Associates',
   'firm2-verma': process.env.FIRM2_NAME || 'Verma & Co',
-  
+
   'firm3-gupta': process.env.FIRM3_NAME || 'Gupta Partners',
   'firm4-kapoor': process.env.FIRM4_NAME || 'Kapoor Associates',
   'firm5-singh': process.env.FIRM5_NAME || 'Singh & Partners',
@@ -78,6 +80,8 @@ const WEBSITE_NAMES = {
   'satyug-corporate-consultancy': process.env.SATYUG_NAME || 'Satyug corporate consultancy pvt ltd',
   'ajoy-goyal-and-co': 'Ajoy Goyal and Co',
   'smart-msmes-advisory': process.env.SMART_MSMES_NAME || 'Smart Msmes Advisory',
+  'rupesh-gunjal': 'Rupesh Gunjal & Associates',
+  'Rupesh-Gunjal': 'Rupesh Gunjal & Associates',
 };
 
 // Email sender function
