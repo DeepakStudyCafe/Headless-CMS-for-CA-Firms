@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 const WEBSITE_SLUG = process.env.NEXT_PUBLIC_WEBSITE_SLUG || 'satyug-corporate-consultancy'
 
 export async function getWebsiteData() {
@@ -65,7 +65,8 @@ export function getImageUrl(path: string) {
     
     // Try common patterns based on deployment
     if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      baseUrl = 'http://localhost:5000/api'
+      // Intentionally do not assign a hardcoded localhost fallback.
+      // The API base URL must come from NEXT_PUBLIC_API_URL in the environment.
     } else {
       // Production: derive from current domain
       // Extract root domain (e.g., digitechai.in from automatepractice.com)

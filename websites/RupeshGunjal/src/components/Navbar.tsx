@@ -32,7 +32,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [websiteData, setWebsiteData] = useState<any>(null);
-  
+
   const location = useLocation();
 
   useEffect(() => {
@@ -72,7 +72,9 @@ export function Navbar() {
             )}
             <div className="hidden sm:flex flex-col leading-tight">
               <span className="text-sm md:text-base font-semibold text-foreground">{siteName}</span>
-              <span className="text-xs md:text-sm text-muted-foreground">Chartered Accountants</span>
+              <span className="text-xs md:text-sm text-muted-foreground tracking-[0.2em]">
+                Chartered Accountants
+              </span>
             </div>
           </Link>
           <ul className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
@@ -83,9 +85,8 @@ export function Navbar() {
                   <li key={l.name} className="relative group">
                     <Link
                       to={l.path}
-                      className={`relative flex items-center gap-1 px-3 py-2 text-sm transition-colors rounded-full ${
-                        isActive ? 'text-foreground font-medium' : 'text-foreground/75 hover:text-foreground'
-                      }`}
+                      className={`relative flex items-center gap-1 px-3 py-2 text-sm transition-colors rounded-full ${isActive ? 'text-foreground font-medium' : 'text-foreground/75 hover:text-foreground'
+                        }`}
                     >
                       {isActive && (
                         <motion.span

@@ -35,7 +35,7 @@ export function Services({ data, tickerPosts = [] }: { data: any, tickerPosts?: 
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ delay: i * 0.07, duration: 0.6, ease: 'easeOut' }}
-                  className="group relative overflow-hidden rounded-3xl border border-border bg-card p-7 md:p-9 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-glow h-full"
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-card p-2 md:p-4 transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-glow h-full"
                 >
                   <div className='absolute -top-24 -right-24 w-56 h-56 rounded-full bg-primary/0 group-hover:bg-primary/15 blur-3xl transition-all duration-700' />
 
