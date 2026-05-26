@@ -3,7 +3,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
+let API_URL = process.env.NEXT_PUBLIC_API_URL || ''
+if (!API_URL && typeof window !== 'undefined') {
+  API_URL = `${window.location.origin}/api`
+}
 const IMG_BASE = API_URL.replace(/\/api$/, '')
 
 function getToken() {
@@ -394,6 +397,80 @@ function SectionEditor({ section, idx, onImageUpload, onRemoveImage, onSetTC, on
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {Array.isArray(tc.items) && (
+        <div className="mb-3">
+          <label className={lbl}>{section.type === 'team' ? 'Team Members' : section.type === 'gallery' ? 'Gallery Images' : 'Items'}</label>
+          <div className="space-y-3 mt-1">
+            {(tc.items as any[]).map((item, ii) => (
+              <div key={ii} className="border border-gray-100 rounded-lg p-3 bg-gray-50 space-y-2">
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">Item {ii + 1}</p>
+
+                {item.name !== undefined && (
+                  <div>
+                    <label className={lbl}>Name</label>
+                    <input value={item.name || ''} onChange={(e) => onSetItemField('items', ii, 'name', e.target.value)} className={inp} />
+                  </div>
+                )}
+
+                {item.title !== undefined && (
+                  <div>
+                    <label className={lbl}>Title</label>
+                    <input value={item.title || ''} onChange={(e) => onSetItemField('items', ii, 'title', e.target.value)} className={inp} />
+                  </div>
+                )}
+
+                {item.designation !== undefined && (
+                  <div>
+                    <label className={lbl}>Designation</label>
+                    <input value={item.designation || ''} onChange={(e) => onSetItemField('items', ii, 'designation', e.target.value)} className={inp} />
+                  </div>
+                )}
+
+                {item.description !== undefined && (
+                  <div>
+                    <label className={lbl}>Description</label>
+                    <textarea value={item.description || ''} onChange={(e) => onSetItemField('items', ii, 'description', e.target.value)} rows={2} className={`${inp} resize-vertical`} />
+                  </div>
+                )}
+
+                {(item.image !== undefined || item.src !== undefined || item.photo !== undefined) && (
+                  <div>
+                    <span className="block text-[11px] text-gray-400 mb-1">Image</span>
+                    {(item.image || item.src || item.photo) ? (
+                      <div className="relative w-full h-32 rounded-lg overflow-hidden border border-gray-200 group">
+                        <img src={resolveImg(item.image || item.src || item.photo) || ''} alt="" className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                          <label className="cursor-pointer bg-white text-gray-800 text-xs px-2 py-1 rounded hover:bg-gray-100 transition-colors">
+                            Change
+                            <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onItemImageUpload('items', ii, f) }} />
+                          </label>
+                          <button type="button" onClick={() => onSetItemField('items', ii, 'image', '')} className="bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600 transition-colors">Remove</button>
+                        </div>
+                      </div>
+                    ) : (
+                      <label className="cursor-pointer inline-flex items-center gap-2 text-xs text-blue-600 border border-dashed border-blue-300 rounded-lg px-3 py-2 hover:bg-blue-50 transition-colors">
+                        Upload Image
+                        <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onItemImageUpload('items', ii, f) }} />
+                      </label>
+                    )}
+                    <input type="text" value={item.image || item.src || item.photo || ''} onChange={(e) => onSetItemField('items', ii, item.image !== undefined ? 'image' : item.src !== undefined ? 'src' : 'photo', e.target.value)} className={inp} placeholder="Or paste image URL..." />
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between">
+                  <button type="button" onClick={() => { const arr = [...tc.items]; arr.splice(ii, 1); onSetTC({ items: arr }) }} className="text-red-400 hover:text-red-600 mt-2 text-xs">Remove</button>
+                </div>
+              </div>
+            ))}
+
+            <button type="button" onClick={() => {
+              const newItem = section.type === 'team' ? { name: '', designation: '', bio: '', image: '' } : section.type === 'gallery' ? { src: '', alt: '', title: '' } : { title: '', description: '', image: '' }
+              onSetTC({ items: [...(tc.items || []), newItem] })
+            }} className="text-xs text-[#2A3B36] hover:underline">+ Add Item</button>
           </div>
         </div>
       )}

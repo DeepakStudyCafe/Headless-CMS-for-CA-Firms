@@ -312,6 +312,22 @@ export const updateMySection = async (req: SiteAdminRequest, res: Response) => {
         ...(textContent !== undefined ? { textContent } : {}),
       },
     });
+    // If the parent page is published, record a revalidation audit so the external
+    // revalidation system can pick this up and refresh the public page cache.
+    if (section.page && section.page.status === 'PUBLISHED') {
+      await prisma.auditLog.create({
+        data: {
+          websiteId: section.page.websiteId,
+          userId: req.siteAdmin!.id,
+          action: 'page_revalidated',
+          details: {
+            pageTitle: section.page.title,
+            pageSlug: section.page.slug,
+            sectionId: section.id,
+          },
+        },
+      });
+    }
     res.json({ success: true, data: { section: updated } });
   } catch (e: any) {
     res.status(500).json({ success: false, error: e.message });
@@ -329,6 +345,15 @@ export const publishMyPage = async (req: SiteAdminRequest, res: Response) => {
     const updated = await prisma.page.update({
       where: { id: pageId },
       data: { status: 'PUBLISHED', publishedAt: new Date() },
+    });
+    // Record revalidation audit (external system will act on this)
+    await prisma.auditLog.create({
+      data: {
+        websiteId: updated.websiteId,
+        userId: req.siteAdmin!.id,
+        action: 'page_revalidated',
+        details: { pageTitle: updated.title, pageSlug: updated.slug },
+      },
     });
     res.json({ success: true, data: { page: updated } });
   } catch (e: any) {

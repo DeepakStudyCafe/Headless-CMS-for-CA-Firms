@@ -42,6 +42,8 @@ export default function OurClientPage() {
         
         { name: 'Smart Msmes Advisory', url: 'https://smartmsmes.com/', img: '/smartmsmes.png', description: 'Specialized in SME tax planning and accounting; mobile-friendly site with contact forms.' },
         { name: 'Abhinav J & Company', url: 'https://abhinavjandco.in/', img: '/abhinavjandco.png', description: 'Focused on MSME compliance, tax advisory, GST filing, and accounting solutions; responsive website with enquiry forms and mobile-friendly experience.' },
+        { name: 'Harshada Hegde & Associates', url: 'https://harshadahegde.com/', img: '/harshadahegde.png', description: 'Helping growing businesses with smart compliance and indirect tax services; modern website with simple inquiry forms and quick support response.' },
+        { name: 'Rupesh Gunjal & Associates', url: 'https://cagunjal.in/', img: '/RupeshGunjal.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         
         
 

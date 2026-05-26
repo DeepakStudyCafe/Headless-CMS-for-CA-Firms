@@ -52,45 +52,18 @@ export async function getPageData(slug: string) {
 export function getImageUrl(path: string) {
   if (!path) return ''
   if (path.startsWith('http')) return path
-  
-  // Get base URL from environment variable
-  let baseUrl = API_URL
-  
-  // Runtime detection if env var not available
+
+  // Prefer explicit env var; otherwise derive from current origin at runtime.
+  // This avoids hardcoded fallbacks while ensuring built sites can resolve images.
+  let baseUrl: string | undefined = API_URL
+
   if (!baseUrl && typeof window !== 'undefined') {
-    // Use fetch to detect API URL from the website data endpoint
-    // This will work because the websites are served by Next.js which knows where to fetch from
-    const protocol = window.location.protocol
-    const hostname = window.location.hostname
-    
-    // Try common patterns based on deployment
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      // Intentionally do not assign a hardcoded localhost fallback.
-      // The API base URL must come from NEXT_PUBLIC_API_URL in the environment.
-    } else {
-      // Production: derive from current domain
-      // Extract root domain (e.g., digitechai.in from automatepractice.com)
-      const parts = hostname.split('.')
-      if (parts.length >= 2) {
-        // Check if it's a digitechai.in subdomain
-        const lastTwo = parts.slice(-2).join('.')
-        if (lastTwo === 'digitechai.in') {
-          baseUrl = 'https://api.digitechai.in/api'
-        } else {
-          // Standalone domain - infer from page fetch patterns
-          // Since we successfully fetched the page data, use the same pattern
-          // All sites resolve to api.digitechai.in in production
-          baseUrl = 'https://api.digitechai.in/api'
-        }
-      }
-    }
+    baseUrl = `${window.location.origin}/api`
   }
-  
-  // Remove /api suffix to get base URL for images
-  if (baseUrl) {
-    baseUrl = baseUrl.replace(/\/api$/, '')
-  }
-  
+
+  // Remove trailing /api if present to form root URL for image paths
+  if (baseUrl) baseUrl = baseUrl.replace(/\/api$/, '')
+
   return baseUrl ? `${baseUrl}${path}` : path
 }
 

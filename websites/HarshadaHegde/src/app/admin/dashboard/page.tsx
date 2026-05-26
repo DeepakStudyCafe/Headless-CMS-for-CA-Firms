@@ -3,7 +3,10 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
+let API_URL = process.env.NEXT_PUBLIC_API_URL || ''
+if (!API_URL && typeof window !== 'undefined') {
+  API_URL = `${window.location.origin}/api`
+}
 
 function getToken() {
   if (typeof window === 'undefined') return null
