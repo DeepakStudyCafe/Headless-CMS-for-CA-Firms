@@ -170,6 +170,12 @@ model ClientWebsite {
   domainOwnership  String?   @map("domain_ownership")
   domainStartDate  DateTime? @map("domain_start_date")
   domainExpiryDate DateTime? @map("domain_expiry_date")
+  paymentAmount    String?   @map("payment_amount")
+  paymentDate      DateTime? @map("payment_date")
+  paymentDetails   String?   @map("payment_details")
+  domainPaymentAmount String? @map("domain_payment_amount")
+  templateSerialNo String?   @map("template_serial_no")
+  remarks          String?
   createdAt        DateTime  @default(now()) @map("created_at")
   updatedAt        DateTime  @updatedAt @map("updated_at")
 

@@ -59,7 +59,8 @@ export const createClientWebsite = async (req: AuthRequest, res: Response) => {
   try {
     const { 
       name, slug, companyName, email, phone, 
-      startDate, websiteExpiryDate, domainOwnership, domainStartDate, domainExpiryDate 
+      startDate, websiteExpiryDate, domainOwnership, domainStartDate, domainExpiryDate,
+      paymentAmount, paymentDate, paymentDetails, domainPaymentAmount, templateSerialNo, remarks
     } = req.body;
 
     if (!name || !slug) {
@@ -77,12 +78,21 @@ export const createClientWebsite = async (req: AuthRequest, res: Response) => {
         websiteExpiryDate: websiteExpiryDate ? new Date(websiteExpiryDate) : null,
         domainOwnership,
         domainStartDate: domainStartDate ? new Date(domainStartDate) : null,
-        domainExpiryDate: domainExpiryDate ? new Date(domainExpiryDate) : null
+        domainExpiryDate: domainExpiryDate ? new Date(domainExpiryDate) : null,
+        paymentAmount,
+        paymentDate: paymentDate ? new Date(paymentDate) : null,
+        paymentDetails,
+        domainPaymentAmount,
+        templateSerialNo,
+        remarks
       }
     });
 
     res.status(201).json({ success: true, data: { website } });
   } catch (error: any) {
+    if (error.code === 'P2002' && error.meta?.target?.includes('slug')) {
+      return res.status(400).json({ success: false, error: 'A website with this URL slug already exists. Please choose a different slug.' });
+    }
     res.status(500).json({ success: false, error: error.message });
   }
 };
@@ -93,7 +103,8 @@ export const updateClientWebsite = async (req: AuthRequest, res: Response) => {
     const { id } = req.params;
     const { 
       name, slug, companyName, email, phone, 
-      startDate, websiteExpiryDate, domainOwnership, domainStartDate, domainExpiryDate 
+      startDate, websiteExpiryDate, domainOwnership, domainStartDate, domainExpiryDate,
+      paymentAmount, paymentDate, paymentDetails, domainPaymentAmount, templateSerialNo, remarks
     } = req.body;
 
     const website = await (prisma as any).clientWebsite.update({
@@ -108,7 +119,13 @@ export const updateClientWebsite = async (req: AuthRequest, res: Response) => {
         ...(websiteExpiryDate !== undefined && { websiteExpiryDate: websiteExpiryDate ? new Date(websiteExpiryDate) : null }),
         ...(domainOwnership !== undefined && { domainOwnership }),
         ...(domainStartDate !== undefined && { domainStartDate: domainStartDate ? new Date(domainStartDate) : null }),
-        ...(domainExpiryDate !== undefined && { domainExpiryDate: domainExpiryDate ? new Date(domainExpiryDate) : null })
+        ...(domainExpiryDate !== undefined && { domainExpiryDate: domainExpiryDate ? new Date(domainExpiryDate) : null }),
+        ...(paymentAmount !== undefined && { paymentAmount }),
+        ...(paymentDate !== undefined && { paymentDate: paymentDate ? new Date(paymentDate) : null }),
+        ...(paymentDetails !== undefined && { paymentDetails }),
+        ...(domainPaymentAmount !== undefined && { domainPaymentAmount }),
+        ...(templateSerialNo !== undefined && { templateSerialNo }),
+        ...(remarks !== undefined && { remarks })
       }
     });
 

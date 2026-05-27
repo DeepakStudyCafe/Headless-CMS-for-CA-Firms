@@ -20,6 +20,12 @@ interface Website {
   domainOwnership?: string
   domainStartDate?: string
   domainExpiryDate?: string
+  paymentAmount?: string
+  paymentDate?: string
+  paymentDetails?: string
+  domainPaymentAmount?: string
+  templateSerialNo?: string
+  remarks?: string
   createdAt: string
   isActive: boolean
 }
@@ -199,19 +205,25 @@ export default function WebsitesPage() {
             <table className="w-full">
               <thead className="bg-gray-50/80 border-b border-gray-100">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
                     Website & Company
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
                     Contact Info
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
                     Domain Details
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
                     Website Dates
                   </th>
-                  <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
+                    Payment & Template
+                  </th>
+                  <th className="px-4 py-3 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-wider max-w-[150px]">
+                    Remarks
+                  </th>
+                  <th className="px-4 py-3 text-right text-[11px] font-semibold text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -219,77 +231,113 @@ export default function WebsitesPage() {
               <tbody className="divide-y divide-gray-100">
                 {filteredWebsites.map((site) => (
                   <tr key={site.id} className="hover:bg-blue-50/40 transition-colors group">
-                    <td className="px-6 py-4 whitespace-nowrap align-top">
-                      <div className="text-sm font-bold text-gray-900">{site.name}</div>
+                    <td className="px-4 py-3 whitespace-nowrap align-top">
+                      <div className="text-[13px] font-bold text-gray-900">{site.name}</div>
                       {site.companyName && (
-                        <div className="text-xs text-gray-500 flex items-center mt-1.5">
-                          <Building className="w-3.5 h-3.5 mr-1" /> {site.companyName}
+                        <div className="text-[11px] text-gray-500 flex items-center mt-1">
+                          <Building className="w-3 h-3 mr-1" /> {site.companyName}
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap align-top">
+                    <td className="px-4 py-3 whitespace-nowrap align-top">
                       {site.email && (
-                        <div className="text-sm text-gray-600 flex items-center">
-                          <Mail className="w-3.5 h-3.5 mr-1 text-gray-400" /> {site.email}
+                        <div className="text-[12px] text-gray-600 flex items-center">
+                          <Mail className="w-3 h-3 mr-1 text-gray-400" /> {site.email}
                         </div>
                       )}
                       {site.phone && (
-                        <div className="text-xs text-gray-500 flex items-center mt-1.5">
-                          <Phone className="w-3.5 h-3.5 mr-1 text-gray-400" /> {site.phone}
+                        <div className="text-[11px] text-gray-500 flex items-center mt-1">
+                          <Phone className="w-3 h-3 mr-1 text-gray-400" /> {site.phone}
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap align-top">
+                    <td className="px-4 py-3 whitespace-nowrap align-top">
                       {site.domain && (
-                        <div className="text-sm font-medium text-gray-800 flex items-center">
-                          <Globe className="w-3.5 h-3.5 mr-1 text-blue-500" /> {site.domain}
+                        <div className="text-[12px] font-medium text-gray-800 flex items-center">
+                          <Globe className="w-3 h-3 mr-1 text-blue-500" /> {site.domain}
                         </div>
                       )}
                       {site.domainOwnership && (
-                        <div className="text-xs text-gray-500 mt-1.5">
+                        <div className="text-[11px] text-gray-500 mt-1">
                           <span className="font-medium text-gray-700">Owner:</span> {site.domainOwnership}
                         </div>
                       )}
                       {site.domainOwnership === 'We Own' && site.domainStartDate && (
-                        <div className="text-xs text-gray-500 mt-1">
+                        <div className="text-[11px] text-gray-500 mt-0.5">
                           <span className="font-medium text-gray-700">Start:</span> {formatDate(site.domainStartDate)}
                         </div>
                       )}
                       {site.domainOwnership === 'We Own' && site.domainExpiryDate && (
-                        <div className="text-xs text-red-500 font-medium mt-1">
+                        <div className="text-[11px] text-red-500 font-medium mt-0.5">
                           <span className="text-gray-700">Exp:</span> {formatDate(site.domainExpiryDate)}
                         </div>
                       )}
+                      {site.domainOwnership === 'We Own' && site.domainPaymentAmount && (
+                        <div className="text-[11px] text-green-600 font-medium mt-0.5">
+                          <span className="text-gray-700">Amt:</span> ₹{site.domainPaymentAmount}
+                        </div>
+                      )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap align-top">
+                    <td className="px-4 py-3 whitespace-nowrap align-top">
                       {site.startDate && (
-                        <div className="text-xs text-gray-600">
+                        <div className="text-[11px] text-gray-600">
                           <span className="font-medium text-gray-700">Start:</span> {formatDate(site.startDate)}
                         </div>
                       )}
                       {site.websiteExpiryDate && (
-                        <div className="text-xs text-red-500 font-medium mt-1">
+                        <div className="text-[11px] text-red-500 font-medium mt-1">
                           <span className="text-gray-700">Exp:</span> {formatDate(site.websiteExpiryDate)}
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap align-top text-right">
-                      <div className="flex items-center justify-end space-x-2">
+                    <td className="px-4 py-3 whitespace-nowrap align-top">
+                      {site.paymentAmount && (
+                        <div className="text-[12px] font-semibold text-green-600">
+                          ₹{site.paymentAmount}
+                        </div>
+                      )}
+                      {site.paymentDate && (
+                        <div className="text-[11px] text-gray-500 mt-1">
+                          <span className="font-medium text-gray-700">Date:</span> {formatDate(site.paymentDate)}
+                        </div>
+                      )}
+                      {site.paymentDetails && (
+                        <div className="text-[11px] text-gray-500 mt-0.5">
+                          <span className="font-medium text-gray-700">Mode:</span> {site.paymentDetails}
+                        </div>
+                      )}
+                      {site.templateSerialNo && (
+                        <div className="text-[11px] text-gray-500 mt-1">
+                          <span className="font-medium text-gray-700">Temp. :</span> {site.templateSerialNo}
+                        </div>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 align-top max-w-[150px] overflow-hidden">
+                      {site.remarks ? (
+                        <p className="text-[11px] text-gray-500 truncate" title={site.remarks}>
+                          {site.remarks}
+                        </p>
+                      ) : (
+                        <span className="text-[11px] text-gray-400">-</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 whitespace-nowrap align-top text-right">
+                      <div className="flex items-center justify-end space-x-1">
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => router.push(`/dashboard/websites/create?id=${site.id}`)}
-                          className="text-blue-600 hover:bg-blue-50 border border-transparent hover:border-blue-100"
+                          className="h-7 text-[11px] px-2 text-blue-600 hover:bg-blue-50 border border-transparent hover:border-blue-100"
                         >
-                          <Pencil className="w-4 h-4 mr-1.5" /> Edit
+                          <Pencil className="w-3 h-3 mr-1" /> 
                         </Button>
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => handleDeleteWebsite(site.id)}
-                          className="text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100"
+                          className="h-7 text-[11px] px-2 text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100"
                         >
-                          <Trash className="w-4 h-4 mr-1.5" /> Delete
+                          <Trash className="w-3 h-3 mr-1" /> 
                         </Button>
                       </div>
                     </td>
