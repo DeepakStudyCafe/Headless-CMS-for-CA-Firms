@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /admin/
+Disallow: /post/
+Allow: /
+Sitemap: https://tallymytax.com/sitemap.xml

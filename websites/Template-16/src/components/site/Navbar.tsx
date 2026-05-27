@@ -1,31 +1,35 @@
+import { getImageUrl } from '@/lib/api';
 import { useEffect, useState } from "react";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, BookOpen, FileText, Users, Calculator, Building, ShieldCheck, Search, TrendingUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MagneticButton } from "./MagneticButton";
+import { Link } from "@tanstack/react-router";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Team", href: "#team" },
-  { label: "Gallery", href: "#gallery" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Team", href: "/team" },
+  { label: "Gallery", href: "/gallery" },
   {
     label: "Services",
-    href: "#services",
+    href: "/services",
     children: [
-      "Tax Planning",
-      "GST Services",
-      "Audit & Assurance",
-      "Company Registration",
-      "Business Consulting",
-      "Compliance Services",
+      { name: "Bookkeeping", path: "/services/bookkeeping", icon: BookOpen },
+      { name: "GST Filing", path: "/services/gst-filing", icon: FileText },
+      { name: "Payroll", path: "/services/payroll", icon: Users },
+      { name: "Tax Planning", path: "/services/tax-planning", icon: Calculator },
+      { name: "Company Formation", path: "/services/company-formation", icon: Building },
+      { name: "Compliance", path: "/services/compliance", icon: ShieldCheck },
+      { name: "Audit Services", path: "/services/audit-services", icon: Search },
+      { name: "Financial Advisory", path: "/services/financial-advisory", icon: TrendingUp },
     ],
   },
-  { label: "Query", href: "#contact" },
-  { label: "Career", href: "#career" },
-  { label: "Contact", href: "#contact" },
+  { label: "Query", href: "/query" },
+  { label: "Career", href: "/career" },
+  { label: "Contact", href: "/contact" },
 ];
 
-export function Navbar() {
+export function Navbar({ websiteData }: { websiteData?: any }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [svcOpen, setSvcOpen] = useState(false);
@@ -37,24 +41,27 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const logo = websiteData?.logo || "https://api.digitechai.in/uploads/logo.png";
+  const brandLogo = websiteData?.themeConfig?.brandLogo || logo;
+  const name = websiteData?.name || "ABC & Associates";
+
   return (
     <header
-      className={`sticky top-0 z-40 transition-all duration-500 ${
-        scrolled
+      className={`sticky top-0 z-40 transition-all duration-500 ${scrolled
           ? "glass-strong shadow-soft backdrop-saturate-150"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="container mx-auto px-6 h-20 flex items-center justify-between gap-6">
-        <a href="#home" className="flex items-center gap-3 shrink-0 group">
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-0 group-hover:opacity-30 blur-md transition-opacity" />
-            <img src="https://api.digitechai.in/uploads/logo.png" alt="ABC & Associates" className="relative h-10 w-auto" />
-          </div>
-          <span className="hidden sm:block font-bold text-base tracking-tight">
-            ABC <span className="text-gradient">& Associates</span>
-          </span>
-        </a>
+        <Link to="/" className="flex items-center gap-3 shrink-0 group">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-0 group-hover:opacity-30 blur-md transition-opacity" />
+              <img src={getImageUrl(brandLogo)} alt={name} className="relative h-10 w-auto" />
+            </div>
+            <div className="leading-tight">
+              <span className="font-bold text-sm sm:text-base tracking-tight">{name}</span>
+            </div>
+        </Link>
 
         <nav className="hidden lg:flex items-center gap-7 text-sm font-medium">
           {links.map((l) =>
@@ -78,37 +85,42 @@ export function Navbar() {
                       className="absolute left-0 top-full pt-3 w-72"
                     >
                       <div className="glass-strong rounded-2xl shadow-elevated p-2 border border-white/40">
-                        {l.children.map((c, i) => (
-                          <motion.a
-                            key={c}
-                            href="#services"
-                            initial={{ opacity: 0, x: -8 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.04 }}
-                            className="flex items-center justify-between px-3 py-2.5 rounded-xl text-sm text-foreground hover:bg-gradient-primary hover:text-primary-foreground transition-all group"
-                          >
-                            <span>{c}</span>
-                            <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                          </motion.a>
-                        ))}
+                        {l.children.map((c, i) => {
+                          const Icon = c.icon;
+                          return (
+                            <motion.div key={c.name} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.04 }}>
+                              <Link
+                                to={c.path}
+                                onClick={() => setSvcOpen(false)}
+                                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-foreground hover:bg-gradient-primary hover:text-primary-foreground transition-all group"
+                              >
+                                <Icon className="w-4 h-4 text-primary group-hover:text-primary-foreground" />
+                                <span className="flex-1">{c.name}</span>
+                                <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                              </Link>
+                            </motion.div>
+                          );
+                        })}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             ) : (
-              <a key={l.label} href={l.href} className="nav-link">
+              <Link key={l.label} to={l.href} className="nav-link">
                 {l.label}
-              </a>
+              </Link>
             )
           )}
         </nav>
 
         <div className="flex items-center gap-3">
-          <MagneticButton href="#contact" className="hidden md:inline-flex btn-premium text-sm">
-            Get a Quote
-            <ArrowRight className="h-4 w-4" />
-          </MagneticButton>
+          <Link to="/contact" className="hidden md:block">
+            <MagneticButton className="md:inline-flex btn-premium text-sm">
+              Get a Quote
+              <ArrowRight className="h-4 w-4" />
+            </MagneticButton>
+          </Link>
           <button
             className="lg:hidden p-2 rounded-md hover:bg-secondary"
             onClick={() => setOpen((o) => !o)}
@@ -129,22 +141,22 @@ export function Navbar() {
           >
             <div className="container mx-auto px-6 py-4 flex flex-col gap-1">
               {links.map((l) => (
-                <a
+                <Link
                   key={l.label}
-                  href={l.href}
+                  to={l.href}
                   onClick={() => setOpen(false)}
                   className="py-2.5 text-sm font-medium border-b border-border/40 last:border-0"
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 onClick={() => setOpen(false)}
-                className="mt-3 text-center btn-premium"
+                className="mt-3 mx-auto text-center bg-gradient-primary text-white rounded-md text-xs px-2 py-1 inline-block"
               >
                 Get a Quote
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
@@ -152,3 +164,4 @@ export function Navbar() {
     </header>
   );
 }
+

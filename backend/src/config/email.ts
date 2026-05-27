@@ -53,6 +53,7 @@ const WEBSITE_EMAILS = {
   'Harshada-Hegde': 'info@harshadahegde.com',
   'rupesh-gunjal': 'carupeshgunjal@gmail.com',
   'Rupesh-Gunjal': 'carupeshgunjal@gmail.com',
+  'tally-my-tax': 'sdeepakncy@gmail.com',
 };
 
 // Website names mapping
@@ -86,6 +87,7 @@ const WEBSITE_NAMES = {
   'Harshada-Hegde': 'Harshada Hegde & Associates',
   'rupesh-gunjal': 'Rupesh Gunjal & Associates',
   'Rupesh-Gunjal': 'Rupesh Gunjal & Associates',
+  'tally-my-tax': 'Tally My Tax',
 };
 
 // Email sender function

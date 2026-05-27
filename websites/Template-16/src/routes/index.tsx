@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { TopBar } from "@/components/site/TopBar";
-import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
 import { Services } from "@/components/site/Services";
 import { WhyUs } from "@/components/site/WhyUs";
 import { Team } from "@/components/site/Team";
 import { Contact } from "@/components/site/Contact";
-import { Footer } from "@/components/site/Footer";
+import { useState, useEffect } from "react";
+import { getPageData } from "@/lib/api";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -33,19 +32,39 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [pageData, setPageData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getPageData('home').then((data) => {
+      setPageData(data);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-10 h-10 border-t-2 border-primary rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  const heroSection = pageData?.sections?.find((s: any) => s.type === 'hero');
+  const servicesSection = pageData?.sections?.find((s: any) => s.type === 'services');
+  const textImageSection = pageData?.sections?.find((s: any) => s.type === 'text-image');
+  const whyUsSection = pageData?.sections?.find((s: any) => s.type === 'why-us');
+  const teamSection = pageData?.sections?.find((s: any) => s.type === 'team');
+  const contactSection = pageData?.sections?.find((s: any) => s.type === 'contact');
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <TopBar />
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <WhyUs />
-        <Team />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Hero data={heroSection} />
+      <About data={textImageSection} />
+      <Services data={servicesSection} />
+      <WhyUs data={whyUsSection} />
+      <Team data={teamSection} />
+      <Contact data={contactSection} />
+    </>
   );
 }
