@@ -8,9 +8,9 @@ export function Footer({ websiteData }: { websiteData?: any }) {
   const copyright = websiteData?.themeConfig?.footerContent?.copyright || `© ${new Date().getFullYear()} Tally My Tax. All rights reserved.`;
 
   return (
-    <footer className="bg-[oklch(0.18_0.04_260)] text-white/80">
-      <div className="container mx-auto px-6 py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-        <div>
+    <footer className="bg-[oklch(0.18_0.04_260)] text-white/80 py-12 px-4 md:px-16 lg:px-32 rounded-t-3xl shadow-2xl border-t border-white/10">
+      <div className="container mx-auto grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
+        <div className="col-span-2 md:col-span-1 lg:col-span-1">
           <div className="flex items-center mb-5 gap-4">
             <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-600 text-white font-bold text-2xl shadow-md">
               T
@@ -36,9 +36,9 @@ export function Footer({ websiteData }: { websiteData?: any }) {
           </div>
         </div>
 
-        <div>
-          <h4 className="text-white font-bold mb-5">Quick Links</h4>
-          <ul className="space-y-3 text-sm">
+        <div className="col-span-1 md:col-span-1 lg:col-span-1">
+          <h4 className="text-white font-bold mb-5 md:ml-8 ml-0">Quick Links</h4>
+          <ul className="space-y-2.5 text-sm md:ml-8 ml-0 ">
             {[
               { label: "Home", href: "/" },
               { label: "About", href: "/about" },
@@ -54,7 +54,7 @@ export function Footer({ websiteData }: { websiteData?: any }) {
           </ul>
         </div>
 
-        <div>
+        <div className="col-span-1 md:col-span-1 lg:col-span-1">
           <h4 className="text-white font-bold mb-5">Services</h4>
           <ul className="space-y-3 text-sm">
             {[
@@ -70,7 +70,7 @@ export function Footer({ websiteData }: { websiteData?: any }) {
           </ul>
         </div>
 
-        <div>
+        <div className="col-span-2 md:col-span-1 lg:col-span-1 mt-4 md:mt-0">
           <h4 className="text-white font-bold mb-5">Contact</h4>
           <ul className="space-y-3 text-sm text-white/70">
             {websiteData?.address && (
@@ -86,7 +86,7 @@ export function Footer({ websiteData }: { websiteData?: any }) {
         </div>
       </div>
 
-      <div className="border-t border-white/10">
+      <div className="border-t border-white/10 mt-4">
         <div className="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
           <div>{copyright}</div>
           <div className="flex gap-5">

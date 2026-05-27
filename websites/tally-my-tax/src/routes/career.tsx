@@ -47,7 +47,7 @@ function CareerPage() {
         formData.append("resume", fileInput.files[0]);
       }
       
-      const res = await fetch(`${API_URL}/form/career`, {
+      const res = await fetch(`${API_URL}/forms/career`, {
         method: "POST",
         body: formData
       });

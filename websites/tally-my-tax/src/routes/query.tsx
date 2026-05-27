@@ -32,7 +32,7 @@ function QueryPage() {
     setLoading(true);
     try {
       const { API_URL, WEBSITE_SLUG } = await import("@/lib/api");
-      const res = await fetch(`${API_URL}/form/query`, {
+      const res = await fetch(`${API_URL}/forms/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, website: WEBSITE_SLUG })
@@ -113,16 +113,15 @@ function QueryPage() {
 
       {/* Query Form + Info Sidebar */}
       <section className="py-20 md:py-28 px-6 lg:px-8 relative bg-secondary/30">
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-            
+        <div className="relative z-10 max-w-7xl mx-auto flex justify-center">
+          <div className="w-full max-w-2xl">
             {/* Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-3 glass p-8 md:p-10 rounded-3xl shadow-card border border-border/50"
+              className="glass p-8 md:p-10 rounded-3xl shadow-card border border-border/50 mx-auto"
             >
               <h3 className="text-2xl font-bold mb-6">{formTitle}</h3>
               <form onSubmit={submit} className="space-y-5">

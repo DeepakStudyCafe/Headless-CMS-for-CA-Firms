@@ -32,7 +32,7 @@ function RootComponent() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col overflow-x-hidden">
       {!isAdmin && <TopBar websiteData={websiteData} />}
       {!isAdmin && <Navbar websiteData={websiteData} />}
       <main className="flex-grow">

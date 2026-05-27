@@ -40,7 +40,7 @@ export function Contact({ data }: { data?: any }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`${API_URL}/form/contact`, {
+      const res = await fetch(`${API_URL}/forms/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, website: WEBSITE_SLUG })

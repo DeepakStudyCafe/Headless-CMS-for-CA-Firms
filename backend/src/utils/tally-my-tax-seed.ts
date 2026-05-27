@@ -190,7 +190,7 @@ async function main() {
             imageUrl: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80',
             textContent: {
               heading: 'About Us',
-              subheading: 'Delivering financial clarity and strategic growth with unparalleled expertise.',
+              subheading: 'Empowering Growth with Financial Expertise',
             },
           },
           {
