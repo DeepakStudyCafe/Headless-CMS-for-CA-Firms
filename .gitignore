@@ -27,6 +27,7 @@ websites/*/.DS_Store
 
 # Node modules
 node_modules/
+nginx-vps.conf/
 
 # Build output
 

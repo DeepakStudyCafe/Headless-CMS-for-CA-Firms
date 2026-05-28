@@ -56,7 +56,21 @@ export function Footer() {
           <h4 className="text-xs uppercase tracking-[0.25em] text-secondary mb-5">Contact</h4>
           <ul className="space-y-2.5 text-sm text-muted-foreground">
             {phone && <li>{phone}</li>}
-            {email && <li>{email}</li>}
+            {email && (
+              <>
+                {email
+                  .split(/[,;]\s*/)
+                  .map((e: string) => e.trim())
+                  .filter((e: string) => e)
+                  .map((e: string) => (
+                    <li key={e}>
+                      <a href={`mailto:${e}`} className="hover:underline">
+                        {e}
+                      </a>
+                    </li>
+                  ))}
+              </>
+            )}
             {address && <li>{address}</li>}
           </ul>
         </div>

@@ -56,7 +56,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3">
             <Image
-              src="https://api.digitechai.in/uploads/logo.png"
+              src="/logo.jpeg"
               alt={websiteData?.name || 'Logo'}
               width={40}
               height={40}

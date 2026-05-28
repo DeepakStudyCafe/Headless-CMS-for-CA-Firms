@@ -116,7 +116,7 @@ model Revision {
 model AuditLog {
   id        String   @id @default(uuid())
   websiteId String?  @map("website_id")
-  userId    String   @map("user_id")
+  userId    String?  @map("user_id")
   action    String
   details   Json?
   timestamp DateTime @default(now())
