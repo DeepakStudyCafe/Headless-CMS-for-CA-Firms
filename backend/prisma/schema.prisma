@@ -122,7 +122,7 @@ model AuditLog {
   timestamp DateTime @default(now())
 
   website Website? @relation(fields: [websiteId], references: [id], onDelete: SetNull)
-  user    User     @relation(fields: [userId], references: [id])
+  user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("audit_logs")
 }
