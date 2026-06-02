@@ -25,7 +25,7 @@ async function main() {
     where: { slug: 'tally-my-tax' },
     update: {
       name: 'Tally My Tax',
-      domain: 'https://tallymytax.com/',
+      domain: 'https://taxvidwan.com/',
       logo: 'https://api.digitechai.in/uploads/logo.png',
       phone: '+91 9894751575',
       email: 'gstp.arun@gmail.com',
@@ -52,7 +52,7 @@ async function main() {
     create: {
       name: 'Tally My Tax',
       slug: 'tally-my-tax',
-      domain: 'https://tallymytax.com/',
+      domain: 'https://taxvidwan.com/',
       logo: 'https://api.digitechai.in/uploads/logo.png',
       phone: '+91 9894751575',
       email: 'gstp.arun@gmail.com',

@@ -8,4 +8,4 @@ Disallow: /login/
 Disallow: /admin/
 Disallow: /post/
 Allow: /
-Sitemap: https://tallymytax.com/sitemap.xml
+Sitemap: https://taxvidwan.com/sitemap.xml

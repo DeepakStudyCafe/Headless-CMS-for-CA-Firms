@@ -83,23 +83,20 @@ export default function BlogDetailsPage() {
     <div className="min-h-screen bg-white font-sans text-slate-800 selection:bg-blue-100 selection:text-blue-900">
       <Navbar forceSolid={true} />
 
-      <main className="pt-16 md:pt-20 pb-24">
+      <main className="pt-16 md:pt-20 pb-16">
         <article className="max-w-[960px] mx-auto px-5 sm:px-8 border border-border rounded-2xl shadow-sm p-5 md:p-8">
           
-          <div className="mb-8">
-            <Link href="/blog" className="inline-flex items-center text-sm font-medium text-slate-400 hover:text-blue-600 transition-colors">
-              <ArrowLeft className="w-4 h-4 mr-2" /> Back
-            </Link>
+          <div className="mb-6 text-sm text-slate-500">
+            <nav aria-label="Breadcrumb" className="inline-flex items-center gap-2">
+              <Link href="/" className="text-blue-600 hover:underline">Home</Link>
+              <span className="text-slate-400">/</span>
+              <Link href="/blog" className="text-slate-500 hover:text-blue-600">Blog</Link>
+              <span className="text-slate-400">/</span>
+              <span className="text-slate-800 font-medium truncate max-w-[40ch]">{blog.title}</span>
+            </nav>
           </div>
 
           <header className="mb-10">
-            {blog.category && (
-              <div className="mb-5 inline-flex flex-wrap items-center">
-                <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-widest">
-                  {blog.category}
-                </span>
-              </div>
-            )}
 
             <h1 className="text-2xl sm:text-3xl md:text-[2.25rem] lg:text-[2.5rem] font-bold text-slate-900 leading-tight mb-3 tracking-tight break-words pb-2">
               <span className="block">{blog.title}</span>

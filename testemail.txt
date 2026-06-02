@@ -10,7 +10,7 @@ Create a new website identical to "Template-16" with the name “Tally My Tax”
 * Create a completely **separate and independent project** named:
   **“Tally My Tax”**
 * Do NOT modify, rename, or break anything inside the original **Template-16** project.
-* Domain - https://tallymytax.com/
+* Domain - https://taxvidwan.com/
 
 ---
 
@@ -184,7 +184,7 @@ A **fully working, production-ready clone** of Template-16 named:
 👉 Running on **port 8103**
 👉 Fully dynamic via `/admin`
 👉 Forms sending emails to Gmail
-👉 also update sitemap and robot.txt (domain - https://tallymytax.com/)
+👉 also update sitemap and robot.txt (domain - https://taxvidwan.com/)
 
 ---
 
