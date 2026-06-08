@@ -36,7 +36,12 @@
     "seed:satyug": "ts-node src/utils/satyug-corporate-consultancy-seed.ts",
     "seed:smart-msmes": "ts-node src/utils/smart-msmes-advisory-seed.ts",
     "seed:abhinav-j-and-co": "ts-node src/utils/abhinav-j-and-co-seed.ts",
-    "seed:template22": "ts-node src/utils/template-22-seed.ts", "seed:rupesh-gunjal": "ts-node src/utils/rupesh-gunjal-seed.ts"
+    "seed:template22": "ts-node src/utils/template-22-seed.ts",
+    "seed:rupesh-gunjal": "ts-node src/utils/rupesh-gunjal-seed.ts",
+    "seed:purohit-and-co": "ts-node src/utils/purohit-and-co-seed.ts",
+    "seed:kpv-and-associates": "ts-node src/utils/kpv-and-associates-seed.ts",
+    "seed:mpkr-and-co-llp": "ts-node src/utils/mpkr-and-co-llp-seed.ts",
+    "seed:krishan-garg-and-co": "ts-node src/utils/krishan-garg-and-co-seed.ts"
   },
   "keywords": [
     "cms",

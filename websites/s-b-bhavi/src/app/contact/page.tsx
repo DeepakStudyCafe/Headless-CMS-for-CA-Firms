@@ -287,7 +287,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.9 }}
           >
-            <h3 className="text-3xl font-light text-gray-900 mb-8">Why Choose Verma & Co.?</h3>
+            <h3 className="text-3xl font-light text-gray-900 mb-8">Why Choose S B Bhavi & CO.?</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div>
                 <h4 className="text-xl font-light text-gray-900 mb-3">Expert Guidance</h4>

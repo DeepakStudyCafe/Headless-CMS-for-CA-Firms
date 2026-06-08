@@ -1,0 +1,194 @@
+Create a new website identical to "vb-agrawal-and-associates" with the name “MPKR & Co LLP”.
+
+---
+
+## 🚨 STRICT INSTRUCTIONS (DO NOT SKIP ANY STEP)
+
+### 1. Project Duplication
+
+* Clone the entire **vb-agrawal-and-associates** codebase exactly as it is.
+* Create a completely **separate and independent project** named:
+  **“MPKR & Co LLP”**
+* Do NOT modify, rename, or break anything inside the original **vb-agrawal-and-associates** project.
+* Domain - https://mpkrandcollp.in/
+
+---
+
+### 2. Port Configuration
+
+* Run the new project on **port 8106**
+* Ensure:
+
+  * No port conflicts
+  * Proper `.env` updates if required
+
+---
+
+### 3. Exact Clone Requirement (100% Parity)
+
+The new website MUST have:
+
+* Exact same **folder structure**
+* Exact same **components**
+* Exact same **UI/UX design**
+* Exact same **features and functionality**
+* Exact same **API integrations**
+* Exact same **backend connectivity**
+
+⚠️ No redesign, no optimization, no skipping anything.
+
+---
+
+### 4. Backend & Admin Panel (MANDATORY)
+
+* Fully replicate backend functionality used in **vb-agrawal-and-associates**
+* Ensure `/admin` panel:
+
+  * Works exactly the same
+  * Is fully functional
+  * Is properly connected to the new website
+
+---
+
+### 5. Seed File Requirement (CRITICAL)
+
+* Create a **separate seed file** for this new website
+* DO NOT reuse or copy-paste the original seed file directly
+* Modify seed data to reflect:
+
+  * Website name: **MPKR & Co LLP**
+  * All relevant business content
+  * All images ( banners, sections, etc.)
+
+
+
+---
+
+### 6. Admin Content Completeness (VERY IMPORTANT)
+
+* Ensure that **ALL website content** is available inside `/admin`, including:
+
+  * Text content
+  * Images
+  * Sections (Hero, About, Team, Gallery, Services, Contact, etc.)
+
+⚠️ If ANY content, image, or section is missing in admin:
+
+* Add it properly so that everything can be updated via `/admin`
+
+👉 Final goal:
+**Website should be 100% dynamically manageable from admin panel**
+
+---
+
+### 7. Forms Feature (MANDATORY)
+
+* All forms must be:
+
+  * Fully working
+  * Properly validated
+  * Connected to backend
+
+📩 On submission:
+
+* All form data MUST be sent to **Gmail**
+* No missing fields
+* No broken submission logic
+* Ensure email delivery is working correctly
+
+---
+
+### 8. Configuration
+
+* Update all required environment variables
+* Ensure:
+
+  * Backend connection is correct
+  * Email (SMTP/Gmail) configuration is working
+  * Port = **8106**
+
+---
+
+### 9. Testing (MANDATORY – DO NOT SKIP)
+
+After setup, VERIFY:
+
+#### ✅ Website
+
+* Runs on: **http://localhost:8106**
+* UI matches exactly with vb-agrawal-and-associates 
+#### ✅ Admin Panel
+
+* Accessible and fully functional
+* All content editable
+
+#### ✅ Forms
+
+* Submissions working
+* Emails received on Gmail ( mpkrandcollp@gmail.com  )
+
+#### ✅ Content
+
+* No missing sections
+* No missing images
+* All data editable via admin
+
+#### ✅ Backend
+
+* APIs working properly
+* No errors in console or network
+
+---
+
+### 10. Final Validation
+
+* Ensure **100% feature parity** with vb-agrawal-and-associates 
+* Ensure:
+
+  * No broken UI
+  * No missing functionality
+  * No leftover old branding/content/images
+
+---
+
+## update seed file 
+
+email-  mpkrandcollp@gmail.com  
+phone - +91 9491079632
+address -  24-7-191/2, 2nd Floor, 3rd Street, Ravindra Nagar, Magunta Layout, Beside GST Bhavan, Nellore - 524003.
+workingHours - 11:00 to 20:00
+Firm name- MPKR & Co LLP
+mapEmbedUrl - https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.3458832341466!2d75.87191307476127!3d22.715381927723055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd6d5c629411%3A0x29bfb1a01157c13e!2sKrishan%20Garg%20%26%20Co!5e0!3m2!1sen!2sin!4v1780727408710!5m2!1sen!2sin
+
+## 🚀 FINAL OUTPUT REQUIREMENT
+
+Provide:
+
+* Exact **commands**
+* All **file changes**
+* Seed file creation details
+* Environment setup
+* Run instructions
+
+⚠️ Do NOT give explanation only
+⚠️ Do NOT skip steps
+⚠️ Do NOT partially implement
+
+---
+
+## 🎯 END GOAL
+
+A **fully working, production-ready clone** of vb-agrawal-and-associates named:
+
+👉 **MPKR & Co LLP**
+👉 Running on **port 8106**
+👉 Fully dynamic via `/admin`
+👉 Forms sending emails to Gmail
+👉 also update sitemap and robot.txt (domain - https://mpkrandcollp.in/)
+
+---
+
+
+
+
+**The final result must be COMPLETE and TESTED.**

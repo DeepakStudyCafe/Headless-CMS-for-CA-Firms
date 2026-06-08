@@ -81,6 +81,10 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:8099',
   'http://localhost:8100',
   'http://localhost:5173',
+  'http://localhost:8104',
+  'http://localhost:8105',
+  'http://localhost:8106',
+  'http://localhost:8107'
 ];
 
 
@@ -99,6 +103,9 @@ app.use(cors({
     const normalizedAllowedOrigins = allowedOrigins.map(o => o.trim().replace(/\/$/, ''));
 
     // Check if the origin is allowed (or allow all in dev if needed, but let's stick to list)
+    console.log('CORS Request from:', origin);
+    console.log('Normalized origin:', normalizedOrigin);
+    console.log('Normalized allowed origins includes:', normalizedAllowedOrigins.includes(normalizedOrigin));
     if (normalizedAllowedOrigins.includes(normalizedOrigin)) {
       callback(null, true);
     } else {
@@ -109,6 +116,13 @@ app.use(cors({
   credentials: true, // Very important for cookies
   optionsSuccessStatus: 200 // For legacy browser support
 }));
+
+app.get('/api/debug-cors', (req, res) => {
+  res.json({
+    allowedOrigins: allowedOrigins,
+    normalized: allowedOrigins.map(o => o.trim().replace(/\/$/, ''))
+  });
+});
 
 // Rate limiting
 const limiter = rateLimit({

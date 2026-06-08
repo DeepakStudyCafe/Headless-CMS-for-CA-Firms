@@ -54,6 +54,10 @@ const WEBSITE_EMAILS = {
   'rupesh-gunjal': 'carupeshgunjal@gmail.com',
   'Rupesh-Gunjal': 'carupeshgunjal@gmail.com',
   'tally-my-tax': 'gstp.arun@gmail.com',
+  'purohit-and-co': 'capurohitandco@gmail.com',
+  'kpv-and-associates': 'pvinodkumara@gmail.com',
+  'krishan-garg-and-co': 'hello@kgca.in',
+  'mpkr-and-co-llp': 'mpkrandcollp@gmail.com',
 };
 
 // Website names mapping
@@ -88,6 +92,10 @@ const WEBSITE_NAMES = {
   'rupesh-gunjal': 'Rupesh Gunjal & Associates',
   'Rupesh-Gunjal': 'Rupesh Gunjal & Associates',
   'tally-my-tax': 'Tally My Tax',
+  'purohit-and-co': 'Purohit & Co.',
+  'kpv-and-associates': 'KPV And associates',
+  'krishan-garg-and-co': 'Krishan Garg and Co',
+  'mpkr-and-co-llp': 'MPKR & Co LLP',
 };
 
 // Email sender function

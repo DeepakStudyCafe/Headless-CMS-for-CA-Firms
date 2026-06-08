@@ -421,6 +421,38 @@ module.exports = {
         NODE_ENV: 'development',
         PORT: 8099
       }
+    }, {
+      name: 'purohit-and-co',
+      cwd: './websites/purohit-and-co',
+      script: 'npm',
+      args: 'run start',
+      env: { NODE_ENV: 'development', PORT: 8104 },
+      env_production: { NODE_ENV: 'production', PORT: 8104 },
+      instances: 1, exec_mode: 'fork', watch: false, max_memory_restart: '512M', autorestart: true, restart_delay: 5000
+    }, {
+      name: 'kpv-and-associates',
+      cwd: './websites/kpv-and-associates',
+      script: 'npm',
+      args: 'run start',
+      env: { NODE_ENV: 'development', PORT: 8105 },
+      env_production: { NODE_ENV: 'production', PORT: 8105 },
+      instances: 1, exec_mode: 'fork', watch: false, max_memory_restart: '512M', autorestart: true, restart_delay: 5000
+    }, {
+      name: 'krishan-garg-and-co',
+      cwd: './websites/krishan-garg-and-co',
+      script: 'npm',
+      args: 'run start',
+      env: { NODE_ENV: 'development', PORT: 8106 },
+      env_production: { NODE_ENV: 'production', PORT: 8106 },
+      instances: 1, exec_mode: 'fork', watch: false, max_memory_restart: '512M', autorestart: true, restart_delay: 5000
+    }, {
+      name: 'mpkr-and-co-llp',
+      cwd: './websites/mpkr-and-co-llp',
+      script: 'npm',
+      args: 'run start',
+      env: { NODE_ENV: 'development', PORT: 8107 },
+      env_production: { NODE_ENV: 'production', PORT: 8107 },
+      instances: 1, exec_mode: 'fork', watch: false, max_memory_restart: '512M', autorestart: true, restart_delay: 5000
     }
   ],
 

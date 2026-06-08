@@ -1,0 +1,76 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { Phone, Mail, Clock } from 'lucide-react'
+import { getWebsiteData } from '@/lib/api'
+
+interface WebsiteData {
+  phone?: string
+  email?: string
+  workingHours?: string
+}
+
+export function TopHeader() {
+  const [websiteData, setWebsiteData] = useState<WebsiteData | null>(null)
+
+  useEffect(() => {
+    async function fetchWebsiteData() {
+      const data = await getWebsiteData()
+      setWebsiteData(data)
+    }
+    fetchWebsiteData()
+  }, [])
+
+  if (!websiteData) {
+    return (
+      <div className="bg-blue-900 text-white py-2">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col sm:flex-row sm:justify-between items-center text-sm">
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center space-x-2">
+                <Phone className="w-4 h-4" />
+                <span>+91 9491079632</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Mail className="w-4 h-4" />
+                <span>info@mpkr-and-co-llp.com</span>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 mt-2 sm:mt-0">
+              <Clock className="w-4 h-4" />
+              <span>11:00 to 20:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+      <div className="bg-blue-900 text-white py-2">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between items-center text-sm">
+          <div className="flex flex-wrap items-center gap-4">
+            {websiteData.phone && (
+              <div className="flex items-center space-x-2">
+                <Phone className="w-4 h-4" />
+                <span>{websiteData.phone}</span>
+              </div>
+            )}
+            {websiteData.email && (
+              <div className="flex items-center space-x-2">
+                <Mail className="w-4 h-4" />
+                <span>{websiteData.email}</span>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center space-x-2 mt-2 sm:mt-0">
+            <Clock className="w-4 h-4" />
+            <span>{websiteData.workingHours || '11:00 to 20:00'}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
