@@ -29,16 +29,16 @@ export function TopHeader() {
             <div className="flex flex-wrap items-center gap-4">
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />
-                <span>+91 11 4567 8901</span>
+                <span>+91 9003887511</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span>info@k-s-anithasree-and-associates.com</span>
+                <span>caanithasree@gmail.com</span>
               </div>
             </div>
             <div className="flex items-center space-x-2 mt-2 sm:mt-0">
               <Clock className="w-4 h-4" />
-              <span>Mon - Sat: 9:30 AM - 7:00 PM</span>
+              <span>Mon - Sat: 9:00 AM - 7:00 PM</span>
             </div>
           </div>
         </div>

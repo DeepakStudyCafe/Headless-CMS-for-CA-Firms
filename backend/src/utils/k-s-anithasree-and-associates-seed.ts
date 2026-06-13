@@ -38,7 +38,7 @@ async function main() {
       phone: '+91 9003887511',
       email: 'caanithasree@gmail.com',
       address: '45/4, 1st floor, CKC Vibav Plaza, Above Bank of Maharashtra, Vijayamangalam Road, Uthukuli, Tiruppur-638751',
-      workingHours: 'Mon - Sat: 09:00 to 07:00',
+      workingHours: 'Mon - Sat: 9:00 AM - 7:00 PM',
       themeConfig: {
         primaryColor: '#1e40af',
         secondaryColor: '#64748b',
