@@ -166,7 +166,7 @@ async function main() {
             imageUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600',
             textContent: {
               heading: 'Our Legacy of Excellence',
-              description: 'Founded by CA V.B. Agrawal, our firm has grown from a small practice to one of the most respected accounting firms in the region. We specialize in serving corporate clients with complex audit and taxation needs.',
+              description: 'Founded by CA K S Anithasree, our firm has grown from a small practice to one of the most respected accounting firms in the region. We specialize in serving corporate clients with complex audit and taxation needs.',
               features: ['ISO 9001:2015 Certified', 'Member of ICAI', 'Recognized by major regulatory bodies', 'Award-winning team'],
             },
           },
@@ -211,7 +211,7 @@ async function main() {
               heading: 'Our Leadership',
               description: 'Led by experienced chartered accountants and finance professionals',
               items: [
-                { name: 'CA V.B. Agrawal', role: 'Managing Partner', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400', description: 'FCA, 30+ years experience' },
+                { name: 'CA Agrawal', role: 'Managing Partner', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400', description: 'FCA, 30+ years experience' },
                 { name: 'CA Priya Mehta', role: 'Partner - Audit', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400', description: 'Specializes in corporate audits' },
                 { name: 'CA Amit Kumar', role: 'Partner - Taxation', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400', description: 'Expert in international taxation' },
                 { name: 'CA Sneha Gupta', role: 'Senior Manager', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400', description: 'Financial advisory specialist' },
