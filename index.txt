@@ -1,4 +1,4 @@
-Create a new website identical to "vb-agrawal-and-associates" with the name “MPKR & Co LLP”.
+Create a new website identical to "vb-agrawal-and-associates" with the name “K S Anithasree & Associates”.
 
 ---
 
@@ -8,9 +8,9 @@ Create a new website identical to "vb-agrawal-and-associates" with the name “M
 
 * Clone the entire **vb-agrawal-and-associates** codebase exactly as it is.
 * Create a completely **separate and independent project** named:
-  **“MPKR & Co LLP”**
+  **“K S Anithasree & Associates”**
 * Do NOT modify, rename, or break anything inside the original **vb-agrawal-and-associates** project.
-* Domain - https://mpkrandcollp.in/
+* Domain - https://anithasreeassociates.in/
 
 ---
 
@@ -56,7 +56,7 @@ The new website MUST have:
 * DO NOT reuse or copy-paste the original seed file directly
 * Modify seed data to reflect:
 
-  * Website name: **MPKR & Co LLP**
+  * Website name: **K S Anithasree & Associates**
   * All relevant business content
   * All images ( banners, sections, etc.)
 
@@ -125,7 +125,7 @@ After setup, VERIFY:
 #### ✅ Forms
 
 * Submissions working
-* Emails received on Gmail ( mpkrandcollp@gmail.com  )
+* Emails received on Gmail ( caanithasree@gmail.com  )
 
 #### ✅ Content
 
@@ -153,12 +153,12 @@ After setup, VERIFY:
 
 ## update seed file 
 
-email-  mpkrandcollp@gmail.com  
-phone - +91 9491079632
-address -  24-7-191/2, 2nd Floor, 3rd Street, Ravindra Nagar, Magunta Layout, Beside GST Bhavan, Nellore - 524003.
-workingHours - 11:00 to 20:00
-Firm name- MPKR & Co LLP
-mapEmbedUrl - https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.3458832341466!2d75.87191307476127!3d22.715381927723055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fd6d5c629411%3A0x29bfb1a01157c13e!2sKrishan%20Garg%20%26%20Co!5e0!3m2!1sen!2sin!4v1780727408710!5m2!1sen!2sin
+email-  caanithasree@gmail.com  
+phone - +91 9003887511
+address -  45/4, 1st floor, CKC Vibav Plaza, Above Bank of Maharashtra, Vijayamangalam Road, Uthukuli, Tiruppur-638751
+workingHours - 09:00 to 07:00
+Firm name- K S Anithasree & Associates
+mapEmbedUrl - https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3914.216835251915!2d77.45356687504764!3d11.171574889002233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDEwJzE3LjciTiA3N8KwMjcnMjIuMSJF!5e0!3m2!1sen!2sin!4v1781334300838!5m2!1sen!2sin
 
 ## 🚀 FINAL OUTPUT REQUIREMENT
 
@@ -180,15 +180,12 @@ Provide:
 
 A **fully working, production-ready clone** of vb-agrawal-and-associates named:
 
-👉 **MPKR & Co LLP**
+👉 **K S Anithasree & Associates**
 👉 Running on **port 8106**
 👉 Fully dynamic via `/admin`
 👉 Forms sending emails to Gmail
-👉 also update sitemap and robot.txt (domain - https://mpkrandcollp.in/)
+👉 also update sitemap and robot.txt (domain - https://anithasreeassociates.in/)
 
 ---
-
-
-
 
 **The final result must be COMPLETE and TESTED.**

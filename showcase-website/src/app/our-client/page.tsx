@@ -47,6 +47,7 @@ export default function OurClientPage() {
         { name: 'Harshada Hegde & Associates', url: 'https://harshadahegde.com/', img: '/harshadahegde.png', description: 'Helping growing businesses with smart compliance and indirect tax services; modern website with simple inquiry forms and quick support response.' },
         { name: 'Rupesh Gunjal & Associates', url: 'https://cagunjal.in/', img: '/RupeshGunjal.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         { name: 'Tally & My Tax', url: 'https://taxvidwan.com/', img: '/tallymytax.png', description: 'Offering trusted financial expertise and customized business solutions designed to enhance performance and create lasting value.' },
+        { name: 'K S Anithasree & Associates.', url: 'https://anithasreeassociates.in/', img: '/anithasreeassociates.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
         
         
 

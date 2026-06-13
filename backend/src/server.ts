@@ -84,7 +84,8 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
   'http://localhost:8104',
   'http://localhost:8105',
   'http://localhost:8106',
-  'http://localhost:8107'
+  'http://localhost:8107',
+  'http://localhost:8108'
 ];
 
 

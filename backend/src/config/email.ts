@@ -37,6 +37,7 @@ const WEBSITE_EMAILS = {
   'vineet-taral-and-associates': process.env.VINEET_EMAIL || 'vineettaral@gmail.com',
   'isk-and-co': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
   'vb-agrawal-and-associates': process.env.VB_AGRAWAL_EMAIL || 'vbagrawal@gmail.com',
+  'k-s-anithasree-and-associates': 'caanithasree@gmail.com',
   'burlagadda-and-associates': process.env.BURLAGADDA_EMAIL || 'bmurali1972@gmail.com',
   'firm1-isk': process.env.ISK_AND_CO_EMAIL || 'sansheer@lgfinconsult.com',
   'r-mugunthan': 'rmugunth@gmail.com',
