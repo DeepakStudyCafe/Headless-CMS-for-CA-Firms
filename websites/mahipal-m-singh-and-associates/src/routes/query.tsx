@@ -50,7 +50,7 @@ function QueryPage() {
         query: formData.get("query"),
         website: 'mahipal-m-singh-and-associates'
       };
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/forms/query`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://api.digitechai.in/api'}/forms/query`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

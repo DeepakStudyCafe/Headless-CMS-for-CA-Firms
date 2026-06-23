@@ -49,7 +49,7 @@ function CareerPage() {
       const formData = new FormData(e.currentTarget);
       formData.append('website', 'mahipal-m-singh-and-associates');
       
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/forms/career`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://api.digitechai.in/api'}/forms/career`, {
         method: 'POST',
         body: formData
       });

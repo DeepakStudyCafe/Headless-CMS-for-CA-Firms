@@ -112,7 +112,7 @@ function ContactPage() {
                             message: formData.get("message"),
                             website: 'mahipal-m-singh-and-associates'
                           };
-                          const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/forms/contact`, {
+                          const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://api.digitechai.in/api'}/forms/contact`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(payload)
