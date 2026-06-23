@@ -13,24 +13,27 @@ const Instagram = (p: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...p}><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
 );
 
-export function TopBar() {
+export function TopBar({ websiteData }: { websiteData?: any }) {
+  const phone = websiteData?.phone || "+91 12345 67890";
+  const email = websiteData?.email || "contact@abcassociates.com";
+
   return (
     <div className="hidden border-b border-border bg-surface/80 text-xs text-subtle md:block">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
         <div className="flex items-center gap-6">
-          <a href="tel:+911234567890" className="flex items-center gap-2 hover:text-primary">
-            <Phone className="h-3.5 w-3.5" /> +91 12345 67890
+          <a href={`tel:${phone}`} className="flex items-center gap-2 hover:text-primary">
+            <Phone className="h-3.5 w-3.5" /> {phone}
           </a>
           <span className="h-3 w-px bg-border" />
-          <a href="mailto:contact@abcassociates.com" className="flex items-center gap-2 hover:text-primary">
-            <Mail className="h-3.5 w-3.5" /> contact@abcassociates.com
+          <a href={`mailto:${email}`} className="flex items-center gap-2 hover:text-primary">
+            <Mail className="h-3.5 w-3.5" /> {email}
           </a>
         </div>
         <div className="flex items-center gap-4">
-          <a href="#" aria-label="Facebook" className="hover:text-primary"><Facebook className="h-3.5 w-3.5" /></a>
-          <a href="#" aria-label="Twitter" className="hover:text-primary"><Twitter className="h-3.5 w-3.5" /></a>
-          <a href="#" aria-label="LinkedIn" className="hover:text-primary"><Linkedin className="h-3.5 w-3.5" /></a>
-          <a href="#" aria-label="Instagram" className="hover:text-primary"><Instagram className="h-3.5 w-3.5" /></a>
+          <a href={websiteData?.themeConfig?.socialLinks?.facebook || "#"} aria-label="Facebook" className="hover:text-primary"><Facebook className="h-3.5 w-3.5" /></a>
+          <a href={websiteData?.themeConfig?.socialLinks?.twitter || "#"} aria-label="Twitter" className="hover:text-primary"><Twitter className="h-3.5 w-3.5" /></a>
+          <a href={websiteData?.themeConfig?.socialLinks?.linkedin || "#"} aria-label="LinkedIn" className="hover:text-primary"><Linkedin className="h-3.5 w-3.5" /></a>
+          <a href={websiteData?.themeConfig?.socialLinks?.instagram || "#"} aria-label="Instagram" className="hover:text-primary"><Instagram className="h-3.5 w-3.5" /></a>
         </div>
       </div>
     </div>

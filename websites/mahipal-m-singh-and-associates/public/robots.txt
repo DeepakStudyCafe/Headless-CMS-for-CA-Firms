@@ -1,0 +1,8 @@
+User-agent: *\nAllow: /\n\nSitemap: https://camahipal.in/sitemap.xml
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /admin/
+Disallow: /post/
+Allow: /

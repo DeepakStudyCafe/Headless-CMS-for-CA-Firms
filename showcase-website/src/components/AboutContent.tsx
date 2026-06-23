@@ -18,7 +18,7 @@ export default function AboutContent() {
     { name: "Raja Mehta", role: "Manager", image: "/Raja.jpeg", linkedin: "" },
     { name: "Deepak Sharma", role: "Software Developer", image: "/Deepak.webp", linkedin: "" },
     { name: "Janvi", role: "Digital Marketing Executive", image: "/janvi.jpeg", linkedin: "" },
-    { name: "Mahima Gupta", role: "Sales operations manager", image: "/Mahima.png", linkedin: "" },
+    // { name: "Mahima Gupta", role: "Sales operations manager", image: "/Mahima.png", linkedin: "" },
     { name: "Deepanshi Rohilla", role: "Digital Marketing Executive", image: "/dipancy.jpeg", linkedin: "" },
     { name: "Kirtika", role: "Digital Marketing Executive", image: "/Kirtika.jpeg", linkedin: "" },
     { name: "Chanchal", role: "Client Relations Specialist", image: "/chanchal.jpeg", linkedin: "" },

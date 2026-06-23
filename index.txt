@@ -1,4 +1,4 @@
-Create a new website identical to "vb-agrawal-and-associates" with the name “K S Anithasree & Associates”.
+Create a new website identical to "Template-17" with the name “Mahipal M Singh & Associates”.
 
 ---
 
@@ -6,11 +6,11 @@ Create a new website identical to "vb-agrawal-and-associates" with the name “K
 
 ### 1. Project Duplication
 
-* Clone the entire **vb-agrawal-and-associates** codebase exactly as it is.
+* Clone the entire **Template-17** codebase exactly as it is.
 * Create a completely **separate and independent project** named:
-  **“K S Anithasree & Associates”**
-* Do NOT modify, rename, or break anything inside the original **vb-agrawal-and-associates** project.
-* Domain - https://anithasreeassociates.in/
+  **“Mahipal M Singh & Associates”**
+* Do NOT modify, rename, or break anything inside the original **Template-17** project.
+* Domain - https://camahipal.in/
 
 ---
 
@@ -41,7 +41,7 @@ The new website MUST have:
 
 ### 4. Backend & Admin Panel (MANDATORY)
 
-* Fully replicate backend functionality used in **vb-agrawal-and-associates**
+* Fully replicate backend functionality used in **Template-17**
 * Ensure `/admin` panel:
 
   * Works exactly the same
@@ -56,7 +56,7 @@ The new website MUST have:
 * DO NOT reuse or copy-paste the original seed file directly
 * Modify seed data to reflect:
 
-  * Website name: **K S Anithasree & Associates**
+  * Website name: **Mahipal M Singh & Associates**
   * All relevant business content
   * All images ( banners, sections, etc.)
 
@@ -116,7 +116,7 @@ After setup, VERIFY:
 #### ✅ Website
 
 * Runs on: **http://localhost:8106**
-* UI matches exactly with vb-agrawal-and-associates 
+* UI matches exactly with Template-17 
 #### ✅ Admin Panel
 
 * Accessible and fully functional
@@ -125,7 +125,7 @@ After setup, VERIFY:
 #### ✅ Forms
 
 * Submissions working
-* Emails received on Gmail ( caanithasree@gmail.com  )
+* Emails received on Gmail ( camahipalyadav@gmail.com  )
 
 #### ✅ Content
 
@@ -142,7 +142,7 @@ After setup, VERIFY:
 
 ### 10. Final Validation
 
-* Ensure **100% feature parity** with vb-agrawal-and-associates 
+* Ensure **100% feature parity** with Template-17 
 * Ensure:
 
   * No broken UI
@@ -153,12 +153,12 @@ After setup, VERIFY:
 
 ## update seed file 
 
-email-  caanithasree@gmail.com  
-phone - +91 9003887511
-address -  45/4, 1st floor, CKC Vibav Plaza, Above Bank of Maharashtra, Vijayamangalam Road, Uthukuli, Tiruppur-638751
-workingHours - 09:00 to 07:00
-Firm name- K S Anithasree & Associates
-mapEmbedUrl - https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3914.216835251915!2d77.45356687504764!3d11.171574889002233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDEwJzE3LjciTiA3N8KwMjcnMjIuMSJF!5e0!3m2!1sen!2sin!4v1781334300838!5m2!1sen!2sin
+email-  camahipalyadav@gmail.com  
+phone - +91 9466083070
+address -  TB-349, R Tech Capital High Street, Near Phool Bagh Chowk, Dhruhera-Sohna Road, RIICO Industrial Area, Bhiwadi - 301019
+workingHours - 09:30 AM to 18:00 PM
+Firm name- Mahipal M Singh & Associates
+mapEmbedUrl - https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7032.043306977195!2d76.85148284239821!3d28.206654703599817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3791aaaaaaab%3A0x832fa9aaf7a4f1c4!2sR-Tech%20Capital%20Highstreet%20Bhiwadi!5e0!3m2!1sen!2sin!4v1782201861828!5m2!1sen!2sin
 
 ## 🚀 FINAL OUTPUT REQUIREMENT
 
@@ -178,13 +178,13 @@ Provide:
 
 ## 🎯 END GOAL
 
-A **fully working, production-ready clone** of vb-agrawal-and-associates named:
+A **fully working, production-ready clone** of Template-17 named:
 
-👉 **K S Anithasree & Associates**
+👉 **Mahipal M Singh & Associates**
 👉 Running on **port 8106**
 👉 Fully dynamic via `/admin`
 👉 Forms sending emails to Gmail
-👉 also update sitemap and robot.txt (domain - https://anithasreeassociates.in/)
+👉 also update sitemap and robot.txt (domain - https://camahipal.in/)
 
 ---
 

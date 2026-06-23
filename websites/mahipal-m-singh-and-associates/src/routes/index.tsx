@@ -1,0 +1,349 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  ShieldCheck,
+  Calculator,
+  FileText,
+  Briefcase,
+  TrendingUp,
+  BookOpen,
+  Check,
+  Star,
+  Quote,
+} from "lucide-react";
+import { SiteLayout } from "@/components/site/Layout";
+import { Reveal } from "@/components/site/Reveal";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { Counter } from "@/components/site/Counter";
+import { Button } from "@/components/ui/button";
+import { getPageData, getWebsiteData, PageData, getImageUrl, getPosts } from "@/lib/api";
+import { UpdatesTicker } from "@/components/site/UpdatesTicker";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Mahipal M Singh & Associates — Chartered Accountants in India" },
+      {
+        name: "description",
+        content:
+          "Mahipal M Singh & Associates is a trusted Chartered Accountant firm offering audit, taxation, GST, compliance and advisory services for businesses and individuals.",
+      },
+      { property: "og:title", content: "Mahipal M Singh & Associates — Chartered Accountants" },
+      {
+        property: "og:description",
+        content:
+          "Audit, tax, GST and advisory services delivered with precision, compliance and care.",
+      },
+    ],
+  }),
+  component: HomePage,
+});
+
+const iconMap: Record<string, any> = {
+  ShieldCheck,
+  Calculator,
+  FileText,
+  Briefcase,
+  TrendingUp,
+  BookOpen,
+};
+
+function HomePage() {
+  const [pageData, setPageData] = useState<PageData | null>(null);
+  const [websiteData, setWebsiteData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    Promise.all([
+      getPageData("home"),
+      getWebsiteData(),
+      getPosts(15).catch(() => [])
+    ]).then(([page, site, p]) => {
+      setPosts(p);
+      setPageData(page);
+      setWebsiteData(site);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return (
+      <SiteLayout>
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        </div>
+      </SiteLayout>
+    );
+  }
+
+  const heroSection = pageData?.sections?.find((s) => s.type === 'hero');
+  const statsSection = pageData?.sections?.find((s) => s.type === 'stats');
+  const servicesSection = pageData?.sections?.find((s) => s.type === 'services');
+  const aboutSection = pageData?.sections?.find((s) => s.type === 'text-image');
+  const whyChooseUsSection = pageData?.sections?.find((s) => s.type === 'why-choose-us');
+  const testimonialsSection = pageData?.sections?.find((s) => s.type === 'testimonials');
+  const ctaSection = pageData?.sections?.find((s) => s.type === 'cta');
+
+  return (
+    <SiteLayout websiteData={websiteData}>
+      {/* HERO */}
+      {heroSection && (
+        <section className="relative overflow-hidden border-b border-border bg-surface">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 md:py-24 lg:grid-cols-2">
+            <div>
+              <Reveal>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-secondary">
+                  <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                  Chartered Accountants · Est. 2005
+                </span>
+              </Reveal>
+              <Reveal delay={0.05}>
+                <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.1] text-foreground md:text-5xl lg:text-6xl">
+                  {heroSection.textContent?.heading || "Professional Chartered Accountant Services"}
+                </h1>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <p className="mt-5 max-w-xl text-base leading-relaxed text-subtle md:text-lg">
+                  {heroSection.textContent?.subheading || "Mahipal M Singh & Associates partners with businesses..."}
+                </p>
+              </Reveal>
+              <Reveal delay={0.15}>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link to="/contact">
+                    <Button size="lg" className="bg-primary text-primary-foreground hover:bg-secondary">
+                      {heroSection.textContent?.cta || "Get Consultation"} <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Link to="/services">
+                    <Button size="lg" variant="outline" className="border-border">
+                      View Services
+                    </Button>
+                  </Link>
+                </div>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <div className="mt-10 flex items-center gap-6 text-sm text-subtle">
+                  <div className="flex -space-x-2">
+                    {[0, 1, 2, 3].map((i) => (
+                      <div key={i} className="h-9 w-9 rounded-full border-2 border-surface bg-gradient-to-br from-primary to-secondary" />
+                    ))}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1 text-amber-500">
+                      {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                    </div>
+                    <p className="mt-1">Trusted by <span className="font-semibold text-foreground">500+</span> businesses</p>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            <Reveal delay={0.1} y={24}>
+              <div className="relative mx-auto max-w-sm lg:max-w-md lg:ml-auto">
+                <img
+                  src={getImageUrl(heroSection.imageUrl || "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80")}
+                  alt="Chartered Accountants meeting with clients"
+                  className="aspect-[4/5] w-full rounded-2xl object-cover shadow-xl ring-1 ring-border"
+                  loading="eager"
+                />
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                  className="absolute -bottom-6 -left-6 hidden w-64 rounded-xl border border-border bg-surface p-4 shadow-lg sm:block"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-primary/10 p-2 text-primary"><ShieldCheck className="h-5 w-5" /></div>
+                    <div>
+                      <p className="text-xs text-subtle">ICAI Registered</p>
+                      <p className="text-sm font-semibold text-foreground">100% Compliant Firm</p>
+                    </div>
+                  </div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.55, duration: 0.5 }}
+                  className="absolute -top-6 -right-6 hidden w-56 rounded-xl border border-border bg-surface p-4 shadow-lg sm:block"
+                >
+                  <p className="text-xs text-subtle">Filings completed</p>
+                  <p className="mt-1 font-display text-2xl font-semibold text-foreground">
+                    <Counter to={12000} />
+                  </p>
+                  <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+                    <div className="h-full w-4/5 rounded-full bg-secondary" />
+                  </div>
+                </motion.div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* ABOUT */}
+      {aboutSection && (
+        <section className="border-b border-border bg-background py-20">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
+            <Reveal>
+              <img
+                src={getImageUrl(aboutSection.imageUrl || "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1100&q=80")}
+                alt="About the firm"
+                className="aspect-[5/4] w-full rounded-2xl object-cover ring-1 ring-border"
+              />
+            </Reveal>
+            <div>
+              <SectionHeading
+                align="left"
+                eyebrow="About the firm"
+                title={aboutSection.textContent?.heading || "Two decades of trusted financial expertise"}
+                description={aboutSection.textContent?.description}
+              />
+              <Reveal delay={0.1}>
+                <div className="mt-8 grid grid-cols-3 gap-6 border-t border-border pt-8">
+                  {statsSection?.textContent?.stats?.slice(0, 3).map((stat: any, i: number) => (
+                    <div key={i}>
+                      <p className="font-display text-3xl font-semibold text-primary"><Counter to={stat.value} />{stat.suffix}</p>
+                      <p className="mt-1 text-sm text-subtle">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+              <Reveal delay={0.15}>
+                <Link to="/about" className="mt-8 inline-flex">
+                  <Button variant="outline" className="border-border">
+                    {aboutSection.textContent?.cta || "Learn more about us"} <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* SERVICES */}
+      {servicesSection && (
+        <section className="border-b border-border bg-surface py-20">
+          <div className="mx-auto max-w-7xl px-6">
+            <SectionHeading
+              eyebrow="What we do"
+              title={servicesSection.textContent?.heading || "Services built around your business"}
+              description={servicesSection.textContent?.subheading}
+            />
+            <div className="mt-12 flex flex-col lg:flex-row gap-6">
+              <div className="flex-1 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 content-start">
+                {servicesSection.textContent?.items?.map((s: any, i: number) => {
+                const Icon = iconMap[s.icon] || ShieldCheck;
+                return (
+                  <Reveal key={s.title || i} delay={i * 0.05}>
+                    <div className="group h-full rounded-xl border border-border bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-secondary hover:shadow-md">
+                      <div className="mb-5 inline-flex rounded-lg bg-primary/10 p-3 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground">{s.title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-subtle">{s.desc || s.description}</p>
+                    </div>
+                  </Reveal>
+                );
+              })}
+              </div>
+              {posts && posts.length > 0 && (
+                <aside className="w-full lg:w-80 flex-shrink-0 self-stretch" aria-label="Latest updates">
+                  <UpdatesTicker posts={posts} />
+                </aside>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* WHY US */}
+      {whyChooseUsSection && (
+        <section className="border-b border-border bg-background py-20">
+          <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
+            <div>
+              <SectionHeading
+                align="left"
+                eyebrow="Why choose us"
+                title={whyChooseUsSection.textContent?.heading || "A partner you can rely on"}
+                description={whyChooseUsSection.textContent?.description}
+              />
+              <Reveal delay={0.1}>
+                <Link to="/contact" className="mt-8 inline-flex">
+                  <Button className="bg-primary text-primary-foreground hover:bg-secondary">
+                    {whyChooseUsSection.textContent?.cta || "Schedule a Consultation"} <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </Reveal>
+            </div>
+            <Reveal delay={0.05}>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {whyChooseUsSection.textContent?.features?.map((r: any, i: number) => (
+                  <li key={i} className="flex items-start gap-3 rounded-lg border border-border bg-surface p-4">
+                    <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                      <Check className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="text-sm font-medium text-foreground">{r.title || r}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      {/* TESTIMONIALS */}
+      {testimonialsSection && testimonialsSection.textContent?.items && testimonialsSection.textContent.items.length > 0 && (
+        <section className="border-b border-border bg-surface py-20">
+          <div className="mx-auto max-w-7xl px-6">
+            <SectionHeading
+              eyebrow="Testimonials"
+              title={testimonialsSection.textContent.heading || "What our clients say about us"}
+              description={testimonialsSection.textContent.subheading || "We take pride in building long-lasting relationships with our clients."}
+            />
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {testimonialsSection.textContent.items.map((t: any, i: number) => (
+                <Reveal key={i} delay={i * 0.1}>
+                  <div className="flex h-full flex-col justify-between rounded-xl border border-border bg-background p-8 shadow-sm">
+                    <div>
+                      <Quote className="h-8 w-8 text-primary/20" />
+                      <p className="mt-4 text-base leading-relaxed text-subtle">{t.text || t.review}</p>
+                    </div>
+                    <div className="mt-6 flex items-center gap-4 border-t border-border pt-6">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-bold">
+                        {t.name?.charAt(0) || "C"}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">{t.name}</p>
+                        <p className="text-sm text-subtle">{t.designation || t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA */}
+      {ctaSection && (
+        <section className="bg-primary">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-14 text-center md:flex-row md:text-left">
+            <div className="text-primary-foreground">
+              <h3 className="font-display text-2xl font-semibold md:text-3xl">{ctaSection.textContent?.heading || "Ready to simplify your finances?"}</h3>
+              <p className="mt-2 text-primary-foreground/80">{ctaSection.textContent?.subheading || "Talk to a partner today — no obligation, just clear advice."}</p>
+            </div>
+            <Link to="/contact">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                {ctaSection.textContent?.cta || "Get a Free Quote"} <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </section>
+      )}
+    </SiteLayout>
+  );
+}
