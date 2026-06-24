@@ -33,7 +33,7 @@ async function main() {
     where: { slug: 'sanjiv-vinod-and-associates' },
     update: {
       name: 'Sanjiv Vinod & Associates',
-      domain: 'https://svaca.com/',
+      domain: 'https://sva-ca.com/',
       logo: '/uploads/logo.svg',
       phone: '+91 9914805277, +91 9988715845',
       email: 'abhinandan@svaca.com, cavinod2014@gmail.com',
@@ -49,7 +49,7 @@ async function main() {
     create: {
       name: 'Sanjiv Vinod & Associates',
       slug: 'sanjiv-vinod-and-associates',
-      domain: 'https://svaca.com/',
+      domain: 'https://sva-ca.com/',
       logo: '/uploads/logo.svg',
       phone: '+91 9914805277, +91 9988715845',
       email: 'abhinandan@svaca.com, cavinod2014@gmail.com',

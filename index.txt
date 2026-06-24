@@ -10,7 +10,7 @@ Create a new website identical to "kpv-and-associates" with the name “Sanjiv V
 * Create a completely **separate and independent project** named:
   **“Sanjiv Vinod & Associates”**
 * Do NOT modify, rename, or break anything inside the original **kpv-and-associates** project.
-* Domain - https://svaca.com/
+* Domain - https://sva-ca.com/
 
 ---
 
@@ -184,7 +184,7 @@ A **fully working, production-ready clone** of kpv-and-associates named:
 👉 Running on **port 8106**
 👉 Fully dynamic via `/admin`
 👉 Forms sending emails to Gmail
-👉 also update sitemap and robot.txt (domain - https://svaca.com/)
+👉 also update sitemap and robot.txt (domain - https://sva-ca.com/)
 
 ---
 
