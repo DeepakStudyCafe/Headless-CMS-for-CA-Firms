@@ -60,6 +60,7 @@ const WEBSITE_EMAILS = {
   'krishan-garg-and-co': 'hello@kgca.in',
   'mpkr-and-co-llp': 'mpkrandcollp@gmail.com',
   'mahipal-m-singh-and-associates': 'camahipalyadav@gmail.com',
+  'sanjiv-vinod-and-associates': 'abhinandan@svaca.com',
 };
 
 // Website names mapping
@@ -99,6 +100,7 @@ const WEBSITE_NAMES = {
   'krishan-garg-and-co': 'Krishan Garg and Co',
   'mpkr-and-co-llp': 'MPKR & Co LLP',
   'mahipal-m-singh-and-associates': 'Mahipal M Singh & Associates',
+  'sanjiv-vinod-and-associates': 'Sanjiv Vinod & Associates',
 };
 
 // Email sender function
