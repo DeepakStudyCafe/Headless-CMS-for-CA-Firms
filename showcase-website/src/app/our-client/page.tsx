@@ -49,6 +49,7 @@ export default function OurClientPage() {
         { name: 'Tally & My Tax', url: 'https://taxvidwan.com/', img: '/tallymytax.png', description: 'Offering trusted financial expertise and customized business solutions designed to enhance performance and create lasting value.' },
         { name: 'K S Anithasree & Associates.', url: 'https://anithasreeassociates.in/', img: '/anithasreeassociates.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
         { name: 'Mahipal M Singh & Associates.', url: 'https://camahipal.in/', img: '/camahipal.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
+        { name: 'Sanjiv Vinod & Associates.', url: 'https://svaca.com/', img: '/svaca.png', description: 'Helping small businesses with smart tax planning and financial solutions; modern website with simple contact forms and quick response support.' },
         
         
         

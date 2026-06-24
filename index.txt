@@ -1,4 +1,4 @@
-Create a new website identical to "Template-17" with the name “Mahipal M Singh & Associates”.
+Create a new website identical to "kpv-and-associates" with the name “Sanjiv Vinod & Associates”.
 
 ---
 
@@ -6,11 +6,11 @@ Create a new website identical to "Template-17" with the name “Mahipal M Singh
 
 ### 1. Project Duplication
 
-* Clone the entire **Template-17** codebase exactly as it is.
+* Clone the entire **kpv-and-associates** codebase exactly as it is.
 * Create a completely **separate and independent project** named:
-  **“Mahipal M Singh & Associates”**
-* Do NOT modify, rename, or break anything inside the original **Template-17** project.
-* Domain - https://camahipal.in/
+  **“Sanjiv Vinod & Associates”**
+* Do NOT modify, rename, or break anything inside the original **kpv-and-associates** project.
+* Domain - https://svaca.com/
 
 ---
 
@@ -41,7 +41,7 @@ The new website MUST have:
 
 ### 4. Backend & Admin Panel (MANDATORY)
 
-* Fully replicate backend functionality used in **Template-17**
+* Fully replicate backend functionality used in **kpv-and-associates**
 * Ensure `/admin` panel:
 
   * Works exactly the same
@@ -56,7 +56,7 @@ The new website MUST have:
 * DO NOT reuse or copy-paste the original seed file directly
 * Modify seed data to reflect:
 
-  * Website name: **Mahipal M Singh & Associates**
+  * Website name: **Sanjiv Vinod & Associates**
   * All relevant business content
   * All images ( banners, sections, etc.)
 
@@ -116,7 +116,7 @@ After setup, VERIFY:
 #### ✅ Website
 
 * Runs on: **http://localhost:8106**
-* UI matches exactly with Template-17 
+* UI matches exactly with kpv-and-associates 
 #### ✅ Admin Panel
 
 * Accessible and fully functional
@@ -125,7 +125,7 @@ After setup, VERIFY:
 #### ✅ Forms
 
 * Submissions working
-* Emails received on Gmail ( camahipalyadav@gmail.com  )
+* Emails received on Gmail ( abhinandan@svaca.com  )
 
 #### ✅ Content
 
@@ -142,7 +142,7 @@ After setup, VERIFY:
 
 ### 10. Final Validation
 
-* Ensure **100% feature parity** with Template-17 
+* Ensure **100% feature parity** with kpv-and-associates 
 * Ensure:
 
   * No broken UI
@@ -153,12 +153,12 @@ After setup, VERIFY:
 
 ## update seed file 
 
-email-  camahipalyadav@gmail.com  
-phone - +91 9466083070
-address -  TB-349, R Tech Capital High Street, Near Phool Bagh Chowk, Dhruhera-Sohna Road, RIICO Industrial Area, Bhiwadi - 301019
-workingHours - 09:30 AM to 18:00 PM
-Firm name- Mahipal M Singh & Associates
-mapEmbedUrl - https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7032.043306977195!2d76.85148284239821!3d28.206654703599817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3791aaaaaaab%3A0x832fa9aaf7a4f1c4!2sR-Tech%20Capital%20Highstreet%20Bhiwadi!5e0!3m2!1sen!2sin!4v1782201861828!5m2!1sen!2sin
+email-  abhinandan@svaca.com, cavinod2014@gmail.com  
+phone - +91 9914805277, +91 9988715845
+address -  SCO 15 Opp The British Coed School Lower Mall Road Patiala Punjab 147001
+workingHours - 10.00 AM- 07.00 PM
+Firm name- Sanjiv Vinod & Associates
+mapEmbedUrl - https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3443.864144467861!2d76.38825527502148!3d30.32638190515855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391028e65962e597%3A0x2287b9b2c4474b!2z4pyFIPCdl6bwnZeu8J2Xu_Cdl7fwnZe28J2YgyDwnZep8J2XtvCdl7vwnZe88J2XsSAmIPCdl5TwnZiA8J2YgPCdl7zwnZew8J2XtvCdl67wnZiB8J2XsvCdmIAgLSBCZXN0IENBIGluIFBhdGlhbGE!5e0!3m2!1sen!2sin!4v1782280837778!5m2!1sen!2sin
 
 ## 🚀 FINAL OUTPUT REQUIREMENT
 
@@ -178,13 +178,13 @@ Provide:
 
 ## 🎯 END GOAL
 
-A **fully working, production-ready clone** of Template-17 named:
+A **fully working, production-ready clone** of kpv-and-associates named:
 
-👉 **Mahipal M Singh & Associates**
+👉 **Sanjiv Vinod & Associates**
 👉 Running on **port 8106**
 👉 Fully dynamic via `/admin`
 👉 Forms sending emails to Gmail
-👉 also update sitemap and robot.txt (domain - https://camahipal.in/)
+👉 also update sitemap and robot.txt (domain - https://svaca.com/)
 
 ---
 
