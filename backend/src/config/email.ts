@@ -59,7 +59,7 @@ const WEBSITE_EMAILS = {
   'kpv-and-associates': 'pvinodkumara@gmail.com',
   'krishan-garg-and-co': 'hello@kgca.in',
   'mpkr-and-co-llp': 'mpkrandcollp@gmail.com',
-  'mahipal-m-singh-and-associates': 'camahipalyadav@gmail.com',
+  'mahipal-m-singh-and-associates': 'mahipalmsingh9@gmail.com',
   'sanjiv-vinod-and-associates': 'abhinandan@svaca.com',
 };
 

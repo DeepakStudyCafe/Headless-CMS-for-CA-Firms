@@ -237,7 +237,7 @@ export default function AdminDashboard() {
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${siteSettings.isActive ? "bg-green-500" : "bg-red-400"}`} />
-            <span className="font-semibold text-gray-800 text-sm">Abhinav J &amp; Company — Admin Panel</span>
+            <span className="font-semibold text-gray-800 text-sm">Mahipal M Singh & Associates — Admin Panel</span>
             {!siteSettings.isActive && (
               <span className="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-medium">Site Offline</span>
             )}
@@ -332,7 +332,7 @@ export default function AdminDashboard() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label className={lbl}>Phone</label><input type="text" autoComplete="off" value={footerForm.phone} onChange={(e) => setFooterForm((f) => ({ ...f, phone: e.target.value }))} placeholder="+91 XX XXXX XXXX" className={inp} /></div>
-                <div><label className={lbl}>Email</label><input type="email" autoComplete="off" value={footerForm.email} onChange={(e) => setFooterForm((f) => ({ ...f, email: e.target.value }))} placeholder="info@abhinavjandco.in" className={inp} /></div>
+                <div><label className={lbl}>Email</label><input type="email" autoComplete="off" value={footerForm.email} onChange={(e) => setFooterForm((f) => ({ ...f, email: e.target.value }))} placeholder="info@Mahipal.in" className={inp} /></div>
                 <div className="sm:col-span-2"><label className={lbl}>Address</label><input type="text" autoComplete="off" value={footerForm.address} onChange={(e) => setFooterForm((f) => ({ ...f, address: e.target.value }))} placeholder="Complete business address" className={inp} /></div>
                 <div className="sm:col-span-2"><label className={lbl}>Working Hours</label><input type="text" autoComplete="off" value={footerForm.workingHours} onChange={(e) => setFooterForm((f) => ({ ...f, workingHours: e.target.value }))} placeholder="Mon - Sat: 9:30 AM - 6:30 PM" className={inp} /></div>
               </div>
@@ -355,7 +355,7 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <label className={lbl}>Copyright Text</label>
-                <input type="text" autoComplete="off" value={footerForm.copyright} onChange={(e) => setFooterForm((f) => ({ ...f, copyright: e.target.value }))} placeholder="© 2026 Abhinav J & Company All rights reserved." className={inp} />
+                <input type="text" autoComplete="off" value={footerForm.copyright} onChange={(e) => setFooterForm((f) => ({ ...f, copyright: e.target.value }))} placeholder="© 2026 Mahipal M Singh & Associates All rights reserved." className={inp} />
               </div>
             </div>
             <button type="button" onClick={handleFooterSave} disabled={footerSaving} className="flex items-center gap-2 bg-[#2A3B36] text-white text-sm px-5 py-2.5 rounded-lg hover:bg-[#1F2C28] disabled:opacity-50 transition-colors">
@@ -374,7 +374,7 @@ export default function AdminDashboard() {
             </div>
             <div className="space-y-3 pb-5 border-b border-gray-100">
               <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Hero Text</p>
-              <div><label className={lbl}>Page Heading (H1)</label><input type="text" autoComplete="off" value={contactForm.heroTitle} onChange={(e) => setContactForm((f) => ({ ...f, heroTitle: e.target.value }))} placeholder="e.g. Contact Abhinav J & Company" className={inp} /></div>
+              <div><label className={lbl}>Page Heading (H1)</label><input type="text" autoComplete="off" value={contactForm.heroTitle} onChange={(e) => setContactForm((f) => ({ ...f, heroTitle: e.target.value }))} placeholder="e.g. Contact Mahipal M Singh & Associates" className={inp} /></div>
               <div><label className={lbl}>Subtitle</label><textarea rows={2} autoComplete="off" value={contactForm.heroSubtitle} onChange={(e) => setContactForm((f) => ({ ...f, heroSubtitle: e.target.value }))} placeholder="Short description below the heading..." className={`${inp} resize-vertical`} /></div>
             </div>
             <div className="space-y-3 pb-5 border-b border-gray-100">
@@ -382,8 +382,8 @@ export default function AdminDashboard() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div><label className={lbl}>Phone</label><input type="text" autoComplete="off" value={contactForm.phone} onChange={(e) => setContactForm((f) => ({ ...f, phone: e.target.value }))} placeholder="+91 XX XXXX XXXX" className={inp} /></div>
                 <div><label className={lbl}>Phone 2 <span className="text-gray-400 font-normal">(optional)</span></label><input type="text" autoComplete="off" value={contactForm.phone2} onChange={(e) => setContactForm((f) => ({ ...f, phone2: e.target.value }))} placeholder="+91 XX XXXX XXXX" className={inp} /></div>
-                <div><label className={lbl}>Email</label><input type="email" autoComplete="off" value={contactForm.email} onChange={(e) => setContactForm((f) => ({ ...f, email: e.target.value }))} placeholder="info@abhinavjandco.in" className={inp} /></div>
-                <div><label className={lbl}>Email 2 <span className="text-gray-400 font-normal">(optional)</span></label><input type="email" autoComplete="off" value={contactForm.email2} onChange={(e) => setContactForm((f) => ({ ...f, email2: e.target.value }))} placeholder="support@abhinavjandco.in" className={inp} /></div>
+                <div><label className={lbl}>Email</label><input type="email" autoComplete="off" value={contactForm.email} onChange={(e) => setContactForm((f) => ({ ...f, email: e.target.value }))} placeholder="info@Mahipal.in" className={inp} /></div>
+                <div><label className={lbl}>Email 2 <span className="text-gray-400 font-normal">(optional)</span></label><input type="email" autoComplete="off" value={contactForm.email2} onChange={(e) => setContactForm((f) => ({ ...f, email2: e.target.value }))} placeholder="support@Mahipal.in" className={inp} /></div>
                 <div className="sm:col-span-2"><label className={lbl}>Address</label><input type="text" autoComplete="off" value={contactForm.address} onChange={(e) => setContactForm((f) => ({ ...f, address: e.target.value }))} placeholder="Complete business address" className={inp} /></div>
                 <div className="sm:col-span-2"><label className={lbl}>Working Hours</label><input type="text" autoComplete="off" value={contactForm.workingHours} onChange={(e) => setContactForm((f) => ({ ...f, workingHours: e.target.value }))} placeholder="Mon - Sat: 9:30 AM - 6:30 PM" className={inp} /></div>
               </div>
