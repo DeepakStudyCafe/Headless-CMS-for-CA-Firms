@@ -16,12 +16,12 @@ export default function AboutContent() {
   const team = [
     { name: "Deepak Gupta", role: "Founder & CEO", image: "/Deepak-gupta.jpeg", linkedin: "https://www.linkedin.com/in/ca-deepak-gupta-/" },
     { name: "Raja Mehta", role: "Manager", image: "/Raja.jpeg", linkedin: "" },
-    { name: "Deepak Sharma", role: "Software Developer", image: "/Deepak.webp", linkedin: "" },
+    { name: "Deepak Sharma", role: "Software Developer", image: "/Deepak.webp", linkedin: "https://www.linkedin.com/in/deepak-sharma-588b33231?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
     { name: "Janvi", role: "Digital Marketing Executive", image: "/janvi.jpeg", linkedin: "" },
     // { name: "Mahima Gupta", role: "Sales operations manager", image: "/Mahima.png", linkedin: "" },
-    { name: "Deepanshi Rohilla", role: "Digital Marketing Executive", image: "/dipancy.jpeg", linkedin: "" },
-    { name: "Kirtika", role: "Digital Marketing Executive", image: "/Kirtika.jpeg", linkedin: "" },
-    { name: "Chanchal", role: "Client Relations Specialist", image: "/chanchal.jpeg", linkedin: "" },
+    { name: "Deepanshi Rohilla", role: "Digital Marketing Executive", image: "/dipancy.jpeg", linkedin: "https://www.linkedin.com/in/deepanshi-rohilla-206657290?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+    { name: "Kirtika", role: "Digital Marketing Executive", image: "/Kirtika.jpeg", linkedin: "https://www.linkedin.com/in/kirtika-prajapati-61087537b?utm_source=share_via&utm_content=profile&utm_medium=member_ios" },
+    { name: "Chanchal", role: "Client Relations Specialist", image: "/chanchal.jpeg", linkedin: "https://www.linkedin.com/in/chanchal-sharma-668190396?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
   ]
 
   const stats = [
@@ -136,7 +136,7 @@ export default function AboutContent() {
             )}
 
             {team.length > 4 && (
-              <div className="px-4">
+              <div className="px-4 justify-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-7xl mx-auto">
                   {team.slice(4).map((member, idx) => (
                     <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }} className="card relative overflow-hidden h-80 flex flex-col justify-end p-0 group">

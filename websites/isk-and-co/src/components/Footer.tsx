@@ -80,11 +80,11 @@ export function Footer() {
           <div className="md:col-span-1">
             <h4 className="font-semibold mb-4">Services</h4>
             <div className="space-y-2">
-              <Link href="/service/bookkeeping" className="block text-gray-400 hover:text-white">Bookkeeping</Link>
-              <Link href="/service/gst-filing" className="block text-gray-400 hover:text-white">GST Filing</Link>
-              <Link href="/service/payroll" className="block text-gray-400 hover:text-white">Payroll</Link>
-              <Link href="/service/tax-planning" className="block text-gray-400 hover:text-white">Tax Planning</Link>
-              <Link href="/service/company-formation" className="block text-gray-400 hover:text-white">Company Formation</Link>
+              <Link href="/services/bookkeeping" className="block text-gray-400 hover:text-white">Bookkeeping</Link>
+              <Link href="/services/gst-filing" className="block text-gray-400 hover:text-white">GST Filing</Link>
+              <Link href="/services/payroll" className="block text-gray-400 hover:text-white">Payroll</Link>
+              <Link href="/services/tax-planning" className="block text-gray-400 hover:text-white">Tax Planning</Link>
+              <Link href="/services/company-formation" className="block text-gray-400 hover:text-white">Company Formation</Link>
             </div>
           </div>
 
