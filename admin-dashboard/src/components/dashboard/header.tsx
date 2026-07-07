@@ -10,7 +10,7 @@ export function DashboardHeader() {
       <div className="flex-1 hidden md:block"></div>
 
       <div className="flex items-center justify-center gap-4 md:flex-1">
-        <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-700 to-indigo-600 bg-clip-text text-transparent drop-shadow-sm text-center whitespace-nowrap">
+        <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-700 to-gray-700 bg-clip-text text-transparent drop-shadow-sm text-center whitespace-nowrap">
           Headless Content Management System
         </h1>
         <span className="px-3 py-1 rounded-full bg-blue-200 text-blue-700 text-xs font-semibold shadow-sm whitespace-nowrap">v1.1</span>
