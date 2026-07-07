@@ -43,7 +43,7 @@ export default function LoginPage() {
       })
 
       // Use replace instead of push to prevent back navigation issues
-      router.replace('/dashboard')
+      router.replace('/dashboard/analytics')
     } catch (error: any) {
       toast({
         variant: 'destructive',

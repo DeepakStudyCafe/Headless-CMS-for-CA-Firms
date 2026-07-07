@@ -17,7 +17,7 @@ export default function AboutContent() {
     { name: "Deepak Gupta", role: "Founder & CEO", image: "/Deepak-gupta.jpeg", linkedin: "https://www.linkedin.com/in/ca-deepak-gupta-/" },
     { name: "Raja Mehta", role: "Manager", image: "/Raja.jpeg", linkedin: "" },
     { name: "Deepak Sharma", role: "Software Developer", image: "/Deepak.webp", linkedin: "https://www.linkedin.com/in/deepak-sharma-588b33231?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
-    { name: "Janvi", role: "Digital Marketing Executive", image: "/janvi.jpeg", linkedin: "" },
+    { name: "Janvi", role: "Digital Marketing Executive", image: "/janvi.jpeg", linkedin: "https://www.linkedin.com/in/janvi-koli-521904306?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
     // { name: "Mahima Gupta", role: "Sales operations manager", image: "/Mahima.png", linkedin: "" },
     { name: "Deepanshi Rohilla", role: "Digital Marketing Executive", image: "/dipancy.jpeg", linkedin: "https://www.linkedin.com/in/deepanshi-rohilla-206657290?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
     { name: "Kirtika", role: "Digital Marketing Executive", image: "/Kirtika.jpeg", linkedin: "https://www.linkedin.com/in/kirtika-prajapati-61087537b?utm_source=share_via&utm_content=profile&utm_medium=member_ios" },

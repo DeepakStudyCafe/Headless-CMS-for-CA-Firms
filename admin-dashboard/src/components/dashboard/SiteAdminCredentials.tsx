@@ -115,6 +115,8 @@ export function SiteAdminCredentials({ websiteId, websiteName }: Props) {
                 <Label htmlFor={`sa-email-${websiteId}`}>Email</Label>
                 <Input
                   id={`sa-email-${websiteId}`}
+                  name="username"
+                  autoComplete="username"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -129,6 +131,8 @@ export function SiteAdminCredentials({ websiteId, websiteName }: Props) {
                 <div className="relative">
                   <Input
                     id={`sa-pass-${websiteId}`}
+                    name="new-password"
+                    autoComplete="new-password"
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -149,6 +153,8 @@ export function SiteAdminCredentials({ websiteId, websiteName }: Props) {
                 <Label htmlFor={`sa-confirm-${websiteId}`}>Confirm Password</Label>
                 <Input
                   id={`sa-confirm-${websiteId}`}
+                  name="new-password-confirm"
+                  autoComplete="new-password"
                   type={showPassword ? 'text' : 'password'}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
