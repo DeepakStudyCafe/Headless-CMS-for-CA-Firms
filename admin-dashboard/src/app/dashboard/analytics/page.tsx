@@ -356,7 +356,7 @@ export default function AnalyticsPage() {
                 <Tooltip 
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '12px' }}
                   cursor={{fill: '#f8fafc'}}
-                  formatter={(value: number) => [`₹${value.toLocaleString()}`, 'Payment']}
+                  formatter={(value: any) => [`₹${(value || 0).toLocaleString()}`, 'Payment']}
                 />
                 <Bar dataKey="payment" name="Payment" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={32} />
               </BarChart>
@@ -382,7 +382,7 @@ export default function AnalyticsPage() {
                 <Tooltip 
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', fontSize: '12px' }}
                   cursor={{fill: '#f8fafc'}}
-                  formatter={(value: number) => [`₹${value.toLocaleString()}`, 'Domain Payment']}
+                  formatter={(value: any) => [`₹${(value || 0).toLocaleString()}`, 'Domain Payment']}
                 />
                 <Bar dataKey="domainPayment" name="Domain Payment" fill="#8b5cf6" radius={[4, 4, 0, 0]} maxBarSize={32} />
               </BarChart>
