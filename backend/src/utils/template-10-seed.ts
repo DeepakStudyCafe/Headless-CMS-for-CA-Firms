@@ -944,7 +944,7 @@ async function main() {
 
   // Site-admin credentials for /admin route
   const siteAdminEmail = 'admin@template10.local'
-  const siteAdminPassword = 'Admin@123'
+  const siteAdminPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123'
   const passwordHash = await bcrypt.hash(siteAdminPassword, 12)
 
   await (prisma as any).siteAdmin.upsert({

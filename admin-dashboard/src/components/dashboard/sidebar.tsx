@@ -31,7 +31,7 @@ export function Sidebar() {
       animate={{ x: 0, opacity: 1 }}
       className="w-64 min-h-screen bg-white border-r border-gray-100 flex flex-col shadow-sm"
     >
-      <div className="p-6 pb-3 border-b border-gray-100">
+      <div className="p-6 pb-4 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-md shadow-blue-600/20">
             <Globe className="w-5 h-5 text-white" />

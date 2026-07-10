@@ -188,7 +188,7 @@ const INSIGHTS = [
 async function main() {
   console.log('Seeding Nipun Panchamiya and Associates website data...')
 
-  const hashedPassword = await bcrypt.hash('Admin@123', 12)
+  const hashedPassword = await bcrypt.hash(process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123', 12)
 
   const website = await prisma.website.upsert({
     where: { slug: 'nipun-panchamiya-and-associates' },
@@ -255,7 +255,7 @@ async function main() {
     update: { email: 'admin@nipunpanchamiya.in', passwordHash: hashedPassword, failedAttempts: 0, lockedUntil: null },
     create: { websiteId: website.id, email: 'admin@nipunpanchamiya.in', passwordHash: hashedPassword },
   })
-  console.log('✅ Admin user created: admin@nipunpanchamiya.in / Admin@123')
+  console.log('✅ Admin user created: admin@nipunpanchamiya.in / <See Environment Variable>')
 
   await prisma.section.deleteMany({ where: { page: { websiteId: website.id } } })
   await prisma.page.deleteMany({ where: { websiteId: website.id } })
@@ -739,7 +739,7 @@ async function main() {
   console.log('✅ Career page created')
 
   console.log('\n🎉 nipun-panchamiya-and-associates seeding complete!')
-  console.log('   Admin: admin@nipunpanchamiya.in / Admin@123')
+  console.log('   Admin: admin@nipunpanchamiya.in / <See Environment Variable>')
 }
 
 main()

@@ -14,7 +14,7 @@ async function main() {
 
   // ─── 1. Central admin-dashboard User ───────────────────────────────────────
   const centralEmail = 'admin@cafirm.com'
-  const centralPassword = 'Admin@123'
+  const centralPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123'
   const centralHash = await bcrypt.hash(centralPassword, 12)
 
   const centralUser = await prisma.user.upsert({
@@ -35,7 +35,7 @@ async function main() {
 
   // ─── 2. SiteAdmin for template-5 (/admin route) ────────────────────────────
   const siteAdminEmail = 'admin@vanguardca.in'
-  const siteAdminPassword = 'Admin@123'
+  const siteAdminPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123'
   const siteAdminHash = await bcrypt.hash(siteAdminPassword, 12)
 
   // Find the template-5 website
@@ -58,7 +58,7 @@ async function main() {
   // ─── 3. SiteAdmin for showcase-website (hardcoded as requested) ─────────
   try {
     const showcaseEmail = 'admin@showcase.local'
-    const showcasePassword = 'showcase@Admin123'
+    const showcasePassword = process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123'
     const showcaseHash = await bcrypt.hash(showcasePassword, 12)
 
     let showcaseSite = await prisma.website.findUnique({ where: { slug: 'showcase-website' } })

@@ -13,7 +13,7 @@ async function main() {
   await prisma.page.deleteMany({ where: { website: { slug: 'isk-and-co' } } });
 
   // Create admin user
-  const adminPassword = await bcrypt.hash('Admin@123', 10)
+  const adminPassword = await bcrypt.hash(process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123', 10)
   const admin = await prisma.user.upsert({
     where: { email: 'admin@cafirm.com' },
     update: {},

@@ -175,7 +175,7 @@ const TESTIMONIALS = [
 async function main() {
   console.log('Seeding Template 7 website data...')
 
-  const hashedPassword = await bcrypt.hash('Admin@123', 12)
+  const hashedPassword = await bcrypt.hash(process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123', 12)
 
   const website = await prisma.website.upsert({
     where: { slug: 'template-7' },
@@ -242,7 +242,7 @@ async function main() {
     update: { email: 'admin@template7.in', passwordHash: hashedPassword, failedAttempts: 0, lockedUntil: null },
     create: { websiteId: website.id, email: 'admin@template7.in', passwordHash: hashedPassword },
   })
-  console.log('✅ Admin user created: admin@template7.in / Admin@123')
+  console.log('✅ Admin user created: admin@template7.in / <See Environment Variable>')
 
   await prisma.section.deleteMany({ where: { page: { websiteId: website.id } } })
   await prisma.page.deleteMany({ where: { websiteId: website.id } })
@@ -734,7 +734,7 @@ async function main() {
   console.log('✅ Career page created')
 
   console.log('\n🎉 Template-7 seeding complete!')
-  console.log('   Admin: admin@template7.in / Admin@123')
+  console.log('   Admin: admin@template7.in / <See Environment Variable>')
 }
 
 main()

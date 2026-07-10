@@ -702,7 +702,7 @@ async function main() {
   // ─── Seed SiteAdmin credentials for /admin route ─────────────────────────────
   const bcrypt = await import('bcryptjs')
   const siteAdminEmail = 'admin@template9.local'
-  const siteAdminPassword = 'Admin@123'
+  const siteAdminPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123'
   const passwordHash = await bcrypt.hash(siteAdminPassword, 12)
 
   await (prisma as any).siteAdmin.upsert({

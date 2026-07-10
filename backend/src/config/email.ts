@@ -7,8 +7,8 @@ export const transporter = nodemailer.createTransport({
   secure: false, // true for 465, false for other ports
   requireTLS: true,
   auth: {
-    user: process.env.EMAIL_USER || 'web@studycafe.in',
-    pass: process.env.EMAIL_PASS || 'bxbt ovrw odpm pigt'
+    user: process.env.EMAIL_USER || '',
+    pass: process.env.EMAIL_PASS || ''
   },
   tls: {
     rejectUnauthorized: false

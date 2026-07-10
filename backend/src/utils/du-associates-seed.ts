@@ -33,7 +33,7 @@ async function main() {
 
       // ─── Site Admin ────────────────────────────
       const siteAdminEmail = 'admin@duassociates.in';
-      const siteAdminPassword = 'Admin@123';
+      const siteAdminPassword = process.env.DEFAULT_ADMIN_PASSWORD || 'ChangeMe@123';
       const siteAdminHash = await bcrypt.hash(siteAdminPassword, 12);
 
       await (tx as any).siteAdmin.upsert({
