@@ -61,6 +61,7 @@ const WEBSITE_EMAILS = {
   'mpkr-and-co-llp': 'mpkrandcollp@gmail.com',
   'mahipal-m-singh-and-associates': 'mahipalmsingh9@gmail.com',
   'sanjiv-vinod-and-associates': 'abhinandan@svaca.com',
+  'ketki-dagha-and-associates':'ketkidaghaandassociates@gmail.com'
 };
 
 // Website names mapping
@@ -101,6 +102,7 @@ const WEBSITE_NAMES = {
   'mpkr-and-co-llp': 'MPKR & Co LLP',
   'mahipal-m-singh-and-associates': 'Mahipal M Singh & Associates',
   'sanjiv-vinod-and-associates': 'Sanjiv Vinod & Associates',
+  'ketki-dagha-and-associates':'Ketki Dagha and Associates'
 };
 
 // Email sender function
