@@ -1,0 +1,39 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Allow: /admin
+
+User-agent: Twitterbot
+Allow: /
+Allow: /admin
+
+User-agent: facebookexternalhit
+Allow: /
+Allow: /admin
+
+User-agent: *
+Allow: /
+Allow: /admin
+
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /login/
+Disallow: /admin/
+Disallow: /post/
+
+Sitemap: https://ketkidagha.com/sitemap.xml
