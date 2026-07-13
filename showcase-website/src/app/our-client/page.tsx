@@ -50,6 +50,7 @@ export default function OurClientPage() {
         { name: 'K S Anithasree & Associates.', url: 'https://anithasreeassociates.in/', img: '/anithasreeassociates.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
         { name: 'Mahipal M Singh & Associates.', url: 'https://camahipal.in/', img: '/camahipal.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         { name: 'Sanjiv Vinod & Associates.', url: 'https://sva-ca.com/', img: '/svaca.png', description: 'Helping small businesses with smart tax planning and financial solutions; modern website with simple contact forms and quick response support.' },
+        { name: 'Ketki Dagha and Associates.', url: 'https://ketkidagha.com/', img: '/ketkidagha.png', description: 'Delivering personalized accounting, tax, and business advisory solutions to entrepreneurs and growing businesses; clean, user-friendly website with easy inquiry forms and insightful resources.' },
 
 
 
