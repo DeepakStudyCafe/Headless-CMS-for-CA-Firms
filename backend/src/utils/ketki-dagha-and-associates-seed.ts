@@ -10,7 +10,7 @@ async function main() {
     where: { slug: 'ketki-dagha-and-associates' },
     update: {
       name: 'Ketki Dagha and Associates',
-      domain: 'http://localhost:8095',
+      domain: 'https://ketkidagha.com/',
       phone: '+91 9012490624',
       email: 'ketkidaghaandassociates@gmail.com',
       address: '226, Avior Corporate Park, M M Malviya Road, Mulund West, Mumbai 400080',
@@ -29,7 +29,7 @@ async function main() {
     create: {
       name: 'Ketki Dagha and Associates',
       slug: 'ketki-dagha-and-associates',
-      domain: 'http://localhost:8095',
+      domain: 'https://ketkidagha.com/',
       phone: '+91 9012490624',
       email: 'ketkidaghaandassociates@gmail.com',
       address: '226, Avior Corporate Park, M M Malviya Road, Mulund West, Mumbai 400080',
