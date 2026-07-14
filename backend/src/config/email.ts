@@ -43,7 +43,7 @@ const WEBSITE_EMAILS = {
   'r-mugunthan': 'rmugunth@gmail.com',
   'abhinav-j-and-company': 'abhinavjandco@gmail.com',
   'a-arun-ganjewar-and-co': process.env.ARUN_EMAIL || 'a.arun.contact@gmail.com',
-  'anagam-and-co': process.env.ANAGAM_EMAIL || 'anagamandco@gmail.com',
+  
   'ca-mohan-c': 'ca.mohan.c@gmail.com',
   'nipun-panchamiya-and-associates': 'nipun.panchamiya@outlook.com',
   'd-u-and-associates': process.env.DU_ASSOCIATES_EMAIL || 'duassociates4@gmail.com',
@@ -86,7 +86,7 @@ const WEBSITE_NAMES = {
   'firm1-isk': process.env.ISK_AND_CO_NAME || 'ISK & Co',
   'abhinav-j-and-company': 'Abhinav J & Company',
   'a-arun-ganjewar-and-co': process.env.ARUN_NAME || 'A. Arun Ganjewar and Co.',
-  'anagam-and-co': process.env.ANAGAM_NAME || 'ANAGAM & CO',
+  
   'd-u-and-associates': 'D U & Associates',
   'satyug-corporate-consultancy': process.env.SATYUG_NAME || 'Satyug corporate consultancy pvt ltd',
   'ajoy-goyal-and-co': 'Ajoy Goyal and Co',
