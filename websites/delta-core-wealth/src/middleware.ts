@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const WEBSITE_SLUG = 'purohit-and-co'
+const WEBSITE_SLUG = 'delta-core-wealth'
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl

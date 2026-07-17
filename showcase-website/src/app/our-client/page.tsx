@@ -52,7 +52,7 @@ export default function OurClientPage() {
         { name: 'Mahipal M Singh & Associates.', url: 'https://camahipal.in/', img: '/camahipal.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
         { name: 'Sanjiv Vinod & Associates.', url: 'https://sva-ca.com/', img: '/svaca.png', description: 'Helping small businesses with smart tax planning and financial solutions; modern website with simple contact forms and quick response support.' },
         { name: 'Ketki Dagha and Associates.', url: 'https://ketkidagha.com/', img: '/ketkidagha.png', description: 'Delivering personalized accounting, tax, and business advisory solutions to entrepreneurs and growing businesses; clean, user-friendly website with easy inquiry forms and insightful resources.' },
-
+        { name: 'MAY & Associates', url: 'https://mayandassociates.in/', img: '/mayandassociates.png', description: 'Providing expert audit, tax, and business advisory services to diverse industries; professional website with clear service details and quick enquiry options.' }
 
 
 

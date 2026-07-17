@@ -7,7 +7,7 @@ export const revalidate = 60
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageData('gallery')
   return {
-    title: page?.title || 'Gallery - V.B. Agrawal & Associates',
+    title: page?.title || 'Gallery - DeltaCore Wealth',
   }
 }
 

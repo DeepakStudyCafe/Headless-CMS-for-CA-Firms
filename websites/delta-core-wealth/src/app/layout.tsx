@@ -6,8 +6,8 @@ import { ConditionalLayout } from '@/components/ConditionalLayout'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Purohit & Co. - Professional CA Firm',
-  description: 'Expert Chartered Accountants providing professional accounting, taxation, and financial services',
+  title: 'DeltaCore Wealth - Financial & Wealth Management',
+  description: 'DeltaCore Wealth provides professional wealth management, financial planning, investment advisory, and financial consulting services.',
 }
 
 export default function RootLayout({
@@ -17,17 +17,17 @@ export default function RootLayout({
 }) {
   // Prefilled WhatsApp message (adjust the text as needed)
   const waMessage = encodeURIComponent(
-    'Hello! I saw your website and I\'m interested in your accounting & tax services. Please let me know how we can connect — Thank you.'
+    'Hello! I came across the DeltaCore Wealth website and I\'m interested in your wealth management and financial planning services. I\'d like to know more about mutual fund investments and how you can help me achieve my financial goals. Thank you!'
   );
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/x-icon" href="https://api.digitechai.in/api/uploads/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="https://api.digitechai.in/api/uploads/favicondelta.ico" />
       </head>
       <body className={inter.className}>
         <ConditionalLayout>{children}</ConditionalLayout>
         <a
-          href={`https://wa.me/919998902046?text=${waMessage}`}
+          href={`https://wa.me/917984908660?text=${waMessage}`}
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-6 right-6 bg-[#25D366] text-white p-3.5 rounded-full shadow-lg hover:scale-110 transition-transform z-50 flex items-center justify-center border-2 border-white/20"

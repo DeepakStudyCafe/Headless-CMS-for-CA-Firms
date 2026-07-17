@@ -14,14 +14,16 @@ interface WebsiteData {
 }
 
 const serviceDropdown = [
-  { name: 'Bookkeeping', href: '/services/bookkeeping' },
-  { name: 'GST Filing', href: '/services/gst-filing' },
-  { name: 'Payroll', href: '/services/payroll' },
-  { name: 'Tax Planning', href: '/services/tax-planning' },
-  { name: 'Company Formation', href: '/services/company-formation' },
-  { name: 'Compliance', href: '/services/compliance' },
-  { name: 'Audit Services', href: '/services/audit-services' },
-  { name: 'Financial Advisory', href: '/services/financial-advisory' },
+  { name: 'Mutual Fund Investments', href: '/services/mutual-fund-investments' },
+  { name: 'Financial Planning', href: '/services/financial-planning' },
+  { name: 'Wealth Management', href: '/services/wealth-management' },
+  { name: 'Portfolio Review', href: '/services/portfolio-review' },
+  { name: 'Insurance Planning', href: '/services/insurance-planning' },
+  { name: 'Retirement Planning', href: '/services/retirement-planning' },
+  { name: 'Tax-Efficient Investing', href: '/services/tax-efficient-investing' },
+  { name: 'Goal-Based Investing', href: '/services/goal-based-investing' },
+  { name: 'Financial Health Check', href: '/services/financial-health-check' },
+  { name: 'Investment Advisory', href: '/services/investment-advisory' },
 ]
 
 const navigation = [
@@ -56,7 +58,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3">
             <Image
-              src="https://api.digitechai.in/uploads/logo.png"
+              src="https://api.digitechai.in/uploads/logodelta.png"
               alt={websiteData?.name || 'Logo'}
               width={40}
               height={40}
@@ -64,11 +66,11 @@ export function Header() {
               unoptimized
             />
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-blue-900 leading-tight">
-                Purohit & Co.
+              <span className="text-2xl font-bold text-blue-900 leading-tight uppercase">
+                DeltaCore Wealth
               </span>
               <span className="text-xs font-medium text-gray-600 tracking-wider">
-                Chartered Accountants
+                {/* Chartered Accountants */}
               </span>
             </div>
           </Link>

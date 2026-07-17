@@ -88,17 +88,17 @@ export default function CareerPage() {
   }
 
   const positionOptions = [
-    'Junior Accountant',
-    'Senior Accountant',
-    'Tax Consultant',
-    'Audit Assistant',
-    'Audit Senior',
-    'GST Specialist',
-    'Financial Analyst',
-    'Compliance Officer',
-    'Articled Assistant',
-    'Chartered Accountant',
-    'Other'
+  'Relationship Manager',
+  'Wealth Advisor',
+  'Financial Planner',
+  'Investment Advisor',
+  'Mutual Fund Advisor',
+  'Insurance Advisor',
+  'Client Relationship Executive',
+  'Business Development Executive',
+  'Operations Executive',
+  'Customer Support Executive',
+  'Other',
   ]
 
   const qualificationOptions = [
@@ -131,7 +131,7 @@ export default function CareerPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Build Your Career with Purohit & Co.
+            Build Your Career with DeltaCore Wealth
           </motion.h1>
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
@@ -139,7 +139,7 @@ export default function CareerPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Join our team of dedicated professionals and grow your career in the field of accounting and finance.
+            Join our team of dedicated professionals and grow your career in the field of wealth management and financial planning.
           </motion.p>
         </div>
       </section>

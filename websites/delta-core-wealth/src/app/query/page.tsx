@@ -59,14 +59,17 @@ export default function QueryPage() {
   }
 
   const subjectOptions = [
-    'Tax Planning & Advisory',
-    'GST & Compliance',
-    'Company Registration',
-    'Financial Planning',
-    'Audit Services',
-    'Legal Matters',
-    'General Inquiry',
-    'Other'
+  'Mutual Fund Investments',
+  'Financial Planning',
+  'Wealth Management',
+  'Portfolio Review',
+  'Insurance Planning',
+  'Retirement Planning',
+  'Tax-Efficient Investing',
+  'Goal-Based Investing',
+  'Financial Health Check',
+  'Investment Advisory',
+  'Other',
   ]
 
   return (
@@ -96,7 +99,7 @@ export default function QueryPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Get expert advice from Purohit & Co. Fill out the form below and our team will get back to you promptly.
+            Get expert advice from DeltaCore Wealth. Fill out the form below and our team will get back to you promptly.
           </motion.p>
         </div>
       </section>
@@ -115,7 +118,7 @@ export default function QueryPage() {
                 <Phone className="h-6 w-6 text-blue-600" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Call Us</h3>
-              <p className="text-gray-600">9998902046</p>
+              <p className="text-gray-600">+91 7984908660</p>
             </motion.div>
 
             <motion.div 
@@ -128,7 +131,8 @@ export default function QueryPage() {
                 <Mail className="h-6 w-6 text-blue-600" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">Email Us</h3>
-              <p className="text-gray-600">accounts@purohitco.com</p>
+              <p className="text-gray-600">deltacorewealth@gmail.com,</p>
+              <p className="text-gray-600">komal@deltacorewealth.com</p>
             </motion.div>
 
             <motion.div 

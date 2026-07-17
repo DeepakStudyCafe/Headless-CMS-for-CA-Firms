@@ -28,23 +28,23 @@ export function TopHeader() {
           <div className="flex flex-wrap sm:flex-nowrap justify-between items-center text-[11px] sm:text-sm gap-y-2 py-1 sm:py-0 w-full">
             <div className="flex items-center space-x-1 sm:space-x-2 order-1">
               <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-              <span>+91 7405859821</span>
+              <span>+91 7984908660</span>
             </div>
             
             <div className="flex items-center order-3 sm:order-2 w-full sm:w-auto justify-between sm:justify-start gap-2 sm:gap-4 break-all sm:break-normal">
               <div className="flex items-center space-x-1 sm:space-x-2">
                 <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-                <span>accounts@purohitco.com</span>
+                <span>deltacorewealth@gmail.com</span>
               </div>
               <div className="flex items-center space-x-1 sm:space-x-2 text-right">
                 <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-                <span>capurohitandco@gmail.com</span>
+                <span>komal@deltacorewealth.com</span>
               </div>
             </div>
 
             <div className="flex items-center space-x-1 sm:space-x-2 order-2 sm:order-3">
               <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-              <span>Mon - Sat: 11:00 AM - 7:00 PM</span>
+              <span>10:00 AM - 6:00 PM: Monday - Saturday</span>
             </div>
           </div>
         </div>
@@ -76,7 +76,11 @@ export function TopHeader() {
 
           <div className="flex items-center space-x-1 sm:space-x-2 order-2 sm:order-3">
             <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span>{websiteData.workingHours || 'Mon - Sat: 11:00 AM - 7:00 PM'}</span>
+            <span>
+              {websiteData.workingHours
+                ? `${websiteData.workingHours}: Monday - Saturday`
+                : "10:00 AM - 6:00 PM: Monday - Saturday"}
+            </span>
           </div>
         </div>
       </div>

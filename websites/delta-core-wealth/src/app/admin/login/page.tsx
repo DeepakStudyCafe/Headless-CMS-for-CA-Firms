@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-const WEBSITE_SLUG = 'purohit-and-co'
+const WEBSITE_SLUG = 'delta-core-wealth'
 const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
 
 export default function AdminLogin() {

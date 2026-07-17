@@ -5,22 +5,22 @@ import { getPageData } from '@/lib/api'
 export async function generateStaticParams() {
   // Return service slugs that exist in the database
   return [
-    { slug: 'bookkeeping' },
-    { slug: 'gst-filing' },
-    { slug: 'payroll' },
-    { slug: 'tax-planning' },
-    { slug: 'company-formation' },
-    { slug: 'compliance' },
-    { slug: 'audit-services' },
-    { slug: 'financial-advisory' },
+    { slug: 'Mutual Fund Investments' },
+    { slug: 'Financial Planning' },
+    { slug: 'Portfolio Review' },
+    { slug: 'Insurance Planning' },
+    { slug: 'Retirement Planning' },
+    { slug: 'Tax-Efficient Investment Planning' },
+    { slug: 'Goal-Based Investing' },
+    { slug: 'Financial Health Check' },
   ]
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const page = await getPageData(params.slug)
   return {
-    title: page?.title || `${params.slug} - V.B. Agrawal & Associates`,
-    description: page?.sections?.[0]?.textContent?.subheading || 'Professional accounting services'
+    title: page?.title || `${params.slug} - DeltaCore Wealth`,
+    description: page?.sections?.[0]?.textContent?.subheading || 'Professional Wealth Management Services'
   }
 }
 

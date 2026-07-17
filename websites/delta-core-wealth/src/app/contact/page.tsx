@@ -128,7 +128,7 @@ export default function ContactPage() {
               <h3 className="font-semibold text-gray-900 mb-2">Call Us</h3>
               <p className="text-gray-600">
                 {websiteData?.phone}
-                {cc.phone2 && <><br />{cc.phone2}</>}
+                {/* {cc.phone2 && <><br />{cc.phone2}</>} */}
               </p>
             </motion.div>
 
@@ -144,7 +144,7 @@ export default function ContactPage() {
               <h3 className="font-semibold text-gray-900 mb-2">Email Us</h3>
               <p className="text-gray-600">
                 {websiteData?.email}
-                {cc.email2 && <><br />{cc.email2}</>}
+                {/* {cc.email2 && <><br />{cc.email2}</>} */}
               </p>
             </motion.div>
 
@@ -178,7 +178,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.7 }}
             >
               <iframe
-                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.8387534685016!2d72.4944586967896!3d22.992956200000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b000aad5d6f%3A0x90d7f6f67bcee459!2sSiddhivinayak%20tower%20SG%20highway%2C%20makrba%20Road!5e0!3m2!1sen!2sin!4v1780558213575!5m2!1sen!2sin'}
+                src={cc.mapUrl || 'https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2460.8970048752167!2d72.52755805277371!3d23.012719771346827!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84d633fdaa51%3A0xd5d90d91f16bf8a8!2sAmravan%20Society%2C%203B%2C%20100%20Feet%20Anand%20Nagar%20Rd%2C%20Opp%20Upwan%20Twins%2C%20Shyamal%2C%20Ahmedabad%2C%20Gujarat%20380015!5e0!3m2!1sen!2sin!4v1784207139208!5m2!1sen!2sin'}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

@@ -1,6 +1,6 @@
 // Use environment variable only. Production build must set `NEXT_PUBLIC_API_URL`.
 const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
-const WEBSITE_SLUG = 'purohit-and-co'
+const WEBSITE_SLUG = 'delta-core-wealth'
 
 export async function getWebsiteData() {
   try {

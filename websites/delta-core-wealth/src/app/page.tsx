@@ -7,8 +7,8 @@ export const revalidate = 300 // ISR: Revalidate every 60 seconds
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageData('home')
   return {
-    title: page?.title || 'Home - Purohit & Co.',
-    description: 'Professional Chartered Accountants',
+    title: page?.title || 'Home - DeltaCore Wealth',
+    description: 'Professional Wealth Management Services',
   }
 }
 
