@@ -33,7 +33,7 @@ export function TopHeader() {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span>info@mpkr-and-co-llp.com</span>
+                <span>mpkrandcollp@gmail.com</span>
               </div>
             </div>
             <div className="flex items-center space-x-2 mt-2 sm:mt-0">
