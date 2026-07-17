@@ -33,7 +33,7 @@ async function main() {
     where: { slug: 'mpkr-and-co-llp' },
     update: {
       name: 'MPKR & Co LLP',
-      domain: 'https://mpkrandcollp.in',
+      domain: 'https://mpkr.co.in',
       logo: '/uploads/logo.svg',
       phone: '+91 9491079632',
       email: 'mpkrandcollp@gmail.com',
@@ -49,7 +49,7 @@ async function main() {
     create: {
       name: 'MPKR & Co LLP',
       slug: 'mpkr-and-co-llp',
-      domain: 'https://mpkrandcollp.in',
+      domain: 'https://mpkr.co.in',
       logo: '/uploads/logo.svg',
       phone: '+91 9491079632',
       email: 'mpkrandcollp@gmail.com',

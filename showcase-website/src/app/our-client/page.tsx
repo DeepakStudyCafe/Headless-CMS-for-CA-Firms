@@ -27,6 +27,7 @@ export default function OurClientPage() {
         { name: 'Vineet Taral & Associates', url: 'https://vineettaral.in/', img: '/vineettaral.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
 
         { name: 'Monika S & Associates', url: 'https://monikasassociates.in/', img: '/monikaS.png', description: 'Helping small businesses with tax strategy and financial services; modern website with convenient inquiry forms.' },
+        { name: 'MPKR & CO LLP', url: 'https://mpkr.co.in', img: '/mpkr.png', description: 'Chartered Accountancy firm offering comprehensive audit, taxation, corporate advisory, and financial planning services for businesses and individuals with a client-centric approach.' },
         { name: 'I S K & Co', url: 'https://iskco.in/', img: '/isko-and-co.png', description: 'Focused on small business tax strategy and financial management; responsive website with easy inquiry forms.' },
         { name: 'Mohan C & Co', url: 'https://camohanc.in/', img: '/camohan.png', description: 'Supporting small businesses with smart tax strategies and financial solutions; modern website with simple inquiry forms.' },
         { name: 'D U & Associates ', url: 'http://duassociates.in/', img: '/DU&Associates.png', description: 'Specialized in providing comprehensive financial solutions to businesses of all sizes.' },
